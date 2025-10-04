@@ -1,4 +1,4 @@
-# Our project idea is :
+# Our project idea are :
 
 ## CCTV Camera
 - Detect person using proximity sensor
