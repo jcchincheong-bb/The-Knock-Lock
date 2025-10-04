@@ -4,7 +4,7 @@
 - Detect person using proximity sensor
 - Use stepper motor/servo motor to turn ultrasonic sensor to detect person
 - Point camera in that direction, start recording footage
-- Sensor based night light
+- Sensor based automatic night light
 - Notification alert for motion
 
 ## Smart Lock
