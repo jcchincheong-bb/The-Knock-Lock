@@ -42,7 +42,7 @@ For the Knock Knock Lock Box to operate and perform its functions, the following
 ### Project Requirements
 For the Knock Knock Lock Box project to produce a functional product upon close out, the following project requirements must be met:
 
-- the budget is 25€ not including the PCB
+- the budget is 25€ not including the PCB. See [Appendix A](2.2-Preliminary-BOM.md) for a preliminary bill of materials.
 - the project workload is estimated at 240h
 - the project schedule adheres to the following deadlines
     - Schematic Design: 2025-10-26
@@ -52,8 +52,10 @@ For the Knock Knock Lock Box project to produce a functional product upon close 
     - Project Report and Presentation: 2026-01-11
 
 ## Design Concepts
-![A very preliminary sketch of the idea, for simplicity the wiring and ICs have been neglected.](images/preliminarySketch.png)
-A very preliminary sketch of the idea, for simplicity the wiring and ICs have been neglected.
+<figure>
+  <img src="images/preliminarySketch.png" alt="A very preliminary sketch of the idea, for simplicity the wiring and ICs have been neglected." width="300">
+  <figcaption>A very preliminary sketch of the idea, for simplicity the wiring and ICs have been neglected.</figcaption>
+</figure>
 
 ## Methodology
 The piezo electric sensor can detect knocks through a surface and create voltage spikes. These voltage spikes can be considered as a pattern, which can be repeated and compared by a microcontroller. 
@@ -66,4 +68,4 @@ If the pattern had matched successfully the microcontroller uses the solenoid to
 mode, but this time alerting user with a beep that door is unlocked, when naturally the door is closed, the piezo electric sensor triggers the comparator, and hence gets system in normal mode to close 
 the door. After a few seconds of inactivity the system goes back into power saving mode.
 
-See [Appendix A](2.1-Product-Flowchart.md) for a flowchart of the detection logic. Also see [Appendix B](2.2-Preliminary-BOM.md) for a preliminary parts list.
+See [Appendix B](2.1-Product-Flowchart.md) for a flowchart of the detection logic.
