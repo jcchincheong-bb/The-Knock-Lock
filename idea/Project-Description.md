@@ -1,8 +1,10 @@
 # The Knock Lock
 ## Problem Statement
-As children, many of us might have created special codes that we knock on a door to identify ourselves to our friends or siblings. But, what if those special codes could actually unlock the door itself? Better yet, what if you could store your belongings in a safe box which could only be opened if you knock the correct code? 
+As children, many of us might have created special codes that we knock on a door to identify ourselves to our friends or siblings. But, what if those special codes could actually unlock the door itself? 
+Better yet, what if you could store your belongings in a safe box which could only be opened if you knock the correct code? 
 
-There are many different types of safes and lock boxes on the market that use systems varying from combinations to NFC, but there are almost no products of this kind that unlocks by recognising a specific knocking pattern. As such, the aim of The Knock Lock project is to design and assemble a system that unlocks a lock box by recognizing a specific knocking pattern, perhaps with the hope of extending the idea to work on a full door.
+There are many different types of safes and lock boxes on the market that use systems varying from combinations to NFC, but there are almost no products of this kind that unlocks by recognising a specific 
+knocking pattern. As such, the aim of The Knock Lock project is to design and assemble a system that unlocks a lock box by recognizing a specific knocking pattern, perhaps with the hope of extending the idea to work on a full door.
 
 ## Requirements
 To fully implement the system, a number of requirements related to function, technology and project management have been outlined. 
@@ -54,11 +56,15 @@ For the Knock Knock Lock Box project to produce a functional product upon close 
 A very preliminary sketch of the idea, for simplicity the wiring and ICs have been neglected.
 
 ## Methodology
-The piezo electric sensor can detect knocks through a surface and create voltage spikes. These voltage spikes can be considered as a pattern, which can be repeated and compared by a microcontroller. When a user sets a specific pattern of timed spikes of certain amplitudes, this can be stored. 
+The piezo electric sensor can detect knocks through a surface and create voltage spikes. These voltage spikes can be considered as a pattern, which can be repeated and compared by a microcontroller. 
+When a user sets a specific pattern of timed spikes of certain amplitudes, this can be stored. 
 
-Mainly the system, shall remain in power saving mode, with all peripherals off, only the piezo electric sensor on connected to a comparator. When a knock is detected (a certain threshold reached) the comparator triggers the system to come out of power saving mode and turns the yellow LED on, signaling the user to start the knocking. The user repeats the code, which the algorithm checks with the predefined pattern stored, naturally these can not be identical so with some tolerance it either matches or rejects the pattern and signaling the green or red LED respectively.
+Mainly the system, shall remain in power saving mode, with all peripherals off, only the piezo electric sensor on connected to a comparator. When a knock is detected (a certain threshold reached) the 
+comparator triggers the system to come out of power saving mode and turns the yellow LED on, signaling the user to start the knocking. The user repeats the code, which the algorithm checks with the predefined pattern stored, naturally these can not be identical so with some tolerance it either matches or rejects the pattern and signaling the green or red LED respectively.
 
-If the pattern had matched successfully the microcontroller uses the solenoid to pull the bolt and hence opening the door. If door is left open for too long (5s), the system goes back to power saving mode, but this time alerting user with a beep that door is unlocked, when naturally the door is closed, the piezo electric sensor triggers the comparator, and hence gets system in normal mode to close the door. After a few seconds of inactivity the system goes back into power saving mode.
+If the pattern had matched successfully the microcontroller uses the solenoid to pull the bolt and hence opening the door. If door is left open for too long (5s), the system goes back to power saving 
+mode, but this time alerting user with a beep that door is unlocked, when naturally the door is closed, the piezo electric sensor triggers the comparator, and hence gets system in normal mode to close 
+the door. After a few seconds of inactivity the system goes back into power saving mode.
 
 ### Flowchart
 The following flowchart outlines the main logic for detecting a knock:
@@ -101,7 +107,8 @@ flowchart TD
 ```
 
 ## Preliminary BOM
-This is a preliminary parts list. It does not account for all passives (resistors and capacitors) or connectors (wires, solder, pin headers, etc.). Some components are also subject to change as design process proceeds. Additionally, any parts that can be found within the University stockpile will be used from there instead of purchased.  
+This is a preliminary parts list. It does not account for all passives (resistors and capacitors) or connectors (wires, solder, pin headers, etc.). Some components are also subject to 
+change as design process proceeds. Additionally, any parts that can be found within the University stockpile will be used from there instead of purchased.  
 | Qty | Part | Order ID | Vendor | Price [€] |
 |-----|------|----------|--------|------------|
 | 1   | Piezo contact Sensor | 497-P27040-1 | Mouser | 0.87 |
