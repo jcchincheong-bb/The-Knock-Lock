@@ -1,4 +1,4 @@
-﻿# The Knock Lock
+# The Knock Lock
 ## Problem Statement
 As children, many of us might have created special codes that we knock on a door to identify ourselves to our friends or siblings. But, what if those special codes could actually unlock the door itself? Better yet, what if you could store your belongings in a safe box which could only be opened if you knock the correct code? 
 
@@ -117,3 +117,6 @@ This is a preliminary parts list. It does not account for all passives (resistor
 | 2   | Decoupling Capacitors | 81-GRM155D70G475ME5J | Mouser | 0.344 |
 | 1   | LiPo Battery | 485-5383 | Mouser | 2.54 |
 | 1   | USB C Port (3A IPX7) | 737-USC20SRACS22ESM | Mouser | 1.31 |
+
+Total Price = €17.28
+Total Price with VAT = €20.56
