@@ -53,7 +53,7 @@ For the Knock Knock Lock Box project to produce a functional product upon close 
 
 ## Design Concepts
 <figure>
-  <img src="images/preliminarySketch.png" alt="A very preliminary sketch of the idea, for simplicity the wiring and ICs have been neglected." width="300">
+  <img src="images/preliminarySketch.png" alt="A very preliminary sketch of the idea, for simplicity the wiring and ICs have been neglected." width="600">
   <figcaption>A very preliminary sketch of the idea, for simplicity the wiring and ICs have been neglected.</figcaption>
 </figure>
 
