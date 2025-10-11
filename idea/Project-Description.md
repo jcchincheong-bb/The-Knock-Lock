@@ -10,7 +10,7 @@ knocking pattern. As such, the aim of The Knock Lock project is to design and as
 To fully implement the system, a number of requirements related to function, technology and project management have been outlined. 
 
 ### Functional Requirements
-For Knock Knock Lock Box to be a satisfiable product, the following functional requirements must be implemented:
+For Knock Lock Box to be a satisfiable product, the following functional requirements must be implemented:
 
 - It unlocks within 1-2 seconds when a specific knocking pattern is used on the surface of the box
 - It turns a green LED on and simultaneously plays a simple beep to indicate that the box has been unlocked
