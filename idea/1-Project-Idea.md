@@ -1,7 +1,6 @@
 # Our project ideas is :
 
 ## Smart Lock
-- Knock against door to ring bell
 - Knock a certain way to unlock 
-- NFC/RFID unlock
-- Notification if bell rung
+- Knock pattern can be changed
+- LED Indicator to show lock status
