@@ -14,7 +14,7 @@ void setup() {
   Serial.begin(9600);
 
   // Use external reference (3.3V connected to AREF pin)
-  analogReference(EXTERNAL);
+  // analogReference(EXTERNAL);
   Serial.println("Knock sensor using 3.3V analog reference");
 }
 
