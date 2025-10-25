@@ -1,0 +1,6 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "SamacSys_Parts")(type "KiCad")(uri "C:/Users/abhin/OneDrive/Documents/University/Studies/Sem 5/Practical Electronics/pe04/part-libraries/SamacSys_Parts.kicad_sym")(options "")(descr ""))
+  (lib (name "ADXL345BCCZ-RL7")(type "KiCad")(uri "C:/Users/abhin/OneDrive/Documents/University/Studies/Sem 5/Practical Electronics/pe04/part-libraries/ADXL345BCCZ-RL7/ADXL345BCCZ-RL7.kicad_sym")(options "")(descr ""))
+  (lib (name "UJ20-C-H-G-TH-P16-TR")(type "KiCad")(uri "C:/Users/abhin/OneDrive/Documents/University/Studies/Sem 5/Practical Electronics/pe04/part-libraries/UJ20-C-H-G-TH-P16-TR/UJ20-C-H-G-TH-P16-TR.kicad_sym")(options "")(descr ""))
+)
