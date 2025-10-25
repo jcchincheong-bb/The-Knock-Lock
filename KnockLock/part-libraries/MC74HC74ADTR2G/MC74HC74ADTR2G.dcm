@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP MC74HC74ADTR2G
+D Operating Voltage Range: 2.0 to 6.0 V; Output Drive Capability: 10 LSTTL Loads; In Compliance with the Requirements Defined by JEDEC Standard No. 7A; High Noise Immunity Characteristic of CMOS Devices; Chip Complexity: 128 FETs or 32 Equivalent Gates; Outputs Directly Interface to CMOS, NMOS, and TTL; Low Input Current: 1.0 mA; Pb-Free Packages are Available
+K
+F https://www.onsemi.com/pub/Collateral/MC74HC74A-D.PDF
+$ENDCMP
+#
+#End Doc Library

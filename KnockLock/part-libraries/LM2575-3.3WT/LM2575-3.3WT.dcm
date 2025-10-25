@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP LM2575-3.3WT
+D Switching Voltage Regulators 1A Step-Down SMPS Regulator
+K
+F https://ww1.microchip.com/downloads/en/DeviceDoc/lm2575.pdf
+$ENDCMP
+#
+#End Doc Library
