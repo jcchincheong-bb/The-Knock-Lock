@@ -6763,7 +6763,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "SamacSys_Parts:RESAD1590W60L630D240"
 			(at 223.52 70.358 90)
 			(effects
 				(font
@@ -7791,7 +7791,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "SamacSys_Parts:RESAD1590W60L630D240"
 			(at 107.95 90.678 90)
 			(effects
 				(font
@@ -9324,7 +9324,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "SamacSys_Parts:RESAD1590W60L630D240"
 			(at 223.52 65.278 90)
 			(effects
 				(font
@@ -9391,7 +9391,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "SamacSys_Parts:RESAD1590W60L630D240"
 			(at 223.52 67.818 90)
 			(effects
 				(font
