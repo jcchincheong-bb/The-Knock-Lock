@@ -730,7 +730,7 @@
     },
     "net_format_name": "",
     "page_layout_descr_file": "",
-    "plot_directory": "C:/Users/abhin/OneDrive/Documents/University/Studies/Sem 5/Practical Electronics/pe04/schematic-design/",
+    "plot_directory": "../schematic-design/",
     "space_save_all_events": true,
     "spice_current_sheet_as_root": false,
     "spice_external_command": "spice \"%I\"",
