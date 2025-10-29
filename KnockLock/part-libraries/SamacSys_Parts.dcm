@@ -78,4 +78,16 @@ K
 F http://www.infineon.com/dgdl/irlml6402pbf.pdf?fileId=5546d462533600a401535668d5c2263c
 $ENDCMP
 #
+$CMP UJ2-B-HR-G-TH
+D Type B, USB 2.0, 480 Mbps, 5 Vdc, 1.5 A, Right Angle, Through Hole, Board Lock, 0.6 in Plating Thickness, Black Insulator, Pick & Place, USB Receptacle
+K
+F https://www.sameskydevices.com/product/resource/uj2-b-hr-g-th.pdf
+$ENDCMP
+#
+$CMP FT230XS-U
+D USB Interface IC USB to Basic Serial UART IC SSOP-16
+K
+F https://www.ftdichip.com/Support/Documents/DataSheets/ICs/DS_FT230X.pdf
+$ENDCMP
+#
 #End Doc Library
