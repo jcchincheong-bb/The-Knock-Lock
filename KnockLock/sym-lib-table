@@ -3,4 +3,6 @@
   (lib (name "SamacSys_Parts")(type "KiCad")(uri "${KIPRJMOD}/part-libraries/SamacSys_Parts.kicad_sym")(options "")(descr ""))
   (lib (name "ADXL345BCCZ-RL7")(type "KiCad")(uri "${KIPRJMOD}/part-libraries/ADXL345BCCZ-RL7/ADXL345BCCZ-RL7.kicad_sym")(options "")(descr ""))
   (lib (name "UJ20-C-H-G-TH-P16-TR")(type "KiCad")(uri "${KIPRJMOD}/part-libraries/UJ20-C-H-G-TH-P16-TR/UJ20-C-H-G-TH-P16-TR.kicad_sym")(options "")(descr ""))
+  (lib (name "MC74HC74ADTR2G")(type "Legacy")(uri "${KIPRJMOD}/part-libraries/MC74HC74ADTR2G/MC74HC74ADTR2G.lib")(options "")(descr ""))
+  (lib (name "LM2575-3.3WT")(type "Legacy")(uri "${KIPRJMOD}/part-libraries/LM2575-3.3WT/LM2575-3.3WT.lib")(options "")(descr ""))
 )
