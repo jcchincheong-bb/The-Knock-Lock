@@ -5226,7 +5226,7 @@
 	)
 	(text "Controller System\n\n"
 		(exclude_from_sim no)
-		(at 128.778 45.466 0)
+		(at 120.142 45.466 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -5316,7 +5316,7 @@
 	)
 	(text "Servo Motor Cutt-Off\n"
 		(exclude_from_sim no)
-		(at 184.15 17.272 0)
+		(at 163.83 17.78 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -5377,7 +5377,7 @@
 	)
 	(text "Alert System"
 		(exclude_from_sim no)
-		(at 223.266 41.148 0)
+		(at 223.52 41.656 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -5387,7 +5387,7 @@
 	)
 	(text "Servo Motor Connection\n"
 		(exclude_from_sim no)
-		(at 266.446 17.526 0)
+		(at 253.746 17.78 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14556,4 +14556,5 @@
 		)
 	)
 	(embedded_fonts no)
+)
 )
