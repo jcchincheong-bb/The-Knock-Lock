@@ -226,7 +226,12 @@
     "equivalence_files": []
   },
   "erc": {
-    "erc_exclusions": [],
+    "erc_exclusions": [
+      [
+        "lib_symbol_mismatch|2476500|1041400|a1037027-d44e-4991-bdfc-8c48395dc5ff|00000000-0000-0000-0000-000000000000|||",
+        "changed SDO/ALT_ADDRESS to Bidirectional because it must be grounded "
+      ]
+    ],
     "meta": {
       "version": 0
     },
@@ -729,14 +734,6 @@
       "version": 1
     },
     "net_format_name": "",
-    "ngspice": {
-      "fix_include_paths": true,
-      "meta": {
-        "version": 0
-      },
-      "model_mode": 4,
-      "workbook_filename": ""
-    },
     "page_layout_descr_file": "",
     "plot_directory": "../schematic-design/",
     "space_save_all_events": true,

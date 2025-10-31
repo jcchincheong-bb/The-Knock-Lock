@@ -5294,6 +5294,16 @@
 		)
 		(uuid "692e11d5-e85d-4a13-b48a-033b3a61ff6a")
 	)
+	(text "strapping pins\nboot mode"
+		(exclude_from_sim no)
+		(at 147.828 69.088 0)
+		(effects
+			(font
+				(size 0.635 0.635)
+			)
+		)
+		(uuid "6d09fe77-42b8-4433-8a22-2fc733bcf2cc")
+	)
 	(text "Unregulated Power"
 		(exclude_from_sim no)
 		(at 196.088 35.56 0)
@@ -5719,10 +5729,6 @@
 	(no_connect
 		(at 54.61 45.72)
 		(uuid "7db2935d-f0a9-4a4d-9eec-e5f14c982a56")
-	)
-	(no_connect
-		(at 135.89 67.31)
-		(uuid "868853c8-b94e-4133-8b73-615186bdbb0a")
 	)
 	(no_connect
 		(at 273.05 96.52)
@@ -6458,6 +6464,16 @@
 	)
 	(wire
 		(pts
+			(xy 124.46 67.31) (xy 135.89 67.31)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7332f827-b3e0-43ea-92d5-a1335b404ea8")
+	)
+	(wire
+		(pts
 			(xy 114.3 27.94) (xy 114.3 35.56)
 		)
 		(stroke
@@ -6898,6 +6914,16 @@
 	)
 	(wire
 		(pts
+			(xy 114.3 67.31) (xy 116.84 67.31)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c7604380-26c2-423d-b7cc-9decab9f237f")
+	)
+	(wire
+		(pts
 			(xy 100.33 58.42) (xy 100.33 52.07)
 		)
 		(stroke
@@ -7165,6 +7191,16 @@
 			(type default)
 		)
 		(uuid "fbbb5bdb-34ca-4322-a10e-0bb0fa77147a")
+	)
+	(wire
+		(pts
+			(xy 114.3 63.5) (xy 114.3 67.31)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ffd1bba2-9713-43bb-8535-7742ea7a6815")
 	)
 	(global_label "RLED"
 		(shape input)
@@ -7474,6 +7510,28 @@
 			)
 		)
 	)
+	(global_label "BOOT"
+		(shape output)
+		(at 135.89 69.85 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "663b9678-21c1-4178-abb7-a531c4b1d0cc")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 128.0062 69.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "SDA"
 		(shape output)
 		(at 130.81 85.09 180)
@@ -7536,6 +7594,28 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "BOOT"
+		(shape input)
+		(at 39.37 86.36 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "9f1aeb7e-8cb7-4f82-9c31-0ea014925530")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 47.2538 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
 				(hide yes)
 			)
 		)
@@ -7672,28 +7752,6 @@
 			)
 		)
 	)
-	(global_label "BOOT"
-		(shape input)
-		(at 39.37 86.36 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "d4c9de31-8f9c-4ba4-8f65-114ebe555f96")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 47.2538 86.36 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-	)
 	(global_label "RX"
 		(shape input)
 		(at 64.77 85.09 0)
@@ -7817,28 +7875,6 @@
 		(uuid "f8a9cc79-7a04-497f-94e3-ab220eba515c")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 242.4876 22.86 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "BOOT"
-		(shape output)
-		(at 135.89 69.85 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "fc1c363b-f512-4b8b-9726-47654d714b46")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 128.0062 69.85 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8645,7 +8681,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "TBP04R1250003BE"
+		(property "Footprint" "SamacSys_Parts:TBP04R1250003BE"
 			(at 270.51 117.78 0)
 			(effects
 				(font
@@ -10110,7 +10146,6 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "53c495ed-458b-4d4c-8969-cba3e6c7975a")
 		(property "Reference" "#PWR02"
 			(at 22.86 119.38 0)
@@ -10122,7 +10157,7 @@
 			)
 		)
 		(property "Value" "+3.3V"
-			(at 22.86 110.49 0)
+			(at 21.844 111.506 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10394,7 +10429,7 @@
 				)
 			)
 		)
-		(property "Footprint" "SOT95P237X112-3N"
+		(property "Footprint" "SamacSys_Parts:SOT95P237X112-3N"
 			(at 233.68 121.59 0)
 			(effects
 				(font
@@ -10887,6 +10922,71 @@
 			(project "KnockLock"
 				(path "/0bb14822-3a1a-451e-a409-a267c8c1fc8c"
 					(reference "R15")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3.3V")
+		(at 114.3 63.5 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "7bb66d1a-8f27-4ff0-b655-140a48ca45c7")
+		(property "Reference" "#PWR031"
+			(at 114.3 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3.3V"
+			(at 114.808 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 114.3 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 114.3 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+3.3V\""
+			(at 114.3 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "b817e0ab-8b6d-4f2c-9bfc-2d4c088af431")
+		)
+		(instances
+			(project "KnockLock"
+				(path "/0bb14822-3a1a-451e-a409-a267c8c1fc8c"
+					(reference "#PWR031")
 					(unit 1)
 				)
 			)
@@ -13532,7 +13632,7 @@
 				)
 			)
 		)
-		(property "Footprint" "UJ2BHRGTH"
+		(property "Footprint" "SamacSys_Parts:UJ2BHRGTH"
 			(at 25.4 -46.66 0)
 			(effects
 				(font
@@ -13838,6 +13938,73 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:R")
+		(at 120.65 67.31 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "f78fcbd2-f85d-4584-b2d9-10ed5db19d5e")
+		(property "Reference" "R8"
+			(at 119.126 65.024 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "100kOhms"
+			(at 120.904 69.596 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "SamacSys_Parts:RESAD1590W60L630D240"
+			(at 120.65 69.088 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 120.65 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 120.65 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "ce160ed9-b827-4394-a672-45c2dadfa8ef")
+		)
+		(pin "1"
+			(uuid "0e52c964-a1e6-4856-83a3-028100a8d01c")
+		)
+		(instances
+			(project "KnockLock"
+				(path "/0bb14822-3a1a-451e-a409-a267c8c1fc8c"
+					(reference "R8")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:+3.3V")
 		(at 134.62 49.53 0)
 		(unit 1)
@@ -14114,4 +14281,6 @@
 		)
 	)
 	(embedded_fonts no)
+)
+(embedded_fonts no)
 )
