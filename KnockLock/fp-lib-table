@@ -5,4 +5,5 @@
   (lib (name "SamacSys_Parts_3D")(type "KiCad")(uri "${KIPRJMOD}/part-libraries/SamacSys_Parts.3dshapes")(options "")(descr ""))
   (lib (name "UJ20-C-H-G-TH-P16-TR")(type "KiCad")(uri "${KIPRJMOD}/part-libraries/UJ20-C-H-G-TH-P16-TR")(options "")(descr ""))
   (lib (name "part-libraries")(type "KiCad")(uri "${KIPRJMOD}/part-libraries")(options "")(descr ""))
+  (lib (name "2-1977223-8")(type "KiCad")(uri "${KIPRJMOD}/part-libraries/2-1977223-8")(options "")(descr ""))
 )

@@ -12,6 +12,210 @@
 		(comment 1 "Group 04")
 	)
 	(lib_symbols
+		(symbol "2-1977223-8:2-1977223-8"
+			(pin_names
+				(offset 0.762)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "S"
+				(at 26.67 7.62 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "2-1977223-8"
+				(at 26.67 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" "219772238"
+				(at 26.67 2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://www.te.com/en/product-2-1977223-8.html"
+				(at 26.67 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "Description" "Tactile Switches 6MM ACTSMT 160gf TACT SWITCH"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description_1" "Tactile Switches 6MM ACTSMT 160gf TACT SWITCH"
+				(at 26.67 -2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "Height" "13.35"
+				(at 26.67 -5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "Mouser Part Number" "506-2-1977223-8"
+				(at 26.67 -7.62 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "Mouser Price/Stock" "https://www.mouser.co.uk/ProductDetail/TE-Connectivity-PB/2-1977223-8?qs=WwRK9Mn48WC%252B3bZnlicO2g%3D%3D"
+				(at 26.67 -10.16 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "Manufacturer_Name" "TE Connectivity"
+				(at 26.67 -12.7 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "Manufacturer_Part_Number" "2-1977223-8"
+				(at 26.67 -15.24 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(symbol "2-1977223-8_0_0"
+				(pin passive line
+					(at 0 0 0)
+					(length 5.08)
+					(name "NO_1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -2.54 0)
+					(length 5.08)
+					(name "NO_2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 30.48 0 180)
+					(length 5.08)
+					(name "COM_1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 30.48 -2.54 180)
+					(length 5.08)
+					(name "COM_2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "2-1977223-8_0_1"
+				(polyline
+					(pts
+						(xy 5.08 2.54) (xy 25.4 2.54) (xy 25.4 -5.08) (xy 5.08 -5.08) (xy 5.08 2.54)
+					)
+					(stroke
+						(width 0.1524)
+						(type solid)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "ADXL345BCCZ-RL7:ADXL345BCCZ-RL7"
 			(pin_names
 				(offset 1.016)
@@ -3943,156 +4147,6 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "Switch:SW_Push"
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 1.016)
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "SW"
-				(at 1.27 2.54 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Value" "SW_Push"
-				(at 0 -1.524 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 5.08 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "~"
-				(at 0 5.08 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "Push button switch, generic, two pins"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "switch normally-open pushbutton push-button"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "SW_Push_0_1"
-				(circle
-					(center -2.032 0)
-					(radius 0.508)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 1.27) (xy 0 3.048)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center 2.032 0)
-					(radius 0.508)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 2.54 1.27) (xy -2.54 1.27)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(pin passive line
-					(at -5.08 0 0)
-					(length 2.54)
-					(name "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 5.08 0 180)
-					(length 2.54)
-					(name "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
 		(symbol "Transistor_BJT:2N3904"
 			(pin_names
 				(offset 0)
@@ -5238,22 +5292,10 @@
 		(uuid "5bd5098e-ada2-4889-9475-76ad13f42ec4")
 	)
 	(junction
-		(at 39.37 91.44)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "5ce85faf-3ee7-418e-afe9-91bfd850bd7c")
-	)
-	(junction
 		(at 66.04 48.26)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "5f2ffb52-f73a-498e-94df-09b6a6611af2")
-	)
-	(junction
-		(at 25.4 96.52)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "63ef4d6d-a873-4fd9-9843-e1c969a0e56a")
 	)
 	(junction
 		(at 201.93 142.24)
@@ -5266,6 +5308,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "6ad37660-64d6-4a47-95ac-8618541a369c")
+	)
+	(junction
+		(at 63.5 91.44)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "6ae73a31-e537-48d7-96e5-652760a5f97d")
 	)
 	(junction
 		(at 278.13 90.17)
@@ -5284,6 +5332,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "78de4a0b-fb8f-47f0-86c7-3f79d4066114")
+	)
+	(junction
+		(at 25.4 97.79)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "7c0345d5-011f-460e-b5bd-52abad23ac7d")
 	)
 	(junction
 		(at 154.94 25.4)
@@ -5436,6 +5490,10 @@
 		(uuid "4b62443b-5237-4ed5-a4ee-880dff41448f")
 	)
 	(no_connect
+		(at 26.67 88.9)
+		(uuid "4d57577a-1118-497f-8cfb-fb9473053dbf")
+	)
+	(no_connect
 		(at 273.05 137.16)
 		(uuid "51778857-46a3-4836-ad5e-deb05fab18b6")
 	)
@@ -5476,6 +5534,10 @@
 		(uuid "b9f0c0bc-8b02-4ee1-924f-e49ec088ca30")
 	)
 	(no_connect
+		(at 57.15 88.9)
+		(uuid "c47dcb22-2c3a-4202-99da-435d0d7b4b96")
+	)
+	(no_connect
 		(at 222.25 144.78)
 		(uuid "d2e91da7-af06-49e0-8826-c3584ccf01e4")
 	)
@@ -5489,7 +5551,7 @@
 	)
 	(wire
 		(pts
-			(xy 25.4 96.52) (xy 26.67 96.52)
+			(xy 25.4 97.79) (xy 35.56 97.79)
 		)
 		(stroke
 			(width 0)
@@ -5809,6 +5871,16 @@
 	)
 	(wire
 		(pts
+			(xy 25.4 97.79) (xy 25.4 99.06)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "393e2f43-1d67-45ec-88e0-dbbae3ee09fa")
+	)
+	(wire
+		(pts
 			(xy 135.89 33.02) (xy 135.89 35.56)
 		)
 		(stroke
@@ -5859,13 +5931,23 @@
 	)
 	(wire
 		(pts
-			(xy 34.29 96.52) (xy 39.37 96.52)
+			(xy 43.18 97.79) (xy 63.5 97.79)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "3f96c03b-7918-4c1f-9535-5f9ef97b3c69")
+	)
+	(wire
+		(pts
+			(xy 64.77 91.44) (xy 63.5 91.44)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "40407825-8e61-450d-b007-0d0d956c6f62")
 	)
 	(wire
 		(pts
@@ -6129,6 +6211,16 @@
 	)
 	(wire
 		(pts
+			(xy 63.5 91.44) (xy 63.5 97.79)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "671f99dc-d560-4258-8ac6-8d320a8fdd7c")
+	)
+	(wire
+		(pts
 			(xy 207.01 134.62) (xy 207.01 129.54)
 		)
 		(stroke
@@ -6166,16 +6258,6 @@
 			(type default)
 		)
 		(uuid "6f54d23c-4333-464f-ac44-6ac3ab071eec")
-	)
-	(wire
-		(pts
-			(xy 39.37 91.44) (xy 40.64 91.44)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "732da0a7-ed85-45e5-98e4-da4ef65bc94d")
 	)
 	(wire
 		(pts
@@ -6329,7 +6411,7 @@
 	)
 	(wire
 		(pts
-			(xy 39.37 91.44) (xy 36.83 91.44)
+			(xy 63.5 91.44) (xy 57.15 91.44)
 		)
 		(stroke
 			(width 0)
@@ -6659,7 +6741,7 @@
 	)
 	(wire
 		(pts
-			(xy 25.4 96.52) (xy 25.4 99.06)
+			(xy 25.4 91.44) (xy 25.4 97.79)
 		)
 		(stroke
 			(width 0)
@@ -6869,16 +6951,6 @@
 	)
 	(wire
 		(pts
-			(xy 25.4 91.44) (xy 25.4 96.52)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d86e83ed-b7ec-4ccb-ac21-dc63f77b9eb4")
-	)
-	(wire
-		(pts
 			(xy 236.22 101.6) (xy 236.22 102.87)
 		)
 		(stroke
@@ -6946,16 +7018,6 @@
 			(type default)
 		)
 		(uuid "e3737366-a52f-4025-ba0d-4740231ca0d2")
-	)
-	(wire
-		(pts
-			(xy 39.37 91.44) (xy 39.37 96.52)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e6a3c8b3-34c2-4836-9553-bca8d32d9b97")
 	)
 	(wire
 		(pts
@@ -7477,7 +7539,7 @@
 	)
 	(global_label "MRESET"
 		(shape input)
-		(at 40.64 91.44 0)
+		(at 64.77 91.44 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -7487,7 +7549,7 @@
 		)
 		(uuid "be5db76c-76b7-486f-b92d-bf3d52130f0e")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 50.8217 91.44 0)
+			(at 74.9517 91.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7758,8 +7820,8 @@
 	(rule_area
 		(polyline
 			(pts
-				(xy 19.05 82.55) (xy 46.99 82.55) (xy 53.34 82.55) (xy 53.34 92.71) (xy 53.34 124.46) (xy 53.34 125.73)
-				(xy 39.37 125.73) (xy 19.05 125.73)
+				(xy 20.32 82.55) (xy 48.26 82.55) (xy 77.47 82.55) (xy 77.47 96.52) (xy 77.47 96.52) (xy 54.61 125.73)
+				(xy 40.64 125.73) (xy 20.32 125.73)
 			)
 			(stroke
 				(width 0)
@@ -8024,15 +8086,15 @@
 				)
 			)
 		)
-		(property "Value" "0.1uF - ceramic"
-			(at 198.12 140.462 0)
+		(property "Value" "0.1uF"
+			(at 210.058 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_THT:C_Rect_L4.0mm_W2.5mm_P2.50mm"
 			(at 206.0448 134.62 0)
 			(effects
 				(font
@@ -8562,7 +8624,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Fuse:Fuse_BelFuse_0ZRE0012FF_L8.3mm_W3.8mm"
 			(at 50.8 24.13 0)
 			(effects
 				(font
@@ -8633,7 +8695,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
 			(at 124.46 134.62 0)
 			(effects
 				(font
@@ -8897,7 +8959,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_PinSocket_2.54mm:PinSocket_1x01_P2.54mm_Vertical"
 			(at 205.74 147.32 0)
 			(effects
 				(font
@@ -9026,7 +9088,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "LED_THT:LED_D3.0mm"
 			(at 247.65 85.09 0)
 			(effects
 				(font
@@ -9102,7 +9164,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "SamacSys_Parts:RESAD1590W60L630D240"
 			(at 215.9 28.448 90)
 			(effects
 				(font
@@ -9169,7 +9231,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "LED_THT:LED_D3.0mm"
 			(at 256.54 87.63 0)
 			(effects
 				(font
@@ -9537,73 +9599,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Switch:SW_Push")
-		(at 31.75 91.44 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "49ed6979-bfd1-4618-bd90-1de265ac6dc8")
-		(property "Reference" "SW1"
-			(at 31.75 84.582 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "SW_Push"
-			(at 31.75 86.868 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 31.75 86.36 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 31.75 86.36 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Push button switch, generic, two pins"
-			(at 31.75 91.44 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "b09effff-d032-44eb-818a-8cb3dd5a10f6")
-		)
-		(pin "2"
-			(uuid "f2bb5997-6fa5-42ff-8d87-6c6ac0cfe2ac")
-		)
-		(instances
-			(project "KnockLock"
-				(path "/0bb14822-3a1a-451e-a409-a267c8c1fc8c"
-					(reference "SW1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:+3.3V")
 		(at 278.13 144.78 0)
 		(unit 1)
@@ -9897,7 +9892,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "SamacSys_Parts:RESAD1590W60L630D240"
 			(at 187.96 33.528 90)
 			(effects
 				(font
@@ -10199,7 +10194,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 30.48 96.52 90)
+		(at 39.37 97.79 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -10207,7 +10202,7 @@
 		(dnp no)
 		(uuid "71e3a378-f2ff-4415-b5dd-170996a2d238")
 		(property "Reference" "C6"
-			(at 27.432 95.504 90)
+			(at 36.322 96.774 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10215,15 +10210,15 @@
 			)
 		)
 		(property "Value" "0.1uF"
-			(at 34.544 95.504 90)
+			(at 43.434 96.774 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Footprint" ""
-			(at 34.29 95.5548 0)
+		(property "Footprint" "Capacitor_THT:C_Rect_L4.0mm_W2.5mm_P2.50mm"
+			(at 43.18 96.8248 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10232,7 +10227,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 30.48 96.52 0)
+			(at 39.37 97.79 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10241,7 +10236,7 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
-			(at 30.48 96.52 0)
+			(at 39.37 97.79 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10484,7 +10479,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
 			(at 162.56 30.48 0)
 			(effects
 				(font
@@ -10524,6 +10519,141 @@
 		)
 	)
 	(symbol
+		(lib_id "2-1977223-8:2-1977223-8")
+		(at 26.67 88.9 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "773c18d3-95f5-48ac-b5f5-7c72be816f6a")
+		(property "Reference" "S1"
+			(at 32.766 85.344 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "2-1977223-8"
+			(at 44.958 85.344 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "219772238"
+			(at 53.34 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.te.com/en/product-2-1977223-8.html"
+			(at 53.34 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Description" "Tactile Switches 6MM ACTSMT 160gf TACT SWITCH"
+			(at 26.67 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description_1" "Tactile Switches 6MM ACTSMT 160gf TACT SWITCH"
+			(at 53.34 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Height" "13.35"
+			(at 53.34 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Mouser Part Number" "506-2-1977223-8"
+			(at 53.34 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Mouser Price/Stock" "https://www.mouser.co.uk/ProductDetail/TE-Connectivity-PB/2-1977223-8?qs=WwRK9Mn48WC%252B3bZnlicO2g%3D%3D"
+			(at 53.34 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer_Name" "TE Connectivity"
+			(at 53.34 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer_Part_Number" "2-1977223-8"
+			(at 53.34 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(pin "3"
+			(uuid "a7087a66-fca8-484e-ab10-f0c482f22b6d")
+		)
+		(pin "4"
+			(uuid "09110b59-afb2-4ad0-8a8d-a250c008e04d")
+		)
+		(pin "2"
+			(uuid "af55d5c9-c297-40cf-a6e1-22e19a1d3516")
+		)
+		(pin "1"
+			(uuid "26d7f1f1-a9a1-4a26-be42-89f20c5bbc1f")
+		)
+		(instances
+			(project ""
+				(path "/0bb14822-3a1a-451e-a409-a267c8c1fc8c"
+					(reference "S1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Connector:TestPoint")
 		(at 67.31 25.4 270)
 		(unit 1)
@@ -10550,7 +10680,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
 			(at 67.31 30.48 0)
 			(effects
 				(font
@@ -10868,7 +10998,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "SamacSys_Parts:RESAD1590W60L630D240"
 			(at 223.012 30.48 90)
 			(effects
 				(font
@@ -11134,7 +11264,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Fuse:Fuse_BelFuse_0ZRE0012FF_L8.3mm_W3.8mm"
 			(at 64.77 46.99 0)
 			(effects
 				(font
@@ -11335,7 +11465,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_THT:C_Rect_L4.0mm_W2.5mm_P2.50mm"
 			(at 153.9748 27.94 0)
 			(effects
 				(font
@@ -11646,7 +11776,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_THT:C_Rect_L4.0mm_W2.5mm_P2.50mm"
 			(at 216.2048 34.29 0)
 			(effects
 				(font
@@ -11698,7 +11828,7 @@
 		(dnp no)
 		(uuid "a3791f9f-4566-4e71-9f0c-c3d59f0eabb4")
 		(property "Reference" "J5"
-			(at 26.162 114.554 0)
+			(at 23.622 118.11 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11713,7 +11843,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
 			(at 26.67 119.38 0)
 			(effects
 				(font
@@ -11849,7 +11979,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
 			(at 215.9 119.38 0)
 			(effects
 				(font
@@ -12035,7 +12165,7 @@
 				)
 			)
 		)
-		(property "Value" "1000uF"
+		(property "Value" "10uF"
 			(at 208.28 42.418 0)
 			(effects
 				(font
@@ -12043,7 +12173,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_THT:C_Radial_D5.0mm_H11.0mm_P2.00mm"
 			(at 211.1248 34.29 0)
 			(effects
 				(font
@@ -12306,7 +12436,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_THT:C_Rect_L4.0mm_W2.5mm_P2.50mm"
 			(at 104.14 56.1848 0)
 			(effects
 				(font
@@ -12637,7 +12767,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_THT:C_Radial_D4.0mm_H7.0mm_P1.50mm"
 			(at 92.71 91.1352 0)
 			(effects
 				(font
@@ -13102,7 +13232,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "LED_THT:LED_D3.0mm"
 			(at 262.89 90.17 0)
 			(effects
 				(font
@@ -13178,7 +13308,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Inductor_THT:L_Radial_D9.5mm_P5.00mm_Fastron_07HVP"
 			(at 130.81 33.02 0)
 			(effects
 				(font
@@ -13826,7 +13956,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_THT:C_Radial_D5.0mm_H11.0mm_P2.00mm"
 			(at 147.6248 27.94 0)
 			(effects
 				(font
@@ -14093,7 +14223,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
 			(at 67.31 53.34 0)
 			(effects
 				(font
@@ -14193,209 +14323,6 @@
 			(project ""
 				(path "/0bb14822-3a1a-451e-a409-a267c8c1fc8c"
 					(reference "#FLG04")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(sheet_instances
-		(path "/"
-			(page "1")
-		)
-	)
-	(embedded_fonts no)
-)
-			(at 63.754 141.732 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "BC547B"
-			(at 64.008 139.446 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Package_TO_SOT_THT:TO-92_HandSolder"
-			(at 63.5 139.065 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-					(italic yes)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.onsemi.com/pub/Collateral/2N3903-D.PDF"
-			(at 68.58 140.97 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Description" "0.2A Ic, 40V Vce, Small Signal NPN Transistor, TO-92"
-			(at 68.58 140.97 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "022ef481-e03c-4036-b74f-b4f42b7fa5a7")
-		)
-		(pin "1"
-			(uuid "c07eca20-8815-4e82-ad90-bd2b2e62e6e5")
-		)
-		(pin "3"
-			(uuid "a7048797-7162-4a7e-a312-876db23193c6")
-		)
-		(instances
-			(project "KnockLock"
-				(path "/0bb14822-3a1a-451e-a409-a267c8c1fc8c"
-					(reference "Q3")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:PWR_FLAG")
-		(at 134.62 33.02 180)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "feab8795-fcca-4631-b9f5-560475ddc98f")
-		(property "Reference" "#FLG04"
-			(at 134.62 34.925 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "PWR_FLAG"
-			(at 134.62 38.1 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 134.62 33.02 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 134.62 33.02 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Special symbol for telling ERC where power comes from"
-			(at 134.62 33.02 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "528897b1-5ed6-4eec-adb6-986ff1b87524")
-		)
-		(instances
-			(project ""
-				(path "/0bb14822-3a1a-451e-a409-a267c8c1fc8c"
-					(reference "#FLG04")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 83.82 123.19 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "ffc01a49-45cb-4eda-99c8-848bd8b94a04")
-		(property "Reference" "#PWR012"
-			(at 83.82 129.54 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 83.82 127.508 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 83.82 123.19 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 83.82 123.19 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 83.82 123.19 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "5acc5e1d-9b45-4a3c-a1dd-1482cec0edd3")
-		)
-		(instances
-			(project ""
-				(path "/0bb14822-3a1a-451e-a409-a267c8c1fc8c"
-					(reference "#PWR012")
 					(unit 1)
 				)
 			)
