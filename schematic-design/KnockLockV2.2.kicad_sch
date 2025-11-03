@@ -3735,14 +3735,14 @@
 				(pin passive line
 					(at 0 -2.54 0)
 					(length 5.08)
-					(name ""
+					(name "1"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number ""
+					(number "1"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -5094,7 +5094,7 @@
 	)
 	(text "Buzzer\n"
 		(exclude_from_sim no)
-		(at 249.174 94.488 0)
+		(at 248.92 94.234 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -8937,6 +8937,127 @@
 		)
 	)
 	(symbol
+		(lib_id "SamacSys_Parts:PKM22EPPH4001-B0")
+		(at 241.3 99.06 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "2990dbf0-377d-4b78-86b7-26992b8ba5ad")
+		(property "Reference" "LS1"
+			(at 246.126 106.934 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "PKM22EPPH4001-B0"
+			(at 246.126 109.474 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "PKM22EPPH4001B0"
+			(at 252.73 201.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.murata.com/products/productdata/8801054064670/SPEC-PKM22EPPH4001-B0.pdf?1517839211000"
+			(at 252.73 301.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Description" "Buzzers Transducer, Externally Driven Piezo 1.5 V 4kHz 75dB @ 1.5V, 10cm Through Hole PC Pins"
+			(at 241.3 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Height" "10.7"
+			(at 252.73 501.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Mouser Part Number" "81-PKM22EPPH4001-B0"
+			(at 252.73 601.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Mouser Price/Stock" "https://www.mouser.co.uk/ProductDetail/Murata-Electronics/PKM22EPPH4001-B0?qs=flZjIlU0hx2Fke4m2iZ9MA%3D%3D"
+			(at 252.73 701.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer_Name" "Murata Electronics"
+			(at 252.73 801.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(property "Manufacturer_Part_Number" "PKM22EPPH4001-B0"
+			(at 252.73 901.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "34961f5e-4ebc-48b5-ab54-b32779f6d8a8")
+		)
+		(pin "2"
+			(uuid "224da058-7010-4088-9229-59699ebb2c30")
+		)
+		(instances
+			(project ""
+				(path "/0bb14822-3a1a-451e-a409-a267c8c1fc8c"
+					(reference "LS1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Connector:TestPoint")
 		(at 205.74 152.4 90)
 		(unit 1)
@@ -9279,125 +9400,6 @@
 			(project "KnockLock"
 				(path "/0bb14822-3a1a-451e-a409-a267c8c1fc8c"
 					(reference "D3")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "SamacSys_Parts:PKM22EPPH4001-B0")
-		(at 241.3 99.06 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "413389ec-8312-4d9e-ac35-9c10f3b571b1")
-		(property "Reference" "LS1"
-			(at 242.57 104.648 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "PKM22EPPH4001-B0"
-			(at 250.952 107.696 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "SamacSys_Parts:PKM22EPPH4001B0"
-			(at 252.73 201.6 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.murata.com/products/productdata/8801054064670/SPEC-PKM22EPPH4001-B0.pdf?1517839211000"
-			(at 252.73 301.6 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Description" "Buzzers Transducer, Externally Driven Piezo 1.5 V 4kHz 75dB @ 1.5V, 10cm Through Hole PC Pins"
-			(at 241.3 99.06 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Height" "10.7"
-			(at 252.73 501.6 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Mouser Part Number" "81-PKM22EPPH4001-B0"
-			(at 252.73 601.6 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Mouser Price/Stock" "https://www.mouser.co.uk/ProductDetail/Murata-Electronics/PKM22EPPH4001-B0?qs=flZjIlU0hx2Fke4m2iZ9MA%3D%3D"
-			(at 252.73 701.6 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer_Name" "Murata Electronics"
-			(at 252.73 801.6 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer_Part_Number" "PKM22EPPH4001-B0"
-			(at 252.73 901.6 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "c1bdee45-0aff-48cb-a4a3-709f7c362db0")
-		)
-		(pin ""
-			(uuid "9afc9221-2b19-4373-bfad-c189d2ce3565")
-		)
-		(instances
-			(project ""
-				(path "/0bb14822-3a1a-451e-a409-a267c8c1fc8c"
-					(reference "LS1")
 					(unit 1)
 				)
 			)
