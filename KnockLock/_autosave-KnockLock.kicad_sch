@@ -5001,6 +5001,16 @@
 		)
 		(uuid "4c8227c7-d68a-4d32-b156-71de94d5eb5c")
 	)
+	(text "Button"
+		(exclude_from_sim no)
+		(at 41.656 90.17 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "4d0e0738-02d1-4229-ab2f-2683ea83d478")
+	)
 	(text "Programming Interface"
 		(exclude_from_sim no)
 		(at 29.718 81.026 0)
@@ -5023,7 +5033,7 @@
 	)
 	(text "strapping pins\nboot mode"
 		(exclude_from_sim no)
-		(at 137.668 104.648 0)
+		(at 138.938 104.394 0)
 		(effects
 			(font
 				(size 0.635 0.635)
@@ -9064,7 +9074,7 @@
 				)
 			)
 		)
-		(property "Value" "100Ohms"
+		(property "Value" "100 Ohms"
 			(at 208.534 23.114 90)
 			(effects
 				(font

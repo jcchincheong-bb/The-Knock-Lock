@@ -228,19 +228,11 @@
   "erc": {
     "erc_exclusions": [
       [
-        "lib_symbol_mismatch|2476500|1041400|a1037027-d44e-4991-bdfc-8c48395dc5ff|00000000-0000-0000-0000-000000000000|||",
-        "changed SDO/ALT_ADDRESS to Bidirectional because it must be grounded "
-      ],
-      [
         "lib_symbol_mismatch|2476500|1397000|a1037027-d44e-4991-bdfc-8c48395dc5ff|00000000-0000-0000-0000-000000000000|||",
         ""
       ],
       [
         "pin_to_pin|2222500|1346200|49bbcf08-6045-4c9d-9b76-1dde5a810def|1a1674c6-d5b4-46d7-a2a7-a1ccbcd608f4|/0bb14822-3a1a-451e-a409-a267c8c1fc8c|/0bb14822-3a1a-451e-a409-a267c8c1fc8c|/0bb14822-3a1a-451e-a409-a267c8c1fc8c",
-        ""
-      ],
-      [
-        "pin_to_pin|2222500|990600|49bbcf08-6045-4c9d-9b76-1dde5a810def|1a1674c6-d5b4-46d7-a2a7-a1ccbcd608f4|/0bb14822-3a1a-451e-a409-a267c8c1fc8c|/0bb14822-3a1a-451e-a409-a267c8c1fc8c|/0bb14822-3a1a-451e-a409-a267c8c1fc8c",
         ""
       ]
     ],
@@ -746,6 +738,14 @@
       "version": 1
     },
     "net_format_name": "",
+    "ngspice": {
+      "fix_include_paths": true,
+      "meta": {
+        "version": 0
+      },
+      "model_mode": 4,
+      "workbook_filename": ""
+    },
     "page_layout_descr_file": "",
     "plot_directory": "../schematic-design/",
     "space_save_all_events": true,
