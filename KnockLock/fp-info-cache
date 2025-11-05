@@ -1,4 +1,11 @@
-26764612255953342
+26768136647960423
+2-1977223-8
+219772238
+2-1977223-8-1
+Switch
+0
+4
+4
 ADXL345BCCZ-RL7
 PQFN80P500X300X100-14N
 
@@ -97376,6 +97383,13 @@ Connector
 0
 6
 6
+SamacSys_Parts
+USB3145301A
+USB3145-30-1-A
+Connector
+0
+7
+7
 Sensor
 ASAIR_AM2302_P2.54mm_Lead2.75mm_TabDown
 Temperature and humidity module, http://akizukidenshi.com/download/ds/aosong/AM2302.pdf
