@@ -5544,6 +5544,10 @@
 		(uuid "ffca37a4-73cd-40be-b1dd-81d1dd09766d")
 	)
 	(no_connect
+		(at 125.73 100.33)
+		(uuid "09a06414-f33d-4650-929f-2c17d924a846")
+	)
+	(no_connect
 		(at 158.75 97.79)
 		(uuid "23b51a14-36d7-491c-a43d-6ab7812f7128")
 	)
@@ -5570,10 +5574,6 @@
 	(no_connect
 		(at 158.75 102.87)
 		(uuid "710ea64f-5aad-4a87-92cd-72dec7c9b3c2")
-	)
-	(no_connect
-		(at 125.73 110.49)
-		(uuid "7b53a81b-66a1-4422-b825-c9c03a9eb0be")
 	)
 	(no_connect
 		(at 273.05 132.08)
@@ -7663,7 +7663,7 @@
 	)
 	(global_label "BUZZ"
 		(shape input)
-		(at 125.73 100.33 180)
+		(at 125.73 110.49 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -7673,7 +7673,7 @@
 		)
 		(uuid "c3e7732d-68c4-47fb-aec4-04d49adda5c7")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 117.7253 100.33 0)
+			(at 117.7253 110.49 0)
 			(effects
 				(font
 					(size 1.27 1.27)
