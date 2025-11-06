@@ -7,4 +7,5 @@
   (lib (name "LM2575-3.3WT")(type "Legacy")(uri "${KIPRJMOD}/part-libraries/LM2575-3.3WT/LM2575-3.3WT.lib")(options "")(descr ""))
   (lib (name "2-1977223-8")(type "Legacy")(uri "${KIPRJMOD}/part-libraries/2-1977223-8/2-1977223-8.lib")(options "")(descr ""))
   (lib (name "ScrewTerminalHSRW")(type "KiCad")(uri "${KIPRJMOD}/part-libraries/ScrewConnector.kicad_sym")(options "")(descr ""))
+  (lib (name "TS02-66-60-BK-260-LCR-D")(type "KiCad")(uri "${KIPRJMOD}/part-libraries/TS02-66-60-BK-260-LCR-D/TS02-66-60-BK-260-LCR-D.kicad_sym")(options "")(descr ""))
 )

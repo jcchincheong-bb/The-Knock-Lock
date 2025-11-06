@@ -12,210 +12,6 @@
 		(comment 1 "Group 04")
 	)
 	(lib_symbols
-		(symbol "2-1977223-8:2-1977223-8"
-			(pin_names
-				(offset 0.762)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "S"
-				(at 26.67 7.62 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Value" "2-1977223-8"
-				(at 26.67 5.08 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Footprint" "219772238"
-				(at 26.67 2.54 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "https://www.te.com/en/product-2-1977223-8.html"
-				(at 26.67 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-					(hide yes)
-				)
-			)
-			(property "Description" "Tactile Switches 6MM ACTSMT 160gf TACT SWITCH"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description_1" "Tactile Switches 6MM ACTSMT 160gf TACT SWITCH"
-				(at 26.67 -2.54 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-					(hide yes)
-				)
-			)
-			(property "Height" "13.35"
-				(at 26.67 -5.08 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-					(hide yes)
-				)
-			)
-			(property "Mouser Part Number" "506-2-1977223-8"
-				(at 26.67 -7.62 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-					(hide yes)
-				)
-			)
-			(property "Mouser Price/Stock" "https://www.mouser.co.uk/ProductDetail/TE-Connectivity-PB/2-1977223-8?qs=WwRK9Mn48WC%252B3bZnlicO2g%3D%3D"
-				(at 26.67 -10.16 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-					(hide yes)
-				)
-			)
-			(property "Manufacturer_Name" "TE Connectivity"
-				(at 26.67 -12.7 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-					(hide yes)
-				)
-			)
-			(property "Manufacturer_Part_Number" "2-1977223-8"
-				(at 26.67 -15.24 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-					(hide yes)
-				)
-			)
-			(symbol "2-1977223-8_0_0"
-				(pin passive line
-					(at 0 0 0)
-					(length 5.08)
-					(name "NO_1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 0 -2.54 0)
-					(length 5.08)
-					(name "NO_2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 30.48 0 180)
-					(length 5.08)
-					(name "COM_1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 30.48 -2.54 180)
-					(length 5.08)
-					(name "COM_2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(symbol "2-1977223-8_0_1"
-				(polyline
-					(pts
-						(xy 5.08 2.54) (xy 25.4 2.54) (xy 25.4 -5.08) (xy 5.08 -5.08) (xy 5.08 2.54)
-					)
-					(stroke
-						(width 0.1524)
-						(type solid)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
 		(symbol "ADXL345BCCZ-RL7:ADXL345BCCZ-RL7"
 			(pin_names
 				(offset 1.016)
@@ -4203,6 +3999,362 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "TS02-66-60-BK-260-LCR-D:TS02-66-60-BK-260-LCR-D"
+			(pin_names
+				(offset 1.016)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "S"
+				(at -7.62 8.382 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left bottom)
+				)
+			)
+			(property "Value" "TS02-66-60-BK-260-LCR-D"
+				(at -7.62 -8.382 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left top)
+				)
+			)
+			(property "Footprint" "TS02-66-60-BK-260-LCR-D:SW_TS02-66-60-BK-260-LCR-D"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "MF" "Same Sky"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+					(hide yes)
+				)
+			)
+			(property "Description_1" "6 x 6 mm, 6 mm Actuator Height, 260 gf, Black, Long Crimped, Through Hole, SPST, Tactile Switch"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+					(hide yes)
+				)
+			)
+			(property "Package" "None"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+					(hide yes)
+				)
+			)
+			(property "Price" "None"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+					(hide yes)
+				)
+			)
+			(property "Check_prices" "https://www.snapeda.com/parts/TS02-66-60-BK-260-LCR-D/Same+Sky/view-part/?ref=eda"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+					(hide yes)
+				)
+			)
+			(property "STANDARD" "Manufacturer Recommendations"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+					(hide yes)
+				)
+			)
+			(property "PARTREV" "1.0"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+					(hide yes)
+				)
+			)
+			(property "SnapEDA_Link" "https://www.snapeda.com/parts/TS02-66-60-BK-260-LCR-D/Same+Sky/view-part/?ref=snap"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+					(hide yes)
+				)
+			)
+			(property "MP" "TS02-66-60-BK-260-LCR-D"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+					(hide yes)
+				)
+			)
+			(property "Availability" "In Stock"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+					(hide yes)
+				)
+			)
+			(property "MANUFACTURER" "CUI Devices"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify bottom)
+					(hide yes)
+				)
+			)
+			(symbol "TS02-66-60-BK-260-LCR-D_0_0"
+				(rectangle
+					(start -7.62 -7.62)
+					(end 7.62 7.62)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 5.08) (xy -7.62 5.08)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 5.08) (xy 0 2.54)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 5.08) (xy 7.62 5.08)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 0 1.905)
+					(radius 0.635)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 0 -1.905)
+					(radius 0.635)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 -2.54) (xy 0 -5.08)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 -5.08) (xy -7.62 -5.08)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 -5.08) (xy 7.62 -5.08)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.635 -2.2225) (xy 2.54 1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at -12.7 5.08 0)
+					(length 5.08)
+					(name "~"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -12.7 -5.08 0)
+					(length 5.08)
+					(name "~"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 12.7 5.08 180)
+					(length 5.08)
+					(name "~"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 12.7 -5.08 180)
+					(length 5.08)
+					(name "~"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.016 1.016)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Transistor_BJT:2N3904"
 			(pin_names
 				(offset 0)
@@ -5069,7 +5221,7 @@
 	)
 	(text "Programming Interface"
 		(exclude_from_sim no)
-		(at 29.718 81.026 0)
+		(at 28.702 68.58 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -5556,12 +5708,12 @@
 		(uuid "23b51a14-36d7-491c-a43d-6ab7812f7128")
 	)
 	(no_connect
-		(at 158.75 110.49)
-		(uuid "4b62443b-5237-4ed5-a4ee-880dff41448f")
+		(at 54.61 81.28)
+		(uuid "3655677d-f3ae-4f46-a4e5-117d8df4834c")
 	)
 	(no_connect
-		(at 26.67 88.9)
-		(uuid "4d57577a-1118-497f-8cfb-fb9473053dbf")
+		(at 158.75 110.49)
+		(uuid "4b62443b-5237-4ed5-a4ee-880dff41448f")
 	)
 	(no_connect
 		(at 273.05 137.16)
@@ -5578,6 +5730,10 @@
 	(no_connect
 		(at 158.75 102.87)
 		(uuid "710ea64f-5aad-4a87-92cd-72dec7c9b3c2")
+	)
+	(no_connect
+		(at 29.21 91.44)
+		(uuid "917cc58d-7f26-4f22-bdf4-3e8e79c19b40")
 	)
 	(no_connect
 		(at 273.05 132.08)
@@ -5598,10 +5754,6 @@
 	(no_connect
 		(at 158.75 107.95)
 		(uuid "b9f0c0bc-8b02-4ee1-924f-e49ec088ca30")
-	)
-	(no_connect
-		(at 57.15 88.9)
-		(uuid "c47dcb22-2c3a-4202-99da-435d0d7b4b96")
 	)
 	(no_connect
 		(at 50.8 40.64)
@@ -5798,16 +5950,6 @@
 			(type default)
 		)
 		(uuid "189885ba-fd25-4e16-8834-08aca68cd922")
-	)
-	(wire
-		(pts
-			(xy 26.67 91.44) (xy 25.4 91.44)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "1bd52e56-3e4b-4c84-b861-9a1188423ebe")
 	)
 	(wire
 		(pts
@@ -6511,16 +6653,6 @@
 	)
 	(wire
 		(pts
-			(xy 63.5 91.44) (xy 57.15 91.44)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8614666b-f151-44f0-8256-1121e2a52805")
-	)
-	(wire
-		(pts
 			(xy 146.05 31.75) (xy 146.05 33.02)
 		)
 		(stroke
@@ -6608,6 +6740,16 @@
 			(type default)
 		)
 		(uuid "9c0f3eaf-6211-4e9a-9ebb-e109a4fd9395")
+	)
+	(wire
+		(pts
+			(xy 54.61 91.44) (xy 63.5 91.44)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9ce0c804-f9e8-488f-b019-c126798db270")
 	)
 	(wire
 		(pts
@@ -6821,7 +6963,7 @@
 	)
 	(wire
 		(pts
-			(xy 25.4 91.44) (xy 25.4 97.79)
+			(xy 25.4 81.28) (xy 25.4 97.79)
 		)
 		(stroke
 			(width 0)
@@ -7128,6 +7270,16 @@
 			(type default)
 		)
 		(uuid "f1047dc1-6cdd-4265-b5f2-27a90dbc92fc")
+	)
+	(wire
+		(pts
+			(xy 25.4 81.28) (xy 29.21 81.28)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f17e3dda-5562-4ac2-b432-d3e7de35c900")
 	)
 	(wire
 		(pts
@@ -7898,8 +8050,8 @@
 	(rule_area
 		(polyline
 			(pts
-				(xy 76.2 82.55) (xy 76.2 101.6) (xy 45.72 101.6) (xy 45.72 127) (xy 17.78 127) (xy 17.78 113.03)
-				(xy 17.78 81.915)
+				(xy 76.2 69.85) (xy 76.2 101.6) (xy 45.72 101.6) (xy 45.72 127) (xy 17.78 127) (xy 17.78 113.03)
+				(xy 17.78 69.85)
 			)
 			(stroke
 				(width 0)
@@ -10717,141 +10869,6 @@
 		)
 	)
 	(symbol
-		(lib_id "2-1977223-8:2-1977223-8")
-		(at 26.67 88.9 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "773c18d3-95f5-48ac-b5f5-7c72be816f6a")
-		(property "Reference" "S1"
-			(at 32.766 85.344 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "2-1977223-8"
-			(at 44.958 85.344 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "2-1977223-8:219772238"
-			(at 53.34 86.36 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.te.com/en/product-2-1977223-8.html"
-			(at 53.34 88.9 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Description" "Tactile Switches 6MM ACTSMT 160gf TACT SWITCH"
-			(at 26.67 88.9 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description_1" "Tactile Switches 6MM ACTSMT 160gf TACT SWITCH"
-			(at 53.34 91.44 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Height" "13.35"
-			(at 53.34 93.98 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Mouser Part Number" "506-2-1977223-8"
-			(at 53.34 96.52 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Mouser Price/Stock" "https://www.mouser.co.uk/ProductDetail/TE-Connectivity-PB/2-1977223-8?qs=WwRK9Mn48WC%252B3bZnlicO2g%3D%3D"
-			(at 53.34 99.06 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer_Name" "TE Connectivity"
-			(at 53.34 101.6 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer_Part_Number" "2-1977223-8"
-			(at 53.34 104.14 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(pin "3"
-			(uuid "a7087a66-fca8-484e-ab10-f0c482f22b6d")
-		)
-		(pin "4"
-			(uuid "09110b59-afb2-4ad0-8a8d-a250c008e04d")
-		)
-		(pin "2"
-			(uuid "af55d5c9-c297-40cf-a6e1-22e19a1d3516")
-		)
-		(pin "1"
-			(uuid "26d7f1f1-a9a1-4a26-be42-89f20c5bbc1f")
-		)
-		(instances
-			(project ""
-				(path "/0bb14822-3a1a-451e-a409-a267c8c1fc8c"
-					(reference "S1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Connector:TestPoint")
 		(at 67.31 25.4 270)
 		(unit 1)
@@ -11311,6 +11328,191 @@
 			(project ""
 				(path "/0bb14822-3a1a-451e-a409-a267c8c1fc8c"
 					(reference "D1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "TS02-66-60-BK-260-LCR-D:TS02-66-60-BK-260-LCR-D")
+		(at 41.91 86.36 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "974b9808-e096-4a01-a4a2-f4777bae2f73")
+		(property "Reference" "S2"
+			(at 41.91 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "TS02-66-60-BK-260-LCR-D"
+			(at 41.91 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "TS02-66-60-BK-260-LCR-D:SW_TS02-66-60-BK-260-LCR-D"
+			(at 41.91 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 41.91 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 41.91 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "MF" "Same Sky"
+			(at 41.91 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "Description_1" "6 x 6 mm, 6 mm Actuator Height, 260 gf, Black, Long Crimped, Through Hole, SPST, Tactile Switch"
+			(at 41.91 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "Package" "None"
+			(at 41.91 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "Price" "None"
+			(at 41.91 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "Check_prices" "https://www.snapeda.com/parts/TS02-66-60-BK-260-LCR-D/Same+Sky/view-part/?ref=eda"
+			(at 41.91 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "STANDARD" "Manufacturer Recommendations"
+			(at 41.91 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "PARTREV" "1.0"
+			(at 41.91 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "SnapEDA_Link" "https://www.snapeda.com/parts/TS02-66-60-BK-260-LCR-D/Same+Sky/view-part/?ref=snap"
+			(at 41.91 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "MP" "TS02-66-60-BK-260-LCR-D"
+			(at 41.91 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "Availability" "In Stock"
+			(at 41.91 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "MANUFACTURER" "CUI Devices"
+			(at 41.91 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify bottom)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "32c95e42-3e73-4004-832e-c2cdf328816c")
+		)
+		(pin "4"
+			(uuid "3fa7e288-1deb-41be-9fd6-37cfa10cc65c")
+		)
+		(pin "3"
+			(uuid "441b8ca3-3e75-4f60-ba72-ed534e4ece61")
+		)
+		(pin "2"
+			(uuid "e10e5000-6d7e-4734-9370-f1cbe82d772d")
+		)
+		(instances
+			(project ""
+				(path "/0bb14822-3a1a-451e-a409-a267c8c1fc8c"
+					(reference "S2")
 					(unit 1)
 				)
 			)
@@ -14346,6 +14548,4 @@
 		)
 	)
 	(embedded_fonts no)
-)
-
 )
