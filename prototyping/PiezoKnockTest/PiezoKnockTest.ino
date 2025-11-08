@@ -5,7 +5,6 @@
 const int ledPin = 13;       // LED connected to digital pin 13
 const int knockSensor = A0;  // the piezo is connected to analog pin 0
 const int threshold = 50;    // lower threshold, since sensitivity increased
-
 int sensorReading = 0;
 int ledState = LOW;
 
