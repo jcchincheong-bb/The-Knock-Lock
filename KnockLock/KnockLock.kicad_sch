@@ -6,8 +6,8 @@
 	(paper "A4")
 	(title_block
 		(title "KnockLockSchematic")
-		(date "2025-11-02")
-		(rev "2.1")
+		(date "2025-11-08")
+		(rev "3.3")
 		(company "HSRW")
 		(comment 1 "Group 04")
 	)
@@ -5211,7 +5211,7 @@
 	)
 	(text "Button"
 		(exclude_from_sim no)
-		(at 41.656 90.17 0)
+		(at 53.086 86.614 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14807,7 +14807,7 @@
 	)
 	(embedded_fonts no)
 )
-9-a267c8c1fc8c"
+-a267c8c1fc8c"
 					(reference "#PWR012")
 					(unit 1)
 				)
