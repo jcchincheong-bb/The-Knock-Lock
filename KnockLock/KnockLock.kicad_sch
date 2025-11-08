@@ -5468,12 +5468,6 @@
 		(uuid "14e1a256-145a-4ccd-a860-460dc9d8ac29")
 	)
 	(junction
-		(at 121.92 81.28)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "19367520-6bf2-48d5-a714-51462ade0934")
-	)
-	(junction
 		(at 161.29 110.49)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -5492,6 +5486,12 @@
 		(uuid "2efbc496-e660-433c-9e0a-e28d618f4d65")
 	)
 	(junction
+		(at 121.92 74.93)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "2fcdf688-db84-4291-866c-cb5e8c9e867c")
+	)
+	(junction
 		(at 105.41 128.27)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -5508,12 +5508,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "3f61493d-fc0f-4f6c-a663-0acb6322a5ec")
-	)
-	(junction
-		(at 124.46 81.28)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "49fb5148-2b29-4908-aa72-b8de36f8976e")
 	)
 	(junction
 		(at 85.09 25.4)
@@ -5664,6 +5658,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "a17a8e7e-10c3-4fca-98b1-1928d50b1d25")
+	)
+	(junction
+		(at 124.46 74.93)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "a2ee3c1a-7698-4b19-a806-f1f32d3a3c1e")
 	)
 	(junction
 		(at 208.28 147.32)
@@ -5865,16 +5865,6 @@
 	)
 	(wire
 		(pts
-			(xy 121.92 81.28) (xy 124.46 81.28)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0b333dbf-6c66-4e3e-a6c8-99583e3f1ff4")
-	)
-	(wire
-		(pts
 			(xy 161.29 115.57) (xy 161.29 118.11)
 		)
 		(stroke
@@ -5912,6 +5902,16 @@
 			(type default)
 		)
 		(uuid "10bd8593-041e-475f-9d83-2a1d45e6aaa5")
+	)
+	(wire
+		(pts
+			(xy 121.92 74.93) (xy 121.92 81.28)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "10cd1ca3-b3b0-47f1-941b-3be789977662")
 	)
 	(wire
 		(pts
@@ -6365,16 +6365,6 @@
 	)
 	(wire
 		(pts
-			(xy 124.46 81.28) (xy 124.46 87.63)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4fbf39ba-2ee9-42ca-93c1-331801ba3a6a")
-	)
-	(wire
-		(pts
 			(xy 104.14 50.8) (xy 105.41 50.8)
 		)
 		(stroke
@@ -6492,6 +6482,16 @@
 			(type default)
 		)
 		(uuid "67e01b0e-8ec6-418d-a48e-18a41669f6c0")
+	)
+	(wire
+		(pts
+			(xy 121.92 74.93) (xy 124.46 74.93)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "687ca9e6-6ee2-430f-9fa2-2cde88afe9cd")
 	)
 	(wire
 		(pts
@@ -6695,16 +6695,6 @@
 	)
 	(wire
 		(pts
-			(xy 121.92 81.28) (xy 121.92 74.93)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "810dd33e-6f17-4e91-97db-968fc5ea82b5")
-	)
-	(wire
-		(pts
 			(xy 34.29 107.95) (xy 34.29 109.22)
 		)
 		(stroke
@@ -6715,7 +6705,7 @@
 	)
 	(wire
 		(pts
-			(xy 124.46 74.93) (xy 124.46 81.28)
+			(xy 124.46 74.93) (xy 124.46 87.63)
 		)
 		(stroke
 			(width 0)
@@ -11022,7 +11012,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "TP_3V3"
+		(property "Value" "TP_3.3V"
 			(at 154.178 35.052 90)
 			(effects
 				(font
@@ -12450,7 +12440,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "+3V3"
+		(property "Value" "+3.3V"
 			(at 145.796 27.686 0)
 			(effects
 				(font
@@ -14804,6 +14794,20 @@
 		(instances
 			(project "KnockLock"
 				(path "/0bb14822-3a1a-451e-a409-a267c8c1fc8c"
+					(reference "#PWR012")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+	(embedded_fonts no)
+)
+9-a267c8c1fc8c"
 					(reference "#PWR012")
 					(unit 1)
 				)
