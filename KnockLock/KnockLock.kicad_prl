@@ -1,6 +1,10 @@
 {
   "board": {
+<<<<<<< Updated upstream
     "active_layer": 0,
+=======
+    "active_layer": 7,
+>>>>>>> Stashed changes
     "active_layer_preset": "",
     "auto_track_width": false,
     "hidden_netclasses": [],
@@ -50,7 +54,11 @@
       "conflict_shadows",
       "shapes"
     ],
+<<<<<<< Updated upstream
     "visible_layers": "ffffffff_ffffffff_ffffffff_f7ffff7f",
+=======
+    "visible_layers": "ffffffff_ffffffff_fffffff7_f7ffffff",
+>>>>>>> Stashed changes
     "zone_display_mode": 1
   },
   "git": {

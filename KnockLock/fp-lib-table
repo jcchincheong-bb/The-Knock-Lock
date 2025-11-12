@@ -8,4 +8,5 @@
   (lib (name "2-1977223-8")(type "KiCad")(uri "${KIPRJMOD}/part-libraries/2-1977223-8")(options "")(descr ""))
   (lib (name "TS02-66-60-BK-260-LCR-D")(type "KiCad")(uri "${KIPRJMOD}/part-libraries/TS02-66-60-BK-260-LCR-D")(options "")(descr ""))
   (lib (name "1N5908")(type "KiCad")(uri "${KIPRJMOD}/part-libraries/1N5908")(options "")(descr ""))
+  (lib (name "Logo")(type "KiCad")(uri "${KIPRJMOD}/part-libraries/SamacSys_Parts.pretty/Logo.pretty")(options "")(descr ""))
 )
