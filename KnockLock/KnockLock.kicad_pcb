@@ -376,7 +376,7 @@
 		(property "Reference" "IC2"
 			(at -0.735 -5.15 0)
 			(layer "F.SilkS")
-			(uuid "4401ab23-b09d-4650-8044-9149e69ce481")
+			(uuid "66a0f0d6-9bab-486b-a1fd-ccd793295ec2")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -388,7 +388,7 @@
 			(at -1.31 -3.3 0)
 			(layer "F.SilkS")
 			(hide yes)
-			(uuid "1f34c0ef-fc76-4614-8f70-e2a7b2293579")
+			(uuid "a432b742-b5f2-4fbb-8647-77a1339d905d")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -400,7 +400,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "ea966336-4585-4311-8c27-fb3ccb1948b7")
+			(uuid "e60ecde4-9920-4f6e-b232-b5c4615228a8")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -412,7 +412,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "0cfc1e27-0261-4865-b932-cca5b82fe327")
+			(uuid "3b371863-8f3c-49c8-83be-f1d5bc579e76")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2715,7 +2715,7 @@
 			(uuid "c35c9152-59f1-4865-a87f-ac878ab12a40")
 		)
 		(embedded_fonts no)
-		(model "C:\\Users\\abhin\\OneDrive\\Documents\\University\\Studies\\Sem 5\\Practical Electronics\\pe04\\KnockLock\\part-libraries\\SamacSys_Parts.3dshapes\\IRLML6402TRPBF.stp"
+		(model "${KIPRJMOD}/part-libraries/SamacSys_Parts.3dshapes/IRLML6402TRPBF.stp"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -3111,6 +3111,17 @@
 			(uuid "d58a5fb1-7c9e-4db9-8c95-fcb8df99b30a")
 		)
 		(embedded_fonts no)
+		(model "${KIPRJMOD}/part-libraries/TS02-66-60-BK-260-LCR-D/TS02-66-60-BK-260-LCR-D.step"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz -90 -0 -0)
+			)
+		)
 	)
 	(footprint "Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder"
 		(layer "F.Cu")
@@ -18811,8 +18822,7 @@
 	)
 	(embedded_fonts no)
 )
-8.497479 99.205787) (xy 118.602819 98.951471)
-				(xy 118.674069 98.685565) (xy 118.71 98.412641) (xy 118.71 98.167358) (xy 120.55 98.167358) (xy 120.55 98.442641)
+1 98.167358) (xy 120.55 98.167358) (xy 120.55 98.442641)
 				(xy 120.58593 98.715565) (xy 120.65718 98.981471) (xy 120.76252 99.235787) (xy 120.762527 99.235802)
 				(xy 120.900163 99.474196) (xy 120.998758 99.602686) (xy 121.934152 98.667291) (xy 121.941049 98.683942)
 				(xy 122.028599 98.81497) (xy 122.14003 98.926401) (xy 122.271058 99.013951) (xy 122.287706 99.020847)
