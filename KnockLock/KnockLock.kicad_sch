@@ -9357,7 +9357,7 @@
 				)
 			)
 		)
-		(property "Value" "USB3145-30-1-A"
+		(property "Value" "Micro USB"
 			(at 40.64 53.34 0)
 			(effects
 				(font
@@ -10235,7 +10235,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "1N5908:DIOAD2920W106L900D505"
+		(property "Footprint" "Diode_THT:D_DO-201AD_P15.24mm_Horizontal"
 			(at 243.205 27.94 0)
 			(effects
 				(font
@@ -11483,7 +11483,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "1N5908:DIOAD2920W106L900D505"
+		(property "Footprint" "Diode_THT:D_DO-201AD_P15.24mm_Horizontal"
 			(at 130.175 26.67 0)
 			(effects
 				(font
@@ -11543,7 +11543,7 @@
 				)
 			)
 		)
-		(property "Value" "TS02-66-60-BK-260-LCR-D"
+		(property "Value" "Reset Button"
 			(at 41.91 76.2 0)
 			(effects
 				(font
@@ -12247,7 +12247,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_PinSocket_2.54mm:PinSocket_1x02_P2.54mm_Vertical"
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
 			(at 26.67 107.95 0)
 			(effects
 				(font
@@ -12966,8 +12966,8 @@
 				)
 			)
 		)
-		(property "Value" "Screw_Terminal_01x02"
-			(at 28.956 30.734 0)
+		(property "Value" "Battery Port"
+			(at 32.004 30.734 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13570,7 +13570,7 @@
 				)
 			)
 		)
-		(property "Footprint" "1N5908:DIOAD2920W106L900D505"
+		(property "Footprint" "Diode_THT:D_DO-201AD_P15.24mm_Horizontal"
 			(at 61.595 52.07 0)
 			(effects
 				(font
@@ -14295,7 +14295,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "1N5908:DIOAD2920W106L900D505"
+		(property "Footprint" "Diode_THT:D_DO-201AD_P15.24mm_Horizontal"
 			(at 48.895 29.21 0)
 			(effects
 				(font
@@ -14807,8 +14807,5 @@
 	)
 	(embedded_fonts no)
 )
-		(page "1")
-		)
-	)
-	(embedded_fonts no)
+(embedded_fonts no)
 )
