@@ -34,10 +34,14 @@
 
 MMA8452Q accel;                   // create instance of the MMA8452 class
 
+// I2C Pins
+const int SDA_PIN = 4;
+const int SCL_PIN = 5;
+
 void setup() {
   Serial.begin(9600);
   Serial.println("MMA8452Q Change Scale Test Code!");
-  Wire.begin();
+  Wire.begin(SDA_PIN, SCL_PIN);
 
   if (accel.begin() == false) {
     Serial.println("Not Connected. Please check connections and read the hookup guide.");
