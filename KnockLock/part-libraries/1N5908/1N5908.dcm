@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP 1N5908
+D TVS Diode Transil 5V 1500W Unidir DO-201 STMicroelectronics 1N5908 Uni-Directional TVS Diode, 1500W peak, 2-Pin DO-201
+K
+F http://www.st.com/web/en/resource/technical/document/datasheet/CD00000664.pdf
+$ENDCMP
+#
+#End Doc Library
