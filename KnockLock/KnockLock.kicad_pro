@@ -58,7 +58,12 @@
           "width": 0.0
         }
       ],
-      "drc_exclusions": [],
+      "drc_exclusions": [
+        [
+          "lib_footprint_mismatch|170725000|85400000|979c2351-667a-4e90-b404-a7b9aa03ba72|00000000-0000-0000-0000-000000000000",
+          "Had to make the pads larger"
+        ]
+      ],
       "meta": {
         "version": 2
       },
@@ -628,6 +633,11 @@
     "subpart_first_id": 65,
     "subpart_id_separator": 0
   },
-  "sheets": [],
+  "sheets": [
+    [
+      "0bb14822-3a1a-451e-a409-a267c8c1fc8c",
+      "Root"
+    ]
+  ],
   "text_variables": {}
 }

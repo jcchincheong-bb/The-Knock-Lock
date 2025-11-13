@@ -5423,7 +5423,7 @@
 	)
 	(text "Button"
 		(exclude_from_sim no)
-		(at 54.356 136.144 0)
+		(at 54.864 136.144 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -5784,12 +5784,12 @@
 		(uuid "ffca37a4-73cd-40be-b1dd-81d1dd09766d")
 	)
 	(no_connect
-		(at 50.8 43.18)
-		(uuid "1fe8d643-cee9-4845-84ec-6a33a3f1938b")
+		(at 30.48 140.97)
+		(uuid "1d758fd0-8b0b-4907-aa72-7dfb502762d0")
 	)
 	(no_connect
-		(at 55.88 130.81)
-		(uuid "35723ee8-9757-4cc7-95a9-864d65e36689")
+		(at 50.8 43.18)
+		(uuid "1fe8d643-cee9-4845-84ec-6a33a3f1938b")
 	)
 	(no_connect
 		(at 54.61 81.28)
@@ -5820,16 +5820,16 @@
 		(uuid "c6c5427b-10c4-4f3c-8563-c7892ace72e6")
 	)
 	(no_connect
-		(at 30.48 140.97)
-		(uuid "d0e60533-abe6-4c53-b521-1ca3560ebcf3")
-	)
-	(no_connect
 		(at 222.25 144.78)
 		(uuid "d2e91da7-af06-49e0-8826-c3584ccf01e4")
 	)
 	(no_connect
 		(at 273.05 139.7)
 		(uuid "dbf98a0b-7b37-416d-870a-ffcff07f6e35")
+	)
+	(no_connect
+		(at 55.88 130.81)
+		(uuid "deb1f7c4-0e75-44b5-b712-f8fa12460719")
 	)
 	(wire
 		(pts
@@ -13876,7 +13876,7 @@
 				)
 			)
 		)
-		(property "Value" "1N5822"
+		(property "Value" "1N5908"
 			(at 60.706 53.34 90)
 			(effects
 				(font
@@ -14600,7 +14600,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "1N5822"
+		(property "Value" "1N5908"
 			(at 62.23 29.464 90)
 			(effects
 				(font
