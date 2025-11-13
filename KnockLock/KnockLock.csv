@@ -1,36 +1,38 @@
-"Reference","Qty","Value","DNP","Exclude from BOM","Exclude from Board","Footprint","Datasheet"
-"C1","1","100uF","","","","SamacSys_Parts:CAPPRD250W55D630H1220","http://industrial.panasonic.com/cdbs/www-data/pdf/RDF0000/ABA0000C1209.pdf"
-"C2","1","330uF","","","","SamacSys_Parts:CAPPRD350W65D800H1300","http://industrial.panasonic.com/cdbs/www-data/pdf/RDF0000/ABA0000C1259.pdf"
-"C3,C7,C9","3","10uF","","","","Capacitor_THT:C_Radial_D5.0mm_H11.0mm_P2.00mm","~"
-"C4,C5,C6,C8,C10","5","0.1uF","","","","Capacitor_THT:C_Rect_L4.0mm_W2.5mm_P2.50mm","~"
-"C11","1","1uF","","","","Capacitor_THT:C_Radial_D4.0mm_H7.0mm_P1.50mm","~"
-"D1,D5,D6,D7","4","1N5822","","","","Diode_THT:D_DO-201AD_P15.24mm_Horizontal","http://www.vishay.com/docs/88525/1n5817.pdf,http://www.vishay.com/docs/88526/1n5820.pdf"
-"D2","1","R-LED","","","","LED_THT:LED_D3.0mm","~"
-"D3","1","Y-LED","","","","LED_THT:LED_D3.0mm","~"
-"D4","1","G-LED","","","","LED_THT:LED_D3.0mm","~"
-"F1,F2","2","Polyfuse","","","","Fuse:Fuse_BelFuse_0ZRE0012FF_L8.3mm_W3.8mm","~"
-"IC1","1","ESP32-C3-WROOM-02-N4","","","","SamacSys_Parts:ESP32C3WROOM02N4","https://www.mouser.ch/datasheet/2/891/Espressif_ESP32_C3_WROOM_02-2006871.pdf"
-"IC2","1","LM2575-3.3WT","","","","SamacSys_Parts:LM257533WT","https://ww1.microchip.com/downloads/en/DeviceDoc/lm2575.pdf"
-"J1","1","Screw_Terminal_01x02","","","","TerminalBlock:TerminalBlock_bornier-2_P5.08mm","~"
-"J2","1","USB3145-30-1-A","","","","SamacSys_Parts:USB3145301A","https://gct.co/connector/usb3145"
-"J3","1","TBP04R12-500-03BE","","","","SamacSys_Parts:TBP04R1250003BE","https://www.sameskydevices.com/product/resource/tbp04r12-500.pdf"
-"J4","1","UART","","","","Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical","~"
-"J5","1","Boot Pins","","","","Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical","~"
-"L1","1","330uH","","","","Inductor_THT:L_Radial_D9.5mm_P5.00mm_Fastron_07HVP","~"
-"LS1","1","PKM22EPPH4001-B0","","","","SamacSys_Parts:PKM22EPPH4001B0","https://www.murata.com/products/productdata/8801054064670/SPEC-PKM22EPPH4001-B0.pdf?1517839211000"
-"Q1","1","IRLML6402TRPBF","","","","SamacSys_Parts:SOT95P237X112-3N","http://www.infineon.com/dgdl/irlml6402pbf.pdf?fileId=5546d462533600a401535668d5c2263c"
-"Q2","1","BC547B","","","","Package_TO_SOT_THT:TO-92_HandSolder","https://www.onsemi.com/pub/Collateral/2N3903-D.PDF"
-"R1,R2","2","4k7Ohms","","","","SamacSys_Parts:RESAD1590W60L630D240","~"
-"R3,R4,R5","3","27 Ohms","","","","SamacSys_Parts:RESAD1590W60L630D240","~"
-"R6,R8,R9,R13","4","10kOhms","","","","SamacSys_Parts:RESAD1590W60L630D240","~"
-"R7","1","6.8kOhms","","","","SamacSys_Parts:RESAD1590W60L630D240","~"
-"R11","1","100 Ohms","","","","SamacSys_Parts:RESAD1590W60L630D240","~"
-"R12","1","100kOhms","","","","SamacSys_Parts:RESAD1590W60L630D240","~"
-"S2","1","TS02-66-60-BK-260-LCR-D","","","","TS02-66-60-BK-260-LCR-D:SW_TS02-66-60-BK-260-LCR-D",""
-"TP1","1","TP_Bat","","","","TestPoint:TestPoint_Pad_D1.5mm","~"
-"TP2","1","TP_Ext","","","","TestPoint:TestPoint_Pad_D1.5mm","~"
-"TP3","1","TP_3V3","","","","TestPoint:TestPoint_Pad_D1.5mm","~"
-"TP4","1","TP_I2C","","","","Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical","~"
-"TP5","1","TP_IMUV","","","","TestPoint:TestPoint_Pad_D1.5mm","~"
-"TP6","1","TP_IMUINT","","","","Connector_PinSocket_2.54mm:PinSocket_1x01_P2.54mm_Vertical","~"
-"U1","1","ADXL345BCCZ-RL7","","","","ADXL345BCCZ-RL7:PQFN80P500X300X100-14N",""
+Reference,Qty,Value,DNP,Exclude from BOM,Exclude from Board,Footprint,Datasheet
+"C1,C4,C5,C10,C11,C12",6,0.1uF,,,,Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder,~
+C2,1,100uF,,,,SamacSys_Parts:CAPPRD250W55D630H1220,http://industrial.panasonic.com/cdbs/www-data/pdf/RDF0000/ABA0000C1209.pdf
+C3,1,1uF,,,,Capacitor_THT:C_Radial_D4.0mm_H7.0mm_P1.50mm,~
+"C6,C8,C9",3,10uF,,,,Capacitor_THT:C_Radial_D5.0mm_H11.0mm_P2.00mm,~
+C7,1,330uF,,,,SamacSys_Parts:CAPPRD350W65D800H1300,http://industrial.panasonic.com/cdbs/www-data/pdf/RDF0000/ABA0000C1259.pdf
+"D1,D2",2,1N5908,,,,Diode_THT:D_DO-201AD_P15.24mm_Horizontal,"http://www.vishay.com/docs/88525/1n5817.pdf,http://www.vishay.com/docs/88526/1n5820.pdf"
+"D3,D4",2,1N5822,,,,Diode_THT:D_DO-201AD_P15.24mm_Horizontal,http://www.vishay.com/docs/88526/1n5820.pdf
+D5,1,R-LED,,,,LED_THT:LED_D3.0mm,~
+D6,1,Y-LED,,,,LED_THT:LED_D3.0mm,~
+D7,1,G-LED,,,,LED_THT:LED_D3.0mm,~
+"F1,F2",2,Polyfuse,,,,Fuse:Fuse_BelFuse_0ZRE0012FF_L8.3mm_W3.8mm,~
+IC1,1,LM2575-3.3WT,,,,SamacSys_Parts:LM257533WT,https://ww1.microchip.com/downloads/en/DeviceDoc/lm2575.pdf
+IC2,1,ESP32-C3-WROOM-02-N4,,,,SamacSys_Parts:ESP32C3WROOM02N4,https://www.mouser.ch/datasheet/2/891/Espressif_ESP32_C3_WROOM_02-2006871.pdf
+J1,1,Boot Pins,,,,Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical,~
+J2,1,UART,,,,Connector_PinSocket_2.54mm:PinSocket_1x02_P2.54mm_Vertical,~
+J3,1,Battery Port,,,,TerminalBlock:TerminalBlock_bornier-2_P5.08mm,~
+J4,1,Micro USB,,,,SamacSys_Parts:USB3145301A,https://gct.co/connector/usb3145
+J5,1,TBP04R12-500-03BE,,,,SamacSys_Parts:TBP04R1250003BE,https://www.sameskydevices.com/product/resource/tbp04r12-500.pdf
+L1,1,330uH,,,,Inductor_THT:L_Radial_D9.5mm_P5.00mm_Fastron_07HVP,~
+LS1,1,PKM22EPPH4001-B0,,,,SamacSys_Parts:PKM22EPPH4001B0,https://www.murata.com/products/productdata/8801054064670/SPEC-PKM22EPPH4001-B0.pdf?1517839211000
+Q1,1,BC547B,,,,Package_TO_SOT_THT:TO-92_HandSolder,https://www.onsemi.com/pub/Collateral/2N3903-D.PDF
+Q2,1,IRLML6402TRPBF,,,,SamacSys_Parts:SOT95P237X112-3N,http://www.infineon.com/dgdl/irlml6402pbf.pdf?fileId=5546d462533600a401535668d5c2263c
+"R1,R4,R5,R7",4,10kOhms,,,,Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder,~
+R2,1,6.8kOhms,,,,Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder,~
+"R3,R6",2,4k7Ohms,,,,Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder,~
+R8,1,100 Ohms,,,,Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder,~
+R9,1,100kOhms,,,,Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder,~
+"R10,R11,R12",3,27 Ohms,,,,Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder,~
+S1,1,Reset Button,,,,TS02-66-60-BK-260-LCR-D:SW_TS02-66-60-BK-260-LCR-D,
+S2,1,Programming Button,,,,TS02-66-60-BK-260-LCR-D:SW_TS02-66-60-BK-260-LCR-D,
+TP1,1,TP_Bat,,,,TestPoint:TestPoint_Pad_D1.5mm,~
+TP2,1,TP_Ext,,,,TestPoint:TestPoint_Pad_D1.5mm,~
+TP3,1,TP_I2C,,,,Connector_PinSocket_2.54mm:PinSocket_1x02_P2.54mm_Vertical,~
+TP4,1,TP_3.3V,,,,TestPoint:TestPoint_Pad_D1.5mm,~
+TP5,1,TP_IMUINT,,,,Connector_PinSocket_2.54mm:PinSocket_1x01_P2.54mm_Vertical,~
+TP6,1,TP_IMUV,,,,TestPoint:TestPoint_Pad_D1.5mm,~
+U1,1,ADXL345BCCZ-RL7,,,,ADXL345BCCZ-RL7:PQFN80P500X300X100-14N,
