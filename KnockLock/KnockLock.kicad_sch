@@ -9025,7 +9025,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "SamacSys_Parts:TBP04R1250003BE"
+		(property "Footprint" "Connector_JST:JST_EH_S3B-EH_1x03_P2.50mm_Horizontal"
 			(at 269.24 116.51 0)
 			(effects
 				(font

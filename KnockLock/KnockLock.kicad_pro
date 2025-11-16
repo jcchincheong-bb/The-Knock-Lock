@@ -58,12 +58,7 @@
           "width": 0.0
         }
       ],
-      "drc_exclusions": [
-        [
-          "lib_footprint_mismatch|170725000|85400000|979c2351-667a-4e90-b404-a7b9aa03ba72|00000000-0000-0000-0000-000000000000",
-          "Had to make the pads larger"
-        ]
-      ],
+      "drc_exclusions": [],
       "meta": {
         "version": 2
       },
@@ -514,7 +509,7 @@
       "plot": "",
       "pos_files": "",
       "specctra_dsn": "",
-      "step": "",
+      "step": "KnockLock.step",
       "svg": "",
       "vrml": ""
     },
