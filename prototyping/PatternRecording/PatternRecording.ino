@@ -6,6 +6,7 @@ ADXL345 adxl; // I2C mode
 // ---- Pin Definitions ----
 const int SDA_PIN = 4;
 const int SCL_PIN = 5;
+const int WriteButton = 9;
 
 // ---- Knock Detection Parameters ----
 const float KNOCK_THRESHOLD = 0.4; // g-force above 1g baseline to register a knock
@@ -19,6 +20,8 @@ int knockCount = 0;
 unsigned long lastKnockTime = 0;
 
 void setup() {
+  pinMode(WriteButton, INPUT);
+
   Serial.begin(115200);
   Wire.begin(SDA_PIN, SCL_PIN);
 
@@ -36,68 +39,70 @@ void setup() {
 
 void loop() {
   int x, y, z;
-  adxl.readAccel(&x, &y, &z);
+  if(digitalRead(WriteButton)){
+    adxl.readAccel(&x, &y, &z);
 
-  // Convert to g units (each LSB ≈ 0.0039g in ±2g mode)
-  float xg = x * 0.0039;
-  float yg = y * 0.0039;
-  float zg = z * 0.0039;
+    // Convert to g units (each LSB ≈ 0.0039g in ±2g mode)
+    float xg = x * 0.0039;
+    float yg = y * 0.0039;
+    float zg = z * 0.0039;
 
-  // Compute total acceleration magnitude
-  float aMag = sqrt(xg * xg + yg * yg + zg * zg);
-  float aDynamic = abs(aMag - 1.0); // remove gravity (~1g)
+    // Compute total acceleration magnitude
+    float aMag = sqrt(xg * xg + yg * yg + zg * zg);
+    float aDynamic = abs(aMag - 1.0); // remove gravity (~1g)
 
-  unsigned long now = millis();
+    unsigned long now = millis();
 
-  // ---- Knock detection ----
-  if (aDynamic > KNOCK_THRESHOLD && now - lastKnockTime > DEBOUNCE_TIME) {
-    lastKnockTime = now;
+    // ---- Knock detection ----
+    if (aDynamic > KNOCK_THRESHOLD && now - lastKnockTime > DEBOUNCE_TIME) {
+      lastKnockTime = now;
 
-    if (knockCount < MAX_KNOCKS) {
-      knockTimes[knockCount] = now;
-      knockCount++;
+      if (knockCount < MAX_KNOCKS) {
+        knockTimes[knockCount] = now;
+        knockCount++;
 
-      Serial.print("Knock #");
-      Serial.print(knockCount);
-      Serial.print(" at ");
-      Serial.print(now / 1000.0, 3);
-      Serial.println(" s");
+        Serial.print("Knock #");
+        Serial.print(knockCount);
+        Serial.print(" at ");
+        Serial.print(now / 1000.0, 3);
+        Serial.println(" s");
 
-      if (knockCount > 1) {
-        unsigned long interval = knockTimes[knockCount - 1] - knockTimes[knockCount - 2];
-        Serial.print("Interval since last knock: ");
-        Serial.print(interval);
-        Serial.println(" ms");
+        if (knockCount > 1) {
+          unsigned long interval = knockTimes[knockCount - 1] - knockTimes[knockCount - 2];
+          Serial.print("Interval since last knock: ");
+          Serial.print(interval);
+          Serial.println(" ms");
+        }
+      }
+
+      // ---- If max knocks reached, print all intervals ----
+      if (knockCount == MAX_KNOCKS) {
+        Serial.println("\n=== All knocks detected ===");
+        for (int i = 1; i < MAX_KNOCKS; i++) {
+          unsigned long interval = knockTimes[i] - knockTimes[i - 1];
+          Serial.print("Knock ");
+          Serial.print(i);
+          Serial.print(" → ");
+          Serial.print(i + 1);
+          Serial.print(": ");
+          Serial.print(interval);
+          Serial.println(" ms");
+        }
+        Serial.println("===========================\n");
+
+        // Reset for next round
+        knockCount = 0;
+        lastKnockTime = 0;
       }
     }
 
-    // ---- If max knocks reached, print all intervals ----
-    if (knockCount == MAX_KNOCKS) {
-      Serial.println("\n=== All knocks detected ===");
-      for (int i = 1; i < MAX_KNOCKS; i++) {
-        unsigned long interval = knockTimes[i] - knockTimes[i - 1];
-        Serial.print("Knock ");
-        Serial.print(i);
-        Serial.print(" → ");
-        Serial.print(i + 1);
-        Serial.print(": ");
-        Serial.print(interval);
-        Serial.println(" ms");
-      }
-      Serial.println("===========================\n");
-
-      // Reset for next round
+    // ---- Idle reset ----
+    if (knockCount > 0 && now - lastKnockTime > IDLE_RESET_TIME) {
+      Serial.println("No knocks for 5 seconds — resetting.");
       knockCount = 0;
       lastKnockTime = 0;
     }
-  }
 
-  // ---- Idle reset ----
-  if (knockCount > 0 && now - lastKnockTime > IDLE_RESET_TIME) {
-    Serial.println("No knocks for 5 seconds — resetting.");
-    knockCount = 0;
-    lastKnockTime = 0;
+    delay(10); // small delay for stability
   }
-
-  delay(10); // small delay for stability
 }

@@ -58,7 +58,24 @@
           "width": 0.0
         }
       ],
-      "drc_exclusions": [],
+      "drc_exclusions": [
+        [
+          "lib_footprint_mismatch|109000000|95075000|62bcb1b5-a866-4028-9fa7-655576443a1c|00000000-0000-0000-0000-000000000000",
+          "Ignoring this as had to edit footprint to avoid F.Courtyard error, as orginal did not have it"
+        ],
+        [
+          "lib_footprint_mismatch|124107717|74404912|0034cf7b-83eb-4d93-9427-cdc07dbfe8ee|00000000-0000-0000-0000-000000000000",
+          "Ignoring this as had to edit footprint to avoid F.Courtyard error, as orginal did not have it"
+        ],
+        [
+          "lib_footprint_mismatch|151464820|83255687|524fbf93-3e03-4d6d-9cde-a1d7a7a8505b|00000000-0000-0000-0000-000000000000",
+          "Does not affect design, so ignoring, came after exempting courtyard"
+        ],
+        [
+          "lib_footprint_mismatch|170725000|85400000|979c2351-667a-4e90-b404-a7b9aa03ba72|00000000-0000-0000-0000-000000000000",
+          "Had to change package footprint, because was causing different issues, should not affect design"
+        ]
+      ],
       "meta": {
         "version": 2
       },
@@ -76,9 +93,9 @@
         "duplicate_footprints": "warning",
         "extra_footprint": "warning",
         "footprint": "error",
-        "footprint_filters_mismatch": "ignore",
+        "footprint_filters_mismatch": "error",
         "footprint_symbol_mismatch": "warning",
-        "footprint_type_mismatch": "ignore",
+        "footprint_type_mismatch": "error",
         "hole_clearance": "error",
         "hole_to_hole": "error",
         "holes_co_located": "warning",
@@ -92,13 +109,13 @@
         "malformed_courtyard": "error",
         "microvia_drill_out_of_range": "error",
         "mirrored_text_on_front_layer": "warning",
-        "missing_courtyard": "ignore",
+        "missing_courtyard": "error",
         "missing_footprint": "warning",
         "net_conflict": "warning",
         "nonmirrored_text_on_back_layer": "warning",
-        "npth_inside_courtyard": "ignore",
+        "npth_inside_courtyard": "error",
         "padstack": "warning",
-        "pth_inside_courtyard": "ignore",
+        "pth_inside_courtyard": "error",
         "shorting_items": "error",
         "silk_edge_clearance": "warning",
         "silk_over_copper": "warning",
@@ -459,6 +476,7 @@
       "single_global_label": "ignore",
       "unannotated": "error",
       "unconnected_wire_endpoint": "warning",
+      "undefined_netclass": "error",
       "unit_value_mismatch": "error",
       "unresolved_variable": "error",
       "wire_dangling": "error"
@@ -749,7 +767,7 @@
     },
     "net_format_name": "",
     "page_layout_descr_file": "",
-    "plot_directory": "",
+    "plot_directory": "../schematic-design/",
     "space_save_all_events": true,
     "spice_current_sheet_as_root": false,
     "spice_external_command": "spice \"%I\"",
