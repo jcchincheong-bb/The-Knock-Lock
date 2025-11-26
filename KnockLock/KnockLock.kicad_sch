@@ -9178,8 +9178,8 @@
 				)
 			)
 		)
-		(property "Value" "Polyfuse"
-			(at 45.72 22.86 90)
+		(property "Value" "PFRA110"
+			(at 46.736 23.114 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12015,7 +12015,7 @@
 				)
 			)
 		)
-		(property "Value" "Polyfuse"
+		(property "Value" "PFRA110"
 			(at 60.706 45.974 90)
 			(effects
 				(font
