@@ -1,10 +1,58 @@
-* text=auto
+# ======================================
+# Git LFS for large/binary CAD files
 
-## Common binary file types
-*.docx binary
-*.exe binary
-*.jpg binary
-*.pdf binary
-*.png binary
-*.xlsx binary
+# SolidWorks CAD
+*.sldprt   filter=lfs diff=lfs merge=lfs -text
+*.sldasm   filter=lfs diff=lfs merge=lfs -text
+*.slddrw   filter=lfs diff=lfs merge=lfs -text
+*.sldlfp   filter=lfs diff=lfs merge=lfs -text
+*.sldedg   filter=lfs diff=lfs merge=lfs -text
+*.sldcfg   filter=lfs diff=lfs merge=lfs -text
+# STEP and neutral CAD formats
+*.step     filter=lfs diff=lfs merge=lfs -text
+*.stp      filter=lfs diff=lfs merge=lfs -text
+*.stl      filter=lfs diff=lfs merge=lfs -text
+*.iges     filter=lfs diff=lfs merge=lfs -text
+*.igs      filter=lfs diff=lfs merge=lfs -text
+*.x_t      filter=lfs diff=lfs merge=lfs -text
+*.x_b      filter=lfs diff=lfs merge=lfs -text
+*.sat      filter=lfs diff=lfs merge=lfs -text
+*.obj      filter=lfs diff=lfs merge=lfs -text
+*.fbx      filter=lfs diff=lfs merge=lfs -text
+*.gltf     filter=lfs diff=lfs merge=lfs -text
+*.glb      filter=lfs diff=lfs merge=lfs -text
+# Renderings and large media
+*.png      filter=lfs diff=lfs merge=lfs -text
+*.jpg      filter=lfs diff=lfs merge=lfs -text
+*.jpeg     filter=lfs diff=lfs merge=lfs -text
+*.bmp      filter=lfs diff=lfs merge=lfs -text
+*.tif      filter=lfs diff=lfs merge=lfs -text
+*.tiff     filter=lfs diff=lfs merge=lfs -text
+*.mp4      filter=lfs diff=lfs merge=lfs -text
+*.mov      filter=lfs diff=lfs merge=lfs -text
+# KiCad (ECAD) Handling
+# KiCad project (text-based, should NOT be LFS)
+*.kicad_pro     text
+*.kicad_prl     text
+*.kicad_sch     text
+*.kicad_pcb     text
+# KiCad symbol/footprint libraries (text)
+*.kicad_sym     text
+*.kicad_mod     text
+*.pretty/*      text
+# KiCad 3D models (large → store in LFS)
+*.wrl           filter=lfs diff=lfs merge=lfs -text
+*.step          filter=lfs diff=lfs merge=lfs -text
+*.stp           filter=lfs diff=lfs merge=lfs -text
+# Manufacturing Outputs
+# PCB manufacturing files (text)
+*.gbr       text
+*.drl       text
+*.pos       text
+*.bom       text
+*.csv       text
+# Archives
+*.zip       filter=lfs diff=lfs merge=lfs -text
+*.7z        filter=lfs diff=lfs merge=lfs -text
+*.rar       filter=lfs diff=lfs merge=lfs -text
 presentation/PE04_KnockLock_Presentation.pptx filter=lfs diff=lfs merge=lfs -text
