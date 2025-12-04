@@ -66,7 +66,6 @@ void recordPattern() {
 void playbackPattern() {
     for (int i = 0; i < knockCount-1; i++) {
         tone(BUZZER, 2000, 80);
-        delay(80);
         noTone(BUZZER);
         delay(intervals[i]);
     }

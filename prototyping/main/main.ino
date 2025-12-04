@@ -36,8 +36,13 @@ void loop() {
 
     if ((now-lastKnockTime>5000) && knockCount>1) {
         bool correct = checkKnockPattern(knockTimes, knockCount-1);
-        if(correct) { goodBeep(); unlockBox(); }
-        else badBeep();
+        if(correct) { 
+            goodBeep(); unlockBox(); 
+        }
+        else {
+            badBeep();
+            Serial.println("Wrong pattern!");
+        }
         knockCount = 0;
         lastKnockTime = 0;
     }
