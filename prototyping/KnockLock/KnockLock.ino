@@ -16,9 +16,9 @@
 // -------------------------------------------------------------
 // Pin Definitions
 // ---------------------- CONSTANTS ----------------------
-const int SDA_PIN   = 4;
+const int SDA_PIN   = 6;
 const int SCL_PIN   = 5;
-const int SERVO_PIN = 6;
+const int SERVO_PIN = 0;
 const int BUZZER    = 10;
 const int RLED      = 18;
 const int YLED      = 19;
