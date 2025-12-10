@@ -45,7 +45,7 @@ void savePatternToNVS(unsigned long intervals[], int count) {
   Serial.println("Pattern saved to NVS!");
 }
 
-bool checkPattern(unsigned long recordedIntervals[], int count) {
+bool checkPattern() {
     if (patternLength <= 0) {
     Serial.println("⚠ No valid pattern loaded.");
     return;
