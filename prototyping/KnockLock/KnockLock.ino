@@ -1,65 +1,94 @@
 #include <ESP32Servo.h>
 #include <Preferences.h>
 #include <Wire.h>
-#include <SparkFun_ADXL345.h>  // SparkFun ADXL345 Library
+#include <SparkFun_ADXL345.h>
 
-/*
-  Authors: Justin Julius Chin Cheong 34140, Abhinav Kothari 33349
-  Project: Knock Pattern Detection using ESP32 + ADXL345
-
-  Features:
-    • Detects knock patterns from acceleration spikes.
-    • Saves & loads target pattern from ESP32 NVS.
-    • Allows ±3 “junk knocks” before and after the correct pattern.
+/*  Authors: Justin Julius Chin Cheong 34140, Abhinav Kothari 33349 
+    Project: Knock Pattern Detection using ESP32 + ADXL345
+    Features: 
+      • Detects knock patterns from acceleration spikes. 
+      • Saves & loads target pattern from ESP32 NVS. 
+      • Allows ±3 “junk knocks” before and after the correct pattern.
+      • Lock out after 5minutes, or when 2 knocks 
 */
 
 // -------------------------------------------------------------
-// Pin Definitions
-// ---------------------- CONSTANTS ----------------------
+// INLINE ACCELERATION CALC
+// -------------------------------------------------------------
+inline float accelMagnitudeG(int x, int y, int z) {
+  return sqrt(x*x + y*y + z*z) * 0.0039;   // ADXL345 scale factor
+}
+
+// -------------------------------------------------------------
+// PIN DEFINITIONS
+// -------------------------------------------------------------
 const int SDA_PIN   = 6;
 const int SCL_PIN   = 5;
-const int SERVO_PIN = 0;
+const int SERVO_EN = 0;
+const int SERVO_CONTROL = 1;
 const int BUZZER    = 10;
-const int RLED      = 18;
+const int RLED      = 3;
 const int YLED      = 19;
-const int GLED      = 3;
+const int GLED      = 18;
 const int BUTTON_PIN = 7;
 
-const float KNOCK_THRESHOLD = 0.4;  // g-force above baseline
+const float KNOCK_THRESHOLD = 0.2;
 const int PATTERN_TIMEOUT   = 3000;
 const int MAX_KNOCKS        = 30;
-const int MIN_KNOCKS = 5;
-const int KNOCK_TOL         = 150;  // ms tolerance
-const int DEBOUNCE_TIME = 120;
-const int IDLE_RESET_TIME = 5000;
+const int MIN_KNOCKS        = 5;
+const int KNOCK_TOL         = 150;
+const int DEBOUNCE_TIME     = 120;
+const int IDLE_RESET_TIME   = 5000;
+const int LOCK_OUT_TIME = 300000; // 5 minutes in ms
 
-// Allow junk knocks
-const int EXTRA_BEFORE = 3;   // allow 3 knocks before valid sequence
-const int EXTRA_AFTER  = 3;   // allow 3 knocks after valid sequence
+const int EXTRA_BEFORE = 3;
+const int EXTRA_AFTER  = 3;
 
-// ---------------------- VARIABLES ----------------------
+// -------------------------------------------------------------
+// GLOBALS
+// -------------------------------------------------------------
 Servo lockServo;
 Preferences prefs;
-ADXL345 adxl = ADXL345();
+ADXL345 adxl;
 
 unsigned long knockTimes[MAX_KNOCKS];
-unsigned long intervals[MAX_KNOCKS-1];
-int knockCount = 0;
-unsigned long lastKnockTime = 0;
+unsigned long intervals[MAX_KNOCKS];
 
 unsigned long targetPattern[MAX_KNOCKS];
 int patternLength = 0;
 
-// -------------------------------------------------------
-// LOAD PATTERN FROM EEPROM
-// -------------------------------------------------------
-int loadPatternFromNVS(unsigned long intervals[]) {
-  prefs.begin("knocks", true);  
+int knockCount = 0;
+unsigned long lastKnockTime = 0;
 
+int x, y, z;
+
+// -------------------------------------------------------------
+// MODE STATE MACHINE
+// -------------------------------------------------------------
+enum Mode { MODE_IDLE, MODE_RECORDING };
+volatile Mode currentMode = MODE_IDLE;
+volatile int STATE = 0; // 0 is locked, 1 is unlocked
+
+// Interrupt flag
+volatile bool recordButtonPressed = false;
+
+// -------------------------------------------------------------
+// BUTTON INTERRUPT
+// -------------------------------------------------------------
+void IRAM_ATTR onRecordButton() {
+  recordButtonPressed = true;
+}
+
+// -------------------------------------------------------------
+// LOAD PATTERN FROM NVS
+// -------------------------------------------------------------
+int loadPatternFromNVS(unsigned long intervals[]) {
+  prefs.begin("knocks", true);
   int count = prefs.getInt("count", -1);
+
   if (count <= 0) {
     prefs.end();
-    Serial.println("⚠ No saved pattern found in NVS.");
+    Serial.println("⚠ No saved pattern in NVS.");
     return -1;
   }
 
@@ -70,15 +99,18 @@ int loadPatternFromNVS(unsigned long intervals[]) {
   }
 
   prefs.end();
-  Serial.printf("📥 Loaded %d knock intervals from NVS.\n", count);
+  Serial.printf("📥 Loaded %d intervals\n", count);
   return count;
 }
 
-// -------------------------------------------------------
+// -------------------------------------------------------------
+// SETUP
+// -------------------------------------------------------------
 void setup() {
   Serial.begin(115200);
-  Serial.println("\nInitializing ADXL345...");
-  
+  pinMode(SERVO_EN, OUTPUT);
+  pinMode(SERVO_CONTROL, OUTPUT);
+
   Wire.begin(SDA_PIN, SCL_PIN);
   adxl.powerOn();
   adxl.setRangeSetting(2);
@@ -87,139 +119,170 @@ void setup() {
   pinMode(RLED, OUTPUT);
   pinMode(YLED, OUTPUT);
   pinMode(GLED, OUTPUT);
-  pinMode(BUTTON_PIN, INPUT);
+
+  pinMode(BUTTON_PIN, INPUT_PULLUP);
+  attachInterrupt(digitalPinToInterrupt(BUTTON_PIN), onRecordButton, FALLING);
 
   patternLength = loadPatternFromNVS(targetPattern);
 
-  digitalWrite(YLED, HIGH);
-  Serial.println("System Ready.");
-
   ESP32PWM::allocateTimer(0);
   lockServo.setPeriodHertz(50);
-  lockServo.attach(SERVO_PIN, 500, 2500);
+  lockServo.attach(SERVO_CONTROL, 500, 2500);
+  digitalWrite(SERVO_EN, HIGH);
   lockServo.write(0);
+  delay(2000);
+  lockServo.write(180);
+  delay(2000);
+  digitalWrite(YLED, HIGH);
+  lastKnockTime = millis();
+
+  Serial.println("System Ready.");
 }
 
-// -------------------------------------------------------
-void loop() {
-  int x, y, z;
-  adxl.readAccel(&x, &y, &z);
-
-  if (digitalRead(BUTTON_PIN) == HIGH) {
-    // wait for release to avoid double-trigger
-    while (digitalRead(BUTTON_PIN) == HIGH) {}
-    recordPattern();
-  }
-
-  float aMag = sqrt(
-      sq(x * 0.0039) +
-      sq(y * 0.0039) +
-      sq(z * 0.0039)
-  );
-
-  float aDynamic = abs(aMag - 1.0);
-  unsigned long now = millis();
-
-  if (aDynamic > KNOCK_THRESHOLD) {
-    if (now - lastKnockTime > 100) {
-      knockTimes[knockCount++] = now;
-      lastKnockTime = now;
-      Serial.printf("Knock #%d detected.\n", knockCount);
-    }
-  }
-
-  // Timeout detect → check pattern
-  if ((now - lastKnockTime > PATTERN_TIMEOUT) && knockCount > 1) {
-    checkPattern();
-    resetPattern();
-  }
-
-  delay(10);
+// -------------------------------------------------------------
+// MODE HANDLERS
+// -------------------------------------------------------------
+void startRecording() {
+  Serial.println("\n🎙 Starting NEW recording...");
+  // Turn on all LEDs to show shift to recording mode.
+  digitalWrite(RLED, HIGH);
+  digitalWrite(YLED, HIGH);
+  digitalWrite(GLED, HIGH);
+  delay(1000); // Short delay
+  digitalWrite(RLED, LOW);
+  digitalWrite(YLED, LOW);
+  digitalWrite(GLED, LOW);
+  delay(1000);
+  knockCount = 0;
+  lastKnockTime = millis();
+  digitalWrite(YLED, HIGH);
 }
 
-// -------------------------------------------------------
-void checkPattern() {
-  if (patternLength <= 0) {
-    Serial.println("⚠ No valid pattern loaded.");
+void finishRecording() {
+  digitalWrite(YLED, LOW);
+
+  if (knockCount < MIN_KNOCKS) {
+    Serial.println("❌ Too few knocks. Discarding.");
+    digitalWrite(RLED, HIGH); delay(800); digitalWrite(RLED, LOW);
     return;
   }
 
-  if (knockCount < 2) return;
-
-  // Convert times → intervals
-  int intervals[MAX_KNOCKS];
-  for (int i = 1; i < knockCount; i++) {
-    intervals[i - 1] = knockTimes[i] - knockTimes[i - 1];
-    Serial.printf("Interval %d: %d ms\n", i - 1, intervals[i - 1]);
+  for (int j = 0; j < knockCount - 1; j++) {
+    intervals[j] = knockTimes[j + 1] - knockTimes[j];
   }
+
+  Serial.printf("Recorded %d knocks\n", knockCount);
+  for (int i = 0; i < knockCount - 1; i++) {
+    Serial.printf("%d → %d : %ld ms\n", i+1, i+2, intervals[i]);
+  }
+
+  digitalWrite(GLED, HIGH); delay(800); digitalWrite(GLED, LOW);
+
+  savePatternToNVS(intervals, knockCount - 1);
+  playbackPattern();
+}
+
+void processRecording(float aDynamic, unsigned long now) {
+
+  if (aDynamic > KNOCK_THRESHOLD && (now - lastKnockTime) > DEBOUNCE_TIME) {
+    lastKnockTime = now;
+
+    if (knockCount < MAX_KNOCKS) {
+      knockTimes[knockCount] = now;
+      knockCount++;
+      Serial.printf("REC Knock #%d\n", knockCount);
+    }
+  }
+
+  if (now - lastKnockTime > IDLE_RESET_TIME) {
+    finishRecording();
+    currentMode = MODE_IDLE;
+  }
+}
+
+void processNormalKnock(float aDynamic, unsigned long now) {
+
+  if (aDynamic > KNOCK_THRESHOLD && (now - lastKnockTime) > DEBOUNCE_TIME) {
+    knockTimes[knockCount] = now;
+    knockCount++;
+    lastKnockTime = now;
+    Serial.printf("Knock #%d\n", knockCount);
+  }
+
+  if (knockCount > 1 && (now - lastKnockTime > PATTERN_TIMEOUT)) {
+    checkPattern();
+    resetPattern();
+  }
+}
+
+// -------------------------------------------------------------
+// CHECK PATTERN
+// -------------------------------------------------------------
+void checkPattern() {
+
+  if (patternLength <= 0) {
+    Serial.println("⚠ No saved pattern.");
+    return;
+  }
+
+  if (knockCount < 2)
+    return;
 
   int intervalCount = knockCount - 1;
 
+  for (int i = 1; i < knockCount; i++) {
+    intervals[i - 1] = knockTimes[i] - knockTimes[i - 1];
+  }
+
+  int maxStart = intervalCount - patternLength + EXTRA_AFTER;
   bool match = false;
 
-  // ---------------------------------------------------
-  // Sliding window with tolerance, allowing junk knocks
-  // ---------------------------------------------------
-  int minStart = max(0, -EXTRA_BEFORE);
-  int maxStart = intervalCount - patternLength + EXTRA_AFTER;
-
   for (int offset = 0; offset <= maxStart; offset++) {
+    bool ok = true;
 
-    int matched = 0;
     for (int j = 0; j < patternLength; j++) {
       int idx = offset + j;
+      if (idx < 0 || idx >= intervalCount) { ok = false; break; }
 
-      // out of recorded bounds? invalid
-      if (idx < 0 || idx >= intervalCount) {
-        matched = -1;
-        break;
-      }
-
-      int diff = abs(intervals[idx] - (int)targetPattern[j]);
-      if (diff <= KNOCK_TOL) {
-        matched++;
-      } else {
-        matched = -1;
-        break;
-      }
+      // <<-- FIX: use signed subtraction and labs() to avoid abs() ambiguity
+      long diff = labs((long)intervals[idx] - (long)targetPattern[j]);
+      if (diff > KNOCK_TOL) { ok = false; break; }
     }
 
-    if (matched == patternLength) {
-      match = true;
-      break;
-    }
+    if (ok) { match = true; break; }
   }
 
   if (match) {
-    Serial.println("✅ Correct knock pattern detected!");
+    Serial.println("✅ Correct pattern!");
+    STATE = 1;
     goodBeep();
     unlockBox();
   } else {
-    Serial.println("❌ Pattern incorrect.");
+    Serial.println("❌ Wrong pattern.");
     badBeep();
   }
 }
 
-// -------------------------------------------------------
+// -------------------------------------------------------------
 void unlockBox() {
   Serial.println("🔓 Unlocking...");
-  lockServo.write(180);
-  delay(4000);
-  Serial.println("🔒 Locking...");
-  lockServo.write(0);
+  digitalWrite(SERVO_EN, HIGH); // Enable power to servo
+  lockServo.write(180);         // Unlock servo
+  delay(500);
+  digitalWrite(SERVO_EN, LOW);  // Disable power to servo
+  lockingCheck();
 }
 
-// -------------------------------------------------------
 void resetPattern() {
   digitalWrite(YLED, HIGH);
   digitalWrite(GLED, LOW);
   digitalWrite(RLED, LOW);
   knockCount = 0;
-  lastKnockTime = 0;
+  lastKnockTime = millis();
   Serial.println("Pattern reset.");
 }
 
-// -------------------------------------------------------
+// -------------------------------------------------------------
 void goodBeep() {
   digitalWrite(YLED, LOW);
   digitalWrite(GLED, HIGH);
@@ -228,7 +291,6 @@ void goodBeep() {
   noTone(BUZZER);
 }
 
-// -------------------------------------------------------
 void badBeep() {
   digitalWrite(YLED, LOW);
   digitalWrite(RLED, HIGH);
@@ -238,109 +300,99 @@ void badBeep() {
 }
 
 // -------------------------------------------------------------
-
 void savePatternToNVS(unsigned long intervals[], int count) {
-  prefs.begin("knocks", false);  // RW mode
-
-  // store count
+  prefs.begin("knocks", false);
   prefs.putInt("count", count);
 
-  // store each interval
   for (int i = 0; i < count; i++) {
     char key[8];
-    sprintf(key, "i%d", i);     // keys: i0, i1, i2...
+    sprintf(key, "i%d", i);
     prefs.putULong(key, intervals[i]);
   }
 
   prefs.end();
-  Serial.println("Pattern saved to NVS!");
+  Serial.println("💾 Pattern saved to NVS");
 }
 
-
-// -------------------------------------------------------------
 void playbackPattern() {
-  for (int i = 0; i < knockCount-1; i++) {
-    unsigned long interval = intervals[i];
-
+  for (int i = 0; i < knockCount - 1; i++) {
     tone(BUZZER, 2000);
     delay(80);
     noTone(BUZZER);
-
-    delay(interval);
+    delay(intervals[i]);
   }
 }
 
-// -------------------------------------------------------------
-void recordPattern() {
-  Serial.println("\nButton pressed — starting recording in 1s...");
-  delay(1000);
+void lockingCheck() {
+  Serial.println("🔓 Unlocked. Waiting for relock...");
 
-  digitalWrite(YLED, HIGH);
-
-  knockCount = 0;
-  lastKnockTime = millis();
-
-  Serial.println("Recording knocks...");
+  unsigned long startTime = millis();
+  int knockCountUnlock = 0;
 
   while (true) {
-
     // Read accelerometer
-    int x, y, z;
     adxl.readAccel(&x, &y, &z);
-
-    // Convert to g
-    float aMag = sqrt(x*x + y*y + z*z) * 0.0039;
-    float delta = fabs(aMag - 1.0);
+    float aMag = accelMagnitudeG(x, y, z);
+    float aDynamic = fabs(aMag - 1.0);
 
     unsigned long now = millis();
 
-    // Detect knock
-    if (delta > KNOCK_THRESHOLD && (now - lastKnockTime) > DEBOUNCE_TIME) {
-      lastKnockTime = now;
+    // Knock detection while unlocked
+    if (aDynamic > KNOCK_THRESHOLD) {
+      knockCountUnlock++;
+      Serial.printf("Unlock-state knock %d detected\n", knockCountUnlock);
 
-      if (knockCount < MAX_KNOCKS) {
-        knockTimes[knockCount] = now;
-        knockCount++;
-
-        Serial.print("Knock #");
-        Serial.println(knockCount);
+      // Lock back after 2 knocks
+      if (knockCountUnlock >= 2) {
+        STATE = 0;
+        break;
       }
+
+      delay(DEBOUNCE_TIME);
     }
 
-    // Idle timeout
-    if (now - lastKnockTime > IDLE_RESET_TIME)
+    // Auto-lock after 5 minutes
+    if (now - startTime >= LOCK_OUT_TIME) {
+      Serial.println("⏳ Timeout reached (5 min).");
+      STATE = 0;
       break;
+    }
 
-    delay(10);
+    delay(5);
   }
 
-  for(int j = 0; j < knockCount-1; j++){
-    intervals[j] = knockTimes[j+1]-knockTimes[j];
+  Serial.println("🔒 Locking...");
+  digitalWrite(SERVO_EN, HIGH); // Enable power to servo
+  lockServo.write(0);           //  Lock servo
+  delay(500);
+  digitalWrite(SERVO_EN, LOW);  // Disable power to servo
+}
+
+
+// -------------------------------------------------------------
+// MAIN LOOP — NON-BLOCKING
+// -------------------------------------------------------------
+void loop() {
+
+  // 🟦 INTERRUPT EVENT
+  if (recordButtonPressed) {
+    recordButtonPressed = false;
+    startRecording();
+    currentMode = MODE_RECORDING;
   }
 
-  digitalWrite(YLED, LOW);
+  // 🟧 ALWAYS READ ACCELEROMETER
+  adxl.readAccel(&x, &y, &z);
+  float aMag = accelMagnitudeG(x, y, z);
+  float aDynamic = fabs(aMag - 1.0);
+  unsigned long now = millis();
 
-  // Validate
-  if (knockCount < MIN_KNOCKS) {
-    Serial.println("ERROR: Too few knocks.");
-    digitalWrite(RLED, HIGH);
-    delay(1500);
-    digitalWrite(RLED, LOW);
-    return;
+  // 🟩 MODE-SPECIFIC
+  if ((currentMode == MODE_RECORDING) && STATE == 1) {
+    processRecording(aDynamic, now);
+  } else {
+    processNormalKnock(aDynamic, now);
   }
 
-  Serial.print("Recorded ");
-  Serial.print(knockCount);
-  Serial.println(" knocks.");
-  Serial.println("Intervals: ");
-  for(int i = 0; i < knockCount-1; i++){
-    Serial.printf("%d -> %d : %ld \n",i+1,i+2,intervals[i]);
-  }
-
-  digitalWrite(GLED, HIGH);
-  delay(1000);
-  digitalWrite(GLED, LOW);
-
-  savePatternToNVS(intervals, knockCount - 1);
-  playbackPattern();
+  delay(5);
 }
