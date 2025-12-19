@@ -32,7 +32,7 @@ const int BAT_PIN = 2;
 const float KNOCK_THRESHOLD = 0.25; 
 const int MAX_KNOCKS = 30;
 const int MIN_KNOCKS = 5;
-const int KNOCK_TOL = 150;
+const int KNOCK_TOL = 200;
 const int DEBOUNCE_TIME = 200;      
 const int PATTERN_TIMEOUT = 2000;   
 const int IDLE_RESET_TIME = 5000;   
@@ -127,32 +127,41 @@ void checkBatteryAwake(unsigned long now) {
 // NVS & SETUP
 // -------------------------------------------------------------
 int loadPatternFromNVS(unsigned long intervals[]) {
-  prefs.begin("knocks", true);
+  prefs.begin("knocks", true);  
+
   int count = prefs.getInt("count", -1);
   if (count <= 0) {
     prefs.end();
+    Serial.println("⚠ No saved pattern found in NVS.");
     return -1;
   }
+
   for (int i = 0; i < count; i++) {
     char key[8];
     sprintf(key, "i%d", i);
     intervals[i] = prefs.getULong(key, 0);
   }
+
   prefs.end();
-  Serial.printf("📥 Loaded %d intervals\n", count);
+  Serial.printf("📥 Loaded %d knock intervals from NVS.\n", count);
   return count;
 }
 
 void savePatternToNVS(unsigned long intervals[], int count) {
-  prefs.begin("knocks", false);
+  prefs.begin("knocks", false);  // RW mode
+
+  // store count
   prefs.putInt("count", count);
+
+  // store each interval
   for (int i = 0; i < count; i++) {
     char key[8];
-    sprintf(key, "i%d", i);
+    sprintf(key, "i%d", i);     // keys: i0, i1, i2...
     prefs.putULong(key, intervals[i]);
   }
+
   prefs.end();
-  Serial.println("💾 Pattern saved to NVS");
+  Serial.println("Pattern saved to NVS!");
 }
 
 void ADXLsetup() {
@@ -492,7 +501,7 @@ void loop() {
 
   if (recordButtonPressed) {
     recordButtonPressed = false;
-    if (STATE == 1) { 
+    if (STATE == 0) { 
       startRecording();
         now = millis(); // TIMING FIX
     } else {
