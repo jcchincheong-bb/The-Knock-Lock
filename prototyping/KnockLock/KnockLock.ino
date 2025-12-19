@@ -33,7 +33,7 @@ const float KNOCK_THRESHOLD = 0.25;
 const int MAX_KNOCKS = 30;
 const int MIN_KNOCKS = 5;
 const int KNOCK_TOL = 150;
-const int DEBOUNCE_TIME = 150;      
+const int DEBOUNCE_TIME = 200;      
 const int PATTERN_TIMEOUT = 2000;   
 const int IDLE_RESET_TIME = 5000;   
 const int SLEEP_TIMEOUT = 60000;    // 1 Minute
@@ -101,7 +101,7 @@ float getBatteryVoltage() {
   // Convert to actual battery voltage (Divider Logic)
   float batV = (rawMV * VOLTAGE_MULTIPLIER) / 1000.0;
   
-  Serial.printf("Bat: %.2f V\n", batV);
+  // Serial.printf("Bat: %.2f V\n", batV);
   
   return batV;
 }
@@ -291,41 +291,46 @@ void lockBox() {
 // CORE LOGIC
 // -------------------------------------------------------------
 void checkPattern() {
-  if (patternLength <= 0) return;
-  if (knockCount < MIN_KNOCKS) {
-    Serial.println("❌ Too few knocks.");
-    badBeep();
+
+  if (patternLength <= 0) {
+    Serial.println("⚠ No saved pattern.");
     return;
   }
+
+  if (knockCount < 5)
+    return;
+
   int intervalCount = knockCount - 1;
+
   for (int i = 1; i < knockCount; i++) {
     intervals[i - 1] = knockTimes[i] - knockTimes[i - 1];
   }
+
   int maxStart = intervalCount - patternLength + EXTRA_AFTER;
   bool match = false;
+
   for (int offset = 0; offset <= maxStart; offset++) {
     bool ok = true;
+
     for (int j = 0; j < patternLength; j++) {
       int idx = offset + j;
-      if (idx < 0 || idx >= intervalCount) {
-        ok = false; break;
-      }
+      if (idx < 0 || idx >= intervalCount) { ok = false; break; }
+
+      // <<-- FIX: use signed subtraction and labs() to avoid abs() ambiguity
       long diff = labs((long)intervals[idx] - (long)targetPattern[j]);
-      if (diff > KNOCK_TOL) {
-        ok = false; break;
-      }
+      if (diff > KNOCK_TOL) { ok = false; break; }
     }
-    if (ok) {
-      match = true; break;
-    }
+
+    if (ok) { match = true; break; }
   }
 
   if (match) {
-    Serial.println("✅ Pattern Matched!");
+    Serial.println("✅ Correct pattern!");
+    STATE = 1;
     goodBeep();
     unlockBox();
   } else {
-    Serial.println("❌ Wrong Pattern.");
+    Serial.println("❌ Wrong pattern.");
     badBeep();
   }
 }
@@ -371,7 +376,7 @@ void handleRecording(float aDynamic, unsigned long now) {
     finishRecording();
     return;
   }
-  if (aDynamic > KNOCK_THRESHOLD && (now - lastKnockTime) > DEBOUNCE_TIME) {
+  if ((aDynamic > KNOCK_THRESHOLD) && ((now - lastKnockTime) > DEBOUNCE_TIME)) {
     flashGreenTick();
     led_ryg(0, 1, 0); 
     if (knockCount < MAX_KNOCKS) {
@@ -489,7 +494,7 @@ void loop() {
     recordButtonPressed = false;
     if (STATE == 1) { 
       startRecording();
-      now = millis(); // TIMING FIX
+        now = millis(); // TIMING FIX
     } else {
       Serial.println("⚠ Cannot record: box must be unlocked.");
       badBeep(); 
