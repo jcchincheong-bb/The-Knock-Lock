@@ -1,26 +1,43 @@
 #ifndef HARDWARE_H
 #define HARDWARE_H
 
-// Save the pattern in the inbuilt storage
-extern Preferences prefs;
+#include <Arduino.h>
+#include <Wire.h>
+#include <Preferences.h>
+#include <ESP32Servo.h>
+#include <SparkFun_ADXL345.h>
+#include "config.h"
 
-// Pin declarations 
-// Communication
+// --- Pin Declarations ---
+
+// For communication (i2c))
 extern const int SDA_PIN;
 extern const int SCL_PIN;
-//Actuator
-extern const int SERVO_PIN;
-//Output
+// For wake up from ADXL to MCU
+extern const int WAKE_INT;
+
+// For servo control - actuator
+extern const int SERVO_EN;
+extern const int SERVO_CONTROL;
+
+// For HMI - Outputs
 extern const int BUZZER;
 extern const int RLED;
 extern const int YLED;
 extern const int GLED;
+// For HMI - Inputs
+extern const int BUTTON_PIN;
 
-// Objects
+// For battery
+extern const int BAT_PIN;
+
+// --- Shared Hardware Objects ---
 extern ADXL345 adxl;
-extern Preferences prefs;
 extern Servo lockServo;
+extern Preferences prefs;
 
+// --- Function Prototypes ---
 void setupHardware();
+void ADXLsetup();
 
 #endif

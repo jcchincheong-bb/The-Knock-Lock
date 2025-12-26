@@ -2,58 +2,17 @@
 #include <Preferences.h>
 #include <Wire.h>
 #include <SparkFun_ADXL345.h>
+#include "config.h"
+#include "hardware.h"
 
 /* Project: Knock Pattern Detection (Battery Monitored)
    Authors: Justin Julius Chin Cheong, Abhinav Kothari 
 */
 
-// -------------------------------------------------------------
-// PIN DEFINITIONS
-// -------------------------------------------------------------
-const int SDA_PIN = 6;
-const int SCL_PIN = 5;
-const int WAKE_INT = 4;
-
-const int SERVO_EN = 0;
-const int SERVO_CONTROL = 1;
-
-const int BUZZER = 10;
-const int RLED = 3;
-const int YLED = 19;
-const int GLED = 18;
-const int BUTTON_PIN = 7;
-
-// Battery Pin
-const int BAT_PIN = 2; 
-
-// -------------------------------------------------------------
-// CONSTANTS
-// -------------------------------------------------------------
-const float KNOCK_THRESHOLD = 0.25; 
-const int MAX_KNOCKS = 30;
-const int MIN_KNOCKS = 5;
-const int KNOCK_TOL = 200;
-const int DEBOUNCE_TIME = 200;      
-const int PATTERN_TIMEOUT = 2000;   
-const int IDLE_RESET_TIME = 5000;   
-const int SLEEP_TIMEOUT = 60000;    // 1 Minute
-
-const int EXTRA_BEFORE = 3;
-const int EXTRA_AFTER = 3;
-
-// --- BATTERY SETTINGS ---
-const float VOLTAGE_MULTIPLIER = 2.47; 
-// 30% of 4xAA
-const float LOW_BAT_THRESHOLD_V = 4.6; 
-const unsigned long BAT_CHECK_INTERVAL = 5000; // Check every 5s while awake
 
 // -------------------------------------------------------------
 // GLOBALS
 // -------------------------------------------------------------
-Servo lockServo;
-Preferences prefs;
-ADXL345 adxl;
-
 unsigned long knockTimes[MAX_KNOCKS];
 unsigned long intervals[MAX_KNOCKS];
 unsigned long targetPattern[MAX_KNOCKS];
@@ -85,6 +44,7 @@ inline float accelMagnitudeG(int x, int y, int z) {
   return sqrt(x * x + y * y + z * z) * 0.0039;
 }
 
+// Just a function to easily control the leds
 void led_ryg(int rState, int yState, int gState) {
   digitalWrite(RLED, rState);
   digitalWrite(YLED, yState);
@@ -94,6 +54,8 @@ void led_ryg(int rState, int yState, int gState) {
 // -------------------------------------------------------------
 // BATTERY FUNCTIONS
 // -------------------------------------------------------------
+
+// Function get battery voltage and hence interpret charging
 float getBatteryVoltage() {
   // Read millivolts (ESP32C3 internal calibration)
   uint32_t rawMV = analogReadMilliVolts(BAT_PIN);
@@ -106,11 +68,12 @@ float getBatteryVoltage() {
   return batV;
 }
 
+// Function to check battery while system is awake
 void checkBatteryAwake(unsigned long now) {
   if (now - lastBatCheck > BAT_CHECK_INTERVAL) {
     lastBatCheck = now;
     if (getBatteryVoltage() < LOW_BAT_THRESHOLD_V) {
-      Serial.println("⚠ Low Battery!");
+      if(SERIAL_MONITOR_EN) Serial.println("⚠ Low Battery!");
       // Quick Red Flash
       digitalWrite(RLED, HIGH);
       delay(100); 
@@ -126,13 +89,15 @@ void checkBatteryAwake(unsigned long now) {
 // -------------------------------------------------------------
 // NVS & SETUP
 // -------------------------------------------------------------
+
+// Function to load stored pattern
 int loadPatternFromNVS(unsigned long intervals[]) {
   prefs.begin("knocks", true);  
 
   int count = prefs.getInt("count", -1);
   if (count <= 0) {
     prefs.end();
-    Serial.println("⚠ No saved pattern found in NVS.");
+    if(SERIAL_MONITOR_EN) Serial.println("⚠ No saved pattern found in NVS.");
     return -1;
   }
 
@@ -143,10 +108,11 @@ int loadPatternFromNVS(unsigned long intervals[]) {
   }
 
   prefs.end();
-  Serial.printf("📥 Loaded %d knock intervals from NVS.\n", count);
+  if(SERIAL_MONITOR_EN) Serial.printf("📥 Loaded %d knock intervals from NVS.\n", count);
   return count;
 }
 
+// Function to load saved pattern
 void savePatternToNVS(unsigned long intervals[], int count) {
   prefs.begin("knocks", false);  // RW mode
 
@@ -161,44 +127,27 @@ void savePatternToNVS(unsigned long intervals[], int count) {
   }
 
   prefs.end();
-  Serial.println("Pattern saved to NVS!");
-}
-
-void ADXLsetup() {
-  Wire.begin(SDA_PIN, SCL_PIN);
-  adxl.powerOn();
-  adxl.setRangeSetting(2);
-  adxl.setTapDetectionOnXYZ(1, 1, 1);
-  adxl.setTapThreshold(40);
-  adxl.setTapDuration(20);
-  adxl.setDoubleTapLatency(80);
-  adxl.setDoubleTapWindow(200);
-
-  adxl.doubleTapINT(0);
-  adxl.singleTapINT(0);
-  adxl.FreeFallINT(0);
-  adxl.ActivityINT(0);
-  adxl.InactivityINT(0);
-  adxl.getInterruptSource();
+  if(SERIAL_MONITOR_EN) Serial.println("Pattern saved to NVS!");
 }
 
 // -------------------------------------------------------------
 // SLEEP LOGIC (With Low Bat Monitor)
 // -------------------------------------------------------------
+// Function to put controller to sleep, with possibility to wake back up
 void goToSleep() {
   led_ryg(0,0,0);
   
-  // 1. Check Battery before sleeping
+  // Check Battery before sleeping
   float batV = getBatteryVoltage();
   bool lowBattery = (batV < LOW_BAT_THRESHOLD_V);
 
-  // 2. Prepare ADXL Wakeup
+  // Prepare ADXL Wakeup
   adxl.doubleTapINT(1);
   adxl.getInterruptSource();
   esp_deep_sleep_enable_gpio_wakeup(1ULL << WAKE_INT, ESP_GPIO_WAKEUP_GPIO_HIGH);
 
   if (lowBattery) {
-    Serial.printf("💤 Low Battery (%.2fV). Blinking and sleeping 4s...\n", batV);
+    if(SERIAL_MONITOR_EN) Serial.printf("💤 Low Battery (%.2fV). Blinking and sleeping 4s...\n", batV);
     
     // Blink Red indicating "I'm sleeping but dying"
     digitalWrite(RLED, HIGH);
@@ -209,7 +158,7 @@ void goToSleep() {
     // This creates the "Blink while sleeping" loop
     esp_sleep_enable_timer_wakeup(4 * 1000000ULL); 
   } else {
-    Serial.println("💤 Good Battery. Deep Sleep (Waiting for Knock)...");
+    if(SERIAL_MONITOR_EN) Serial.println("💤 Good Battery. Deep Sleep (Waiting for Knock)...");
     // No timer wakeup, sleep indefinitely until knock
   }
 
@@ -219,6 +168,7 @@ void goToSleep() {
 // -------------------------------------------------------------
 // FEEDBACK & SERVO
 // -------------------------------------------------------------
+// Function to flash green LED
 void flashGreenTick() {
   bool yellowWasOn = digitalRead(YLED);
   digitalWrite(YLED, LOW);
@@ -228,8 +178,8 @@ void flashGreenTick() {
   if(yellowWasOn) digitalWrite(YLED, HIGH);
 }
 
+// Function to notify in case of correct pattern
 void goodBeep() {
-  led_ryg(0, 0, 1);
   tone(BUZZER, 1000, 150);
   delay(150);
   tone(BUZZER, 1500, 200);
@@ -237,6 +187,8 @@ void goodBeep() {
   noTone(BUZZER);
 }
 
+
+// Function to notify in case of incorrect pattern
 void badBeep() {
   led_ryg(1, 0, 0);
   tone(BUZZER, 400, 200);
@@ -244,10 +196,12 @@ void badBeep() {
   tone(BUZZER, 300, 250);
   delay(250);
   noTone(BUZZER);
+  led_ryg(0, 1, 0);
 }
 
+// Function to validate a successful save
 void successSave() {
-  Serial.println("✅ Recording Saved.");
+  if(SERIAL_MONITOR_EN) Serial.println("✅ Recording Saved.");
   led_ryg(0,0,0);
   for(int i=0; i<2; i++){
     led_ryg(0,0,1);
@@ -257,8 +211,9 @@ void successSave() {
   }
 }
 
+// Function to play the recorded pattern back for validation
 void playbackPattern() {
-  Serial.println("🔊 Playing back pattern...");
+  if(SERIAL_MONITOR_EN) Serial.println("🔊 Playing back pattern...");
   for (int i = 0; i < knockCount - 1; i++) {
     tone(BUZZER, 2000);
     delay(50);
@@ -272,25 +227,26 @@ void playbackPattern() {
   noTone(BUZZER);
 }
 
+// Function to unlock the box
 void unlockBox() {
   if (STATE == 1) return;
-  Serial.println("🔓 Unlocking...");
+  if(SERIAL_MONITOR_EN) Serial.println("🔓 Unlocking...");
   digitalWrite(SERVO_EN, HIGH);
   lockServo.write(180);
   delay(500);
   digitalWrite(SERVO_EN, LOW);
-  
+  led_ryg(0,0,1);
   STATE = 1; 
   knockCount = 0; 
 }
 
+// Function to lock the box
 void lockBox() {
-  Serial.println("🔒 Locking...");
+  if(SERIAL_MONITOR_EN) Serial.println("🔒 Locking...");
   digitalWrite(SERVO_EN, HIGH);
   lockServo.write(0);
   delay(500);
   digitalWrite(SERVO_EN, LOW);
-  
   STATE = 0;
   knockCount = 0;
   lastActivityTime = millis();
@@ -299,10 +255,12 @@ void lockBox() {
 // -------------------------------------------------------------
 // CORE LOGIC
 // -------------------------------------------------------------
+
+// Function to check if knock matches stored (now loaded) pattern
 void checkPattern() {
 
   if (patternLength <= 0) {
-    Serial.println("⚠ No saved pattern.");
+    if(SERIAL_MONITOR_EN) Serial.println("⚠ No saved pattern.");
     return;
   }
 
@@ -334,37 +292,38 @@ void checkPattern() {
   }
 
   if (match) {
-    Serial.println("✅ Correct pattern!");
+    if(SERIAL_MONITOR_EN) Serial.println("✅ Correct pattern!");
     STATE = 1;
     goodBeep();
     unlockBox();
   } else {
-    Serial.println("❌ Wrong pattern.");
+    if(SERIAL_MONITOR_EN) Serial.println("❌ Wrong pattern.");
     badBeep();
   }
 }
 
+// Function to actually record knocks
 void startRecording() {
-  Serial.println("\n🎙 Starting NEW recording...");
+  if(SERIAL_MONITOR_EN) Serial.println("\n🎙 Starting NEW recording...");
   led_ryg(1, 1, 1);
   delay(500);
   led_ryg(0, 0, 0);
   delay(500);
   
   knockCount = 0;
-  // --- TIMING FIX ---
+
   unsigned long resetTime = millis();
   lastKnockTime = resetTime;
   lastActivityTime = resetTime;
-  // ------------------
   
   currentMode = MODE_RECORDING;
   led_ryg(0, 1, 0); 
 }
 
+// Function to validate recording
 void finishRecording() {
   if (knockCount < MIN_KNOCKS) {
-    Serial.println("❌ Recording Failed: Too few knocks.");
+    if(SERIAL_MONITOR_EN) Serial.println("❌ Recording Failed: Too few knocks.");
     badBeep();
   } else {
     for (int j = 0; j < knockCount - 1; j++) {
@@ -380,6 +339,7 @@ void finishRecording() {
   led_ryg(0, 0, 0); 
 }
 
+// Function to deal with recordings
 void handleRecording(float aDynamic, unsigned long now) {
   if (now - lastKnockTime > IDLE_RESET_TIME) {
     finishRecording();
@@ -392,11 +352,12 @@ void handleRecording(float aDynamic, unsigned long now) {
       knockTimes[knockCount] = now;
       knockCount++;
       lastKnockTime = now;
-      Serial.printf("REC Knock #%d\n", knockCount);
+      if(SERIAL_MONITOR_EN) Serial.printf("REC Knock #%d\n", knockCount);
     }
   }
 }
 
+// Function to deal with response if system locked
 void handleLockedState(float aDynamic, unsigned long now) {
   if (aDynamic > KNOCK_THRESHOLD && (now - lastKnockTime) > DEBOUNCE_TIME) {
     lastKnockTime = now;
@@ -405,7 +366,7 @@ void handleLockedState(float aDynamic, unsigned long now) {
     led_ryg(0, 1, 0);
     knockTimes[knockCount] = now;
     knockCount++;
-    Serial.printf("Locked Knock #%d\n", knockCount);
+    if(SERIAL_MONITOR_EN) Serial.printf("Locked Knock #%d\n", knockCount);
   } else {
     if(digitalRead(YLED) == LOW) digitalWrite(YLED, HIGH);
   }
@@ -424,7 +385,7 @@ void handleUnlockedState(float aDynamic, unsigned long now) {
     lastKnockTime = now;
     lastActivityTime = now;
     knockCount++;
-    Serial.printf("Unlock Knock #%d\n", knockCount);
+    if(SERIAL_MONITOR_EN) Serial.printf("Unlock Knock #%d\n", knockCount);
     flashGreenTick(); 
     if (knockCount >= 2) {
       lockBox();
@@ -437,18 +398,12 @@ void handleUnlockedState(float aDynamic, unsigned long now) {
 // SETUP & LOOP
 // -------------------------------------------------------------
 void setup() {
-  Serial.begin(115200);
-  
-  pinMode(YLED, OUTPUT);
-  pinMode(GLED, OUTPUT);
-  pinMode(RLED, OUTPUT);
-  pinMode(BUZZER, OUTPUT);
-  pinMode(BUTTON_PIN, INPUT_PULLUP);
-  
-  // Battery Pin (ADC)
-  pinMode(BAT_PIN, INPUT); 
+  if(SERIAL_MONITOR_EN) Serial.begin(115200);
 
-  attachInterrupt(digitalPinToInterrupt(BUTTON_PIN), onRecordButton, FALLING);
+
+  // Setup hardware
+  setupHardware();
+
 
   // WAKE UP CHECK
   esp_sleep_wakeup_cause_t cause = esp_sleep_get_wakeup_cause();
@@ -456,28 +411,19 @@ void setup() {
     // Woke up by ADXL Tap
     digitalWrite(YLED, HIGH); 
   } else if (cause == ESP_SLEEP_WAKEUP_TIMER) {
-    // Woke up by Battery Timer (Low battery loop)
-    // We just woke up to blink, but we should also check if we need to stay awake (knock?)
-    // Actually, in this loop, we just fall through to loop() which will re-read battery 
-    // and go back to sleep if no activity.
-    Serial.println("♻ Woke up from Low Bat Timer");
+    // Woke up due to low battery
+    if(SERIAL_MONITOR_EN) Serial.println("♻ Woke up from Low Bat Timer");
   }
-
+  
+  // Setup ADXL
   ADXLsetup();
 
-  ESP32PWM::allocateTimer(0);
-  lockServo.setPeriodHertz(50);
-  lockServo.attach(SERVO_CONTROL, 500, 2500);
-  pinMode(SERVO_EN, OUTPUT);
-  
-  digitalWrite(SERVO_EN, HIGH);
-  lockServo.write(0); 
-  delay(500);
-  digitalWrite(SERVO_EN, LOW);
+  // Enable interrupt on button pin
+  attachInterrupt(digitalPinToInterrupt(BUTTON_PIN), onRecordButton, FALLING);
 
   patternLength = loadPatternFromNVS(targetPattern);
   
-  Serial.println("System Ready.");
+  if(SERIAL_MONITOR_EN) Serial.println("System Ready.");
   led_ryg(0, 1, 0); 
   
   // Reset timers
@@ -505,7 +451,7 @@ void loop() {
       startRecording();
         now = millis(); // TIMING FIX
     } else {
-      Serial.println("⚠ Cannot record: box must be unlocked.");
+      if(SERIAL_MONITOR_EN) Serial.println("⚠ Cannot record: box must be unlocked.");
       badBeep(); 
     }
   }
