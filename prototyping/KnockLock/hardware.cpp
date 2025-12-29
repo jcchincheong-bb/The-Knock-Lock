@@ -38,6 +38,9 @@ void setupHardware() {
   lockServo.attach(SERVO_CONTROL, 500, 2500);
   pinMode(SERVO_EN, OUTPUT);
 
+  // Enable interrupt on button pin
+  attachInterrupt(digitalPinToInterrupt(BUTTON_PIN), onRecordButton, FALLING);
+
   // Test servo motor
   // digitalWrite(SERVO_EN, HIGH);
   // lockServo.write(0); 
@@ -62,4 +65,8 @@ void ADXLsetup() {
   adxl.ActivityINT(0);
   adxl.InactivityINT(0);
   adxl.getInterruptSource();
+}
+
+void IRAM_ATTR onRecordButton() {
+  recordButtonPressed = true;
 }

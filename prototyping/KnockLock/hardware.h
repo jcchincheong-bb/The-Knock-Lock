@@ -7,6 +7,7 @@
 #include <ESP32Servo.h>
 #include <SparkFun_ADXL345.h>
 #include "config.h"
+#include "globalVariables.h"
 
 // --- Pin Declarations ---
 
@@ -39,5 +40,6 @@ extern Preferences prefs;
 // --- Function Prototypes ---
 void setupHardware();
 void ADXLsetup();
+void IRAM_ATTR onRecordButton();
 
 #endif
