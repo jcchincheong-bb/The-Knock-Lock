@@ -21,7 +21,7 @@ void checkPattern() {
     intervals[i - 1] = knockTimes[i] - knockTimes[i - 1];
   }
 
-  int maxStart = intervalCount - patternLength + EXTRA_AFTER;
+  int maxStart = intervalCount - patternLength + ALLOWED_MISTAKES;
   bool match = false;
 
   for (int offset = 0; offset <= maxStart; offset++) {
@@ -31,7 +31,6 @@ void checkPattern() {
       int idx = offset + j;
       if (idx < 0 || idx >= intervalCount) { ok = false; break; }
 
-      // <<-- FIX: use signed subtraction and labs() to avoid abs() ambiguity
       long diff = labs((long)intervals[idx] - (long)targetPattern[j]);
       if (diff > KNOCK_TOL) { ok = false; break; }
     }
