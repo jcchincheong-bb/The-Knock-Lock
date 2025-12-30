@@ -71,8 +71,8 @@ void loop() {
   // If button for recording pressed
   if (recordButtonPressed) {
     recordButtonPressed = false;
-    // And box is unlocked (or locked if DEBUG_MODE is on)
-    if (STATE == DEBUG_MODE) { 
+    // And box is unlocked (or even locked if DEBUG_MODE is on)
+    if (STATE == DEBUG_MODE || STATE == 1) { 
       startRecording();
         now = millis();
     } else {

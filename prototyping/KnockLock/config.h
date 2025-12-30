@@ -37,6 +37,6 @@ constexpr unsigned long BAT_CHECK_INTERVAL = 900000; // in ms, interval to check
 // -------------------------------------------------------------
 // DEBUG SETTINGS
 // -------------------------------------------------------------
-constexpr int DEBUG_MODE = 0; // Make 0 to allow pattern setting only in locked state, 1 for only in unlocked state
+constexpr int DEBUG_MODE = 0; // Make 0 to allow pattern setting even in locked state, 1 for only in unlocked state
 constexpr int SERIAL_MONITOR_EN   = 1;  // Turn Serial Monitor on with 1 and off with 0
 #endif
