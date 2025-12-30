@@ -42,7 +42,7 @@ getting through a door, open a drawer, or opening a safe box, the possibilities 
 
 The KnockLock Project will demonstrate the idea by implementation into a lock box.
 
-### 1.1	Teaser <! -- I have changed background to teaser -->
+### 1.1	Teaser <!-- I have changed background to teaser -->
 The primary goal of this project is to be able create a system which can detect knocks reliably with correct timings in order to identify if it is the correct pattern
 or not, and react accordingly. For the detection an accelerometer will be used.
 
@@ -105,15 +105,36 @@ For the Knock Knock Lock Box project to produce a functional product upon close 
 
 ## 2	Literature review
 Many projects have been made to ease unlocking a device, for example using RFID, NFC, Bluetooth, WiFi, fingerprint sensors etc. Some have also implemented knock detection, 
-These projects have used various techniques to detect knocks, such as using piezo sensors, vibration sensors etc. These will be discussed here
+These projects have used various techniques to create a similar final product. These will be discussed here
 
 ### 2.1	Related Work
-Piezo sensors have been the primary choice in most project, such as [1]. Here a Arduino Duemilanove has been used with a piezo sensor to detect knocks and a gear reduction motor 
-acts as the actuator to open the lock. Another project [2] uses a similar approach, but uses a solenoid as the actuator and an Arduino Nano instead. [3] also again uses a piezo sensor 
-but a servo motor as an actuator.
+Piezo sensors have been the primary choice in most project [1,2,3]. One uses a Arduino Duemilanove with a piezo sensor to detect knocks and a gear reduction motor 
+acts as the actuator to open the lock. Other projects use a similar approach but with an Arduino nano, but uses a solenoid or a servo motor as the actuator.
 
-All these projects have used piezo sensors to detect knocks, which is a good choice as they are cheap and easy to use. However, they are also prone to noise and false positives. 
-Even after extensive research, we could not find any project that used an an accelerometer to detect knocks.
+Even after extensive research, we could not find any project that used an an accelerometer to detect knocks, only piezos, which increased our curiosity.
+
+The reason for using piezo is most likely because of them being accordable and easy to use while maintaining a good SNR (Signal To Noise Ratio). However, we believe that MEMs accelerometers can be used as well, 
+and even could prove to be better for this specific application.
+The blog post [4] shows MEMS accelerometers have a better frequency response and are more sensitive than piezo sensors at lower frequencies, due to the high passing 
+filtering used. While this blog post is about IEPE the same principle applies to piezo sensors as well. Even in industrial applications [5], when MEMs were compared to traditional 
+piezo sensors, the max deviation was only found to be 6.6%  at lower frequencies of upto 2,500 Hz, which is perfect for our application of knock detection. While piezo accelerations sensors, 
+usually have a superior SNR to MEMs, with recent development the difference is slowly diminishing as shown by this paper. 
+
+The major reason for why we first though of using IMUs, is guidance from our professor, and then us thinking back to our phones, which use accelerometers to succesfully detect back taps for performing some
+actions, precisely what we want to do here. A summary of all the differences between piezo and MEMs accelerometers is shown in the table below:
+| Feature               | Piezo Accelerometer                | MEMS Accelerometer                 |
+|----------------------|-----------------------------------|-----------------------------------|
+| Sensitivity          | High sensitivity, especially at higher frequencies | Good sensitivity, especially at lower frequencies |
+| Frequency Response   | Wide frequency response, typically from a few Hz to several kHz | Good frequency response, typically from DC to several kHz |
+| Size and Weight      | Generally larger and heavier due to the need for a seismic mass and housing | Compact and lightweight due to microfabrication techniques |
+| Power Consumption    | Typically higher power consumption due to signal conditioning requirements | Low power consumption, suitable for battery-powered applications |
+| Cost                 | Generally more expensive due to complex manufacturing processes | Cost-effective due to mass production capabilities |
+
+Looking at the project made before in more detail [1], an issue was pointed out, that there can be a lot of false positives. However, as accelerometers communicate over I2C (Used here) or SPI,
+we get digital values directly, which can be processed better than the analog voltage from piezo sensors. This allows us with more flexibility in filtering and processing the signal to reduce false positives.
+
+While an ESP32 has a higher power consumption in normal mode, in deep it falls much lower than an Arduino (around 5 uA) [7]. Which makes a viable option for battery powered applications. It being cheaper also helps
+keep the cost down. It also has more than enough processing power to handle the knock detection algorithm.
 
 ## 3	Theory
 If necessary please present theory in this section.
@@ -121,8 +142,78 @@ If necessary please present theory in this section.
 This math is inline $`a^2+b^2=c^2`$.
 
 ## 4	Methodology
-How was your approach to solve the given problem/task.
-This will include descriptions of the HW used as well as the SW.
+
+### 4.1	Hardware Design
+
+### 4.2 Software Implementation
+The software was made using the Arduino IDE. The code is written in C++. A modular approach was taken to make it easier to debug and maintain.
+
+#### 4.2.1 Knock Detection
+When the system is awake, it continously reads the accelerometer data (main loop), and calculates the dynamic acceleration by removing the gravity component. This is done with a short function:
+```arduino
+inline float accelMagnitudeG(int x, int y, int z) {
+  return sqrt(y * y + 2 * z * z) * 0.0039;
+}
+```
+The values from the accelerometer are in raw format, and hence converted to g for easier understanding and comparison. For knocks, from our prototyping phase we had found out
+the knocks were mainly in the Y and Z axis (z-axis more prominantly), hence the X axis is ignored to reduce noise. The factor 0.0039 is used to convert the raw values to g, as per the datasheet of ADXL345 [6].
+
+To actually process and record those knocks for checking, the following algorithm was implemented:
+```arduino
+// Function to deal with response if system locked
+void handleLockedState(float aDynamic, unsigned long now) {
+  if (aDynamic > KNOCK_THRESHOLD && (now - lastKnockTime) > DEBOUNCE_TIME) {
+    lastKnockTime = now;
+    lastActivityTime = now; 
+    flashGreenTick();
+    led_ryg(0, 1, 0);
+    knockTimes[knockCount] = now;
+    knockCount++;
+    if(SERIAL_MONITOR_EN) Serial.printf("Locked Knock #%d\n", knockCount);
+  } else {
+    if(digitalRead(YLED) == LOW) digitalWrite(YLED, HIGH);
+  }
+  if (knockCount > 0 && (now - lastKnockTime > PATTERN_TIMEOUT)) {
+    checkPattern();
+    knockCount = 0; 
+    led_ryg(0, 1, 0); 
+  }
+  if (knockCount == 0 && (now - lastActivityTime > SLEEP_TIMEOUT)) {
+    goToSleep();
+  }
+}
+```
+Here we checked if the knock matched the threshold (again configurable), and alerted the user if it was recorded. If no knocks were
+detected for a certain time (configurable), the recorded knocks were checked against the target pattern. 
+If no knocks are detected for a longer time (configurable), the system goes to deep sleep to save power.
+
+#### 4.2.2 Knock Pattern Checking Algorithm
+For the core logic for knock pattern checking, the following algorithm was implemented:
+```arduino
+int maxStart = intervalCount - patternLength + ALLOWED_MISTAKES;
+bool match = false;
+
+for (int offset = 0; offset <= maxStart; offset++) {
+    bool ok = true;
+
+    for (int j = 0; j < patternLength; j++) {
+      int idx = offset + j;
+      if (idx < 0 || idx >= intervalCount) { ok = false; break; }
+
+      long diff = labs((long)intervals[idx] - (long)targetPattern[j]);
+      if (diff > KNOCK_TOL) { ok = false; break; }
+    }
+
+    if (ok) { match = true; break; }
+  }
+```
+An offset was provided, in case a few incorrect knocks were made at the start or at the end. The number of allowed mistakes can be set in the config.h file.
+The algorithm worked by sliding a window, checking if the target pattern matched the recorded intervals, even if a few mistakes were made before
+or after the pattern. This allows for more a more robust yet lenient detection, as if someone started wrong, or a double knock at the end on accident. When more
+security is of concern, the allowed mistakes can be set to zero.
+
+Naturally the intervals will never exactly match the target pattern, so a tolerance is set, which can also be configured in the config.h file. 
+
 
 This is an example how to include code snippet:
 ```python
@@ -160,7 +251,10 @@ You might want to discuss possible future work here
 * [1]: Instructables. (2022, May 8). Secret knock detecting door lock. Instructables. Retrieved November 20, 2025, from https://www.instructables.com/Secret-Knock-Detecting-Door-Lock/ 
 * [2]: Dodhia, V. (2021, June 20). Arduino secret knock pattern door lock. Viral Science. Retrieved November 20, 2025, from https://www.viralsciencecreativity.com/post/arduino-secret-knock-pattern-door-lock
 * [3]: Instructables. (2017, October 21). Knock Box (it Opens When You Knock on It!). Instructables. Retrieved November 20, 2025, from https://www.instructables.com/Knock-box-it-opens-when-you-knock-on-it/
-
+* [4]: Burgognoni, E. (2025, August 28). Comparing MEMS and IEPE accelerometers for structural vibration behavior testing. Data Acquisition | Test and Measurement Solutions. Retrieved October 30, 2025, from https://dewesoft.com/blog/comparing-mems-and-iepe-accelerometers
+* [5]: Miranda, V. R., & Landre, J., Jr. (2018). Comparison of the signal characteristics measured by a MEMS and a Piezoelectric accelerometers. International Journal of Advanced Engineering Research and Science, 5(11), 148–152. https://doi.org/10.22161/ijaers.5.11.21
+* [6]: Analog Devices. (n.d.). ADXL345 datasheet. Analog Devices. Retrieved November 20, 2025, from https://www.analog.com/en/products/adxl345.html
+* [7]: Espressif Systems. (2021). ESP32-C3 Series datasheet. In Espressif. https://www.espressif.com/documentation/esp32-c3_datasheet_en.pdf
 
 ## 9	Appendices
 
