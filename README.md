@@ -167,6 +167,7 @@ the tools available to us. However the ADXL345 is 13-bit instead of 12-bit, henc
 The accelerometer gives 3-axis readings and how the 3-axis readings look like when 3 knocks are applied is shown below:
 ![alt text](resources/knockDetectionIMU.png "Knock Detection IMU")
 (C) Screeenshot by authors
+
 The y-axis is the magnitude in g, while the x-axis is time in milliseconds. The blue, yellow and green lines are the x, y and z axis respectively.
 ### 4.2	Hardware Design
 ### 4.2.1 Schematic Design
