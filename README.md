@@ -187,7 +187,7 @@ The software was made using the Arduino IDE. The code is written in C++. A modul
 
 #### 4.3.1 Knock Detection
 When the system is awake, it continously reads the accelerometer data (main loop), and calculates the dynamic acceleration by removing the gravity component. This is done with a short function:
-```arduino
+```cpp
 inline float accelMagnitudeG(int x, int y, int z) {
   return sqrt(y * y + 2 * z * z) * 0.0039;
 }
