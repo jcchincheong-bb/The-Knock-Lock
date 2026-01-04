@@ -33,6 +33,7 @@ constexpr int ADXL_EN_Z           = 1;  // Turn individual sensing off (0) or on
 constexpr float VOLTAGE_MULTIPLIER   = 2.47;  // To get correct voltage, may need to alter depending on resistors if changed
 constexpr float LOW_BAT_THRESHOLD_V  = 4.6;   // 30% of 4xAA - low battery alert to starts below this voltage
 constexpr unsigned long BAT_CHECK_INTERVAL = 900000; // in ms, interval to check battery (Set to 15 minutes by default)
+constexpr int FLASHING_TIME = 60; // in seconds, to change how frequently the system wakes up to indicate low battery with Red LED
 
 // -------------------------------------------------------------
 // DEBUG SETTINGS

@@ -34,12 +34,12 @@ void setup() {
     Serial.println("Serial monitor enabled!");
   }
 
+  // WAKE UP
+  handleWakeup();
+
   // Setup hardware and ADXL
   setupHardware();
   ADXLsetup();
-
-  // WAKE UP
-  handleWakeup();
 
   // Load pattern
   patternLength = loadPatternFromNVS(targetPattern);

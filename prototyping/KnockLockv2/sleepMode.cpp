@@ -1,7 +1,7 @@
 #include "sleepMode.h"
 
 // -------------------------------------------------------------
-// SLEEP LOGIC (With Low Bat Monitor)
+// SLEEP LOGIC
 // -------------------------------------------------------------
 // Function to put controller to sleep, with possibility to wake back up
 void goToSleep() {
@@ -20,18 +20,16 @@ void goToSleep() {
     if(SERIAL_MONITOR_EN) Serial.printf("💤 Low Battery (%.2fV). Blinking and sleeping 4s...\n", batV);
     
     // Blink Red indicating "I'm sleeping but dying"
-    digitalWrite(RLED, HIGH);
+    led_ryg(1,0,0);
     delay(100);
-    digitalWrite(RLED, LOW);
+    led_ryg(0,0,0);
     
-    // Enable Timer Wakeup (4 seconds)
-    // This creates the "Blink while sleeping" loop
-    esp_sleep_enable_timer_wakeup(4 * 1000000ULL); 
+    // Enable Timer Wakeup
+    esp_sleep_enable_timer_wakeup(FLASHING_TIME * 1000000ULL); 
   } else {
     if(SERIAL_MONITOR_EN) Serial.println("💤 Good Battery. Deep Sleep (Waiting for Knock)...");
     // No timer wakeup, sleep indefinitely until knock
   }
-
   esp_deep_sleep_start();
 }
 
@@ -43,5 +41,6 @@ void handleWakeup(){
   } else if (cause == ESP_SLEEP_WAKEUP_TIMER) {
     // Woke up due to low battery
     if(SERIAL_MONITOR_EN) Serial.println("♻ Woke up from Low Bat Timer");
+    goToSleep();
   }
 }
