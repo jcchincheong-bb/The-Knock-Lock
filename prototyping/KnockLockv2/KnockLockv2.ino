@@ -88,7 +88,7 @@ void loop() {
     lastPress = now;
 
     // And box is unlocked (or locked if DEBUG_MODE is on)
-    if (STATE == DEBUG_MODE || STATE == 1) { 
+    if (STATE == 1 || DEBUG_MODE == 1) { 
       startRecording();
       now = millis();
     } 

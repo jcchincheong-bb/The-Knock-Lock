@@ -38,7 +38,7 @@ constexpr int FLASHING_TIME = 60; // in seconds, to change how frequently the sy
 // -------------------------------------------------------------
 // DEBUG SETTINGS
 // -------------------------------------------------------------
-constexpr int DEBUG_MODE = 0; // Make 0 to allow pattern setting in locked state or unlocked state
+constexpr int DEBUG_MODE = 0; // Make 1 to allow pattern setting in locked state or unlocked state
 constexpr int SERIAL_MONITOR_EN   = 1;  // Turn Serial Monitor on with 1 and off with 0
 // To enter manual override
 constexpr int OVERRIDE_CLICK_COUNT = 4;     // Total clicks needed

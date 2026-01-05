@@ -130,6 +130,7 @@ void handleLockedState(float aDynamic, unsigned long now) {
 
 // Function to close box when unlocked
 void handleUnlockedState(float aDynamic, unsigned long now) {
+  led_ryg(0,0,1);
   if (aDynamic > KNOCK_THRESHOLD && (now - lastKnockTime) > DEBOUNCE_TIME) {
     lastKnockTime = now;
     lastActivityTime = now;
