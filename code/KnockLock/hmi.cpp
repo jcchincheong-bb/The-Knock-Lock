@@ -27,6 +27,9 @@ void goodBeep() {
   tone(BUZZER, 1500, 200);
   delay(200);
   noTone(BUZZER);
+  led_ryg(0,0,1);
+  delay(500);
+  led_ryg(0,0,0);
 }
 
 

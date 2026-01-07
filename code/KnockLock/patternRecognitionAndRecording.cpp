@@ -22,7 +22,7 @@ void checkPattern() {
   }
 
   int idx;
-  int maxStart = intervalCount - patternLength + ALLOWED_MISTAKES;
+  // int maxStart = intervalCount - patternLength + ALLOWED_MISTAKES;
   bool match = false;
 
   // Outer for loop for allowing for some mistakes
@@ -85,6 +85,7 @@ void finishRecording() {
     savePatternToNVS(intervals, patternLength);
     successSave();
     playbackPattern();
+    patternLength = loadPatternFromNVS(targetPattern);
   }
   currentMode = MODE_IDLE;
   knockCount = 0;
