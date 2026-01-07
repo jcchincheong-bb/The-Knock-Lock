@@ -21,7 +21,7 @@ extern int x, y, z;
 enum Mode { MODE_IDLE, MODE_RECORDING };
 extern volatile Mode currentMode;
 
-extern int STATE; 
+extern volatile int STATE; 
 
 extern volatile bool recordButtonPressed;
 

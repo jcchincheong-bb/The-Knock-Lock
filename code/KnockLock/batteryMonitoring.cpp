@@ -12,7 +12,7 @@ float getBatteryVoltage() {
   // Convert to actual battery voltage (Divider Logic)
   float batV = (rawMV * VOLTAGE_MULTIPLIER) / 1000.0;
   
-  // Serial.printf("Bat: %.2f V\n", batV);
+  if(SERIAL_MONITOR_EN) Serial.printf("Bat: %.2f V\n", batV);
   
   return batV;
 }

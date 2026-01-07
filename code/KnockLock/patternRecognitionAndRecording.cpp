@@ -25,23 +25,27 @@ void checkPattern() {
   int maxStart = intervalCount - patternLength + ALLOWED_MISTAKES;
   bool match = false;
 
-  for (int offset = 0; offset <= maxStart; offset++) {
-    bool ok = true;
+  // Outer for loop for allowing for some mistakes
+  bool ok = true;
 
-    for (int j = 0; j < patternLength; j++) {
-      idx = offset + j;
-      if (idx < 0 || idx >= intervalCount) { ok = false; break; }
-
-      long diff = labs((long)intervals[idx] - (long)targetPattern[j]);
-      if (diff > KNOCK_TOL) { ok = false; break; }
+  // Inner loop for checking actual pattern
+  for (int j = 0; j < patternLength; j++) {
+    // Skip checking if too many knocks
+    if(patternLength != intervalCount) {
+      ok = false;
+      Serial.println("Break as wrong size"); 
+      break;
     }
-
-    if (ok) { match = true; break; }
+    long diff = labs((long)intervals[j] - (long)targetPattern[j]);
+    if (diff > KNOCK_TOL) { 
+      ok = false; 
+      Serial.println("Break wrong knock diff");
+      break; 
+    }
   }
 
-  if (match) {
+  if (ok) {
     if(SERIAL_MONITOR_EN) Serial.println("✅ Correct pattern!");
-    STATE = 1;
     goodBeep();
     unlockBox();
   } else {

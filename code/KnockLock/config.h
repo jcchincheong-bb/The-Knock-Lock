@@ -13,7 +13,7 @@ constexpr int PATTERN_TIMEOUT     = 2000;     // Max duration between two knocks
 constexpr int IDLE_RESET_TIME     = 5000;     // Maax duration before going back to start of pattern recognition
 constexpr int SLEEP_TIMEOUT       = 60000;    // 1 Minute
 
-constexpr int ALLOWED_MISTAKES = 5;           // How many accidental knocks before or after can be tolerated
+// constexpr int ALLOWED_MISTAKES = 0;           // How many accidental knocks before or after can be tolerated
 
 // -------------------------------------------------------------
 // ADXL345 SETTINGS

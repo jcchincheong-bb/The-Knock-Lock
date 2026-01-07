@@ -72,10 +72,10 @@ void playbackPattern() {
 // Function to unlock the box
 void unlockBox() {
   if (STATE == 1) return;
-  if(SERIAL_MONITOR_EN) Serial.println("🔓 Unlocking...");
+  if (SERIAL_MONITOR_EN) Serial.println("🔓 Unlocking...");
   digitalWrite(SERVO_EN, HIGH);
-  lockServo.write(180);
-  delay(500);
+  lockServo.write(0);
+  delay(1000);
   digitalWrite(SERVO_EN, LOW);
   led_ryg(0,0,1);
   STATE = 1; 
@@ -86,8 +86,8 @@ void unlockBox() {
 void lockBox() {
   if(SERIAL_MONITOR_EN) Serial.println("🔒 Locking...");
   digitalWrite(SERVO_EN, HIGH);
-  lockServo.write(0);
-  delay(500);
+  lockServo.write(180);
+  delay(1000);
   digitalWrite(SERVO_EN, LOW);
   STATE = 0;
   knockCount = 0;

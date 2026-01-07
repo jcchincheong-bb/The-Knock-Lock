@@ -18,6 +18,6 @@ int x, y, z;
 volatile Mode currentMode = MODE_IDLE;
 
 // STATE: 0 = Locked, 1 = Unlocked
-int STATE = 0; 
+volatile int STATE = 0; 
 
 volatile bool recordButtonPressed = false;
