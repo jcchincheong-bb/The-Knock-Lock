@@ -2,13 +2,16 @@
 
 // --- Pin Definitions ---
 // Assigning the specific GPIO numbers for the ESP32-C3
+// Communication
 const int SDA_PIN       = 6;
 const int SCL_PIN       = 5;
 const int WAKE_INT      = 4;
 
+// Actuators
 const int SERVO_EN      = 0;
 const int SERVO_CONTROL = 1;
 
+// HMI
 const int BUZZER        = 10;
 const int RLED          = 3;
 const int YLED          = 19;
@@ -50,15 +53,16 @@ void setupHardware() {
 
 //Function to setup the ADXL sensor with interrupts and sensitivity
 void ADXLsetup() {
-  Wire.begin(SDA_PIN, SCL_PIN);
-  adxl.powerOn();
-  adxl.setRangeSetting(SENSITIVITY);
-  adxl.setTapDetectionOnXYZ(ADXL_EN_X, ADXL_EN_Y, ADXL_EN_Z);
-  adxl.setTapThreshold(TAP_THRESHOLD);
-  adxl.setTapDuration(TAP_DURATION);
-  adxl.setDoubleTapLatency(DOUBLE_TAP_LATENCY);
-  adxl.setDoubleTapWindow(DOUBLE_TAP_WINDOW);
+  Wire.begin(SDA_PIN, SCL_PIN);                                   // Start communication via i2c
+  adxl.powerOn();                                                 // Power the ADXL345 on
+  adxl.setRangeSetting(SENSITIVITY);                              // Set up the sensitivity, from config.h
+  adxl.setTapDetectionOnXYZ(ADXL_EN_X, ADXL_EN_Y, ADXL_EN_Z);     // Enable individual acceleration sensor
+  adxl.setTapThreshold(TAP_THRESHOLD);                            // Set minimum threshold for detecting wakeup
+  adxl.setTapDuration(TAP_DURATION);                              // Minimum duration for detecting a wake up
+  adxl.setDoubleTapLatency(DOUBLE_TAP_LATENCY);                   // Minimum duration between the second tap and first tap
+  adxl.setDoubleTapWindow(DOUBLE_TAP_WINDOW);                     // Maximum duration to wait for the second tap
 
+  // Disable all interrupts, until required
   adxl.doubleTapINT(0);
   adxl.singleTapINT(0);
   adxl.FreeFallINT(0);
@@ -68,5 +72,5 @@ void ADXLsetup() {
 }
 
 void IRAM_ATTR onRecordButton() {
-  recordButtonPressed = true;
+  recordButtonPressed = true;                                      // Keep the ISR short for better functioning, the actual tasks is done in KnockLock.ino in main loop
 }

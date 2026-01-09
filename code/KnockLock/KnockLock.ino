@@ -21,7 +21,7 @@
 // HELPER
 // -------------------------------------------------------------
 inline float accelMagnitudeG(int x, int y, int z) {
-  return sqrt(y * y + 2 * z * z) * 0.0039;
+  return abs(z); // Calculate magnitude using relevant axis, the 0.0039 is from datasheet to get in terms of g 
 }
 
 // -------------------------------------------------------------
@@ -40,6 +40,7 @@ void setup() {
   // Setup hardware and ADXL
   setupHardware();
   ADXLsetup();
+  digitalWrite(SERVO_EN, HIGH); // Turn servo On
 
   // Load pattern
   patternLength = loadPatternFromNVS(targetPattern);

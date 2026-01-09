@@ -24,6 +24,7 @@ void checkBatteryAwake(unsigned long now) {
   }
   else {
     lastBatCheck = now;
+    // Check if the battery is below the minimum battery required - set by us from config.h
     if (getBatteryVoltage() < LOW_BAT_THRESHOLD_V) {
       if(SERIAL_MONITOR_EN) Serial.println("⚠ Low Battery!");
       // Quick Red Flash
