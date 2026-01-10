@@ -21,7 +21,7 @@
 // HELPER
 // -------------------------------------------------------------
 inline float accelMagnitudeG(int x, int y, int z) {
-  return abs(z); // Calculate magnitude using relevant axis, the 0.0039 is from datasheet to get in terms of g 
+  return abs(z); // Calculate magnitude using relevant axis, for g, multiply this by 0.0039 (from datasheet) 
 }
 
 // -------------------------------------------------------------
@@ -34,12 +34,12 @@ void setup() {
     Serial.println("Serial monitor enabled!");
   }
 
+  setupHardware(); // Setup hardware
+
   // WAKE UP
   handleWakeup();
 
-  // Setup hardware and ADXL
-  setupHardware();
-  ADXLsetup();
+  ADXLsetup();                  // Setup ADXL
   digitalWrite(SERVO_EN, HIGH); // Turn servo On
 
   // Load pattern

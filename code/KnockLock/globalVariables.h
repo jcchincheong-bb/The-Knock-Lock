@@ -36,7 +36,4 @@ extern volatile bool recordButtonPressed;
 // currentWindowCheck - assumed to be true, but if a certain window of knocks is not correct, it is set to false, helps isolate ok to only become true if correct pattern is found
 // mistakeCount - keeps count of which mistake we are currently checking, should be always less than ALLOWED_MISTAKES 
 // intervalCount - keeps the number of intervals in the recorded pattern, 
-
-
-// 
 #endif

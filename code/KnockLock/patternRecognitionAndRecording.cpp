@@ -7,14 +7,16 @@
 // Function to check if knock matches stored (now loaded) pattern
 void checkPattern() {
 
+  // Check if any pattern is even saved, if not return
   if (patternLength <= 0) {
     if(SERIAL_MONITOR_EN) Serial.println("⚠ No saved pattern.");
     return;
   }
 
-  if (knockCount < 5)
+  if (knockCount < MIN_KNOCKS)
     return;
 
+  // Calculate intervals using knock timings
   int intervalCount = knockCount - 1;
 
   for (int i = 1; i < knockCount; i++) {
@@ -23,7 +25,7 @@ void checkPattern() {
 
   // Actually checking for mistakes
   bool ok = false; // Keep track of a mistake - true means pattern is correct, false means pattern was incorrect
-
+  
   // Check for pattern size before actual checking, to be more efficient 
   int patternDiff = intervalCount - patternLength; // See difference in the knocks recorded vs knocks to be done
   if (patternDiff < 0){
@@ -114,7 +116,7 @@ void finishRecording() {
 
 // Function to deal with recordings
 void handleRecording(float aDynamic, unsigned long now) {
-  if (now - lastKnockTime > IDLE_RESET_TIME) { // If not knocked for sometime, start processing the recording, either save or not
+  if (now - lastKnockTime > PATTERN_TIMEOUT) { // If not knocked for sometime, start processing the recording, either save or not
     finishRecording(); 
     return;
   }

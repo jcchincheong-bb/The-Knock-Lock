@@ -5,7 +5,7 @@
 // -------------------------------------------------------------
 // Function to put controller to sleep, with possibility to wake back up
 void goToSleep() {
-  led_ryg(0,0,0);
+  led_ryg(0,0,0); // Turn off all LEDs before sleeping
   
   // Check Battery before sleeping
   float batV = getBatteryVoltage();

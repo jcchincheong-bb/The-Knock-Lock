@@ -11,7 +11,7 @@ constexpr int KNOCKS_TO_LOCK      = 2;        // Knocks to do in unlocked state 
 constexpr int KNOCK_TOL           = 200;      // How many milliseconds close to target pattern for correct recognition (Higher makes it easier to repeat knock but also less safe)
 constexpr int DEBOUNCE_TIME       = 200;      // Minimum duration before next knock is detected
 constexpr int PATTERN_TIMEOUT     = 2000;     // Max duration between two knocks
-constexpr int IDLE_RESET_TIME     = 5000;     // Maax duration before going back to start of pattern recognition
+//constexpr int IDLE_RESET_TIME     = 5000;     // Maax duration before going back to start of pattern recognition
 constexpr int SLEEP_TIMEOUT       = 60000;    // 1 Minute
 
 constexpr int ALLOWED_MISTAKES = 1;           // How many accidental knocks before or after can be tolerated
