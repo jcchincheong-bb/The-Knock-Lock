@@ -113,7 +113,7 @@ as follows:
   - Design of final PCB layout
   - Design of preliminary prototype housing
 - Abhinav Kothari (33349):
-  - Design of power regulationm, sensor system and human machine interface circuits
+  - Design of power regulation, sensor system and human machine interface circuits
   - Development of complete program software
   - Design of preliminary PCB layout
   - Design of final prototype housing
