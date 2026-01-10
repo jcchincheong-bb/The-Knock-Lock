@@ -12,16 +12,16 @@ You can find a quick guide in the following [cheat sheet](https://www.markdowngu
 
 ----
 
-# Title of the project
+# Knock Lock
 
-by: *Names of the authors*
+by: [Justin Chin Cheong](https://jcchincheong-bb.github.io/) (34140) and [Abhinav Kothari](https://www.linkedin.com/in/abhinav-kothari-2ak/) (33349)
 
 
 **Faculty of Technology and Bionics**
 
 ***Rhine-Waal University of Applied Sciences***
 
-Date: XX January 2022
+Date: 10 January 2022
 
 ----
 
@@ -33,16 +33,16 @@ Short summary of the project and the work conducted
 
 [[_TOC_]]
 
-## 1 Introduction
+## 1 Introduction 
 We have all built secret passwords, sometimes words, sometimes numbers, sometimes just a pattern of knocking, sometimes it was to get into a box castle, sometime a room. 
 
-Suprisingly, the password nowadays are boring, just words, numers, NFCs sometimes biometric. However what happened to the secret knock? In this project we want to create a 
+Suprisingly, the password nowadays are boring, just words, numbers, NFCs sometimes biometric. However what happened to the secret knock? In this project we want to create a 
 more fun way to unlock a door, while also keeping it safe using a secret knock pattern, with millions of potential permutations. This unlocking mechanism can be used for 
 getting through a door, open a drawer, or opening a safe box, the possibilities are endless. 
 
 The KnockLock Project will demonstrate the idea by implementation into a lock box.
 
-### 1.1	Teaser <!-- I have changed background to teaser -->
+### 1.1	Background <!-- Teaser sounds extremely unprofessional -->
 The primary goal of this project is to be able create a system which can detect knocks reliably with correct timings in order to identify if it is the correct pattern
 or not, and react accordingly. For the detection an accelerometer will be used.
 
@@ -101,7 +101,26 @@ For the Knock Knock Lock Box project to produce a functional product upon close 
     - PCB Design Draft: 2025-11-09
     - PCB Design and Partslist: 2025-11-23
     - PCB Assembly: 2025-12-20
-    - Project Report and Presentation: 2026-01-11
+    - Project Report: 2026-01-18
+    - Project Presentation and Demo: 2026-01-21
+
+## 1.3 Project Team
+The project team consists of two Mechatronics Engineering Students whose responsibilities in the project were divided
+as follows:
+- Justin Julius Chin Cheong (34140): 
+  - Component selection
+  - Design of power regulation, programming interface and motor control circuits
+  - Design of final PCB layout
+  - Design of preliminary prototype housing
+- Abhinav Kothari (33349):
+  - Design of sensor system and human machine interface circuits
+  - Development of complete program software
+  - Design of preliminary PCB layout
+  - Design of final prototype housing
+- Both: 
+  - Soldering and assembly
+  - Testing of components and system integration
+  - Testing of functionality
 
 ## 2	Literature review
 Many projects have been made to ease unlocking a device, for example using RFID, NFC, Bluetooth, WiFi, fingerprint sensors etc. Some have also implemented knock detection, 
@@ -138,10 +157,24 @@ While an ESP32 has a higher power consumption in normal mode, in deep it falls m
 If necessary please present theory in this section.
 
 This math is inline $`a^2+b^2=c^2`$.
+### 3.1 Accelerometers
+### 3.2 I2C
+### 3.3 High-Side Driver
 
-## 4	Methodology
+## 4	Design and Methodology
 
-### 4.1 Testing
+### 4.1 Design Approach
+V model
+
+### 4.2 System Architecture
+fsd 
+
+program flowchart 
+
+### 4.3 Bill of Materials
+
+### 4.4 Preliminary Testing
+#### 4.4.1 Sensor Selection <!-- Kinda want to talk to Stamm abt whether to put this in method or results, for now we do method -->
 To test the accurcacy in knock detection with both sensors, we created a setup as shown below:
 ![alt text](resources/testingSetupPlastic.png "Testing setup 1 - Plastic")
 (C) Image shot by authors
@@ -169,11 +202,31 @@ The accelerometer gives 3-axis readings and how the 3-axis readings look like wh
 (C) Screeenshot by authors
 
 The y-axis is the magnitude in g, while the x-axis is time in milliseconds. The blue, yellow and green lines are the x, y and z axis respectively.
-### 4.2	Hardware Design
-### 4.2.1 Schematic Design
+
+#### 4.4.2 System Prototype
+An accelerometer module was used to test if the system was feasible and to start software development
+
+### 4.5	Schematic Design
+#### 4.5.1 Full Schematic Design
+#### 4.5.2 Controller System
+Just talk about the controller used and some comments on passives
+#### 4.5.3 Programming Interface
+Mention the use of the buttons and why the design has no UART chip and just pin headers
+
+#### 4.5.4 Sensor System
+How the ADXL connects, which pin modes are set and how i2c is implemented
 
 
-#### 4.2.2 Limitations of ESP32-C3
+#### 4.5.5 Human Machine Interface
+LEDs and buzzer to communicate status 
+
+#### 4.5.6 Motor Driver
+high side driver with transistors 
+
+#### 4.5.7 Power Regulation System and Power Supply
+Describe the not only the power regulator but also the reverse polarity protection and such
+
+#### 4.5.8 Limitations of ESP32-C3  <!-- Seems weird to be here, maybe better in discussion -->
 One possible limitation of the ESP32-C3 for our project is the write cycles of the NVS memory, which will be actively used to store the knock pattern.
 
 Its internal flash has a typical limit of 100k write cycles per sector 
@@ -182,10 +235,13 @@ Its internal flash has a typical limit of 100k write cycles per sector
 - Hence to be on the safe side, we must make sure to only write to flash when the pattern is changed by the user.
 - If for some reason one has to flash a lot, use FRAM (very expensive), however that will not be needed here.
 
-### 4.3 Software Implementation
+### 4.6 PCB Design
+
+
+### 4.7 Software Design
 The software was made using the Arduino IDE. The code is written in C++. A modular approach was taken to make it easier to debug and maintain.
 
-#### 4.3.1 Knock Detection
+#### 4.7.1 Knock Detection
 When the system is awake, it continously reads the accelerometer data (main loop), and calculates the dynamic acceleration by removing the gravity component. This is done with a short function:
 ```cpp
 inline float accelMagnitudeG(int x, int y, int z) {
@@ -224,7 +280,7 @@ Here we checked if the knock matched the threshold (again configurable), and ale
 detected for a certain time (configurable), the recorded knocks were checked against the target pattern. 
 If no knocks are detected for a longer time (configurable), the system goes to deep sleep to save power.
 
-#### 4.3.2 Knock Pattern Checking Algorithm
+#### 4.7.2 Knock Pattern Checking Algorithm
 For the core logic for knock pattern checking, the following algorithm was implemented:
 ```cpp
 int maxStart = intervalCount - patternLength + ALLOWED_MISTAKES;
@@ -251,7 +307,7 @@ security is of concern, the allowed mistakes can be set to zero.
 
 Naturally the intervals will never exactly match the target pattern, so a tolerance is set, which can also be configured in the config.h file. 
 
-### 4.3.3 Saving a New Pattern
+#### 4.7.3 Saving a New Pattern
 A similar function to locked state handler was implemented for the unlocked state as well as for recording the knocks to save a pattern. Once the pattern was recorded this function was called
 to save the pattern to the NVS memory of the ESP32-C3 and also playback the pattern to the user for a confirmation. To do so the following function was implemented:
 ```cpp
@@ -273,7 +329,7 @@ void finishRecording() {
   led_ryg(0, 0, 0); 
 }
 ```
-### 4.3.4 Power Management
+#### 4.7.4 Power Management
 To save power, the ESP32-C3 is put into deep sleep mode when no knocks are detected for a certain time. The following function is used to put the system to sleep:
 ```cpp
 void goToSleep() {
@@ -327,7 +383,7 @@ void handleWakeup(){
 
 This function must be called near the start of the setup() function (right after Serial setup) to save as much power as possible.
 
-### 4.3.5 Helper Functions
+#### 4.7.5 Helper Functions
 All of the functions above user some helper function to make the code more modular and easier to read. Some of these functions include:
 - led_ryg(int r, int y, int g): To set the red, yellow and green LED states
 - flashGreenTick(): To flash the green LED quickly to indicate a knock was recorded
@@ -343,20 +399,43 @@ Example how to draw a table:
 | Cell 4       | Cell 5   | Cell 6        |
 | OpAmp 741    | 2        | 1.00          |
 
+### 4.8 Housing Design
 
-## 5	Results
+
+### 4.9 Verification Methods
+#### 4.9.1 Component Testing
+#### 4.9.2 System Integration Testing
+#### 4.9.3 Power Consumption
+power consumption 
+
+## 6	Results
+### 6.1 Assembly
+### 6.2 Functional PCB
+### 6.3 PCB with Housing
 Here you should present your results.
 
 This is an example how to include image:
 ![alt text](resources/Open_Source_Hardware_(OSHW)_Logo_on_blank_PCB.jpg "Example Image")
 (C) Altzone, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
 
+### 6.4 Issues
+primarily coding issues after lots of testing
 
-## 6	Discussion
+also lots of issues with housing
+
+## 7	Discussion
 Here you should discuss your results
+### 7.1 Product Evaluation
+A comparison of the results we had with existing products or what we saw in literature
 
-## 7	Concluding Comments
+### 7.2 Product Limitations
+What are the main limitations we realised after extensive testing
+
+like the .... I cant think of any rn
+
+## 8	Conclusion
 You might want to discuss possible future work here
+### 8.1 Future Improvements
 
 ## 8	References
 
