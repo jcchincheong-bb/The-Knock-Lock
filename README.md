@@ -109,11 +109,11 @@ The project team consists of two Mechatronics Engineering Students whose respons
 as follows:
 - Justin Julius Chin Cheong (34140): 
   - Component selection
-  - Design of power regulation, programming interface and motor control circuits
+  - Design of programming interface and motor control circuits
   - Design of final PCB layout
   - Design of preliminary prototype housing
 - Abhinav Kothari (33349):
-  - Design of sensor system and human machine interface circuits
+  - Design of power regulationm, sensor system and human machine interface circuits
   - Development of complete program software
   - Design of preliminary PCB layout
   - Design of final prototype housing
@@ -239,9 +239,81 @@ Its internal flash has a typical limit of 100k write cycles per sector
 
 
 ### 4.7 Software Design
-The software was made using the Arduino IDE. The code is written in C++. A modular approach was taken to make it easier to debug and maintain.
+The software was made using the Arduino IDE. The code is written in C++. A modular approach was taken to make it easier to debug and maintain. All the main configurations are in the config.h file, while the main starting logic is in the KnockLock.ino file. All other functions are in seperate files to make it easier to read. The libraries used are:
+- ESP32 NVS Library: For using the NVS memory of ESP32-C3 - in-built with Arduino IDE
+- SparkFun ADXL345 Library (v1.0.0): For interfacing with the ADXL345 accelerometer
+- Wire Library: For i2c communication with the ADXL345 - in-built with Arduino IDE
+- ESP32Servo (v3.0.9): For controlling the servo motor
 
-#### 4.7.1 Knock Detection
+The following flowchart shows the overall logic of the program:
+![alt text](resources/FlowchartOfMainSystem.png "Flowchart")
+(C) Image created by authors using Mermaid Live Editor
+
+The flowchart shows, how the system must work, spikes denote knocks detected. The system starts in locked state, where it continously listens for knocks, unless it sleeps, and records them. Interrupts will be used to wake the system up from sleep for again starting to read knocks. Once the knocks are recorded, they are checked against the target pattern, if they match, the system unlocks, else it stays locked. If the box is unlocked and the programming button is pressed, the system enters programming mode, where it records knocks to save a new pattern. Once the pattern is recorded, it is saved to NVS memory and the system goes back to idle mode. Knocking twice locks the box again. LEDs and Buzzer are used to give feedback to the user.
+
+The actual code implementation of the main parts are explained below.
+#### 4.7.1 System Initialization
+Upon startup, the system must perform many intializations to get everything working correctly. The order is also quite important to save power and to ensure best reliability. 
+
+First the system must check the reason for wakeup, so that it can perform the correct operations accordinly. This done as shown in the snippet below:
+```cpp
+// Enable Serial Monitor if required
+if(SERIAL_MONITOR_EN) {
+    Serial.begin(115200);
+    Serial.println("Serial monitor enabled!");
+}
+
+setupHardware(); // Setup hardware
+
+// WAKE UP
+handleWakeup();
+
+ADXLsetup();                  // Setup ADXL
+digitalWrite(SERVO_EN, HIGH); // Turn servo On
+```
+Here the Serial monitor is enabled first, if required, so that debug messages at all stages can be printed. Then it is necessary to setup the hardware, which includes setting pin modes. This is necessary to do before checking wakeup reason, as different pins may be used for different wakeup reasons. Then the wakeup reason is handled using handleWakeup() function, which will be explained in Section 4.3.5. Finally the ADXL345 is setup using ADXLsetup() function, and the servo power is turned on. The ADXL can be setup after wakeup reason check, as it keeps its settings even in while the controller is in deep sleep.
+
+Now finally the stored knock pattern must be loaded from NVS memory and timers reset to get system ready for reading. This is done using the following code:
+```cpp
+// Load pattern
+patternLength = loadPatternFromNVS(targetPattern);
+  
+// Reset timers
+unsigned long startT = millis();
+lastKnockTime = startT;
+lastActivityTime = startT;
+
+if(SERIAL_MONITOR_EN) Serial.println("System Ready.");
+led_ryg(0, 1, 0);
+```
+
+Both the code snippets above are part of the setup() function in KnockLock.ino file.
+
+For setting up the ADXL, we must set its settings using its library. The library used is SparkFun_ADXL345 (Version v1.0.0). The following function allows us to set its settings as well as setup interrupts:
+```cpp
+//Function to setup the ADXL sensor with interrupts and sensitivity
+void ADXLsetup() {
+  Wire.begin(SDA_PIN, SCL_PIN);                                   // Start communication via i2c
+  adxl.powerOn();                                                 // Power the ADXL345 on
+  adxl.setRangeSetting(SENSITIVITY);                              // Set up the sensitivity, from config.h
+  adxl.setTapDetectionOnXYZ(ADXL_EN_X, ADXL_EN_Y, ADXL_EN_Z);     // Enable individual acceleration sensor
+  adxl.setTapThreshold(TAP_THRESHOLD);                            // Set minimum threshold for detecting wakeup
+  adxl.setTapDuration(TAP_DURATION);                              // Minimum duration for detecting a wake up
+  adxl.setDoubleTapLatency(DOUBLE_TAP_LATENCY);                   // Minimum duration between the second tap and first tap
+  adxl.setDoubleTapWindow(DOUBLE_TAP_WINDOW);                     // Maximum duration to wait for the second tap
+
+  // Disable all interrupts, until required
+  adxl.doubleTapINT(0);
+  adxl.singleTapINT(0);
+  adxl.FreeFallINT(0);
+  adxl.ActivityINT(0);
+  adxl.InactivityINT(0);
+  adxl.getInterruptSource();
+}
+```
+Disabling all interrupts ensure that no false wakeups occur. The settings for sensitivity and tap detection are taken from config.h file, allowing easy tuning. Wire library allows i2c communication with the ADXL345.
+
+#### 4.7.2 Knock Detection
 When the system is awake, it continously reads the accelerometer data (main loop), and calculates the dynamic acceleration by removing the gravity component. This is done with a short function:
 ```cpp
 inline float accelMagnitudeG(int x, int y, int z) {
@@ -280,8 +352,9 @@ void handleLockedState(float aDynamic, unsigned long now) {
 Here we checked if the knock matched the threshold (again configurable), and alerted the user if it was recorded. If no knocks were
 detected for a certain time (configurable), it means the user has finished knocking, and the pattern can be checked. If no knocks were detected for a longer time (configurable), the system goes to sleep to save power. 
 
-#### 4.7.2 Knock Pattern Checking Algorithm
-For the core logic for knock pattern checking, the following algorithm was implemented:
+
+#### 4.7.3 Knock Pattern Checking Algorithm
+For checking the knock pattern, a pessimistic approach was taken. Here the pattern was assumed to be wrong , unless proven otherwise. This allows for a safe approach, so that even if the system faces issues, the box is less likely to open. However before checking the pattern, to minimize CPU cycles Some basic checks were done. This helped save processing time, especially if the pattern is completely wrong. The following checks were implemented:
 ```cpp
 // Check if any pattern is even saved, if not return
 if (patternLength <= 0) {
@@ -356,9 +429,22 @@ security is of concern, the allowed mistakes can be set to zero using config.h.
 
 Naturally the intervals will never exactly match the target pattern, so a tolerance is set, which can also be configured in the config.h file. 
 
-#### 4.7.3 Saving a New Pattern
-A similar function to locked state handler was implemented for the unlocked state as well as for recording the knocks to save a pattern. Once the pattern was recorded this function was called
-to save the pattern to the NVS memory of the ESP32-C3 and also playback the pattern to the user for a confirmation. To do so the following function was implemented:
+Then according to the result of the checking stored in the variable ok, the system reacts accordingly:
+```cpp
+if (ok) { // If pattern correct
+    if(SERIAL_MONITOR_EN) Serial.println("✅ Correct pattern!");
+    goodBeep();
+    unlockBox();
+} else { // If pattern not correct
+    if(SERIAL_MONITOR_EN) Serial.println("❌ Wrong pattern.");
+    badBeep();
+}
+```
+
+All these code snippers in this section are part of the function checkingPattern() in file patternRecognitionAndRecording.cpp.
+
+#### 4.7.4 Saving a New Pattern
+A similar function to locked state handler was implemented for the unlocked state as well as for recording the knocks to save a pattern. However this can only be called by cliking the programming button (Pin 7) when the box is unlocked. Once the pattern was recorded a different function was called to save the pattern to the NVS memory of the ESP32-C3 and also playback the pattern to the user for a confirmation. To do so the following function was implemented:
 ```cpp
 void finishRecording() {
   if (knockCount < MIN_KNOCKS) {
@@ -378,8 +464,14 @@ void finishRecording() {
   led_ryg(0, 0, 0); 
 }
 ```
-#### 4.7.4 Power Management
-To save power, the ESP32-C3 is put into deep sleep mode when no knocks are detected for a certain time. The following function is used to put the system to sleep:
+Here first it is checked if enough knocks were recorded, if not, the user is alerted. If enough knocks were recorded, the intervals are calculated and saved to NVS memory using the function savePatternToNVS(). Then a success indication is given to the user using successSave() function, followed by playback of the pattern using playbackPattern() function. To allow user to unlock the box with the new pattern, without having to reset the system, the stored values are loaded again. They are not loaded each time in checking to save processing time. Finally the system goes back to idle mode, and the knock counts are reset. The LEDs are also turned off, but when it goes back to handle locked or unlocked state, they will be turned on again accordingly.
+
+#### 4.7.5 Power Management
+To save power, the ESP32-C3 is kept in deep sleep mode most of the time, only waking up when knocks are detected. However to put the system to sleep appropriate steps must be taken in the correct order. 
+
+Before going to sleep, the system should first check the battery voltage, to see if it is low or not. If it is low, the system must wake up every few seconds to blink the red LED indicating low battery to alert the user to changee it. If the battery is good, the system can sleep indefinitely until a knock is detected. There may be concern, that what if the system does not have low battery when going to sleep, but the battery drains while sleeping. However this is not a really big concern, as the drain will be very slow. Waking it up to check battery status regularly will waste more power. This decision of checking battery only before sleep was taken also taking into account the system has been designed with two sets of power supply, battery and USB. If the battery drains, the user can always plug in the USB power to power the system.
+
+Checking the battery voltage is done using this simple code snippet:
 ```cpp
 led_ryg(0,0,0); // Turn off all LEDs before sleeping
   
@@ -434,7 +526,7 @@ void handleWakeup(){
 ```
 This function must be called near the start of the setup() function (right after Serial setup) to save as much power as possible. The reason for it being in setup() is that after deep sleep, the ESP32-C3 does a full reset, hence setup() is called again.
 
-### 4.3.6 NVS Memory Handling
+### 4.7.6 NVS Memory Handling
 To save the knock pattern even after power off, the NVS memory of ESP32-C3 is used. This is a non-volatile memory built into the ESP32-C3, which can be used to store small amounts of data.
 To save the pattern length and intervals, the following function was implemented:
 ```cpp
@@ -458,7 +550,7 @@ void savePatternToNVS(unsigned long intervals[], int count) {
 As NVS memory works with key-value pairs, first the count of intervals is stored using key "count", then each interval is stored using individual keys "i0", "i1", "i2" ... for each interval. Finally the communication is ended to save power.
 To load the pattern back, a similar approach is taken, reading the count first, then reading each interval using the same keys. Just instead of put functions, get functions are used. The function can be seen in the file usingNVS.cpp.
 
-#### 4.7.5 Helper Functions
+#### 4.7.7 Helper Functions
 All of the functions above user some helper function to make the code more modular and easier to read. Some of these functions include:
 - led_ryg(int r, int y, int g): To set the red, yellow and green LED states
 - flashGreenTick(): To flash the green LED quickly to indicate a knock was recorded
@@ -518,6 +610,9 @@ like the .... I cant think of any rn
 ## 8	Conclusion
 You might want to discuss possible future work here
 ### 8.1 Future Improvements
+Doing this project, opened more aspects which can be worked on in future when reiterating the project. These include:
+- Working in all orientations: Automatically adjusting the axis to read using orientation of box.
+- Redundant sensors: Use Piezo with ADXL to more effectively detect a knock
 
 ## 8	References
 
