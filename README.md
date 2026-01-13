@@ -14,14 +14,14 @@ You can find a quick guide in the following [cheat sheet](https://www.markdowngu
 
 # Knock Lock
 
-by: [Justin Chin Cheong](https://jcchincheong-bb.github.io/) (34140) and [Abhinav Kothari](https://www.linkedin.com/in/abhinav-kothari-2ak/) (33349)
+by: [Abhinav Kothari](https://www.linkedin.com/in/abhinav-kothari-2ak/) (33349) and [Justin Chin Cheong](https://jcchincheong-bb.github.io/) (34140)
 
 
 **Faculty of Technology and Bionics**
 
 ***Rhine-Waal University of Applied Sciences***
 
-Date: 10 January 2022
+Date: 18 January 2022
 
 ----
 
@@ -32,7 +32,8 @@ Short summary of the project and the work conducted
 ## Table of Contents
 
 [[_TOC_]]
-
+<!--------------------------------------------------------------------------------------------------------------------->
+<!--------------------------------------------------------------------------------------------------------------------->
 ## 1 Introduction 
 We have all built secret passwords, sometimes words, sometimes numbers, sometimes just a pattern of knocking, sometimes it was to get into a box castle, sometime a room. 
 
@@ -55,73 +56,27 @@ Then we shall talk about how we it will be implemented (Chapter 5: Methodology) 
 
 Before all this lets outline the requirements for the project.
 
-### 1.2	Requirements
-To fully implement the system, a number of requirements related to function, technology and project management have been outlined. 
 
-### 1.2.1 Functional Requirements
-
-For Knock Knock Lock Box to be a satisfiable product, the following functional requirements must be implemented:
-
-- It unlocks within 1-2 seconds when a specific knocking pattern is used on the surface of the box
-- It turns a green LED on and simultaneously plays a simple beep to indicate that the box has been unlocked
-- It rejects pattern if incorrect within 1-2 seconds after knocking has ended
-- It turns a red LED on and simultaneously plays a simple alarm to indicate that the knocking pattern was false or unrecognized
-- It alerts when the battery level drops below a certain level by flashing a red LED, even in power saving mode
-- It only powers on after some initial knock to wake up the system, on wake it shows an yellow LED
-- If no knocks detected for 30 seconds, it goes back to power saving mode
-- It has provision to use a Micro USB port as an alternative power source in case battery dies out, with no prospect to upload firmware through it
-- It uses a servo motor for unlocking and locking 
-
-Some further optional and advanced features include:
-
-- It has a programming mode where the user sets the knock for the system to recognize, mode can only be entered when the box is unlocked (for example using NFC)
-- It has an NFC to unlock the box in case of system failure
-- It alerts user in case door is left unlocked for a long time using beep sound
-
-### 1.2.2 Technical Requirements
-
-For the Knock Knock Lock Box to operate and perform its functions, the following technical requirements must be implemented:
-
-- The accelerometer can detect at knock amplitudes and output a measurable voltage reading to the MCU
-- There are provisions to protect the sensor and MCU from voltage spikes that might occur from the power supply
-- The MCU Software can detect at most 30 knocks with consequitive knocks being less than 2s apart and match the timings to the predefined knock pattern with a set tolerance of acceptance
-- The power supply is a battery with a working voltage of 3.2V to 5.5V
-- The enclosure can protect the system within a typical indoor environment (IP 31)
-- The provision to set MCU to low power mode and wake it back up
-- Should function at temperatures ranging 0-40°C and humidity 10-90%
-
-### 1.2.3 Project Requirements
-
-For the Knock Knock Lock Box project to produce a functional product upon close out, the following project requirements must be met:
-
-- the budget is 25€ not including the PCB
-- the project workload is estimated at 240h
-- the project schedule adheres to the following deadlines
-    - Schematic Design: 2025-10-26
-    - PCB Design Draft: 2025-11-09
-    - PCB Design and Partslist: 2025-11-23
-    - PCB Assembly: 2025-12-20
-    - Project Report: 2026-01-18
-    - Project Presentation and Demo: 2026-01-21
 
 ## 1.3 Project Team
 The project team consists of two Mechatronics Engineering Students whose responsibilities in the project were divided
 as follows:
-- Justin Julius Chin Cheong (34140): 
-  - Component selection
-  - Design of programming interface and motor control circuits
-  - Design of final PCB layout
-  - Design of preliminary prototype housing
 - Abhinav Kothari (33349):
   - Design of power regulation, sensor system and human machine interface circuits
   - Development of complete program software
   - Design of preliminary PCB layout
-  - Design of final prototype housing
+  - Design and refinement of final prototype housing
+- Justin Julius Chin Cheong (34140): 
+  - Component selection
+  - Design of programming interface and motor control circuits
+  - Design and refinement of final PCB layout
+  - Design of preliminary prototype housing
 - Both: 
   - Soldering and assembly
   - Testing of components and system integration
   - Testing of functionality
-
+<!--------------------------------------------------------------------------------------------------------------------->
+<!--------------------------------------------------------------------------------------------------------------------->
 ## 2	Literature review
 Many projects have been made to ease unlocking a device, for example using RFID, NFC, Bluetooth, WiFi, fingerprint sensors etc. Some have also implemented knock detection, 
 These projects have used various techniques to create a similar final product. These will be discussed here
@@ -160,20 +115,113 @@ This math is inline $`a^2+b^2=c^2`$.
 ### 3.1 Accelerometers
 ### 3.2 I2C
 ### 3.3 High-Side Driver
+<!--------------------------------------------------------------------------------------------------------------------->
+<!--------------------------------------------------------------------------------------------------------------------->
+## 4	Methodology and Design
 
-## 4	Design and Methodology
-
-### 4.1 Design Approach
+### 4.1 Design Approach <!-- V-model-->
 V model
 
-### 4.2 System Architecture
+### 4.2 System Requirements <!-- Requirements, not specs -->
+To fully implement the system, a number of requirements related to function, technology and project management have been outlined. 
+
+#### 1.2.1 Functional Requirements
+
+For Knock Knock Lock Box to be a satisfiable product, the following functional requirements must be implemented:
+
+- It unlocks within 1-2 seconds when a specific knocking pattern is used on the surface of the box
+- It turns a green LED on and simultaneously plays a simple beep to indicate that the box has been unlocked
+- It rejects pattern if incorrect within 1-2 seconds after knocking has ended
+- It turns a red LED on and simultaneously plays a simple alarm to indicate that the knocking pattern was false or unrecognized
+- It alerts when the battery level drops below a certain level by flashing a red LED, even in power saving mode
+- It only powers on after some initial knock to wake up the system, on wake it shows an yellow LED
+- If no knocks detected for 30 seconds, it goes back to power saving mode
+- It has provision to use a Micro USB port as an alternative power source in case battery dies out, with no prospect to upload firmware through it
+- It uses a servo motor for unlocking and locking 
+
+Some further optional and advanced features include:
+
+- It has a programming mode where the user sets the knock for the system to recognize, mode can only be entered when the box is unlocked (for example using NFC)
+- It has an NFC to unlock the box in case of system failure
+- It alerts user in case door is left unlocked for a long time using beep sound
+
+#### 1.2.2 Technical Requirements
+
+For the Knock Knock Lock Box to operate and perform its functions, the following technical requirements must be implemented:
+
+- The accelerometer can detect at knock amplitudes and output a measurable voltage reading to the MCU
+- There are provisions to protect the sensor and MCU from voltage spikes that might occur from the power supply
+- The MCU Software can detect at most 30 knocks with consequitive knocks being less than 2s apart and match the timings to the predefined knock pattern with a set tolerance of acceptance
+- The power supply is a battery with a working voltage of 3.2V to 5.5V
+- The enclosure can protect the system within a typical indoor environment (IP 31)
+- The provision to set MCU to low power mode and wake it back up
+- Should function at temperatures ranging 0-40°C and humidity 10-90%
+
+#### 1.2.3 Project Requirements
+
+For the Knock Knock Lock Box project to produce a functional product upon close out, the following project requirements must be met:
+
+- the budget is 25€ not including the PCB
+- the project workload is estimated at 240h
+- the project schedule adheres to the following deadlines
+    - Schematic Design: 2025-10-26
+    - PCB Design Draft: 2025-11-09
+    - PCB Design and Partslist: 2025-11-23
+    - PCB Assembly: 2025-12-20
+    - Project Report: 2026-01-18
+    - Project Presentation and Demo: 2026-01-21
+
+### 4.3 System Architecture <!-- FSD and maybe specs -->
 fsd 
 
-program flowchart 
+### 4.4	Circuit Design <!-- Schematics and explanations -->
+#### 4.5.1 Full Schematic Design
+#### 4.5.2 Controller System
+Just talk about the controller used and some comments on passives
+#### 4.5.3 Programming Interface
+Mention the use of the buttons and why the design has no UART chip and just pin headers
 
-### 4.3 Bill of Materials
+#### 4.5.4 Sensor System
+How the ADXL connects, which pin modes are set and how i2c is implemented
 
-### 4.4 Preliminary Testing
+
+#### 4.5.5 Human Machine Interface
+LEDs and buzzer to communicate status 
+
+#### 4.5.6 Motor Driver
+high side driver with transistors 
+
+#### 4.5.7 Power Regulation System and Power Supply
+Describe the not only the power regulator but also the reverse polarity protection and such
+
+#### 4.5.8 Limitations of ESP32-C3  <!-- Seems weird to be here, maybe better in discussion -->
+One possible limitation of the ESP32-C3 for our project is the write cycles of the NVS memory, which will be actively used to store the knock pattern.
+
+Its internal flash has a typical limit of 100k write cycles per sector 
+- i.e. each **sector** (usually 4 KB) can be **erased and rewritten ~100,000 times** before the flash may start to fail
+- If you only **write the knock pattern when it changes**, even **once per day**, you’d reach 100,000 writes after ~274 years.
+- Hence to be on the safe side, we must make sure to only write to flash when the pattern is changed by the user.
+- If for some reason one has to flash a lot, use FRAM (very expensive), however that will not be needed here.
+
+
+
+### 4.5 Component Specification <!-- Specs for sensor and how we tested also specs for other components-->
+
+
+### 4.6 Software Flow Charts <!-- Just logic no code yet -->
+
+### 4.7 Housing Design <!-- design for housing -->
+
+### 4.8 Verification Methods
+#### 4.8.1 Component Testing
+#### 4.8.2 System Integration Testing
+#### 4.8.3 Power Consumption
+power consumption 
+#### 4.8.4 User Acceptance Testing
+<!--------------------------------------------------------------------------------------------------------------------->
+<!--------------------------------------------------------------------------------------------------------------------->
+## 5	Results
+### 5.1 Component Selection <!-- Results of tests between components -->
 #### 4.4.1 Sensor Selection <!-- Kinda want to talk to Stamm abt whether to put this in method or results, for now we do method -->
 To test the accurcacy in knock detection with both sensors, we created a setup as shown below:
 ![alt text](resources/testingSetupPlastic.png "Testing setup 1 - Plastic")
@@ -203,42 +251,11 @@ The accelerometer gives 3-axis readings and how the 3-axis readings look like wh
 
 The y-axis is the magnitude in g, while the x-axis is time in milliseconds. The blue, yellow and green lines are the x, y and z axis respectively.
 
-#### 4.4.2 System Prototype
-An accelerometer module was used to test if the system was feasible and to start software development
+### 5.2 PCB Design <!-- PCB layout, issues and changes to schematic -->
 
-### 4.5	Schematic Design
-#### 4.5.1 Full Schematic Design
-#### 4.5.2 Controller System
-Just talk about the controller used and some comments on passives
-#### 4.5.3 Programming Interface
-Mention the use of the buttons and why the design has no UART chip and just pin headers
+### 5.3 PCB Assembly <!-- Final and issues encountered in assembly or after testing-->
 
-#### 4.5.4 Sensor System
-How the ADXL connects, which pin modes are set and how i2c is implemented
-
-
-#### 4.5.5 Human Machine Interface
-LEDs and buzzer to communicate status 
-
-#### 4.5.6 Motor Driver
-high side driver with transistors 
-
-#### 4.5.7 Power Regulation System and Power Supply
-Describe the not only the power regulator but also the reverse polarity protection and such
-
-#### 4.5.8 Limitations of ESP32-C3  <!-- Seems weird to be here, maybe better in discussion -->
-One possible limitation of the ESP32-C3 for our project is the write cycles of the NVS memory, which will be actively used to store the knock pattern.
-
-Its internal flash has a typical limit of 100k write cycles per sector 
-- i.e. each **sector** (usually 4 KB) can be **erased and rewritten ~100,000 times** before the flash may start to fail
-- If you only **write the knock pattern when it changes**, even **once per day**, you’d reach 100,000 writes after ~274 years.
-- Hence to be on the safe side, we must make sure to only write to flash when the pattern is changed by the user.
-- If for some reason one has to flash a lot, use FRAM (very expensive), however that will not be needed here.
-
-### 4.6 PCB Design
-
-
-### 4.7 Software Design
+### 5.4 Software Design <!-- Final code and issues after testing and how they were solved-->
 The software was made using the Arduino IDE. The code is written in C++. A modular approach was taken to make it easier to debug and maintain. All the main configurations are in the config.h file, while the main starting logic is in the KnockLock.ino file. All other functions are in seperate files to make it easier to read. The libraries used are:
 - ESP32 NVS Library: For using the NVS memory of ESP32-C3 - in-built with Arduino IDE
 - SparkFun ADXL345 Library (v1.0.0): For interfacing with the ADXL345 accelerometer
@@ -526,7 +543,7 @@ void handleWakeup(){
 ```
 This function must be called near the start of the setup() function (right after Serial setup) to save as much power as possible. The reason for it being in setup() is that after deep sleep, the ESP32-C3 does a full reset, hence setup() is called again.
 
-### 4.7.6 NVS Memory Handling
+#### 4.7.6 NVS Memory Handling
 To save the knock pattern even after power off, the NVS memory of ESP32-C3 is used. This is a non-volatile memory built into the ESP32-C3, which can be used to store small amounts of data.
 To save the pattern length and intervals, the following function was implemented:
 ```cpp
@@ -558,56 +575,29 @@ All of the functions above user some helper function to make the code more modul
 - unlockBox() and lockBox(): To unlock and lock the servo motor
 
 
-## 5	Results
-Here you should present your results.
-
-This is an example how to include image:
-![alt text](resources/Open_Source_Hardware_(OSHW)_Logo_on_blank_PCB.jpg "Example Image")
-(C) Altzone, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
-
-Example how to draw a table:
-
-| Left Aligned | Centered | Right Aligned |
-| :---         | :---:    | ---:          |
-| Cell 1       | Cell 2   | Cell 3        |
-| Cell 4       | Cell 5   | Cell 6        |
-| OpAmp 741    | 2        | 1.00          |
-
-### 4.8 Housing Design
+<!--------------------------------------------------------------------------------------------------------------------->
+<!--------------------------------------------------------------------------------------------------------------------->
 
 
-### 4.9 Verification Methods
-#### 4.9.1 Component Testing
-#### 4.9.2 System Integration Testing
-#### 4.9.3 Power Consumption
-power consumption 
+### 5.5 Housing Prototype
 
-## 6	Results
-### 6.1 Assembly
-### 6.2 Functional PCB
-### 6.3 PCB with Housing
-Here you should present your results.
-
-This is an example how to include image:
-![alt text](resources/Open_Source_Hardware_(OSHW)_Logo_on_blank_PCB.jpg "Example Image")
-(C) Altzone, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
-
-### 6.4 Issues
-primarily coding issues after lots of testing
-
-also lots of issues with housing
-
-## 7	Discussion
+### 5.6 Verification Results
+<!--------------------------------------------------------------------------------------------------------------------->
+<!--------------------------------------------------------------------------------------------------------------------->
+## 6	Discussion
 Here you should discuss your results
-### 7.1 Product Evaluation
+### 6.1 Product Evaluation
 A comparison of the results we had with existing products or what we saw in literature
 
-### 7.2 Product Limitations
+### 6.2 Product Limitations
 What are the main limitations we realised after extensive testing
 
 like the .... I cant think of any rn
 
-## 8	Conclusion
+### 6.3 Product Significance
+<!--------------------------------------------------------------------------------------------------------------------->
+<!--------------------------------------------------------------------------------------------------------------------->
+## 7	Conclusion
 You might want to discuss possible future work here
 ### 8.1 Future Improvements
 Doing this project, opened more aspects which can be worked on in future when reiterating the project. These include:
