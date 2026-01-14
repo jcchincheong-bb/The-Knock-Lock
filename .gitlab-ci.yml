@@ -5,7 +5,6 @@ build_rich_readme:
   tags:
     - pandoc
   script:
-    # Example: Convert README.md to a professional PDF using the 'eisvogel' template style
     - pandoc README.md -o PE04_WS25-26_Report.pdf --pdf-engine=xelatex
   artifacts:
     paths:
