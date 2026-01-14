@@ -1,18 +1,23 @@
->>>
-**Project-Template**
-
-Please use this template for your practical electronics project. (feel free to delete this section) 
-
-You can find a quick guide in the following [cheat sheet](https://www.markdownguide.org/cheat-sheet/) or specific [gitlab style](https://docs.gitlab.com/ee/user/markdown.html) here
-
->>>
-
-**Make sure your submit your deliverables (project description, schematic, pcb design and report on time - timestamp is used as reference)
-
-
-----
-
+---
+title: "Knock Lock Documentation"
+author: [Justin Chin Cheong]
+date: "2026-01-14"
+toc: true
+---
+<!----------------------------------------------------------------
+<div id="logo" align="center">
+<figure>
+  <img src="/resources/Logo.png" alt="Logo" width="400">
+  <figcaption align="center"><b>Figure 1:</b> Knock Lock Logo</figcaption>
+</figure>
+</div>
+----------------------------------------------------->
 # Knock Lock
+<div id="logo" align="center">
+<figure>
+  <img src="/resources/Logo.png" alt="Logo" width="400">
+</figure>
+</div>
 
 by: [Abhinav Kothari](https://www.linkedin.com/in/abhinav-kothari-2ak/) (33349) and [Justin Chin Cheong](https://jcchincheong-bb.github.io/) (34140)
 
@@ -54,11 +59,7 @@ Further more we must understand how an accelerometer works, and how to interface
 
 Then we shall talk about how we it will be implemented (Chapter 5: Methodology) and what results were achieved (Chapter 6: Results). Finally we will discuss the results (Chapter 7: Discussion)
 
-Before all this lets outline the requirements for the project.
-
-
-
-## 1.3 Project Team
+### 1.2 Project Team
 The project team consists of two Mechatronics Engineering Students whose responsibilities in the project were divided
 as follows:
 - Abhinav Kothari (33349):
@@ -115,6 +116,7 @@ This math is inline $`a^2+b^2=c^2`$.
 ### 3.1 Accelerometers
 ### 3.2 I2C
 ### 3.3 High-Side Driver
+### 3.4 Servo Motor
 <!--------------------------------------------------------------------------------------------------------------------->
 <!--------------------------------------------------------------------------------------------------------------------->
 ## 4	Methodology and Design
@@ -125,7 +127,7 @@ V model
 ### 4.2 System Requirements <!-- Requirements, not specs -->
 To fully implement the system, a number of requirements related to function, technology and project management have been outlined. 
 
-#### 1.2.1 Functional Requirements
+#### 4.2.1 Functional Requirements
 
 For Knock Knock Lock Box to be a satisfiable product, the following functional requirements must be implemented:
 
@@ -145,7 +147,7 @@ Some further optional and advanced features include:
 - It has an NFC to unlock the box in case of system failure
 - It alerts user in case door is left unlocked for a long time using beep sound
 
-#### 1.2.2 Technical Requirements
+#### 4.2.2 Technical Requirements
 
 For the Knock Knock Lock Box to operate and perform its functions, the following technical requirements must be implemented:
 
@@ -157,7 +159,7 @@ For the Knock Knock Lock Box to operate and perform its functions, the following
 - The provision to set MCU to low power mode and wake it back up
 - Should function at temperatures ranging 0-40°C and humidity 10-90%
 
-#### 1.2.3 Project Requirements
+#### 4.2.3 Project Requirements
 
 For the Knock Knock Lock Box project to produce a functional product upon close out, the following project requirements must be met:
 
@@ -172,29 +174,28 @@ For the Knock Knock Lock Box project to produce a functional product upon close 
     - Project Presentation and Demo: 2026-01-21
 
 ### 4.3 System Architecture <!-- FSD and maybe specs -->
-fsd 
 
 ### 4.4	Circuit Design <!-- Schematics and explanations -->
-#### 4.5.1 Full Schematic Design
-#### 4.5.2 Controller System
+#### 4.4.1 Full Schematic Design
+#### 4.4.2 Controller System
 Just talk about the controller used and some comments on passives
-#### 4.5.3 Programming Interface
+#### 4.4.3 Programming Interface
 Mention the use of the buttons and why the design has no UART chip and just pin headers
 
-#### 4.5.4 Sensor System
+#### 4.4.4 Sensor System
 How the ADXL connects, which pin modes are set and how i2c is implemented
 
 
-#### 4.5.5 Human Machine Interface
+#### 4.4.5 Human Machine Interface
 LEDs and buzzer to communicate status 
 
-#### 4.5.6 Motor Driver
+#### 4.4.6 Motor Driver
 high side driver with transistors 
 
-#### 4.5.7 Power Regulation System and Power Supply
+#### 4.4.7 Power Regulation System and Power Supply
 Describe the not only the power regulator but also the reverse polarity protection and such
 
-#### 4.5.8 Limitations of ESP32-C3  <!-- Seems weird to be here, maybe better in discussion -->
+#### 4.4.8 Limitations of ESP32-C3  <!-- Seems weird to be here, maybe better in discussion -->
 One possible limitation of the ESP32-C3 for our project is the write cycles of the NVS memory, which will be actively used to store the knock pattern.
 
 Its internal flash has a typical limit of 100k write cycles per sector 
@@ -222,16 +223,25 @@ power consumption
 <!--------------------------------------------------------------------------------------------------------------------->
 ## 5	Results
 ### 5.1 Component Selection <!-- Results of tests between components -->
-#### 4.4.1 Sensor Selection <!-- Kinda want to talk to Stamm abt whether to put this in method or results, for now we do method -->
+#### 5.1.1 Sensor Selection <!-- Choosing an appropriate sensor -->
 To test the accurcacy in knock detection with both sensors, we created a setup as shown below:
-![alt text](resources/testingSetupPlastic.png "Testing setup 1 - Plastic")
-(C) Image shot by authors
+<div id="sensorTestPlastic" align="center">
+<figure>
+  <img src="/resources/testingSetupPlastic.png" alt="Testing setup 1 - Plastic" width="400">
+  <figcaption align="center"><b>Figure X:</b> Testing Setup 1 - Plastic</figcaption>
+</figure>
+</div>
+
 Here both sensors were attached to a thin plastic lid, a knocks were applied to the lid. The readings from both sensors were recorded and compared.
 
 Another setup was created to simulate a more rigid and thicker surface, here we used a wooden chair we found. This surface is more likely to be similar to the actual box, or door, which are the 
 intended use cases. The setup is shown below:
-![alt text](resources/testingSetupWood.png "Testing setup 2 - Wood")
-(C) Image shot by authors
+<div id="sensorTestWood" align="center">
+<figure>
+  <img src="/resources/testingSetupWood.png" alt="Testing setup 2 - Wood" width="400">
+  <figcaption align="center"><b>Figure X:</b> Testing Setup 1 - Plastic</figcaption>
+</figure>
+</div>
 Here both sensors, one by one were attached to the wooden surface, and the knocks were applied from the other side of the chair. The readings were recorded and compared.
 
 The results from both tests are summarized below:
