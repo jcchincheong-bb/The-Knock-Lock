@@ -17,7 +17,7 @@ toc: true
 # Knock Lock
 <div id="logo" align="center">
 <figure>
-  <img src="/resources/images/Logo/Logo.png" alt="Logo" width="400">
+  <img src="/resources/Logo/Logo.png" alt="Logo" width="400">
 </figure>
 </div>
 
