@@ -20,11 +20,11 @@ constexpr int ALLOWED_MISTAKES = 1;           // How many accidental knocks befo
 // ADXL345 SETTINGS
 // -------------------------------------------------------------
 constexpr int SENSITIVITY         = 2;    // Sensitivity can be: +-2g, +-4g, +-8g, +-16g
-constexpr int TAP_THRESHOLD       = 40;   // This is raw value not g
+constexpr int TAP_THRESHOLD       = 40;   // This is now g, it is 0-255 (62.5mg per increment)
 constexpr int TAP_DURATION        = 20;   // In ms
 constexpr int DOUBLE_TAP_LATENCY  = 80;   // In ms
 constexpr int DOUBLE_TAP_WINDOW   = 200;  // In ms
-constexpr int ADXL_EN_X           = 0;  // Turn individual sensing off (0) or on (1)
+constexpr int ADXL_EN_X           = 1;  // Turn individual sensing off (0) or on (1)
 constexpr int ADXL_EN_Y           = 1;  // Turn individual sensing off (0) or on (1)
 constexpr int ADXL_EN_Z           = 1;  // Turn individual sensing off (0) or on (1)
 

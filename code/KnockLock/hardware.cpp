@@ -44,6 +44,9 @@ void setupHardware() {
   // Enable interrupt on button pin
   attachInterrupt(digitalPinToInterrupt(BUTTON_PIN), onRecordButton, FALLING);
 
+  // Enable interrupt on ADXL Pin
+  attachInterrupt(digitalPinToInterrupt(WAKE_INT), onTap, RISING);
+
   // Test servo motor
   // digitalWrite(SERVO_EN, HIGH);
   // lockServo.write(0); 
@@ -62,15 +65,25 @@ void ADXLsetup() {
   adxl.setDoubleTapLatency(DOUBLE_TAP_LATENCY);                   // Minimum duration between the second tap and first tap
   adxl.setDoubleTapWindow(DOUBLE_TAP_WINDOW);                     // Maximum duration to wait for the second tap
 
+  // Set single tap settings  
+  // Set values for what is considered a TAP and what is a DOUBLE TAP (0-255)
+  //adxl.setTapThreshold(TAP_THRESHOLD);           // 62.5 mg per increment, already set above
+  //adxl.setTapDuration(5);            // 625 μs per increment, already set above
+  adxl.singleTapINT(1);                                           // Enable single tap interrupt
+
   // Disable all interrupts, until required
   adxl.doubleTapINT(0);
-  adxl.singleTapINT(0);
   adxl.FreeFallINT(0);
   adxl.ActivityINT(0);
   adxl.InactivityINT(0);
-  adxl.getInterruptSource();
+  adxl.getInterruptSource();        // Reset all interrupt flags 
 }
 
 void IRAM_ATTR onRecordButton() {
   recordButtonPressed = true;                                      // Keep the ISR short for better functioning, the actual tasks is done in KnockLock.ino in main loop
 }
+
+void IRAM_ATTR onTap(){
+  knockDetected = true;       // Enable flag to show knock detected
+}
+

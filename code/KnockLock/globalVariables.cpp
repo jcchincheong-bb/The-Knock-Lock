@@ -21,3 +21,5 @@ volatile Mode currentMode = MODE_IDLE;
 volatile int STATE = 0; 
 
 volatile bool recordButtonPressed = false;
+
+volatile bool knockDetected = false;

@@ -14,6 +14,7 @@ void goToSleep() {
   digitalWrite(SERVO_EN, LOW); // Turn servo off the save battery
 
   // Prepare ADXL Wakeup
+  adxl.singleTapINT(0); // No need for single tap interrupt any,ore
   adxl.doubleTapINT(1); // Interrupt for double tap on, which wakes up the MCU up
   adxl.getInterruptSource(); // Clear the interrupt flags
   esp_deep_sleep_enable_gpio_wakeup(1ULL << WAKE_INT, ESP_GPIO_WAKEUP_GPIO_HIGH); // Set the GPU pin connected to interrupt as wake up

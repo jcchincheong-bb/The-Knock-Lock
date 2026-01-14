@@ -25,6 +25,8 @@ extern volatile int STATE; // State of locked or unlocked
 
 extern volatile bool recordButtonPressed;
 
+extern volatile bool knockDetected;
+
 // -------------------------------------------------------------
 // NON-GLOBALS
 // -------------------------------------------------------------

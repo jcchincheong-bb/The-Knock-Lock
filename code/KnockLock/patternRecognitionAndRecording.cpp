@@ -120,7 +120,7 @@ void handleRecording(float aDynamic, unsigned long now) {
     finishRecording(); 
     return;
   }
-  if ((aDynamic > KNOCK_THRESHOLD) && ((now - lastKnockTime) > DEBOUNCE_TIME)) { // if a knock is detected save its time
+  if ((knockDetected) && ((now - lastKnockTime) > DEBOUNCE_TIME)) { // if a knock is detected save its time
     flashGreenTick(); // Indicate user a knock was detected
     led_ryg(0, 1, 0); // Show it is still recording 
     if (knockCount < MAX_KNOCKS) { // Check if too many knocks were made
@@ -130,11 +130,13 @@ void handleRecording(float aDynamic, unsigned long now) {
       if(SERIAL_MONITOR_EN) Serial.printf("REC Knock #%d\n", knockCount);
     }
   }
+  knockDetected = false;
+  adxl.getInterruptSource();
 }
 
 // Function to deal with response if system locked
 void handleLockedState(float aDynamic, unsigned long now) {
-  if (aDynamic > KNOCK_THRESHOLD && (now - lastKnockTime) > DEBOUNCE_TIME) { // If knock is detected start recording its timing
+  if (knockDetected && (now - lastKnockTime) > DEBOUNCE_TIME) { // If knock is detected start recording its timing
     lastKnockTime = now;
     lastActivityTime = now; 
     flashGreenTick(); // Alert user a knock was detected
@@ -153,12 +155,14 @@ void handleLockedState(float aDynamic, unsigned long now) {
   if (knockCount == 0 && (now - lastActivityTime > SLEEP_TIMEOUT)) { // If too long a break with no knocks, go to sleep
     goToSleep();
   }
+  knockDetected = false;
+  adxl.getInterruptSource();
 }
 
 // Function to close box when unlocked
 void handleUnlockedState(float aDynamic, unsigned long now) {
   led_ryg(0,0,1);
-  if (aDynamic > KNOCK_THRESHOLD && (now - lastKnockTime) > DEBOUNCE_TIME) {  // Detect knock
+  if (knockDetected && (now - lastKnockTime) > DEBOUNCE_TIME) {  // Detect knock
     lastKnockTime = now;
     lastActivityTime = now;
     knockCount++;
@@ -169,6 +173,8 @@ void handleUnlockedState(float aDynamic, unsigned long now) {
       return; // Exit unlocked state
     }
   }
+  knockDetected = false;
+  adxl.getInterruptSource();
 }
 
 // Function to manual override and unlock the box, only for development stage

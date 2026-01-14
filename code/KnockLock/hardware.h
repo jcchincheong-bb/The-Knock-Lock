@@ -41,5 +41,6 @@ extern Preferences prefs;
 void setupHardware();
 void ADXLsetup();
 void IRAM_ATTR onRecordButton();
+void IRAM_ATTR onTap();
 
 #endif

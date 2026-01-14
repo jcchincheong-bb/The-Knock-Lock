@@ -55,23 +55,28 @@ void setup() {
 }
 
 void loop() {
-  // Read adxl345 values
-  adxl.readAccel(&x, &y, &z);
-  float aDynamic = fabs(accelMagnitudeG(x, y, z) - 1.0);
+  // Read adxl345 values 
   unsigned long now = millis();
   
   // For manual override
   static unsigned long lastPress = 0; 
   static int buttonClickCount = 0;
   int manualOverrideFlag = 0;
+  //int interruptFlag = 0;  // Flag to disable single tap interrupt if required
 
   // Only if knock prominent enough
-  if (aDynamic > KNOCK_THRESHOLD || recordButtonPressed) {
+  if (knockDetected || recordButtonPressed) {
     lastActivityTime = now;
   }
 
   // Check battery
   checkBatteryAwake(now);
+
+  // If no button pressed for a while, turn interrupt back on to detect taps
+    if (now - lastPress > CLICK_GAP_TIMEOUT) {
+      buttonClickCount = 0;
+      adxl.singleTapINT(1);
+    }
 
   // If button for recording pressed
   if (recordButtonPressed) {
@@ -80,6 +85,7 @@ void loop() {
     // Reset counter if too much time passed between clicks
     if (now - lastPress > CLICK_GAP_TIMEOUT) {
       buttonClickCount = 0;
+      adxl.singleTapINT(1);
     }
 
     // Debounce check
@@ -94,8 +100,10 @@ void loop() {
       now = millis();
     } 
     else {
+      adxl.singleTapINT(0); // Disable single tap interrupt, to allow override to be able to be detected even with vibrations
       if (buttonClickCount >= OVERRIDE_CLICK_COUNT) {
         buttonClickCount = 0;
+        adxl.singleTapINT(1);
         manualOverrideFlag = manualOverride();
       }
       
@@ -108,13 +116,13 @@ void loop() {
 
   // Go to required section
   if (currentMode == MODE_RECORDING) {
-    handleRecording(aDynamic, now);
+    handleRecording(0.0, now);
   } 
   else if (STATE == 0) {
-    handleLockedState(aDynamic, now);
+    handleLockedState(0.0, now);
   } 
   else if (STATE == 1) {
-    handleUnlockedState(aDynamic, now);
+    handleUnlockedState(0.0, now);
   }
 
   delay(5); 
