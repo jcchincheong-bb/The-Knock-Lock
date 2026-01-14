@@ -19,9 +19,11 @@ You can find a quick guide in the following [cheat sheet](https://www.markdowngu
 ----------------------------------------------------->
 # Knock Lock
 <div id="logo">
-<img src="/resources/Logo.png" width="50%">
+<figure>
+  <img src="/resources/Logo.png" alt="Logo" width="400">
+  <figcaption align="center"><b>Figure 1:</b> Knock Lock Logo</figcaption>
+</figure>
 </div>
-*Figure 1: Knock Lock Logo*
 
 by: [Abhinav Kothari](https://www.linkedin.com/in/abhinav-kothari-2ak/) (33349) and [Justin Chin Cheong](https://jcchincheong-bb.github.io/) (34140)
 
@@ -36,6 +38,7 @@ Date: 18 January 2022
 
 ## Abstract
 
+See the logo at [Figure 1](#logo)
 Short summary of the project and the work conducted
 
 ## Table of Contents
@@ -67,7 +70,7 @@ Before all this lets outline the requirements for the project.
 
 
 
-## 1.3 Project Team
+### 1.2 Project Team
 The project team consists of two Mechatronics Engineering Students whose responsibilities in the project were divided
 as follows:
 - Abhinav Kothari (33349):
