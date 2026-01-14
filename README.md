@@ -13,7 +13,8 @@ You can find a quick guide in the following [cheat sheet](https://www.markdowngu
 ----
 
 # Knock Lock
-
+![alt text](resources/Logo.png "Knock Lock Logo")
+<span style="font-size: 12px">"Logo"</span>  
 by: [Abhinav Kothari](https://www.linkedin.com/in/abhinav-kothari-2ak/) (33349) and [Justin Chin Cheong](https://jcchincheong-bb.github.io/) (34140)
 
 
