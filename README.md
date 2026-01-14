@@ -19,7 +19,7 @@ You can find a quick guide in the following [cheat sheet](https://www.markdowngu
 ----------------------------------------------------->
 # Knock Lock
 <div id="logo">
-<img src="image.jpg" width="50%">
+<img src="/resources/Logo.png" width="50%">
 </div>
 *Figure 1: Knock Lock Logo*
 
