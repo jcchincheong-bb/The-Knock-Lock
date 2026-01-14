@@ -12,16 +12,17 @@ You can find a quick guide in the following [cheat sheet](https://www.markdowngu
 
 ----
 <!----------------------------------------------------------------
-<div id="fig-1">
-<img src="image.jpg" width="50%">
-</div>
-*Figure 1: The architecture of the system.*
------------------------------------------------------>
-# Knock Lock
-<div id="logo">
+<div id="logo" align="center">
 <figure>
   <img src="/resources/Logo.png" alt="Logo" width="400">
   <figcaption align="center"><b>Figure 1:</b> Knock Lock Logo</figcaption>
+</figure>
+</div>
+----------------------------------------------------->
+# Knock Lock
+<div id="logo" align="center">
+<figure>
+  <img src="/resources/Logo.png" alt="Logo" width="400">
 </figure>
 </div>
 
@@ -38,7 +39,6 @@ Date: 18 January 2022
 
 ## Abstract
 
-See the logo at [Figure 1](#logo)
 Short summary of the project and the work conducted
 
 ## Table of Contents
