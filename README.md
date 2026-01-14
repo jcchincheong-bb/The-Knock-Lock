@@ -1,13 +1,15 @@
 ---
 title: "Knock Lock Documentation"
-author: [Justin Chin Cheong]
+author:
+  - "Abhinav Kothari"
+  - "Justin Chin Cheong"
 date: "2026-01-14"
 toc: true
 ---
 <!----------------------------------------------------------------
 <div id="logo" align="center">
 <figure>
-  <img src="/resources/Logo.png" alt="Logo" width="400">
+  <img src="/resources/images/Logo.png" alt="Logo" width="400">
   <figcaption align="center"><b>Figure 1:</b> Knock Lock Logo</figcaption>
 </figure>
 </div>
@@ -15,7 +17,7 @@ toc: true
 # Knock Lock
 <div id="logo" align="center">
 <figure>
-  <img src="/resources/Logo.png" alt="Logo" width="400">
+  <img src="/resources/images/Logo/Logo.png" alt="Logo" width="400">
 </figure>
 </div>
 
@@ -227,7 +229,7 @@ power consumption
 To test the accurcacy in knock detection with both sensors, we created a setup as shown below:
 <div id="sensorTestPlastic" align="center">
 <figure>
-  <img src="/resources/testingSetupPlastic.png" alt="Testing setup 1 - Plastic" width="400">
+  <img src="/resources/images/testingSetupPlastic.png" alt="Testing setup 1 - Plastic" width="400">
   <figcaption align="center"><b>Figure X:</b> Testing Setup 1 - Plastic</figcaption>
 </figure>
 </div>
@@ -238,7 +240,7 @@ Another setup was created to simulate a more rigid and thicker surface, here we 
 intended use cases. The setup is shown below:
 <div id="sensorTestWood" align="center">
 <figure>
-  <img src="/resources/testingSetupWood.png" alt="Testing setup 2 - Wood" width="400">
+  <img src="/resources/images/testingSetupWood.png" alt="Testing setup 2 - Wood" width="400">
   <figcaption align="center"><b>Figure X:</b> Testing Setup 1 - Plastic</figcaption>
 </figure>
 </div>
