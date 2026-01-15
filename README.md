@@ -56,9 +56,9 @@ Further more we must understand how an accelerometer works, and how to interface
 
 Then we shall talk about how we it will be implemented (Chapter 5: Methodology) and what results were achieved (Chapter 6: Results). Finally we will discuss the results (Chapter 7: Discussion)
 
-<div id="firstConcept" align="center">
+<div id="preliminary-sketch" align="center">
 <figure>
-  <img src="/resources/images/preliminarySketch.png" alt="firstConcept" width="400">
+  <img src="/resources/images/preliminarySketch.png" alt="preliminary-sketch" width="400">
   <figcaption align="center"><b>Figure 1.1:</b> Preliminary Sketch of the Knock Lock</figcaption>
 </figure>
 </div>
@@ -73,7 +73,7 @@ as follows:
   - Design and refinement of final prototype housing
 - Justin Julius Chin Cheong (34140): 
   - Component selection
-  - Design of programming interface and motor control circuits
+  - Design of programming interface and lock actuator circuits
   - Design and refinement of final PCB layout
   - Design of preliminary prototype housing
 - Both: 
@@ -210,6 +210,7 @@ For the Knock Knock Lock Box project to produce a functional product upon close 
 
 - the budget is 25€ not including the PCB
 - the project workload is estimated at 240h
+- all components ordered for the project must come from mouser.de 
 - the project schedule adheres to the following deadlines
     - Schematic Design: 2025-10-26
     - PCB Design Draft: 2025-11-09
@@ -237,8 +238,10 @@ The next layer after the [system architecture](#43-system-architecture) was defi
 </figure>
 </div>
 
+The following sections discuss the design of the schematic as well as the specifications of the most important components. 
+
 #### 4.4.2 Sensor Sub-System
-To handle the actual knock detection, the sensor sub-system was designed as shown in [Figure 4.3](#sensor-sch). 
+The first of these sub-systems is the sensor sub-system is as shown in [Figure 4.3](#sensor-sch). 
 <div id="sensor-sch" align="center">
 <figure>
   <img src="/resources/images/sensor_sch.PNG" alt="sensor-sch" width="400">
@@ -270,18 +273,33 @@ The results of this comparative test can be found in [Section 5.1.1](#511-sensor
 
 The general expectation was that both sensors would exhibit similar accuracies and since the piezo is significantly cheaper, the piezo would be the ideal sensor.
 
-#### 4.4.3 Motor Control Sub-System
-<div id="motor-control-sch" align="center">
+#### 4.4.3 Lock Actuator Sub-System
+On the other end of the system is the locking mechanism which is accomplished through a lock actuator. The circuit to interface this actuator is shown in [Figure 4.6](#lock-actuator-sch).  
+<div id="lock-actuator-sch" align="center">
 <figure>
-  <img src="/resources/images/motor-control_sch.PNG" alt="motor-control-sch" width="400">
-  <figcaption align="center"><b>Figure 4.6:</b> Schematic of the Motor Control Sub-System</figcaption>
+  <img src="/resources/images/motor-control_sch.PNG" alt="lock-actuator-sch" width="400">
+  <figcaption align="center"><b>Figure 4.6:</b> Schematic of the Lock Actuator Sub-System</figcaption>
 </figure>
 </div>
 
-High side driver with transistors 
+The initial concept of the product as shown in [Figure 1.1](#prelimiary-sketch) envisioned the use of a solenoid actuator to work similar to bolt in a door. However, another component which could accomplish the locking while also being cheaper and using less power is a simple servo motor. As such, a number of options for both were found on Mouser for consideration and compared in [Table X](#tab:servo-comp). Clearly, the power requirement for the solenoid is much higher than the that of the servo. This would mean either a boost converter or some other additional voltage regulation would be needed to power the solenoid. On top of that, the solenoids are more expensive per unit. As such, the project team opted to use a servo motor and chose the SER0050 since it is a higher torque than the SER0049. 
+
+<div id="tab:servo-comp">
+
+*Table X: Comparison of Solenoids and Servos Available on Mouser*
+| Type     | Model Number | Price [€] | Voltage [V] | Load Current [mA] | Lock Length [mm]        |
+| -------- | ------------ | --------- | ----------- | ----------------- | ----------------------- |
+| Solenoid | 3992         | 6.45      | 5–6         | 800-1000          | 10                      |
+| Solenoid | 412          | 6.45      | 12          | 300               | 15                      |
+| Solenoid | 2776         | 4.43      | 5           | 1100              | 3                       |
+| Servo    | SER0050      | 5.16      | 4.8–6       | 110-120           | 15                      |
+| Servo    | SER0049      | 4.30      | 4.8–6       | 110-120           | 15                      |
+<div>
+
+Another important aoidjawdwi talk about the logic for the power gating. 
 
 #### 4.4.4 Controller Sub-System
-The first of the sub-systems is the controller sub-system shown in [Figure 4.7](#controller-sch).
+Potentially the most important of the sub-systems is the controller sub-system shown in [Figure 4.7](#controller-sch).
 <div id="controller-sch" align="center">
 <figure>
   <img src="/resources/images/controller_sch.png" alt="controller-sch" width="400">
@@ -289,14 +307,63 @@ The first of the sub-systems is the controller sub-system shown in [Figure 4.7](
 </figure>
 </div>
 
+The microcontroller (MCU) interfaces the sensor, the lock actuator and the human machine interface (HMI). It handles all the processing and runs the program developed in [Section 5.5](#55-software-design). The complete pin mapping of the MCU is shown in [Table X](#tab:controller-pin-mapping). 
+
+<div id="tab:controller-pin-mapping">
+
+*Table X: Pin Mapping of Microcontroller*
+| Pin   | Name  | Type / Label     | Description / Connection                                   |
+|------:|-------|------------------|------------------------------------------------------------|
+| 1     | 3V3   | Power            | +3.3V Supply from Regulator                                |
+| 2     | EN    | Reset            | Enable / Reset connecting to Reset Button                  |
+| 3     | IO4   | WAKE_INT         | Wake Interrupt for Sensor                                  |
+| 4     | IO5   | SCL              | SCL (I2C Clock) with 4.7kΩ Pull-up                         |
+| 5     | IO6   | SDA              | SDA (I2C Data) with 4.7kΩ Pull-up                          |
+| 6     | IO7   | PROG             | Input to trigger programming mode. Pulled up.              |
+| 7     | IO8   | -                | Strapping pin pulled up for easy booting into UART download mode |
+| 8     | IO9   | BOOT             | Strapping Pin connected to pin header for booting into UART download mode |
+| 9     | GND_1 | Ground           | Not Connected                                              |
+| 10    | IO10  | BUZZ             | Buzzer                                                     |
+| 11    | RXD   | RX               | UART Receive                                               |
+| 12    | TXD   | TX               | UART Transmit                                              |
+| 13    | IO18  | RLED             | Red LED                                                    |
+| 14    | IO19  | YLED             | Yellow LED                                                 |
+| 15    | IO3   | GLED             | Green LED                                                  |
+| 16    | IO2   | BAT_V            | Battery Voltage Monitoring                                 |
+| 17    | IO1   | CONTROL          | Control signal for Lock Actuator                           |
+| 18    | IO0   | SERVO            | Signal to cut-power to Lock Actuator                       |
+| 19–27 | GND   | Ground           | Main System Ground                                         |
+</div>
+
+From [Table X](#tab:controller-pin-mapping), it can be seen that the chosen MCU must have:
+- at least 11 programmable GPIOs
+- I2C communication
+- at least 1 ADC GPIO 
+- on-board UART interface 
+- exposed enable and strapping pins
+
+Additionally, the chosen MCU must large enough to easily solder onto a PCB. 
+
+Given the ease in which it can be programmed via the Arduino IDE and it's high speed and robust features, the project team believed an MCU from the ESP32 line would best fit the specifications. On Mouser, a number of options that met the basic specifications were found as shown in [Table X](#esp32-comp). Ultimately, the decision to chose the ESP32-C3-WROOM-02-N4 was because it was large and had pins exposed on the sides for easier assembly (unlike the 356-ESP32C6MINI1H8) and it was cheaper than the H4 while still meeting all the specifications.
+<div id="tab:esp32-comp"> 
+
+*Table X: Comparison of ESP32 Chips Available on Mouser*
+| Part Number           | Price [€] | Interfaces       | GPIO Count | ADC GPIOs | Size [mm]   | Package Type                         |
+| --------------------- | --------- | ---------------- | ---------- | --------- | ----------- | ------------------------------------ |
+| ESP32-C3-WROOM-02-N4  | 3.12      | I2C, SPI, UART   | 15         | 4         | 18 × 25.5   | Castellated module with exposed pins | 
+| ESP32-C3-WROOM-02-H4  | 3.36      | I2C, SPI, UART   | 22         | 4         | 18 × 25.5   | Castellated module with exposed pins | 
+| 356-ESP32C6MINI1H8    | 4.69      | I2C, SPI, UART   | 22         | 6         | 13.2 × 16.6 | Castellated mini module with pins underneath |
+</div>
+
 #### 4.4.5 Programming Interface Sub-System
-In order to program the [controller sub-system](#442-controller-sub-system), a programming interface as shown in [Figure 4.8](#prog-interface-sch) is required. The design simply uses a pin header which connects to the receiver and transmitter pins of the microcontroller so that it can be programmed directly through UART. This is done as opposed to using a USB-to-UART Bridge chip because it requires less components on the PCB and thus lowers costs. The button and boot pins are also included so that the microcontroller can easily be booted into programming mode.
+In order to program the [controller sub-system](#442-controller-sub-system), a programming interface as shown in [Figure 4.8](#prog-interface-sch) is required. 
 <div id="prog-interface-sch" align="center">
 <figure>
   <img src="/resources/images/programming-interface_sch.png" alt="prog-interface-sch" width="400">
   <figcaption align="center"><b>Figure 4.8:</b> Schematic of the Programming Interface Sub-System</figcaption>
 </figure>
 </div>
+The design simply uses a pin header which connects to the receiver and transmitter pins of the microcontroller so that it can be programmed directly through the on-board UART interface. This is done as opposed to using a USB-to-UART Bridge chip because it requires less components on the PCB and thus lowers costs. The button and boot pins are also included so that the microcontroller can easily be booted into programming mode.
 
 #### 4.4.6 Human Machine Interface Sub-System
 
@@ -342,18 +409,19 @@ For easy code understanding and better readability, a modular approach was taken
   <img src="/resources/images/KnockLockSide.PNG" style="width: 50%;">
 </div>
 
-For demonstration purposes, a box was modeled. The door must mount the PCB, this way the knocks can be reliably detected when door (typically primary place for knocking) is knocked. The battery has been kept in the base of the box to reduce the weight of the hinges for longetivity of the box. Keeping it in the base also makes battery replacement a bit easier. 
-In the door, it is important to have supports to screw in the PCB well, with minimal movement to prevent double knock detections. The door must have also have holes to keep the LEDs visisble as well as a button which connects to the button on the PCB to allow user to program the system when required. The USB B port must remain accessible as well, as well as a place to secure in the servo motor. The preliminary 3D Model can be seen in [Figure X](#housing-model). The final housing can be seen in [Section 5.6](#56-housing-prototype).
-
-### 4.7 Prototype Verification Methods
+### 4.7 Pre-Implementation Verification Methods
 #### 4.7.1 Prototype System Testing
+
 #### 4.7.2 Prototype Component Testing
 
-### 4.8 Final Verification Methods
+### 4.8 Post-Implementation Verification Methods
 #### 4.8.1 Final Component Testing
+
 #### 4.8.2 Final System Integration Testing
+
 #### 4.8.3 Power Consumption
 power consumption 
+
 #### 4.8.4 User Acceptance Testing
 Over the course of a week, 10 people were surveyed using convenience sampling. Each person was shown the final prototype and asked four questions:
 1. What would you rate this product out of ten?
@@ -386,6 +454,7 @@ While the tests were conducted with a MMA8452Q by Sparksfun Electronics, however
 ### 5.2 Bill of Materials
 
 ### 5.3 PCB Design <!-- PCB layout, issues and changes to schematic -->
+
 first design pretty bad 
 <div id="pcb-v1" align="center">
 <figure>
@@ -413,14 +482,14 @@ third and final design is just refinement like changing the servo connector and 
 ### 5.4 PCB Assembly <!-- Final and issues encountered in assembly or after testing-->
 <div id="pcb-front" align="center">
 <figure>
-  <img src="/resources/images/pcb_front.jpg_" alt="pcb-v3" width="400">
+  <img src="/resources/images/pcb_front.jpg" alt="pcb-front" width="400">
   <figcaption align="center"><b>Figure X:</b> Final PCB (front) </figcaption>
 </figure>
 </div>
 
 <div id="pcb-back" align="center">
 <figure>
-  <img src="/resources/images/pcb_back.jpg_" alt="pcb-v3" width="400">
+  <img src="/resources/images/pcb_back.jpg" alt="pcb-back" width="400">
   <figcaption align="center"><b>Figure X:</b> Final PCB (back) </figcaption>
 </figure>
 </div>
