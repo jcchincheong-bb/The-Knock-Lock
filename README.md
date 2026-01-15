@@ -171,7 +171,7 @@ While an ESP32 has a higher power consumption in normal mode, in deep it falls m
 ## 4	Methodology and Design
 
 ### 4.1 Design Approach <!-- V-model-->
-Due to the high complexity of the project, the project team decided to use the V-model design flow. With this approach of continuous verification, the project aimed to reduce risk by finding issues and their solutions early.
+Due to the high complexity of the project, the project team decided to use the V-model design flow. With this approach of continuous verification, the project team aimed to reduce risk by finding issues and their solutions early.
 
 ### 4.2 System Requirements <!-- Requirements, not specs -->
 To fully implement the system, a number of requirements related to function, technology and project management have been outlined. 
@@ -294,7 +294,7 @@ The initial concept of the product as shown in [Figure 1.1](#prelimiary-sketch) 
 | Servo    | SER0049      | 4.30      | 4.8–6       | 110-120           | 15                      |
 <div>
 
-Another important aoidjawdwi talk about the logic for the power gating. 
+Another important aspect of the lock actuator interface is the power cut-off system. This is accomplished using a high side driver as described in [Section 3.3](#33-high-side-driver). Essentially, the P-MOSFET (Q2) cuts the actuator's power supply line off when triggered. It is driven by an NPN transistor (Q1) which is driven by the microcontroller. 
 
 #### 4.4.4 Controller Sub-System
 Potentially the most important of the sub-systems is the controller sub-system shown in [Figure 4.7](#controller-sch).
@@ -361,10 +361,10 @@ In order to program the [controller sub-system](#442-controller-sub-system), a p
   <figcaption align="center"><b>Figure 4.8:</b> Schematic of the Programming Interface Sub-System</figcaption>
 </figure>
 </div>
-The design simply uses a pin header which connects to the receiver and transmitter pins of the microcontroller so that it can be programmed directly through the on-board UART interface. This is done as opposed to using a USB-to-UART Bridge chip because it requires less components on the PCB and thus lowers costs. The button and boot pins are also included so that the microcontroller can easily be booted into programming mode.
+The design simply uses a pin header which connects to the UART receiver and transmitter pins of the microcontroller so that it can be programmed directly through the on-board UART interface. This is done as opposed to using a USB-to-UART Bridge chip because it requires less components on the PCB and thus lowers costs. The boot pins can be connected with a jumper to pull down the strapping pin and the the button pulls down the enable pin to reset the microcontroller so that it can boot into UART download mode.
 
 #### 4.4.6 Human Machine Interface Sub-System
-
+Since the product has to be used by humans, it requires a human machine interface (HMI) which is illustrated in [Figure 4.9](#hmi-sch). 
 <div id="hmi-sch" align="center">
 <figure>
   <img src="/resources/images/hmi_sch.png" alt="hmi-sch" width="400">
@@ -372,9 +372,17 @@ The design simply uses a pin header which connects to the receiver and transmitt
 </figure>
 </div>
 
-LEDs and buzzer to communicate status 
+The HMI uses three different LEDs to convey different meanings to the user. The general idea was: 
+- the green LED indicates that the box is unlocked
+- the yellow LED indicates the box is locked and in stand-by
+- the red LED indicates when unlocking attempt was unsuccessful
+
+The buzzer was then intended to create auditory feedback for the same actions as described above. One sound indicates when the box is unlocked successfully. Another for when it is unsuccessful. Here, careful consideration of which frequencies to use on the buzzer must be taken. 
+
+Finally, the HMI includes a simple button which can be used to enter the programming mode of the product.
 
 #### 4.4.7 Power Regulation Sub-System
+Finally, the system cannot function without reliable power and such a power regulation system has to be defined as shown in [Figure 4.10](#power-sch). 
 <div id="power-sch" align="center">
 <figure>
   <img src="/resources/images/power-regulation_sch.png" alt="power-sch" width="400">
@@ -382,8 +390,9 @@ LEDs and buzzer to communicate status
 </figure>
 </div>
 
-Describe the not only the power regulator but also the reverse polarity protection and such
+Since the [controller](#444-controller-sub-system) uses an ESP32 which requires 3.3V, a voltage regulator that outputs 3.3V is required. The most common and efficient means of accomplishing this is using a higher voltage supply and using regulator to step down the supply. For the purpose of this project, a switching buck converter was chosen instead of using a linear voltage regulator as they are higher efficiency and produce less heat. 
 
+The voltage regulation must also provide protection in addition to providing the right voltage level. The buck converter itself can provide over-voltage protection as most commerical ICs can take up to 40V. To implement reverse polarity protection, TVS diodes are used in combination with a fuse. The diode is connected across the juctions such that when a reversed voltage is connected, the diode shorts the external source and not the rest of the circuit.
 
 ### 4.5 Software Flow Charts <!-- Just logic no code yet -->
 The following flowchart shows the overall logic of the program:
@@ -403,9 +412,11 @@ The flowchart in [Figure X](#sw-flow) shows, how the system must work, spikes de
 </div>
 
 ### 4.7 Pre-Implementation Verification Methods
-#### 4.7.1 Prototype System Testing
+#### 4.7.1 Sensor Concept Testing
 
-#### 4.7.2 Prototype Component Testing
+#### 4.7.2 Prototype System Testing
+
+#### 4.7.3 Prototype Component Testing
 
 ### 4.8 Post-Implementation Verification Methods
 #### 4.8.1 Final Component Testing
@@ -415,7 +426,8 @@ The flowchart in [Figure X](#sw-flow) shows, how the system must work, spikes de
 #### 4.8.3 Power Consumption
 power consumption 
 
-#### 4.8.4 User Acceptance Testing
+### 4.9 Validation Methods
+#### 4.9 User Acceptance Testing
 Over the course of a week, 10 people were surveyed using convenience sampling. Each person was shown the final prototype and asked four questions:
 1. What would you rate this product out of ten?
 2. What is one feature you especially liked about the product?
@@ -428,6 +440,7 @@ It should also be noted that the majority of the people surveyed are familiar wi
 ## 5	Results
 ### 5.1 Component Selection <!-- Results of tests between components -->
 #### 5.1.1 Sensor Selection <!-- Choosing an appropriate sensor -->
+
 The results from the tests described in [Section 4.4.2 Sensor Sub-system](#442-sensor-sub-system) are summarized below:
 - Both the piezo disc and IMU were able to detect knocks through a plastic case quite reliably. Though, through the wood, only the IMU was able to detect any knocks.
 - In both setups, the IMU was able to detect very fast knocks, but the piezo in plastic setup occasionally missed knocks that were too quick. 
@@ -808,6 +821,8 @@ All of the functions above user some helper function to make the code more modul
 ### 5.6 Housing Prototype
 
 ### 5.7 Verification Results
+
+### 
 <!--------------------------------------------------------------------------------------------------------------------->
 <!--------------------------------------------------------------------------------------------------------------------->
 ## 6	Discussion
@@ -831,6 +846,7 @@ You might want to discuss possible future work here
 Doing this project, opened more aspects which can be worked on in future when reiterating the project. These include:
 - Rechargeability: Implementing a recharging circuit and using rechargable batteries
 - Redundant sensors: Use Piezo with ADXL to more effectively detect a knock
+- Improved Ergonomics: Using a material that does not hurt to knock or
 
 ## 8	References
 
