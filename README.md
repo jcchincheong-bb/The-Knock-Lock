@@ -101,38 +101,24 @@ Reviewing hobyist and academic projets, gives us an overview of the common techn
 For processing most the projects implemented and Arduino Deumilanove or an Arduino Nano, and used gear reduction motors, solenoids or servo for locking/unlocking mechanism.
 
 ## 2.2 Technical Comparison of Sensors
-As noted from the previous section, no accelerometers were used in the project, which particularly interesting considering, they are commonly used in high-end consumer electronics such as smartphones for detecting back taps, which work reliably. Hence this section compares the two sensor technologies to better understand the situation.
+As noted from the previous section, no accelerometers were used in the project, which particularly interesting considering, they are commonly used in high-end consumer electronics such as smartphones for detecting back taps, which work reliably. Hence this section compares the three sensor technologies (Piezoelectric, capacative accelerometers, vibration sensor) to better understand the situation.
 
-While piezoelements offer a good signal to noise ratio, they also act as high pass filters. This property provides them with a higher sensitivity for higher frequency vibrations, but hence not the ideal solution for lower frequency vibrations, which is more similar to human knocks [4]. Especially considering, vibrations when traveling through various materials dampen, depending on the material property and thickness. 
-On the other hand accelerometers will allow sensing of flat responses (0Hz) and hence have good sensitivity for lower frequencies [4]. 
+While piezoelements offer a good signal to noise ratio, they also act as high pass filters. This property provides them with a higher sensitivity for higher frequency vibrations, but hence not the ideal solution for lower frequency vibrations, which is more similar to human knocks [4]. Especially considering, vibrations when traveling through various materials dampen, depending on the material property and thickness. On the other hand accelerometers allow sensing of flat responses (0Hz) and hence have good sensitivity for even lower frequencies [4]. Vibration sensors allow for detecting only above a specified frequency, depending on its calibration.
+Accelerometers generally have chips to process and amplify signal which can communicate the information using I2C or SPI communication instead of Piezoelectrics devices, which are analog or vibration sensor which are digital. 
 
-Many projects have been made to ease unlocking a device, for example using RFID, NFC, Bluetooth, WiFi, fingerprint sensors etc. Some have also implemented knock detection, 
-These projects have used various techniques to create a similar final product. These will be discussed here
-
-### 2.1	Related Work
-Orignally in the brainstorming phase, many sensors were thrown into the mix for succesfully detection, this included a digital vibrations sensor, a piezo sensor and a accelerometer amoungst others, but these were the primary contendors. Vibration sensors were avoided, as they will not be as senstive as an piezo or accelerometer, also being digital reduces the customisability. Piezo and accelerometers were both looked into in more detail.
-
-Piezo sensors have been the primary choice in most project [1,2,3]. One uses a Arduino Duemilanove with a piezo sensor to detect knocks and a gear reduction motor acts as the actuator to open the lock. Other projects use a similar approach but with an Arduino nano, but uses a solenoid or a servo motor as the actuator.
-
-Even after extensive research, we could not find any project that used an an accelerometer to detect knocks, only piezos, which increased our curiosity.
-
-The reason for using piezo is most likely because of them being accordable and easy to use while maintaining a good SNR (Signal To Noise Ratio). However, we believed that MEMs accelerometers can be used as well, and even could prove to be better for this specific application.
-The blog post [4] shows MEMS accelerometers have a better frequency response and are more sensitive than piezo sensors at lower frequencies, due to the high passing filtering used. While this blog post is about IEPE the same principle applies to piezo sensors as well. Even in industrial applications [5], when MEMs were compared to traditional piezo sensors, the max deviation was only found to be 6.6%  at lower frequencies of upto 2,500 Hz, which is perfect for our application of knock detection. While piezo accelerations sensors, usually have a superior SNR to MEMs, with recent development the difference is slowly diminishing as shown by this paper. 
-
-The major reason for why we first though of using IMUs, is guidance from our professor, and then us thinking back to our phones, which use accelerometers to succesfully detect back taps for performing some
-actions, precisely what we want to do here. A summary of all the differences between piezo and MEMs accelerometers is shown in the table below:
+A summary of all the differences between piezos, MEMs accelerometers and vibration sensor is shown in the table below:
 
 <div id="PiezoVAccel" >
 </div>
 
 *Table X: Comparison of Piezo and MEMS Accelerometers*
-| Feature               | Piezo Accelerometer                | MEMS Accelerometer                 |
+| Feature               | Piezoielectric Sensor                | MEMS Accelerometer                 | Vibration Sensor |
 |----------------------|-----------------------------------|-----------------------------------|
 | Sensitivity          | High sensitivity, especially at higher frequencies | Good sensitivity, especially at lower frequencies |
 | Frequency Response   | Wide frequency response, typically from a few Hz to several kHz | Good frequency response, typically from DC to several kHz |
-| Size and Weight      | Generally larger and heavier due to the need for a seismic mass and housing | Compact and lightweight due to microfabrication techniques |
-| Power Consumption    | Typically higher power consumption due to signal conditioning requirements | Low power consumption, suitable for battery-powered applications |
-| Cost                 | Generally more expensive due to complex manufacturing processes | Cost-effective due to mass production capabilities |
+| Size and Weight      | Generally a bulier housing, medium weight with housing | Compact and lightweight due to microfabrication techniques |
+| Power Consumption    | Passive devices| Low power consumption, suitable for battery-powered applications |
+| Cost                 | Generally cheaper | Typically more expensive |
 
 Looking at the project made before in more detail [1], an issue was pointed out, that there can be a lot of false positives. However, as accelerometers communicate over I2C (Used here) or SPI,
 we get digital values of analog readings directly, which can be processed better than the analog voltage from piezo sensors. This allows us with more flexibility in filtering and processing the signal to reduce false positives.
