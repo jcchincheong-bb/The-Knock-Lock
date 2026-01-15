@@ -1,11 +1,3 @@
----
-title: "Knock Lock Documentation"
-author:
-  - "Abhinav Kothari"
-  - "Justin Chin Cheong"
-date: "2026-01-14"
-toc: true
----
 <!----------------------------------------------------------------
 <div id="logo" align="center">
 <figure>
@@ -78,6 +70,8 @@ as follows:
   - Soldering and assembly
   - Testing of components and system integration
   - Testing of functionality
+
+
 <!--------------------------------------------------------------------------------------------------------------------->
 <!--------------------------------------------------------------------------------------------------------------------->
 ## 2	Literature review
@@ -124,7 +118,7 @@ This math is inline $`a^2+b^2=c^2`$.
 ## 4	Methodology and Design
 
 ### 4.1 Design Approach <!-- V-model-->
-V model
+Due to the high complexity of the project, the project team decided to use the V-model design flow. With this approach of continuous verification, the project aimed to reduce implementation risk by finding issues and their solutions early.
 
 ### 4.2 System Requirements <!-- Requirements, not specs -->
 To fully implement the system, a number of requirements related to function, technology and project management have been outlined. 
@@ -134,28 +128,23 @@ To fully implement the system, a number of requirements related to function, tec
 For Knock Knock Lock Box to be a satisfiable product, the following functional requirements must be implemented:
 
 - It unlocks within 1-2 seconds when a specific knocking pattern is used on the surface of the box
-- It turns a green LED on and simultaneously plays a simple beep to indicate that the box has been unlocked
+- It indicates turns a green LED on and simultaneously plays a simple beep to indicate that the box has been unlocked
 - It rejects pattern if incorrect within 1-2 seconds after knocking has ended
 - It turns a red LED on and simultaneously plays a simple alarm to indicate that the knocking pattern was false or unrecognized
 - It alerts when the battery level drops below a certain level by flashing a red LED, even in power saving mode
 - It only powers on after some initial knock to wake up the system, on wake it shows an yellow LED
-- If no knocks detected for 30 seconds, it goes back to power saving mode
+- If no knocks detected for 60 seconds, it goes back to power saving mode
 - It has provision to use a Micro USB port as an alternative power source in case battery dies out, with no prospect to upload firmware through it
 - It uses a servo motor for unlocking and locking 
-
-Some further optional and advanced features include:
-
-- It has a programming mode where the user sets the knock for the system to recognize, mode can only be entered when the box is unlocked (for example using NFC)
-- It has an NFC to unlock the box in case of system failure
-- It alerts user in case door is left unlocked for a long time using beep sound
+- It has a programming mode where the user sets the knock for the system to recognize, mode can only be entered when the box is unlocked 
 
 #### 4.2.2 Technical Requirements
 
 For the Knock Knock Lock Box to operate and perform its functions, the following technical requirements must be implemented:
 
-- The accelerometer can detect at knock amplitudes and output a measurable voltage reading to the MCU
+- The sensor system can detect at knock amplitudes and output a measurable voltage reading to the MCU
 - There are provisions to protect the sensor and MCU from voltage spikes that might occur from the power supply
-- The MCU Software can detect at most 30 knocks with consequitive knocks being less than 2s apart and match the timings to the predefined knock pattern with a set tolerance of acceptance
+- The MCU Software can detect at most 30 knocks with consecutive knocks being less than 2s apart and match the timings to the predefined knock pattern with a set tolerance of acceptance
 - The power supply is a battery with a working voltage of 3.2V to 5.5V
 - The enclosure can protect the system within a typical indoor environment (IP 31)
 - The provision to set MCU to low power mode and wake it back up
