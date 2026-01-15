@@ -93,6 +93,19 @@ With regard to writing of this report, the following illustrates the contributio
 <!--------------------------------------------------------------------------------------------------------------------->
 <!--------------------------------------------------------------------------------------------------------------------->
 ## 2	Literature review
+In pursuit of unique and easy methods for users to unlock systems, many developments have been made. These methods for unlocking vary from NFCs to Biometric. Knock detection is also a method used in some projects, which allows for unlocking even without carying anything extra (Like card for NFCs). This section covers the existing projects implementing knock detection, and compares them to a new approach which is not so commonly used in these systems.
+
+### 2.1 Related Work
+Reviewing hobyist and academic projets, gives us an overview of the common techniques used to accompolish this task. Notable implemetations [1,2,3] show reliable intepretation of knocks using a piezoelectric elements. However all had some limitations shown from the demonstration. The knock detection was only on a surface parallel to the piezo element. They all had also relatively hard knocks for detection. Some projects pointed out that increasing precision also increases the number of false positives. Even after more research, no projects using accelerometers were found. From reviewing the projects further, it can also been seen that none of the systems implemented a sleep mode to save battery.
+
+For processing most the projects implemented and Arduino Deumilanove or an Arduino Nano, and used gear reduction motors, solenoids or servo for locking/unlocking mechanism.
+
+## 2.2 Technical Comparison of Sensors
+As noted from the previous section, no accelerometers were used in the project, which particularly interesting considering, they are commonly used in high-end consumer electronics such as smartphones for detecting back taps, which work reliably. Hence this section compares the two sensor technologies to better understand the situation.
+
+While piezoelements offer a good signal to noise ratio, they also act as high pass filters. This property provides them with a higher sensitivity for higher frequency vibrations, but hence not the ideal solution for lower frequency vibrations, which is more similar to human knocks [4]. Especially considering, vibrations when traveling through various materials dampen, depending on the material property and thickness. 
+On the other hand accelerometers will allow sensing of flat responses (0Hz) and hence have good sensitivity for lower frequencies [4]. 
+
 Many projects have been made to ease unlocking a device, for example using RFID, NFC, Bluetooth, WiFi, fingerprint sensors etc. Some have also implemented knock detection, 
 These projects have used various techniques to create a similar final product. These will be discussed here
 
