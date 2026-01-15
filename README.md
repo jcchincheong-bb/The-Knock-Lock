@@ -127,6 +127,8 @@ we get digital values of analog readings directly, which can be processed better
 Hence to actually find the better alternative for our project we did some testing in Section 4.1.
 
 While an ESP32 has a higher power consumption in normal mode, in deep it falls much lower (around 5 uA) [7]. Which makes a viable option for battery powered applications with the controller mainly in deepsleep. It also has more than enough processing power to handle the knock detection algorithm.
+<!--------------------------------------------------------------------------------------------------------------------->
+<!--------------------------------------------------------------------------------------------------------------------->
 
 ## 3	Theory
 ### 3.1 Accelerometers
@@ -162,6 +164,7 @@ While an ESP32 has a higher power consumption in normal mode, in deep it falls m
 </div>
 <!--------------------------------------------------------------------------------------------------------------------->
 <!--------------------------------------------------------------------------------------------------------------------->
+
 ## 4	Methodology and Design
 
 ### 4.1 Design Approach <!-- V-model-->
@@ -291,7 +294,28 @@ Describe the not only the power regulator but also the reverse polarity protecti
 
 ### 4.5 Component Specifications <!-- Specs for sensor and how we tested also specs for other components-->
 #### 4.5.1 Sensor Options
-As mentioned in the [Section 2 Literature Review](#2literature-review), most existing projects implemented a piezo element or sensor to measure the vibrations and detect knocks. However, [Table 1](#PiezoVAccel) also revealed the potential efficacy of using an accelerometer instead of a piezo. Thus, to identify the most appropriate sensor for the most accurate and reliable knock detection, a simple piezo disc was tested against an accelerometer development module. The results of this comparative test can be found in [Section 5.1.1](#511-sensor-selection). The general expectation was that both sensors would exhibit similar accuracies and since the piezo is significantly cheaper, the piezo would be the ideal sensor.
+As mentioned in the [Section 2 Literature Review](#2literature-review), most existing projects implemented a piezo element or accelerometer to detect knocks. However, [Table 1](#PiezoVAccel) also revealed the potential efficacy of using an accelerometer instead of a piezo. Thus, to identify an appropriate sensor for the most accurate and reliable knock detection, a simple comparative experiment was conducted. A piezo disc (DAOKAI JA-DA-036 27mm) was tested against an accelerometer development module (JOY-IT SEN-MMA8452Q) which was readily available in the lab. 
+
+The sensors were tested in two different scenarios: a thin plastic lid and on a wooden chair as seen in Figures [4.9](#sensorTestPlastic) and [4.10](#sensorTestWood) respectively. This allowed for understanding how each sensor performed on materials of very different densities and stiffness's. In each test, the sensors were attached to surface and connected to an Arduino UNO for processing the output. Knocks were then applied to the other side of the material and the readings were recorded and compared.
+<div id="sensorTestPlastic" align="center">
+<figure>
+  <img src="/resources/images/testingSetupPlastic.png" alt="Testing setup 1 - Plastic" width="400">
+  <figcaption align="center"><b>Figure 4.9:</b> Testing Setup 1 - Plastic</figcaption>
+</figure>
+</div>
+
+<div id="sensorTestWood" align="center">
+<figure>
+  <img src="/resources/images/testingSetupWood.png" alt="Testing setup 2 - Wood" width="400">
+  <figcaption align="center"><b>Figure 4.10:</b> Testing Setup 2 - Wood</figcaption>
+</figure>
+</div>
+
+The results of this comparative test can be found in [Section 5.1.1](#511-sensor-selection). The sensors were compared based on two criteria. 
+1. Reliability of detecting knocks of different strengths in each setup
+2. Reliability of detecting knocks of different speeds in each setup
+
+The general expectation was that both sensors would exhibit similar accuracies and since the piezo is significantly cheaper, the piezo would be the ideal sensor.
 
 ### 4.6 Software Flow Charts <!-- Just logic no code yet -->
 The following flowchart shows the overall logic of the program:
@@ -309,6 +333,7 @@ The flowchart in [Figure X](#sw-flow) shows, how the system must work, spikes de
   <img src="/resources/images/KnockLockFront_1.PNG" style="width: 50%;">
   <img src="/resources/images/KnockLockSide.PNG" style="width: 50%;">
 </div>
+
 
 ### 4.8 Verification Methods
 #### 4.8.1 Component Testing
@@ -328,42 +353,21 @@ It should also be noted that the majority of the people surveyed are familiar wi
 ## 5	Results
 ### 5.1 Component Selection <!-- Results of tests between components -->
 #### 5.1.1 Sensor Selection <!-- Choosing an appropriate sensor -->
-To test the accurcacy in knock detection with both sensors, we created a setup as shown below:
-<div id="sensorTestPlastic" align="center">
+The results from the tests described in [Section 4.5.1 Sensor Options](#451-sensor-options) are summarized below:
+- Both the piezo disc and IMU were able to detect knocks through a plastic case quite reliably. Though, through the wood, only the IMU was able to detect any knocks.
+- In both setups, the IMU was able to detect very fast knocks, but the piezo in plastic setup occasionally missed knocks that were too quick. 
+
+Even after trying to make the piezo a more sensitive by using 3.3V supply instead of 5V, it still couldn’t match the performance of the IMU. This was very unexpected considering other projects in the [Literature Review](#2literature-review). Additionally, the i2c communication of the IMU was observed to be significantly more reliable than the voltage output of the piezo element. As such, the IMU was chosen to be the project's knock detection sensor.
+
+The IMU also gave data for all three axes. A typical series of knocks as detected by the IMU can be seen in [Figure 5.1](#imu-test). The y-axis is the magnitude in g (gravitational units), while the x-axis is time in milliseconds. The blue, yellow and green lines are the x, y and z axis respectively. Each knock caused a peak in each of the three axes, but most prominently in the axis perpendicular to the surface of the material. As such the knock detection software as discussed in [Section 5.4.2](#542-knock-detection), initially considered only the value of this axis. 
+<div id="imu-test" align="center">
 <figure>
-  <img src="/resources/images/testingSetupPlastic.png" alt="Testing setup 1 - Plastic" width="400">
-  <figcaption align="center"><b>Figure X:</b> Testing Setup 1 - Plastic</figcaption>
+  <img src="/resources/images/knockDetectionIMU.png" alt="imu-test" width="400">
+  <figcaption align="center"><b>Figure 5.1:</b> Serial Plot from Test of MMA8452Q IMU </figcaption>
 </figure>
 </div>
 
-Here both sensors were attached to a thin plastic lid, a knocks were applied to the lid. The readings from both sensors were recorded and compared.
-
-Another setup was created to simulate a more rigid and thicker surface, here we used a wooden chair we found. This surface is more likely to be similar to the actual box, or door, which are the 
-intended use cases. The setup is shown below:
-<div id="sensorTestWood" align="center">
-<figure>
-  <img src="/resources/images/testingSetupWood.png" alt="Testing setup 2 - Wood" width="400">
-  <figcaption align="center"><b>Figure X:</b> Testing Setup 1 - Plastic</figcaption>
-</figure>
-</div>
-Here both sensors, one by one were attached to the wooden surface, and the knocks were applied from the other side of the chair. The readings were recorded and compared.
-
-The results from both tests are summarized below:
-- The IMU is much more reliable and easier to detect, the communication works quite seamless with i2c. Each knock produces spike for all 3 axis, some more prominantly than others.
-- Piezo was able to detect knocks against it through a plastic case quite reliably, occasional misses when knocked too quickly
-- The IMU is able to detect even through a wooden chair, while piezo couldn’t
-
-Even after trying to make the piezo a bit more sensitive using 3.3V supply instead of 5V, it still couldn’t match the performance of the IMU. Which was shocking considering other projects.
-However we still decided to go with the IMU for knock detection.
-
-The accelerometer used was a MMA8452Q by Sparksfun Electronics, however the final design uses an ADXL345, as it was cheaper and bigger in package size making it possible to solder using
-the tools available to us. However the ADXL345 is 13-bit instead of 12-bit, hence should perform even better.
-
-The accelerometer gives 3-axis readings and how the 3-axis readings look like when 3 knocks are applied is shown below:
-![alt text](resources/knockDetectionIMU.png "Knock Detection IMU")
-(C) Screeenshot by authors
-
-The y-axis is the magnitude in g, while the x-axis is time in milliseconds. The blue, yellow and green lines are the x, y and z axis respectively.
+While the tests were conducted with a MMA8452Q by Sparksfun Electronics, however the final design uses an ADXL345, as it was cheaper and larger in package size making it easier to solder. The ADXL345 is also 13-bit instead of 12-bit, hence should perform even better.
 
 ### 5.2 Bill of Materials
 
