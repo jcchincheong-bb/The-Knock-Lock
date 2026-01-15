@@ -6,6 +6,9 @@
 </figure>
 </div>
 ----------------------------------------------------->
+<!--
+STOP CHANGING THE STRUCTURE! IT'S GOOD NOW!!!
+-->
 # Knock Lock
 <div id="logo" align="center">
 <figure>
@@ -46,7 +49,7 @@ The KnockLock Project will demonstrate the idea by implementation into a lock bo
 The primary goal of this project is to be able create a system which can detect knocks reliably with correct timings in order to identify if it is the correct pattern
 or not, and react accordingly. For the detection an accelerometer will be used.
 
-For this we will have to first understand, if this has been done before, if so how can it be improved. If not it must be compared to the exhisting methods. This will talked about
+For this we will have to first understand, if this has been done before, if so how can it be improved. If not it must be compared to the existing methods. This will talked about
 in the literature review in Chapter 2.
 
 Further more we must understand how an accelerometer works, and how to interface it with a microcontroller. This will be presented in Chapter 3.
@@ -223,7 +226,7 @@ From the requirements outlined in [Section 4.2](#42-system-requirements), a syst
 </figure>
 </div>
 
-### 4.4	Circuit Design <!-- Schematics and explanations -->
+### 4.4	Hardware Design <!-- Schematics, explanations and component specifications -->
 #### 4.4.1 Full Schematic Design
 The next layer after the [system architecture](#43-system-architecture) was defined as the schematic of the system as shown in [Figure 4.2](#schematic). In designing the schematic, each of the sub-systems defined in [Figure 4.1](#fsd) were treated separately before integrating together.
 <div id="schematic" align="center">
@@ -233,81 +236,29 @@ The next layer after the [system architecture](#43-system-architecture) was defi
 </figure>
 </div>
 
-#### 4.4.2 Controller Sub-System
-The first of the sub-systems is the controller sub-system shown in [Figure 4.3](#controller-sch).
-<div id="controller-sch" align="center">
-<figure>
-  <img src="/resources/images/controller_sch.png" alt="controller-sch" width="400">
-  <figcaption align="center"><b>Figure 4.3:</b> Schematic of the Controller Sub-System</figcaption>
-</figure>
-</div>
-
-#### 4.4.3 Programming Interface Sub-System
-In order to program the [controller sub-system](#442-controller-sub-system), a programming interface as shown in [Figure 4.4](#prog-interface-sch) is required. The design simply uses a pin header which connects to the receiver and transmitter pins of the microcontroller so that it can be programmed directly through UART. This is done as opposed to using a USB-to-UART Bridge chip because it requires less components on the PCB and thus lowers costs. The button and boot pins are also included so that the microcontroller can easily be booted into programming mode.
-<div id="prog-interface-sch" align="center">
-<figure>
-  <img src="/resources/images/programming-interface_sch.png" alt="prog-interface-sch" width="400">
-  <figcaption align="center"><b>Figure 4.4:</b> Schematic of the Programming Interface Sub-System</figcaption>
-</figure>
-</div>
-
-#### 4.4.4 Sensor Sub-System
-To handle the actual knock detection, the sensor sub-system was designed as shown in [Figure 4.5](sensor-sch). 
+#### 4.4.2 Sensor Sub-System
+To handle the actual knock detection, the sensor sub-system was designed as shown in [Figure 4.3](#sensor-sch). 
 <div id="sensor-sch" align="center">
 <figure>
   <img src="/resources/images/sensor_sch.PNG" alt="sensor-sch" width="400">
-  <figcaption align="center"><b>Figure 4.5:</b> Schematic of the Sensor Sub-System</figcaption>
+  <figcaption align="center"><b>Figure 4.3:</b> Schematic of the Sensor Sub-System</figcaption>
 </figure>
 </div>
 
-
-#### 4.4.5 Human Machine Interface Sub-System
-
-<div id="hmi-sch" align="center">
-<figure>
-  <img src="/resources/images/hmi_sch.png" alt="hmi-sch" width="400">
-  <figcaption align="center"><b>Figure 4.6:</b> Schematic of the HMI Sub-System</figcaption>
-</figure>
-</div>
-
-LEDs and buzzer to communicate status 
-
-#### 4.4.6 Motor Control Sub-System
-<div id="motor-control-sch" align="center">
-<figure>
-  <img src="/resources/images/motor-control_sch.PNG" alt="motor-control-sch" width="400">
-  <figcaption align="center"><b>Figure 4.7:</b> Schematic of the Motor Control Sub-System</figcaption>
-</figure>
-</div>
-
-high side driver with transistors 
-
-#### 4.4.7 Power Regulation Sub-System
-<div id="power-sch" align="center">
-<figure>
-  <img src="/resources/images/power-regulation_sch.png" alt="power-sch" width="400">
-  <figcaption align="center"><b>Figure 4.8:</b> Schematic of the Power Regulation Sub-System</figcaption>
-</figure>
-</div>
-
-Describe the not only the power regulator but also the reverse polarity protection and such
-
-### 4.5 Component Specifications <!-- Specs for sensor and how we tested also specs for other components-->
-#### 4.5.1 Sensor Options
 As mentioned in the [Section 2 Literature Review](#2literature-review), most existing projects implemented a piezo element or accelerometer to detect knocks. However, [Table 1](#PiezoVAccel) also revealed the potential efficacy of using an accelerometer instead of a piezo. Thus, to identify an appropriate sensor for the most accurate and reliable knock detection, a simple comparative experiment was conducted. A piezo disc (DAOKAI JA-DA-036 27mm) was tested against an accelerometer development module (JOY-IT SEN-MMA8452Q) which was readily available in the lab. 
 
-The sensors were tested in two different scenarios: a thin plastic lid and on a wooden chair as seen in Figures [4.9](#sensorTestPlastic) and [4.10](#sensorTestWood) respectively. This allowed for understanding how each sensor performed on materials of very different densities and stiffness's. In each test, the sensors were attached to surface and connected to an Arduino UNO for processing the output. Knocks were then applied to the other side of the material and the readings were recorded and compared.
+The sensors were tested in two different scenarios: a thin plastic lid and on a wooden chair as seen in Figures [4.4](#sensorTestPlastic) and [4.5](#sensorTestWood) respectively. This allowed for understanding how each sensor performed on materials of very different densities and stiffness's. In each test, the sensors were attached to surface and connected to an Arduino UNO for processing the output. Knocks were then applied to the other side of the material and the readings were recorded and compared.
 <div id="sensorTestPlastic" align="center">
 <figure>
   <img src="/resources/images/testingSetupPlastic.png" alt="Testing setup 1 - Plastic" width="400">
-  <figcaption align="center"><b>Figure 4.9:</b> Testing Setup 1 - Plastic</figcaption>
+  <figcaption align="center"><b>Figure 4.4:</b> Testing Setup 1 - Plastic</figcaption>
 </figure>
 </div>
 
 <div id="sensorTestWood" align="center">
 <figure>
   <img src="/resources/images/testingSetupWood.png" alt="Testing setup 2 - Wood" width="400">
-  <figcaption align="center"><b>Figure 4.10:</b> Testing Setup 2 - Wood</figcaption>
+  <figcaption align="center"><b>Figure 4.5:</b> Testing Setup 2 - Wood</figcaption>
 </figure>
 </div>
 
@@ -317,7 +268,57 @@ The results of this comparative test can be found in [Section 5.1.1](#511-sensor
 
 The general expectation was that both sensors would exhibit similar accuracies and since the piezo is significantly cheaper, the piezo would be the ideal sensor.
 
-### 4.6 Software Flow Charts <!-- Just logic no code yet -->
+#### 4.4.3 Motor Control Sub-System
+<div id="motor-control-sch" align="center">
+<figure>
+  <img src="/resources/images/motor-control_sch.PNG" alt="motor-control-sch" width="400">
+  <figcaption align="center"><b>Figure 4.6:</b> Schematic of the Motor Control Sub-System</figcaption>
+</figure>
+</div>
+
+high side driver with transistors 
+
+#### 4.4.4 Controller Sub-System
+The first of the sub-systems is the controller sub-system shown in [Figure 4.7](#controller-sch).
+<div id="controller-sch" align="center">
+<figure>
+  <img src="/resources/images/controller_sch.png" alt="controller-sch" width="400">
+  <figcaption align="center"><b>Figure 4.7:</b> Schematic of the Controller Sub-System</figcaption>
+</figure>
+</div>
+
+#### 4.4.5 Programming Interface Sub-System
+In order to program the [controller sub-system](#442-controller-sub-system), a programming interface as shown in [Figure 4.8](#prog-interface-sch) is required. The design simply uses a pin header which connects to the receiver and transmitter pins of the microcontroller so that it can be programmed directly through UART. This is done as opposed to using a USB-to-UART Bridge chip because it requires less components on the PCB and thus lowers costs. The button and boot pins are also included so that the microcontroller can easily be booted into programming mode.
+<div id="prog-interface-sch" align="center">
+<figure>
+  <img src="/resources/images/programming-interface_sch.png" alt="prog-interface-sch" width="400">
+  <figcaption align="center"><b>Figure 4.8:</b> Schematic of the Programming Interface Sub-System</figcaption>
+</figure>
+</div>
+
+#### 4.4.6 Human Machine Interface Sub-System
+
+<div id="hmi-sch" align="center">
+<figure>
+  <img src="/resources/images/hmi_sch.png" alt="hmi-sch" width="400">
+  <figcaption align="center"><b>Figure 4.9:</b> Schematic of the HMI Sub-System</figcaption>
+</figure>
+</div>
+
+LEDs and buzzer to communicate status 
+
+#### 4.4.7 Power Regulation Sub-System
+<div id="power-sch" align="center">
+<figure>
+  <img src="/resources/images/power-regulation_sch.png" alt="power-sch" width="400">
+  <figcaption align="center"><b>Figure 4.10:</b> Schematic of the Power Regulation Sub-System</figcaption>
+</figure>
+</div>
+
+Describe the not only the power regulator but also the reverse polarity protection and such
+
+
+### 4.5 Software Flow Charts <!-- Just logic no code yet -->
 The following flowchart shows the overall logic of the program:
 <div id="sw-flow" align="center">
 <figure>
@@ -328,20 +329,23 @@ The following flowchart shows the overall logic of the program:
 
 The flowchart in [Figure X](#sw-flow) shows, how the system must work, spikes denote knocks detected. The system starts in locked state, where it continously listens for knocks, unless it sleeps, and records them. Interrupts will be used to wake the system up from sleep for again starting to read knocks. Once the knocks are recorded, they are checked against the target pattern, if they match, the system unlocks, else it stays locked. If the box is unlocked and the programming button is pressed, the system enters programming mode, where it records knocks to save a new pattern. Once the pattern is recorded, it is saved to NVS memory and the system goes back to idle mode. Knocking twice locks the box again. LEDs and Buzzer are used to give feedback to the user.
 
-### 4.7 Housing Design <!-- design for housing -->
+### 4.6 Housing Design <!-- design for housing -->
 <div id = "housing-model" style="display: flex; gap: 10px;">
   <img src="/resources/images/KnockLockFront_1.PNG" style="width: 50%;">
   <img src="/resources/images/KnockLockSide.PNG" style="width: 50%;">
 </div>
 
+### 4.7 Prototype Verification Methods
+#### 4.7.1 Prototype System Testing
+#### 4.7.2 Prototype Component Testing
 
-### 4.8 Verification Methods
-#### 4.8.1 Component Testing
-#### 4.8.2 System Integration Testing
+### 4.8 Final Verification Methods
+#### 4.8.1 Final Component Testing
+#### 4.8.2 Final System Integration Testing
 #### 4.8.3 Power Consumption
 power consumption 
 #### 4.8.4 User Acceptance Testing
-Over the course of a week, *insert number* people were surveyed using convenience sampling. Each person was shown the final prototype and asked four questions:
+Over the course of a week, 10 people were surveyed using convenience sampling. Each person was shown the final prototype and asked four questions:
 1. What would you rate this product out of ten?
 2. What is one feature you especially liked about the product?
 3. What is one feature you disliked about the product?
@@ -353,7 +357,7 @@ It should also be noted that the majority of the people surveyed are familiar wi
 ## 5	Results
 ### 5.1 Component Selection <!-- Results of tests between components -->
 #### 5.1.1 Sensor Selection <!-- Choosing an appropriate sensor -->
-The results from the tests described in [Section 4.5.1 Sensor Options](#451-sensor-options) are summarized below:
+The results from the tests described in [Section 4.4.2 Sensor Sub-system](#442-sensor-sub-system) are summarized below:
 - Both the piezo disc and IMU were able to detect knocks through a plastic case quite reliably. Though, through the wood, only the IMU was able to detect any knocks.
 - In both setups, the IMU was able to detect very fast knocks, but the piezo in plastic setup occasionally missed knocks that were too quick. 
 
@@ -372,8 +376,44 @@ While the tests were conducted with a MMA8452Q by Sparksfun Electronics, however
 ### 5.2 Bill of Materials
 
 ### 5.3 PCB Design <!-- PCB layout, issues and changes to schematic -->
+first design pretty bad 
+<div id="pcb-v1" align="center">
+<figure>
+  <img src="/resources/images/pcb-layout_V1.PNG" alt="pcb-v1" width="400">
+  <figcaption align="center"><b>Figure X:</b> First PCB Layout </figcaption>
+</figure>
+</div>
+
+second design shifted around mcu and changed the components to smt
+<div id="pcb-v2" align="center">
+<figure>
+  <img src="/resources/images/pcb-layout_V2.PNG" alt="pcb-v2" width="400">
+  <figcaption align="center"><b>Figure X:</b> Second PCB Layout </figcaption>
+</figure>
+</div>
+
+third and final design is just refinement like changing the servo connector and adding vias for thermal relief. A [logo](#logo) was also added. 
+<div id="pcb-v3" align="center">
+<figure>
+  <img src="/resources/images/pcb-layout_V3-final.PNG" alt="pcb-v3" width="400">
+  <figcaption align="center"><b>Figure X:</b> Final PCB Layout </figcaption>
+</figure>
+</div>
 
 ### 5.4 PCB Assembly <!-- Final and issues encountered in assembly or after testing-->
+<div id="pcb-front" align="center">
+<figure>
+  <img src="/resources/images/pcb_front.jpg_" alt="pcb-v3" width="400">
+  <figcaption align="center"><b>Figure X:</b> Final PCB (front) </figcaption>
+</figure>
+</div>
+
+<div id="pcb-back" align="center">
+<figure>
+  <img src="/resources/images/pcb_back.jpg_" alt="pcb-v3" width="400">
+  <figcaption align="center"><b>Figure X:</b> Final PCB (back) </figcaption>
+</figure>
+</div>
 
 ### 5.5 Software Design <!-- Final code and issues after testing and how they were solved-->
 The software was made using the Arduino IDE. The code is written in C++. A modular approach was taken to make it easier to debug and maintain. All the main configurations are in the config.h file, while the main starting logic is in the KnockLock.ino file. All other functions are in seperate files to make it easier to read. The libraries used are:
