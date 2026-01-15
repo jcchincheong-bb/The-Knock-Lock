@@ -84,14 +84,14 @@ as follows:
 With regard to writing of this report, the following illustrates the contributions of each team member:
 - Abhinav Kothari (33349): 
   - Chapter 2
-  - Chapter 4: 4.6, 4.7
+  - Chapter 4: 4.5, 4.6, 4.8
   - Chapter 5: 5.4, 5.5
   - Chapter 6
   - Chapter 7
 - Justin Julius Chin Cheong (34140): 
   - Chapter 1
   - Chapter 3
-  - Chapter 4: 4.1, 4.2, 4.3, 4.4, 4.5, 4.8
+  - Chapter 4: 4.1, 4.2, 4.3, 4.4, 4.7, 4.8
   - Chapter 5: 5.1, 5.2, 5.3, 5.6
 <!--------------------------------------------------------------------------------------------------------------------->
 <!--------------------------------------------------------------------------------------------------------------------->
@@ -106,29 +106,31 @@ For processing most the projects implemented and Arduino Deumilanove or an Ardui
 ## 2.2 Technical Comparison of Sensors
 As noted from the previous section, no accelerometers were used in the project, which particularly interesting considering, they are commonly used in high-end consumer electronics such as smartphones for detecting back taps, which work reliably. Hence this section compares the three sensor technologies (Piezoelectric, capacative accelerometers, vibration sensor) to better understand the situation.
 
-While piezoelements offer a good signal to noise ratio, they also act as high pass filters. This property provides them with a higher sensitivity for higher frequency vibrations, but hence not the ideal solution for lower frequency vibrations, which is more similar to human knocks [4]. Especially considering, vibrations when traveling through various materials dampen, depending on the material property and thickness. On the other hand accelerometers allow sensing of flat responses (0Hz) and hence have good sensitivity for even lower frequencies [4]. Vibration sensors allow for detecting only above a specified frequency, depending on its calibration.
-Accelerometers generally have chips to process and amplify signal which can communicate the information using I2C or SPI communication instead of Piezoelectrics devices, which are analog or vibration sensor which are digital. 
+While piezoelements offer a good signal to noise ratio, they also act as high pass filters. This property provides them with a higher sensitivity for higher frequency vibrations, but hence not the ideal solution for lower frequency vibrations, which is more similar to human knocks [4]. While this blog [4], compares accelerometers with professional piezoelectric sensors, which are much more sensitive than the piezoelectric devices used in other projects, the same fundamental limitation applies to them as well. Especially considering, vibrations when traveling through various materials may loose high frequency energy relatively quickly, depending on the material property and thickness, which may make it even harder to detect. On the other hand accelerometers allow sensing of flat responses (0Hz) and hence have good sensitivity for even lower frequencies [4]. Vibration sensors allow for detecting only above a specified frequency, depending on its calibration.
+Accelerometers generally have chips to process and amplify signal which can communicate the information using I2C or SPI communication instead of Piezoelectrics devices, which are analog or vibration sensor which are digital. This implies, theoretically, an accelerometer should allow for much more customisability via software, as the chips also have many interrupts. They chips are able to process these informations quite well to reduce noise. Accelerometer being 3-axis may also allow detection direction of knock which could be helpful in certain scenarios.
+Piezo electric are analog passive devices, hence have quite less power consumption, however also implies they must be always awake to read. 
+Vibration sensor have limited customisability due to their digital nature. They can either detect a knock or not, which can potentionally cause problems diffrentiating general vibrations from knocks.
 
-A summary of all the differences between piezos, MEMs accelerometers and vibration sensor is shown in the table below:
+A summary of all the differences between piezos, MEMs accelerometers and vibration sensor is shown in Table. 2.1
 
-<div id="PiezoVAccel" >
+<div id="PiezoVsAccelVsVibration" >
 </div>
 
-*Table X: Comparison of Piezo and MEMS Accelerometers*
-| Feature               | Piezoielectric Sensor                | MEMS Accelerometer                 | Vibration Sensor |
-|----------------------|-----------------------------------|-----------------------------------|
-| Sensitivity          | High sensitivity, especially at higher frequencies | Good sensitivity, especially at lower frequencies |
-| Frequency Response   | Wide frequency response, typically from a few Hz to several kHz | Good frequency response, typically from DC to several kHz |
-| Size and Weight      | Generally a bulier housing, medium weight with housing | Compact and lightweight due to microfabrication techniques |
-| Power Consumption    | Passive devices| Low power consumption, suitable for battery-powered applications |
-| Cost                 | Generally cheaper | Typically more expensive |
+*Table X: Comparison of Piezo, Vibration Sensors and MEMs Accelerometer*
 
-Looking at the project made before in more detail [1], an issue was pointed out, that there can be a lot of false positives. However, as accelerometers communicate over I2C (Used here) or SPI,
-we get digital values of analog readings directly, which can be processed better than the analog voltage from piezo sensors. This allows us with more flexibility in filtering and processing the signal to reduce false positives.
+| Feature | Piezoelectric Buzzer | Digital Vibration Sensor | MEMS Accelerometer (Capacative) |
+| :--- | :--- | :--- | :--- |
+| **Sensing Principle** | Piezoelectric (Acoustic/Resonant) | Spring-and-Ball (Mechanical Switch) | **Capacitive (Proof-Mass Displacement)** |
+| **Output Type** | Raw Analog Voltage (Uncalibrated) | Digital Binary (HIGH/LOW) | **Digital Data ($I^2C$/SPI)** |
+| **Detection Axis** | Single Axis (Directional) | Omni-directional (Uncalibrated) | **3-Axis ($X, Y, Z$) Sensing** |
+| **Customizability** | **Low:** Fixed by hardware/surface | **None:** On/Off trigger only | **High:** Software-defined thresholds |
+| **Power Management** | Requires constant CPU sampling | Interrupt-capable | **Integrated Interrupts (Deep Sleep)** |
+| **Primary Limitation** | High-frequency bias (Acoustic) | Lack of pattern sensitivity | Higher initial code complexity |
+| **Cost** | Extremely Low | Low | Moderate |
 
-Hence to actually find the better alternative for our project we did some testing in Section 4.1.
+These sensors are then tested in [Section 4.4.2](#522-sensor-sch) and results can be found in [Section 5.1.1](#511-sensor-selection)
 
-While an ESP32 has a higher power consumption in normal mode, in deep it falls much lower (around 5 uA) [7]. Which makes a viable option for battery powered applications with the controller mainly in deepsleep. It also has more than enough processing power to handle the knock detection algorithm.
+While an ESP32 has a higher power consumption in normal mode, in deep it falls much lower (around 5 uA) [6]. Which makes a viable option for battery powered applications with the controller mainly in deepsleep. It also has more than enough processing power to handle the knock detection algorithm.
 <!--------------------------------------------------------------------------------------------------------------------->
 <!--------------------------------------------------------------------------------------------------------------------->
 
@@ -244,7 +246,8 @@ To handle the actual knock detection, the sensor sub-system was designed as show
 </figure>
 </div>
 
-As mentioned in the [Section 2 Literature Review](#2literature-review), most existing projects implemented a piezo element or accelerometer to detect knocks. However, [Table 1](#PiezoVAccel) also revealed the potential efficacy of using an accelerometer instead of a piezo. Thus, to identify an appropriate sensor for the most accurate and reliable knock detection, a simple comparative experiment was conducted. A piezo disc (DAOKAI JA-DA-036 27mm) was tested against an accelerometer development module (JOY-IT SEN-MMA8452Q) which was readily available in the lab. 
+As mentioned in the [Section 2 Literature Review](#2literature-review), most existing projects implemented a piezo element over an accelerometer or a vibration sensor to detect knocks. However, [Table 1](#PiezoVsAccelVsVibration) also revealed the potential efficacy of using an accelerometer instead of a piezo. Thus, to identify an appropriate sensor for the most accurate and reliable knock detection, a simple comparative experiment was conducted. A piezo disc (DAOKAI JA-DA-036 27mm) was tested against an accelerometer development module (JOY-IT SEN-MMA8452Q) which was readily available in the lab. 
+Note the vibration sensor was excluded from this comparative testing as with its preliminary testing it was revealed that it has significant reliability issues. The sensor lacked the necessary sensitivity control, often oscillating between over-sensitivity (detecting ghost knocks) and under-sensitivity.
 
 The sensors were tested in two different scenarios: a thin plastic lid and on a wooden chair as seen in Figures [4.4](#sensorTestPlastic) and [4.5](#sensorTestWood) respectively. This allowed for understanding how each sensor performed on materials of very different densities and stiffness's. In each test, the sensors were attached to surface and connected to an Arduino UNO for processing the output. Knocks were then applied to the other side of the material and the readings were recorded and compared.
 <div id="sensorTestPlastic" align="center">
@@ -275,7 +278,7 @@ The general expectation was that both sensors would exhibit similar accuracies a
 </figure>
 </div>
 
-high side driver with transistors 
+High side driver with transistors 
 
 #### 4.4.4 Controller Sub-System
 The first of the sub-systems is the controller sub-system shown in [Figure 4.7](#controller-sch).
@@ -310,6 +313,9 @@ LEDs and buzzer to communicate status
 <div id="power-sch" align="center">
 <figure>
   <img src="/resources/images/power-regulation_sch.png" alt="power-sch" width="400">
+
+
+
   <figcaption align="center"><b>Figure 4.10:</b> Schematic of the Power Regulation Sub-System</figcaption>
 </figure>
 </div>
@@ -326,13 +332,18 @@ The following flowchart shows the overall logic of the program:
 </figure>
 </div>
 
-The flowchart in [Figure X](#sw-flow) shows, how the system must work, spikes denote knocks detected. The system starts in locked state, where it continously listens for knocks, unless it sleeps, and records them. Interrupts will be used to wake the system up from sleep for again starting to read knocks. Once the knocks are recorded, they are checked against the target pattern, if they match, the system unlocks, else it stays locked. If the box is unlocked and the programming button is pressed, the system enters programming mode, where it records knocks to save a new pattern. Once the pattern is recorded, it is saved to NVS memory and the system goes back to idle mode. Knocking twice locks the box again. LEDs and Buzzer are used to give feedback to the user.
+The flowchart in [Figure X](#sw-flow) shows, how the system must work, spikes denote knocks detected. The system starts in locked state, where it continously listens for knocks, unless its asleep, and records them. Interrupts will be used to wake the system up from sleep for again starting to read knocks. Once the knocks are recorded, they are checked against the target pattern, if they match, the system unlocks, else it stays locked. If the box is unlocked and the programming button is pressed, the system enters programming mode, where it records knocks to save a new pattern. Once the pattern is recorded, it is saved to NVS memory and the system goes back to idle mode. Knocking twice locks the box again. LEDs and Buzzer are used to give feedback to the user.
+
+For easy code understanding and better readability, a modular approach was taken. Splitting the code in different cpp files depending on the type of function. A config.h file also was created to storing all customisability settings, This approach was taken keeping user
 
 ### 4.6 Housing Design <!-- design for housing -->
 <div id = "housing-model" style="display: flex; gap: 10px;">
   <img src="/resources/images/KnockLockFront_1.PNG" style="width: 50%;">
   <img src="/resources/images/KnockLockSide.PNG" style="width: 50%;">
 </div>
+
+For demonstration purposes, a box was modeled. The door must mount the PCB, this way the knocks can be reliably detected when door (typically primary place for knocking) is knocked. The battery has been kept in the base of the box to reduce the weight of the hinges for longetivity of the box. Keeping it in the base also makes battery replacement a bit easier. 
+In the door, it is important to have supports to screw in the PCB well, with minimal movement to prevent double knock detections. The door must have also have holes to keep the LEDs visisble as well as a button which connects to the button on the PCB to allow user to program the system when required. The USB B port must remain accessible as well, as well as a place to secure in the servo motor. The preliminary 3D Model can be seen in [Figure X](#housing-model). The final housing can be seen in [Section 5.6](#56-housing-prototype).
 
 ### 4.7 Prototype Verification Methods
 #### 4.7.1 Prototype System Testing
@@ -490,7 +501,7 @@ inline float accelMagnitudeG(int x, int y, int z) {
   return abs(z); // Calculate magnitude using relevant axis, for g, multiply this by 0.0039 (from datasheet) 
 }
 ```
-The values from the accelerometer are in raw format, if the g is required, it can be multiplied by 0.0039 (value from datasheet of ADXL[6]). In this use case, only the change in magnitude of the reading is of interest. Keeping it a raw value also allows a more finer tuning of the thereshold. Here it was necessary to take readings in the specific scenario for getting the right threshold. As the orientation of using the box changes the value we need to measure. 
+The values from the accelerometer are in raw format, if the g is required, it can be multiplied by 0.0039 (value from datasheet of ADXL[5]). In this use case, only the change in magnitude of the reading is of interest. Keeping it a raw value also allows a more finer tuning of the thereshold. Here it was necessary to take readings in the specific scenario for getting the right threshold. As the orientation of using the box changes the value we need to measure. 
 By regular testing we found a good threshold to be around 150-200 (raw value) for knock detection. These readings were found using a seperate prototyping script, which just read and printed the raw values from the accelerometer continously on to the Serial Monitor. It was necessary to have continous values to realize, what are the typical readings and when actual knocks occur.
 From testing we found the main predominant axis for knocking detection to be the Z axis only. Hence the X and Y axis are ignored to reduce noise. However if the orientation of the box is changed, it might be necessary to change the axis used for detection. Using only Z axis also made it so that, opening or closing the box (which would cause movement in X and Y axis) does not trigger false positives.
 
@@ -765,9 +776,8 @@ Doing this project, opened more aspects which can be worked on in future when re
 * [2]: Dodhia, V. (2021, June 20). Arduino secret knock pattern door lock. Viral Science. Retrieved November 20, 2025, from https://www.viralsciencecreativity.com/post/arduino-secret-knock-pattern-door-lock
 * [3]: Instructables. (2017, October 21). Knock Box (it Opens When You Knock on It!). Instructables. Retrieved November 20, 2025, from https://www.instructables.com/Knock-box-it-opens-when-you-knock-on-it/
 * [4]: Burgognoni, E. (2025, August 28). Comparing MEMS and IEPE accelerometers for structural vibration behavior testing. Data Acquisition | Test and Measurement Solutions. Retrieved October 30, 2025, from https://dewesoft.com/blog/comparing-mems-and-iepe-accelerometers
-* [5]: Miranda, V. R., & Landre, J., Jr. (2018). Comparison of the signal characteristics measured by a MEMS and a Piezoelectric accelerometers. International Journal of Advanced Engineering Research and Science, 5(11), 148–152. https://doi.org/10.22161/ijaers.5.11.21
-* [6]: Analog Devices. (n.d.). ADXL345 datasheet. Analog Devices. Retrieved November 20, 2025, from https://www.analog.com/en/products/adxl345.html
-* [7]: Espressif Systems. (2021). ESP32-C3 Series datasheet. In Espressif. https://www.espressif.com/documentation/esp32-c3_datasheet_en.pdf
+* [5]: Analog Devices. (n.d.). ADXL345 datasheet. Analog Devices. Retrieved November 20, 2025, from https://www.analog.com/en/products/adxl345.html
+* [6]: Espressif Systems. (2021). ESP32-C3 Series datasheet. In Espressif. https://www.espressif.com/documentation/esp32-c3_datasheet_en.pdf
 
 ## 9	Appendices
 
