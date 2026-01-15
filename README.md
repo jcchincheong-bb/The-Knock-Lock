@@ -390,7 +390,8 @@ LEDs and buzzer to communicate status
 Describe the not only the power regulator but also the reverse polarity protection and such
 
 
-### 4.5 Software Flow Charts <!-- Just logic no code yet -->
+### 4.5 Software Design <!-- Just logic no code yet -->
+### 4.5.1 System Flowchart
 The following flowchart shows the overall logic of the program:
 <div id="sw-flow" align="center">
 <figure>
@@ -401,7 +402,20 @@ The following flowchart shows the overall logic of the program:
 
 The flowchart in [Figure X](#sw-flow) shows, how the system must work, spikes denote knocks detected. The system starts in locked state, where it continously listens for knocks, unless its asleep, and records them. Interrupts will be used to wake the system up from sleep for again starting to read knocks. Once the knocks are recorded, they are checked against the target pattern, if they match, the system unlocks, else it stays locked. If the box is unlocked and the programming button is pressed, the system enters programming mode, where it records knocks to save a new pattern. Once the pattern is recorded, it is saved to NVS memory and the system goes back to idle mode. Knocking twice locks the box again. LEDs and Buzzer are used to give feedback to the user.
 
-For easy code understanding and better readability, a modular approach was taken. Splitting the code in different cpp files depending on the type of function. A config.h file also was created to storing all customisability settings. This file had only settings constants and no code or variables to prevent confusion for a user, and make it less error prone. The final code implementation can be seen in [Section 5.5](#55-software-implementation)
+### Software Design
+For easy code understanding and better readability, a modular approach was taken. Splitting the code in different cpp files depending on the type of function. A config.h file also was created to storing all customisability settings. This file had only settings constants and no code or variables to prevent confusion for a user, and make it less error prone. The files to be made are listed in [Table X]
+
+<div id="tab:software-files-purposes">
+
+*Table X: Pin Mapping of Microcontroller*
+| File Name             | Purpose                                           |
+|------:                |---------------------------------------------------|
+|                       | Power                                             |
+</div>
+
+Arduino IDE will be used to program the controller in C++. This is because Arduino IDE provides access to wide range of libraries for various controllers with ease.
+
+The final code implementation can be seen in [Section 5.5](#55-software-implementation).
 
 ### 4.6 Housing Design <!-- design for housing -->
 <div id = "housing-model" style="display: flex; gap: 10px;">
@@ -505,7 +519,9 @@ Moreover, even though having a large GND plane allowed for better heat dissipati
 Most issues with soldering were sorted right after soldering, due to the verification process being right after. However the one was missed. Later it was discovered the servo was not functioning reliably. After using an oscilloscope to see its response, it was found out that the GND pin of the servo was connected, however not well which cause breakage at sometimes and hence the response was sometimes missed or delayed. This was fixed by soldering it again.
 
 ### 5.5 Software Implementation <!-- Final code and issues after testing and how they were solved-->
-The software was made using the Arduino IDE. The code is written in C++. A modular approach was taken to make it easier to debug and maintain. All the main configurations are in the config.h file, while the main starting logic is in the KnockLock.ino file. All other functions are in seperate files to make it easier to read. The libraries used are:
+As discussed in [Section 4.5](#45-software-design) a modular approach was used. The main startup code is in the file KnockLock.ino. 
+
+The libraries used are:
 - ESP32 NVS Library: For using the NVS memory of ESP32-C3 - in-built with Arduino IDE
 - SparkFun ADXL345 Library (v1.0.0): For interfacing with the ADXL345 accelerometer
 - Wire Library: For i2c communication with the ADXL345 - in-built with Arduino IDE
