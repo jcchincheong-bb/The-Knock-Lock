@@ -53,6 +53,13 @@ Further more we must understand how an accelerometer works, and how to interface
 
 Then we shall talk about how we it will be implemented (Chapter 5: Methodology) and what results were achieved (Chapter 6: Results). Finally we will discuss the results (Chapter 7: Discussion)
 
+<div id="firstConcept" align="center">
+<figure>
+  <img src="/resources/images/preliminarySketch.png" alt="firstConcept" width="400">
+  <figcaption align="center"><b>Figure 1.1:</b> Preliminary Sketch of the Knock Lock</figcaption>
+</figure>
+</div>
+
 ### 1.2 Project Team
 The project team consists of two Mechatronics Engineering Students whose responsibilities in the project were divided
 as follows:
@@ -71,7 +78,18 @@ as follows:
   - Testing of components and system integration
   - Testing of functionality
 
-
+With regard to writing of this report, the following illustrates the contributions of each team member:
+- Abhinav Kothari (33349): 
+  - Chapter 2
+  - Chapter 4: 4.6, 4.7
+  - Chapter 5: 5.4, 5.5
+  - Chapter 6
+  - Chapter 7
+- Justin Julius Chin Cheong (34140): 
+  - Chapter 1
+  - Chapter 3
+  - Chapter 4: 4.1, 4.2, 4.3, 4.4, 4.5, 4.8
+  - Chapter 5: 5.1, 5.2, 5.3, 5.6
 <!--------------------------------------------------------------------------------------------------------------------->
 <!--------------------------------------------------------------------------------------------------------------------->
 ## 2	Literature review
@@ -90,6 +108,8 @@ The blog post [4] shows MEMS accelerometers have a better frequency response and
 
 The major reason for why we first though of using IMUs, is guidance from our professor, and then us thinking back to our phones, which use accelerometers to succesfully detect back taps for performing some
 actions, precisely what we want to do here. A summary of all the differences between piezo and MEMs accelerometers is shown in the table below:
+<div id="PiezoVAccel" >
+*Table X: Comparison of Piezo and MEMS Accelerometers* 
 | Feature               | Piezo Accelerometer                | MEMS Accelerometer                 |
 |----------------------|-----------------------------------|-----------------------------------|
 | Sensitivity          | High sensitivity, especially at higher frequencies | Good sensitivity, especially at lower frequencies |
@@ -97,7 +117,7 @@ actions, precisely what we want to do here. A summary of all the differences bet
 | Size and Weight      | Generally larger and heavier due to the need for a seismic mass and housing | Compact and lightweight due to microfabrication techniques |
 | Power Consumption    | Typically higher power consumption due to signal conditioning requirements | Low power consumption, suitable for battery-powered applications |
 | Cost                 | Generally more expensive due to complex manufacturing processes | Cost-effective due to mass production capabilities |
-
+<div>
 Looking at the project made before in more detail [1], an issue was pointed out, that there can be a lot of false positives. However, as accelerometers communicate over I2C (Used here) or SPI,
 we get digital values of analog readings directly, which can be processed better than the analog voltage from piezo sensors. This allows us with more flexibility in filtering and processing the signal to reduce false positives.
 
@@ -106,19 +126,43 @@ Hence to actually find the better alternative for our project we did some testin
 While an ESP32 has a higher power consumption in normal mode, in deep it falls much lower (around 5 uA) [7]. Which makes a viable option for battery powered applications with the controller mainly in deepsleep. It also has more than enough processing power to handle the knock detection algorithm.
 
 ## 3	Theory
-If necessary please present theory in this section.
-
-This math is inline $`a^2+b^2=c^2`$.
 ### 3.1 Accelerometers
+<div id="imu" align="center">
+<figure>
+  <img src="/resources/images/MEMS.jpg" alt="IMU" width="400">
+  <figcaption align="center"><b>Figure 3.1:</b> Diagram of Capacitive Accelerometer Working Principle</figcaption>
+</figure>
+</div>
+
 ### 3.2 I2C
+<div id="i2c" align="center">
+<figure>
+  <img src="/resources/images/i2c_thoery.png" alt="IMU" width="400">
+  <figcaption align="center"><b>Figure 3.2:</b> Diagram of I2C Working Principle</figcaption>
+</figure>
+</div>
+
 ### 3.3 High-Side Driver
+<div id="highDriver" align="center">
+<figure>
+  <img src="/resources/images/driver_theory.png" alt="IMU" width="400">
+  <figcaption align="center"><b>Figure 3.3:</b> Diagram of High Side Driver Circuit</figcaption>
+</figure>
+</div>
+
 ### 3.4 Servo Motor
+<div id="servo" align="center">
+<figure>
+  <img src="/resources/images/servo_theory.png" alt="IMU" width="400">
+  <figcaption align="center"><b>Figure 3.4:</b> Diagram of Servo Motor Working Principle</figcaption>
+</figure>
+</div>
 <!--------------------------------------------------------------------------------------------------------------------->
 <!--------------------------------------------------------------------------------------------------------------------->
 ## 4	Methodology and Design
 
 ### 4.1 Design Approach <!-- V-model-->
-Due to the high complexity of the project, the project team decided to use the V-model design flow. With this approach of continuous verification, the project aimed to reduce implementation risk by finding issues and their solutions early.
+Due to the high complexity of the project, the project team decided to use the V-model design flow. With this approach of continuous verification, the project aimed to reduce risk by finding issues and their solutions early.
 
 ### 4.2 System Requirements <!-- Requirements, not specs -->
 To fully implement the system, a number of requirements related to function, technology and project management have been outlined. 
@@ -165,44 +209,103 @@ For the Knock Knock Lock Box project to produce a functional product upon close 
     - Project Presentation and Demo: 2026-01-21
 
 ### 4.3 System Architecture <!-- FSD and maybe specs -->
+From the requirements outlined in [Section 4.2](#42-system-requirements), a system architecture was designed as shown in [Figure 4.1](#fsd). 
+<div id="fsd" align="center">
+<figure>
+  <img src="/resources/images/fsd.png" alt="fsd" width="400">
+  <figcaption align="center"><b>Figure 4.1:</b> Functional Structure Diagram of Entire System</figcaption>
+</figure>
+</div>
 
 ### 4.4	Circuit Design <!-- Schematics and explanations -->
 #### 4.4.1 Full Schematic Design
-#### 4.4.2 Controller System
-Just talk about the controller used and some comments on passives
-#### 4.4.3 Programming Interface
-Mention the use of the buttons and why the design has no UART chip and just pin headers
+The next layer after the [system architecture](#43-system-architecture) was defined as the schematic of the system as shown in [Figure 4.2](#schematic). In designing the schematic, each of the sub-systems defined in [Figure 4.1](#fsd) were treated separately before integrating together.
+<div id="schematic" align="center">
+<figure>
+  <img src="/resources/images/KnockLock_Schematic.png" alt="Schmematic" width="400">
+  <figcaption align="center"><b>Figure 4.2:</b> Full Schematic of the System</figcaption>
+</figure>
+</div>
 
-#### 4.4.4 Sensor System
-How the ADXL connects, which pin modes are set and how i2c is implemented
+#### 4.4.2 Controller Sub-System
+The first of the sub-systems is the controller sub-system shown in [Figure 4.3](#controller-sch).
+<div id="controller-sch" align="center">
+<figure>
+  <img src="/resources/images/controller_sch.png" alt="controller-sch" width="400">
+  <figcaption align="center"><b>Figure 4.3:</b> Schematic of the Controller Sub-System</figcaption>
+</figure>
+</div>
+
+#### 4.4.3 Programming Interface Sub-System
+In order to program the [controller sub-system](#442-controller-sub-system), a programming interface as shown in [Figure 4.4](#prog-interface-sch) is required. The design simply uses a pin header which connects to the receiver and transmitter pins of the microcontroller so that it can be programmed directly through UART. This is done as opposed to using a USB-to-UART Bridge chip because it requires less components on the PCB and thus lowers costs. The button and boot pins are also included so that the microcontroller can easily be booted into programming mode.
+<div id="prog-interface-sch" align="center">
+<figure>
+  <img src="/resources/images/programming-interface_sch.png" alt="prog-interface-sch" width="400">
+  <figcaption align="center"><b>Figure 4.4:</b> Schematic of the Programming Interface Sub-System</figcaption>
+</figure>
+</div>
+
+#### 4.4.4 Sensor Sub-System
+To handle the actual knock detection, the sensor sub-system was designed as shown in [Figure 4.5](sensor-sch). 
+<div id="sensor-sch" align="center">
+<figure>
+  <img src="/resources/images/sensor_sch.PNG" alt="sensor-sch" width="400">
+  <figcaption align="center"><b>Figure 4.5:</b> Schematic of the Sensor Sub-System</figcaption>
+</figure>
+</div>
 
 
-#### 4.4.5 Human Machine Interface
+#### 4.4.5 Human Machine Interface Sub-System
+
+<div id="hmi-sch" align="center">
+<figure>
+  <img src="/resources/images/hmi_sch.png" alt="hmi-sch" width="400">
+  <figcaption align="center"><b>Figure 4.6:</b> Schematic of the HMI Sub-System</figcaption>
+</figure>
+</div>
+
 LEDs and buzzer to communicate status 
 
-#### 4.4.6 Motor Driver
+#### 4.4.6 Motor Control Sub-System
+<div id="motor-control-sch" align="center">
+<figure>
+  <img src="/resources/images/motor-control_sch.PNG" alt="motor-control-sch" width="400">
+  <figcaption align="center"><b>Figure 4.7:</b> Schematic of the Motor Control Sub-System</figcaption>
+</figure>
+</div>
+
 high side driver with transistors 
 
-#### 4.4.7 Power Regulation System and Power Supply
+#### 4.4.7 Power Regulation Sub-System
+<div id="power-sch" align="center">
+<figure>
+  <img src="/resources/images/power-regulation_sch.PNG" alt="power-sch" width="400">
+  <figcaption align="center"><b>Figure 4.8:</b> Schematic of the Power Regulation Sub-System</figcaption>
+</figure>
+</div>
+
 Describe the not only the power regulator but also the reverse polarity protection and such
 
-#### 4.4.8 Limitations of ESP32-C3  <!-- Seems weird to be here, maybe better in discussion -->
-One possible limitation of the ESP32-C3 for our project is the write cycles of the NVS memory, which will be actively used to store the knock pattern.
-
-Its internal flash has a typical limit of 100k write cycles per sector 
-- i.e. each **sector** (usually 4 KB) can be **erased and rewritten ~100,000 times** before the flash may start to fail
-- If you only **write the knock pattern when it changes**, even **once per day**, you’d reach 100,000 writes after ~274 years.
-- Hence to be on the safe side, we must make sure to only write to flash when the pattern is changed by the user.
-- If for some reason one has to flash a lot, use FRAM (very expensive), however that will not be needed here.
-
-
-
-### 4.5 Component Specification <!-- Specs for sensor and how we tested also specs for other components-->
-
+### 4.5 Component Specifications <!-- Specs for sensor and how we tested also specs for other components-->
+#### 4.5.1 Sensor Options
+As mentioned in the [Section 2 Literature Review](#2literature-review), most existing projects implemented a piezo element or sensor to measure the vibrations and detect knocks. However, [Table 1](#PiezoVAccel) also revealed the potential efficacy of using an accelerometer instead of a piezo. Thus, to identify the most appropriate sensor for the most accurate and reliable knock detection, a simple piezo disc was tested against an accelerometer development module. The results of this comparative test can be found in [Section 5.1.1](#511-sensor-selection). The general expectation was that both sensors would exhibit similar accuracies and since the piezo is significantly cheaper, the piezo would be the ideal sensor.
 
 ### 4.6 Software Flow Charts <!-- Just logic no code yet -->
+The following flowchart shows the overall logic of the program:
+<div id="sw-flow" align="center">
+<figure>
+  <img src="/resources/images/FlowchartOfMainSystem.png" alt="sw-flow" width="400">
+  <figcaption align="center"><b>Figure X:</b> Programming Flowchart of Entire System</figcaption>
+</figure>
+</div>
+
+The flowchart in [Figure X](#sw-flow) shows, how the system must work, spikes denote knocks detected. The system starts in locked state, where it continously listens for knocks, unless it sleeps, and records them. Interrupts will be used to wake the system up from sleep for again starting to read knocks. Once the knocks are recorded, they are checked against the target pattern, if they match, the system unlocks, else it stays locked. If the box is unlocked and the programming button is pressed, the system enters programming mode, where it records knocks to save a new pattern. Once the pattern is recorded, it is saved to NVS memory and the system goes back to idle mode. Knocking twice locks the box again. LEDs and Buzzer are used to give feedback to the user.
 
 ### 4.7 Housing Design <!-- design for housing -->
+<div id = "housing-model" style="display: flex; gap: 10px;">
+  <img src="/resources/images/KnockLockFront_1.PNG" style="width: 50%;">
+  <img src="/resources/images/KnockLockSide.PNG" style="width: 50%;">
+</div>
 
 ### 4.8 Verification Methods
 #### 4.8.1 Component Testing
@@ -210,6 +313,13 @@ Its internal flash has a typical limit of 100k write cycles per sector
 #### 4.8.3 Power Consumption
 power consumption 
 #### 4.8.4 User Acceptance Testing
+Over the course of a week, *insert number* people were surveyed using convenience sampling. Each person was shown the final prototype and asked four questions:
+1. What would you rate this product out of ten?
+2. What is one feature you especially liked about the product?
+3. What is one feature you disliked about the product?
+4. What is one feature you believe would improve or should be implemented into the product?
+
+It should also be noted that the majority of the people surveyed are familiar with the members of the development team and thus some responses may contain bias. 
 <!--------------------------------------------------------------------------------------------------------------------->
 <!--------------------------------------------------------------------------------------------------------------------->
 ## 5	Results
@@ -252,22 +362,18 @@ The accelerometer gives 3-axis readings and how the 3-axis readings look like wh
 
 The y-axis is the magnitude in g, while the x-axis is time in milliseconds. The blue, yellow and green lines are the x, y and z axis respectively.
 
-### 5.2 PCB Design <!-- PCB layout, issues and changes to schematic -->
+### 5.2 Bill of Materials
 
-### 5.3 PCB Assembly <!-- Final and issues encountered in assembly or after testing-->
+### 5.3 PCB Design <!-- PCB layout, issues and changes to schematic -->
 
-### 5.4 Software Design <!-- Final code and issues after testing and how they were solved-->
+### 5.4 PCB Assembly <!-- Final and issues encountered in assembly or after testing-->
+
+### 5.5 Software Design <!-- Final code and issues after testing and how they were solved-->
 The software was made using the Arduino IDE. The code is written in C++. A modular approach was taken to make it easier to debug and maintain. All the main configurations are in the config.h file, while the main starting logic is in the KnockLock.ino file. All other functions are in seperate files to make it easier to read. The libraries used are:
 - ESP32 NVS Library: For using the NVS memory of ESP32-C3 - in-built with Arduino IDE
 - SparkFun ADXL345 Library (v1.0.0): For interfacing with the ADXL345 accelerometer
 - Wire Library: For i2c communication with the ADXL345 - in-built with Arduino IDE
 - ESP32Servo (v3.0.9): For controlling the servo motor
-
-The following flowchart shows the overall logic of the program:
-![alt text](resources/FlowchartOfMainSystem.png "Flowchart")
-(C) Image created by authors using Mermaid Live Editor
-
-The flowchart shows, how the system must work, spikes denote knocks detected. The system starts in locked state, where it continously listens for knocks, unless it sleeps, and records them. Interrupts will be used to wake the system up from sleep for again starting to read knocks. Once the knocks are recorded, they are checked against the target pattern, if they match, the system unlocks, else it stays locked. If the box is unlocked and the programming button is pressed, the system enters programming mode, where it records knocks to save a new pattern. Once the pattern is recorded, it is saved to NVS memory and the system goes back to idle mode. Knocking twice locks the box again. LEDs and Buzzer are used to give feedback to the user.
 
 The actual code implementation of the main parts are explained below.
 #### 5.4.1 System Initialization
@@ -580,9 +686,9 @@ All of the functions above user some helper function to make the code more modul
 <!--------------------------------------------------------------------------------------------------------------------->
 
 
-### 5.5 Housing Prototype
+### 5.6 Housing Prototype
 
-### 5.6 Verification Results
+### 5.7 Verification Results
 <!--------------------------------------------------------------------------------------------------------------------->
 <!--------------------------------------------------------------------------------------------------------------------->
 ## 6	Discussion
@@ -593,7 +699,9 @@ A comparison of the results we had with existing products or what we saw in lite
 ### 6.2 Product Limitations
 What are the main limitations we realised after extensive testing
 
-like the .... I cant think of any rn
+- not rechargable
+- very low IP rating
+- 
 
 ### 6.3 Product Significance
 <!--------------------------------------------------------------------------------------------------------------------->
@@ -602,7 +710,7 @@ like the .... I cant think of any rn
 You might want to discuss possible future work here
 ### 8.1 Future Improvements
 Doing this project, opened more aspects which can be worked on in future when reiterating the project. These include:
-- Working in all orientations: Automatically adjusting the axis to read using orientation of box.
+- Rechargeability: Implementing a recharging circuit and using rechargable batteries
 - Redundant sensors: Use Piezo with ADXL to more effectively detect a knock
 
 ## 8	References
