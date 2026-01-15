@@ -108,8 +108,11 @@ The blog post [4] shows MEMS accelerometers have a better frequency response and
 
 The major reason for why we first though of using IMUs, is guidance from our professor, and then us thinking back to our phones, which use accelerometers to succesfully detect back taps for performing some
 actions, precisely what we want to do here. A summary of all the differences between piezo and MEMs accelerometers is shown in the table below:
+
 <div id="PiezoVAccel" >
-*Table X: Comparison of Piezo and MEMS Accelerometers* 
+</div>
+
+*Table X: Comparison of Piezo and MEMS Accelerometers*
 | Feature               | Piezo Accelerometer                | MEMS Accelerometer                 |
 |----------------------|-----------------------------------|-----------------------------------|
 | Sensitivity          | High sensitivity, especially at higher frequencies | Good sensitivity, especially at lower frequencies |
@@ -117,7 +120,7 @@ actions, precisely what we want to do here. A summary of all the differences bet
 | Size and Weight      | Generally larger and heavier due to the need for a seismic mass and housing | Compact and lightweight due to microfabrication techniques |
 | Power Consumption    | Typically higher power consumption due to signal conditioning requirements | Low power consumption, suitable for battery-powered applications |
 | Cost                 | Generally more expensive due to complex manufacturing processes | Cost-effective due to mass production capabilities |
-<div>
+
 Looking at the project made before in more detail [1], an issue was pointed out, that there can be a lot of false positives. However, as accelerometers communicate over I2C (Used here) or SPI,
 we get digital values of analog readings directly, which can be processed better than the analog voltage from piezo sensors. This allows us with more flexibility in filtering and processing the signal to reduce false positives.
 
@@ -137,7 +140,7 @@ While an ESP32 has a higher power consumption in normal mode, in deep it falls m
 ### 3.2 I2C
 <div id="i2c" align="center">
 <figure>
-  <img src="/resources/images/i2c_thoery.png" alt="IMU" width="400">
+  <img src="/resources/images/i2c_theory.png" alt="IMU" width="400">
   <figcaption align="center"><b>Figure 3.2:</b> Diagram of I2C Working Principle</figcaption>
 </figure>
 </div>
@@ -212,7 +215,7 @@ For the Knock Knock Lock Box project to produce a functional product upon close 
 From the requirements outlined in [Section 4.2](#42-system-requirements), a system architecture was designed as shown in [Figure 4.1](#fsd). 
 <div id="fsd" align="center">
 <figure>
-  <img src="/resources/images/fsd.png" alt="fsd" width="400">
+  <img src="/resources/images/fsd.png" alt="fsd" width="800">
   <figcaption align="center"><b>Figure 4.1:</b> Functional Structure Diagram of Entire System</figcaption>
 </figure>
 </div>
@@ -279,7 +282,7 @@ high side driver with transistors
 #### 4.4.7 Power Regulation Sub-System
 <div id="power-sch" align="center">
 <figure>
-  <img src="/resources/images/power-regulation_sch.PNG" alt="power-sch" width="400">
+  <img src="/resources/images/power-regulation_sch.png" alt="power-sch" width="400">
   <figcaption align="center"><b>Figure 4.8:</b> Schematic of the Power Regulation Sub-System</figcaption>
 </figure>
 </div>
