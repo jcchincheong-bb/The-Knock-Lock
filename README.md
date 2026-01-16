@@ -434,15 +434,23 @@ The following flowchart shows the overall logic of the program:
 
 The flowchart in [Figure X](#sw-flow) shows, how the system must work, spikes denote knocks detected. The system starts in locked state, where it continously listens for knocks, unless its asleep, and records them. Interrupts will be used to wake the system up from sleep for again starting to read knocks. Once the knocks are recorded, they are checked against the target pattern, if they match, the system unlocks, else it stays locked. If the box is unlocked and the programming button is pressed, the system enters programming mode, where it records knocks to save a new pattern. Once the pattern is recorded, it is saved to NVS memory and the system goes back to idle mode. Knocking twice locks the box again. LEDs and Buzzer are used to give feedback to the user.
 
-#### 4.5.1 Code Structure
-For easy code understanding and better readability, a modular approach was taken. Splitting the code in different cpp files depending on the type of function. A config.h file also was created to storing all customisability settings. This file had only settings constants and no code or variables to prevent confusion for a user, and make it less error prone. The files to be made are listed in [Table X]
+### Software Design
+For easy code understanding and better readability, a modular approach was taken. Splitting the code in different cpp files depending on the type of function. A config.h file also was created to storing all customisability settings. This file had only settings constants and no code or variables to prevent confusion for a user, and make it less error prone. The files structure to be followed is listed in [Table X]
 
 <div id="tab:software-files-purposes">
 
-*Table X: Software File Purposes*
-| File Name             | Purpose                                           |
-|------:                |---------------------------------------------------|
-|                       | Power                                             |
+*Table X: Software Files Structure*
+| File Name (Header)    | Purpose                                                                                           |
+|------:                |---:                                                                                               |
+|   batteryMonitoring               | Functions to monitor battery                                                                      |
+|   config                          | File to store all setting constants, for easy editting of settings                                |
+|   globalVariables                 | File storing all global variables, also explanations of some other important non global variables |
+|   hardware                        | All pin, objects definition and hardware initialization and interrupt functions                   |
+|   hmi                             | All human interface related functions, for controlling buzzer, LEDs and actuator                  |
+|   KnockLock (ino)                 | Main code to run with setup and endless loop                                                 | 
+|   patternRecognitionandRecording  | Core functions to process/record                                                             |
+|   sleepMode                       | Function related to sleep and wake up of controller                                          |
+|   usingNVS                        | Functions related to saving and reading data from the non-volatile storage of the controller |
 </div>
 
 Arduino IDE will be used to program the controller in C++. This is because Arduino IDE provides access to wide range of libraries for various controllers with ease.
@@ -620,10 +628,10 @@ Most issues with soldering were sorted right after soldering, due to the verific
 As discussed in [Section 4.5](#45-software-design) a modular approach was used. The main startup code is in the file KnockLock.ino. 
 
 The libraries used are:
-- ESP32 NVS Library: For using the NVS memory of ESP32-C3 - in-built with Arduino IDE
-- SparkFun ADXL345 Library (v1.0.0): For interfacing with the ADXL345 accelerometer
-- Wire Library: For i2c communication with the ADXL345 - in-built with Arduino IDE
-- ESP32Servo (v3.0.9): For controlling the servo motor
+- **ESP32 NVS Library**: For using the NVS memory of ESP32-C3 - in-built with Arduino IDE
+- **SparkFun ADXL345 Library (v1.0.0)**: For interfacing with the ADXL345 accelerometer
+- **Wire Library**: For i2c communication with the ADXL345 - in-built with Arduino IDE
+- **ESP32Servo (v3.0.9)**: For controlling the servo motor
 
 The actual code implementation of the main parts are explained below.
 #### 5.5.1 System Initialization
