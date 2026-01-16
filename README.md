@@ -233,7 +233,7 @@ From the requirements outlined in [Section 4.2](#42-system-requirements), a syst
 The next layer after the [system architecture](#43-system-architecture) was defined as the schematic of the system as shown in [Figure 4.2](#schematic). In designing the schematic, each of the sub-systems defined in [Figure 4.1](#fsd) were treated separately before integrating together.
 <div id="schematic" align="center">
 <figure>
-  <img src="/resources/images/KnockLock_Schematic.png" alt="Schmematic" width="1000">
+  <img src="/resources/images/KnockLock_Schematic.png" alt="Schmematic" width="1100">
   <figcaption align="center"><b>Figure 4.2:</b> Full Schematic of the System</figcaption>
 </figure>
 </div>
