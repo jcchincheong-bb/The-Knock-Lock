@@ -395,6 +395,10 @@ Since the [controller](#444-controller-sub-system) uses an ESP32 which requires 
 
 The voltage regulation must also provide protection in addition to providing the right voltage level. The buck converter itself inherently provides over-voltage protection up to 40V. To implement reverse polarity protection, TVS diodes are used in combination with a fuse. The diode is connected across the junctions such that when a reversed voltage is connected, the diode shorts the external source and not the rest of the circuit. The fuses also provide over-current protection. To dimension the fuse, the specifications of the LM2575-3.3WT were considered. With a maximum output current of 1A, output voltage of 3.3V, efficiency of 75% and input voltage of 6V, the maximum current required by the regulator is around 0.733A. Thus, the fuse should safely carry around 1A to account for fluctuations. As such, the PFRA110 was chosen as it has a hold current of 1.1A and a trip current of 2.2A. This fuse is also resettable so after current is cut-off, the fuse can cool down and reset. 
 
+Another interesting aspect of the circuit is the inclusion of an alternative power connection. The battery terminal is meant to be the primary power source via 4S AA batteries and the micro USB port is for emergency powering when the battery dies and the box is locked. It also connects to the voltage regulator and has it's own protection fuse and diode.
+
+Finally, the circuit contains a simple voltage divider that steps down the 5V supply line to less than 3.3V so that it can be read by the ADC on the microcontroller. This then allows for an estimation of the battery level.
+
 #### 4.4.8 Component Specifications  <!-- Table of main components and their most important specs -->
 Based on the circuit design and requirements, the specifications of the main components of the system are compiled in [Table X]()
 
@@ -432,10 +436,10 @@ The following flowchart shows the overall logic of the program:
 
 The flowchart in [Figure X](#sw-flow) shows, how the system must work, spikes denote knocks detected. The system starts in locked state, where it continously listens for knocks, unless its asleep, and records them. Interrupts will be used to wake the system up from sleep for again starting to read knocks. Once the knocks are recorded, they are checked against the target pattern, if they match, the system unlocks, else it stays locked. If the box is unlocked and the programming button is pressed, the system enters programming mode, where it records knocks to save a new pattern. Once the pattern is recorded, it is saved to NVS memory and the system goes back to idle mode. Knocking twice locks the box again. LEDs and Buzzer are used to give feedback to the user.
 
-### Software Design
-For easy code understanding and better readability, a modular approach was taken. Splitting the code in different cpp files depending on the type of function. A config.h file also was created to storing all customisability settings. This file had only settings constants and no code or variables to prevent confusion for a user, and make it less error prone. The files structure to be followed is listed in [Table X]
+#### 4.5.2 Code Structure
+For easy code understanding and better readability, a modular approach was taken. Splitting the code in different cpp files depending on the type of function. A config.h file also was created to storing all customisability settings. This file had only settings constants and no code or variables to prevent confusion for a user, and make it less error prone. The files structure to be followed is listed in [Table X](#tab:sw-files).
 
-<div id="tab:software-files-purposes">
+<div id="tab:sw-files">
 
 *Table X: Software Files Structure*
 | File Name (Header)    | Purpose                                                                                           |
@@ -482,9 +486,14 @@ After confirming feasibility, the system as described in [Section 4.4.1](#441-fu
 The results of this test are presented in [Section 5.1.2](#512-prototype-system)
 
 #### 4.7.3 Prototype Module Testing <!-- Testing different sections of circuitry to see if PCB layout is good -->
+Before the PCB could be designed and manufactured, some of the sub-systems were tested to ensure they could function as designed. The following briefly describes the tests conducted:
+- **Lock Actuator Sub-system**: To ensure the power cut off configuration works, the circuit as defined in [Figure 4.6](#lock-actuator-sch) was constructed on a breadboard using an ESP32-DevKitM-1, a BC547B NPN Transistor, an IRF4905 P-channel MOSFET, SER0050 servo motor and THT resistors. Only the decoupling capacitors were neglected as the development board provided stable power. Results of this test are presented in [Section 5.1.3](#513-lock-actuator-interface-test).
+- **Programming Interface Sub-system**: To ensure that the microcontroller can easily be programmed directly via the UART interface, an Arduino UNO board was used to program an ESP32-DevKitM-1. Like the ESP32C3, the ESP32MINI found on the ESP32-DevKitM-1 has a UART interface which it can supposedly be programmed via. The Arduino Uno board was essentially used just as a USB-to-UART bridge as the enable pin was connected to ground and the RX and TX pins were connected to the TX and RX pins of the ESP32-DevKitM-1 respectively. Results of this test are presented in [Section 5.1.4](#514-programming-interface-test). 
+- **HMI Sub-system**: To ensure the HMI, the circuit as defined in [Figure 4.9](#hmi-sch) was constructed on a breadboard. This test was essentially done as part of the prototype system test as described in [Section 4.7.2](#472-prototype-system-testing).
 
 ### 4.8 Post-Implementation Verification Methods <!-- How did we test after development?-->
 #### 4.8.1 Final Module Testing <!-- Checking each sub-system on the PCB -->
+
 
 #### 4.8.2 Final System Integration Testing <!-- Checking function of the entire PCB -->
 
@@ -522,7 +531,33 @@ The IMU also gave data for all three axes. A typical series of knocks as detecte
 #### 5.1.2 Prototype System 
 With feasibility confirmed, the development processes continued and a prototype for the entire system as described in 
 
-#### 5.1.3 Prototype Modules
+<div id="system-prototype" align="center">
+<figure>
+  <img src="/resources/images/testingSystem_iso.jpg" alt="system-prototype" width="400">
+  <figcaption align="center"><b>Figure 5.2:</b> Breadboard Prototype System</figcaption>
+</figure>
+</div>
+
+#### 5.1.3 Lock Actuator Interface Test
+
+<div id="lock-actuator-prototype" align="center">
+<figure>
+  <img src="/resources/images/motor-control_test.jpg" alt="lock-actuator-prototype" width="400">
+  <figcaption align="center"><b>Figure 5.2:</b> Breadboard Prototype Lock Actuator Interface</figcaption>
+</figure>
+</div>
+
+
+#### 5.1.4 Programming Interface Test
+
+<div id="prog-interface-prototype" align="center">
+<figure>
+  <img src="/resources/images/testing-programming.jpg" alt="prog-interface-prototype" width="400">
+  <figcaption align="center"><b>Figure 5.2:</b> Setup to Test Direct UART Programming</figcaption>
+</figure>
+</div>
+
+#### 5.1.5 HMI Test
 
 ### 5.2 Component Selection <!-- Results of tests between components -->
 #### 5.2.1 Sensor Selection <!-- Choosing an appropriate sensor -->

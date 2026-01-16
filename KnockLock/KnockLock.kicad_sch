@@ -8364,9 +8364,9 @@
 	(rule_area
 		(polyline
 			(pts
-				(xy 92.71 81.28) (xy 121.92 81.28) (xy 121.92 69.85) (xy 144.78 69.85) (xy 144.78 81.28) (xy 187.96 81.28)
+				(xy 91.44 81.28) (xy 121.92 81.28) (xy 121.92 69.85) (xy 144.78 69.85) (xy 144.78 81.28) (xy 187.96 81.28)
 				(xy 187.96 97.79) (xy 179.07 97.79) (xy 179.07 130.81) (xy 148.59 130.81) (xy 147.32 130.81) (xy 134.62 130.81)
-				(xy 132.08 130.81) (xy 102.87 130.81) (xy 92.71 130.81) (xy 92.71 129.54) (xy 92.71 93.98)
+				(xy 132.08 130.81) (xy 102.87 130.81) (xy 91.44 130.81) (xy 91.44 129.54) (xy 91.44 93.98)
 			)
 			(stroke
 				(width 0)
@@ -10298,6 +10298,71 @@
 		)
 	)
 	(symbol
+		(lib_id "power:+5V")
+		(at 66.04 45.72 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "4f193c4f-b264-4a72-ba46-3648afddb77a")
+		(property "Reference" "#PWR06"
+			(at 66.04 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+5V"
+			(at 65.786 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 66.04 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 66.04 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+5V\""
+			(at 66.04 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "268f574d-94bf-42ad-94eb-b5ee3f200017")
+		)
+		(instances
+			(project "KnockLock"
+				(path "/0bb14822-3a1a-451e-a409-a267c8c1fc8c"
+					(reference "#PWR06")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R")
 		(at 87.63 50.8 90)
 		(unit 1)
@@ -10510,7 +10575,7 @@
 		(dnp no)
 		(uuid "58be45f6-d8e9-4593-9e7f-e8f0d99bb6d1")
 		(property "Reference" "R3"
-			(at 99.314 98.552 0)
+			(at 98.806 99.06 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10518,7 +10583,7 @@
 			)
 		)
 		(property "Value" "4k7Ohms"
-			(at 97.028 101.092 0)
+			(at 96.266 101.6 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12453,7 +12518,7 @@
 		(dnp no)
 		(uuid "a12b929f-ca1b-406b-834e-075a8b4cf76a")
 		(property "Reference" "C10"
-			(at 209.804 39.37 0)
+			(at 210.312 39.116 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13522,7 +13587,7 @@
 			)
 		)
 		(property "Value" "+5V"
-			(at 79.502 48.006 0)
+			(at 82.296 45.72 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14746,73 +14811,6 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+5V")
-		(at 66.04 45.72 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "ef4cb1b1-aea3-43a8-b50f-b975093e664f")
-		(property "Reference" "#PWR06"
-			(at 66.04 49.53 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "+5V"
-			(at 66.04 40.64 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Footprint" ""
-			(at 66.04 45.72 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 66.04 45.72 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"+5V\""
-			(at 66.04 45.72 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "a41814e4-73cc-45b8-a733-5403c1de5dc6")
-		)
-		(instances
-			(project ""
-				(path "/0bb14822-3a1a-451e-a409-a267c8c1fc8c"
-					(reference "#PWR06")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:PWR_FLAG")
 		(at 57.15 25.4 0)
 		(unit 1)
@@ -15211,6 +15209,11 @@
 	(sheet_instances
 		(path "/"
 			(page "1")
+		)
+	)
+	(embedded_fonts no)
+)
+
 		)
 	)
 	(embedded_fonts no)
