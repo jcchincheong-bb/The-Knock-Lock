@@ -208,7 +208,7 @@ For the Knock Knock Lock Box to operate and perform its functions, the following
 
 For the Knock Knock Lock Box project to produce a functional product upon close out, the following project requirements must be met:
 
-- the budget is 25€ not including the PCB
+- the budget is 25€ not including the PCB or mechanical components
 - the project workload is estimated at 240h
 - all components ordered for the project must come from mouser.de 
 - the project schedule adheres to the following deadlines
@@ -233,12 +233,12 @@ From the requirements outlined in [Section 4.2](#42-system-requirements), a syst
 The next layer after the [system architecture](#43-system-architecture) was defined as the schematic of the system as shown in [Figure 4.2](#schematic). In designing the schematic, each of the sub-systems defined in [Figure 4.1](#fsd) were treated separately before integrating together.
 <div id="schematic" align="center">
 <figure>
-  <img src="/resources/images/KnockLock_Schematic.png" alt="Schmematic" width="400">
+  <img src="/resources/images/KnockLock_Schematic.png" alt="Schmematic" width="600">
   <figcaption align="center"><b>Figure 4.2:</b> Full Schematic of the System</figcaption>
 </figure>
 </div>
 
-The following sections discuss the design of the schematic as well as the specifications of the most important components. 
+The following sections discuss the design of the schematic as well as the specifications of the most important components for each sub-system. 
 
 #### 4.4.2 Sensor Sub-System
 The first of these sub-systems is the sensor sub-system is as shown in [Figure 4.3](#sensor-sch). 
@@ -249,8 +249,7 @@ The first of these sub-systems is the sensor sub-system is as shown in [Figure 4
 </figure>
 </div>
 
-As mentioned in the [Section 2 Literature Review](#2literature-review), most existing projects implemented a piezo element over an accelerometer or a vibration sensor to detect knocks. However, [Table 1](#PiezoVsAccelVsVibration) also revealed the potential efficacy of using an accelerometer instead of a piezo. Thus, to identify an appropriate sensor for the most accurate and reliable knock detection, a simple comparative experiment was conducted. A piezo disc (DAOKAI JA-DA-036 27mm) was tested against an accelerometer development module (JOY-IT SEN-MMA8452Q) which was readily available in the lab. 
-Note the vibration sensor was excluded from this comparative testing as with its preliminary testing it was revealed that it has significant reliability issues. The sensor lacked the necessary sensitivity control, often oscillating between over-sensitivity (detecting ghost knocks) and under-sensitivity.
+As mentioned in the [Section 2 Literature Review](#2literature-review), most existing projects implemented a piezo element over an accelerometer or a vibration sensor to detect knocks. However, [Table 1](#PiezoVsAccelVsVibration) also revealed the potential efficacy of using an accelerometer instead of a piezo. Thus, to identify an appropriate sensor for the most accurate and reliable knock detection, a simple comparative experiment was conducted. A piezo disc (DAOKAI JA-DA-036 27mm) was tested against an accelerometer development module (JOY-IT SEN-MMA8452Q) which was readily available in the lab. Note the vibration sensor was excluded from this comparative testing as with its preliminary testing it was revealed that it has significant reliability issues. The sensor lacked the necessary sensitivity control, often oscillating between over-sensitivity (detecting ghost knocks) and under-sensitivity.
 
 The sensors were tested in two different scenarios: a thin plastic lid and on a wooden chair as seen in Figures [4.4](#sensorTestPlastic) and [4.5](#sensorTestWood) respectively. This allowed for understanding how each sensor performed on materials of very different densities and stiffness's. In each test, the sensors were attached to surface and connected to an Arduino UNO for processing the output. Knocks were then applied to the other side of the material and the readings were recorded and compared.
 <div id="sensorTestPlastic" align="center">
@@ -267,7 +266,7 @@ The sensors were tested in two different scenarios: a thin plastic lid and on a 
 </figure>
 </div>
 
-The results of this comparative test can be found in [Section 5.1.1](#511-sensor-selection). The sensors were compared based on two criteria. 
+The results of this comparative test can be found in [Section 5.2.1](#521-sensor-selection). The sensors were compared based on two criteria. 
 1. Reliability of detecting knocks of different strengths in each setup
 2. Reliability of detecting knocks of different speeds in each setup
 
@@ -277,7 +276,7 @@ The general expectation was that both sensors would exhibit similar accuracies a
 On the other end of the system is the locking mechanism which is accomplished through a lock actuator. The circuit to interface this actuator is shown in [Figure 4.6](#lock-actuator-sch).  
 <div id="lock-actuator-sch" align="center">
 <figure>
-  <img src="/resources/images/motor-control_sch.PNG" alt="lock-actuator-sch" width="400">
+  <img src="/resources/images/motor-control_sch.PNG" alt="lock-actuator-sch" width="500">
   <figcaption align="center"><b>Figure 4.6:</b> Schematic of the Lock Actuator Sub-System</figcaption>
 </figure>
 </div>
@@ -302,7 +301,7 @@ Another important aspect of the lock actuator interface is the power cut-off sys
 Potentially the most important of the sub-systems is the controller sub-system shown in [Figure 4.7](#controller-sch).
 <div id="controller-sch" align="center">
 <figure>
-  <img src="/resources/images/controller_sch.png" alt="controller-sch" width="400">
+  <img src="/resources/images/controller_sch.png" alt="controller-sch" width="480">
   <figcaption align="center"><b>Figure 4.7:</b> Schematic of the Controller Sub-System</figcaption>
 </figure>
 </div>
@@ -379,28 +378,52 @@ The HMI uses three different LEDs to convey different meanings to the user. The 
 - the yellow LED indicates the box is locked and in stand-by
 - the red LED indicates when unlocking attempt was unsuccessful
 
-The buzzer was then intended to create auditory feedback for the same actions as described above. One sound indicates when the box is unlocked successfully. Another for when it is unsuccessful. Here, careful consideration of which frequencies to use on the buzzer must be taken. 
+The buzzer was then intended to create auditory feedback for the same actions as described above. One sound indicates when the box is unlocked successfully. Another for when it is unsuccessful. Here, careful consideration of which frequencies to use on the buzzer must be taken. The loudness of the buzzer should be high enough to be heard through housing, but not so loud as to be uncomfortable for the user. Thus, a sound pressure level of around 80dB is sufficient.
 
 Finally, the HMI includes a simple button which can be used to enter the programming mode of the product.
 
 #### 4.4.7 Power Regulation Sub-System
-Finally, the system cannot function without reliable power and such a power regulation system has to be defined as shown in [Figure 4.10](#power-sch). 
+Finally, the system cannot function without reliable power and as such a power regulation system has to be defined as shown in [Figure 4.10](#power-sch). 
 <div id="power-sch" align="center">
 <figure>
-  <img src="/resources/images/power-regulation_sch.png" alt="power-sch" width="400">
-
-
-
+  <img src="/resources/images/power-regulation_sch.png" alt="power-sch" width="600">
   <figcaption align="center"><b>Figure 4.10:</b> Schematic of the Power Regulation Sub-System</figcaption>
 </figure>
 </div>
 
-Since the [controller](#444-controller-sub-system) uses an ESP32 which requires 3.3V, a voltage regulator that outputs 3.3V is required. The most common and efficient means of accomplishing this is using a higher voltage supply and using regulator to step down the supply. For the purpose of this project, a switching buck converter was chosen instead of using a linear voltage regulator as they are higher efficiency and produce less heat. 
+Since the [controller](#444-controller-sub-system) uses an ESP32 which requires 3.3V, a voltage regulator that outputs 3.3V is required. The most common and efficient means of accomplishing this is using a higher voltage supply and using regulator to step down the supply. For the purpose of this project, a switching buck converter was chosen instead of using a linear voltage regulator as they are higher efficiency and produce less heat. Mouser has a very large range of switching regulators, many of which meet these minimum specifications. Ultimately, the LM2575-3.3WT was chosen since it was rather cheap, has a maximum input voltage of 40V and typical efficiency of 75%. Additionally, the diode used in the regulation circuit also needs to have low forward voltage drop and low junction capacity so that it provides minimal impede the hight frequency switching.
 
-The voltage regulation must also provide protection in addition to providing the right voltage level. The buck converter itself can provide over-voltage protection as most commerical ICs can take up to 40V. To implement reverse polarity protection, TVS diodes are used in combination with a fuse. The diode is connected across the juctions such that when a reversed voltage is connected, the diode shorts the external source and not the rest of the circuit.
+The voltage regulation must also provide protection in addition to providing the right voltage level. The buck converter itself inherently provides over-voltage protection up to 40V. To implement reverse polarity protection, TVS diodes are used in combination with a fuse. The diode is connected across the junctions such that when a reversed voltage is connected, the diode shorts the external source and not the rest of the circuit. The fuses also provide over-current protection. To dimension the fuse, the specifications of the LM2575-3.3WT were considered. With a maximum output current of 1A, output voltage of 3.3V, efficiency of 75% and input voltage of 6V, the maximum current required by the regulator is around 0.733A. Thus, the fuse should safely carry around 1A to account for fluctuations. As such, the PFRA110 was chosen as it has a hold current of 1.1A and a trip current of 2.2A. This fuse is also resettable so after current is cut-off, the fuse can cool down and reset. 
+
+
+
+#### 4.4.8 Component Specifications  <!-- Table of main components and their most important specs -->
+Based on the circuit design and requirements, the specifications of the main components of the system are compiled in [Table X]()
+
+<div id="tab:specs">
+
+*Table X: List of Component Specifications*
+| Component                      | Main Specifications                                                                          |
+| ------------------------------ | -------------------------------------------------------------------------------------------- |
+| Sensor                         | Reliably detect knocks of different strengths and at different speeds                        |
+| Lock Actuator                  | 5 V operation, > 4 mm travel length (suitable for small box)                                 |
+| Bipolar NPN Transistor         | Maximum collector–emitter voltage > 5 V                                                      |
+| P-channel MOSFET               | Maximum drain–source voltage > 5 V, gate–source threshold voltage < 3.3 V                    |
+| Microcontroller                | 11 GPIOs, I2C, 1 ADC GPIO, UART, enable and strapping pins, large package size, exposed pins |
+| LEDs                           | Medium luminous intensity (> 180 mcd) and low power consumption (< 100 mW)                   |
+| Buzzer                         | Medium sound pressure level (~80 dB)                                                         |
+| Push Button                    | Isolating voltage > 5 V                                                                      |
+| 3.3 V Output Voltage Regulator | Input voltage up to 40 V, output voltage 3.3 V                                               |
+| TVS Diode                      | Maximum forward current > 2.5 A, DC blocking voltage > 10 V                                  |
+| Schottky Diode                 | Forward voltage drop < 1 V, low junction capacitance < 1 nF                                  |
+| Resettable Fuse                | Hold current > 1 A, trip current > 2 A                                                       |
+| Battery Holder                 | Holds 4 AA batteries in series                                                               |
+| AA Battery                     | 1.5 V                                                                                        |
+| Micro USB B                    | Input voltage > 6 V, durability > 2000 cycles                                                |
+</div>
 
 ### 4.5 Software Design <!-- Just logic no code yet -->
-### 4.5.1 System Flowchart
+#### 4.5.1 System Flowchart
 The following flowchart shows the overall logic of the program:
 <div id="sw-flow" align="center">
 <figure>
@@ -411,12 +434,12 @@ The following flowchart shows the overall logic of the program:
 
 The flowchart in [Figure X](#sw-flow) shows, how the system must work, spikes denote knocks detected. The system starts in locked state, where it continously listens for knocks, unless its asleep, and records them. Interrupts will be used to wake the system up from sleep for again starting to read knocks. Once the knocks are recorded, they are checked against the target pattern, if they match, the system unlocks, else it stays locked. If the box is unlocked and the programming button is pressed, the system enters programming mode, where it records knocks to save a new pattern. Once the pattern is recorded, it is saved to NVS memory and the system goes back to idle mode. Knocking twice locks the box again. LEDs and Buzzer are used to give feedback to the user.
 
-### Software Design
+#### 4.5.1 Code Structure
 For easy code understanding and better readability, a modular approach was taken. Splitting the code in different cpp files depending on the type of function. A config.h file also was created to storing all customisability settings. This file had only settings constants and no code or variables to prevent confusion for a user, and make it less error prone. The files to be made are listed in [Table X]
 
 <div id="tab:software-files-purposes">
 
-*Table X: Pin Mapping of Microcontroller*
+*Table X: Software File Purposes*
 | File Name             | Purpose                                           |
 |------:                |---------------------------------------------------|
 |                       | Power                                             |
@@ -427,31 +450,43 @@ Arduino IDE will be used to program the controller in C++. This is because Ardui
 The final code implementation can be seen in [Section 5.5](#55-software-implementation).
 
 ### 4.6 Housing Design <!-- design for housing -->
-<div id = "housing-model" style="display: flex; gap: 10px;">
-  <img src="/resources/images/KnockLockFront_1.PNG" style="width: 50%;">
-  <img src="/resources/images/KnockLockSide.PNG" style="width: 50%;">
+<div id = "housing-model" style="display: flex; gap: 10px; height: 250px;">
+<figure>
+  <img src="/resources/images/KnockLockFront_1.PNG" loading ="lazy" alt="housing-front">
+  <img src="/resources/images/KnockLockSide.PNG" loading ="lazy" alt="housing-side">
+  <figcaption align="center"><b>Figure X:</b> Programming Flowchart of Entire System</figcaption>
+</figure>
 </div>
 
 For demonstration purposes, a box was modeled. The door must mount the PCB, this way the knocks can be reliably detected when door (typically primary place for knocking) is knocked. The battery has been kept in the base of the box to reduce the weight of the hinges for longetivity of the box. Keeping it in the base also makes battery replacement a bit easier. 
 In the door, it is important to have supports to screw in the PCB well, with minimal movement to prevent double knock detections. The door must have also have holes to keep the LEDs visisble as well as a button which connects to the button on the PCB to allow user to program the system when required. The USB B port must remain accessible as well, as well as a place to secure in the servo motor. The preliminary 3D Model can be seen in [Figure X](#housing-model). The final housing can be seen in [Section 5.6](#56-housing-prototype).
 
-### 4.7 Pre-Implementation Verification Methods
-#### 4.7.1 Sensor Concept Testing
+### 4.7 Pre-Implementation Verification Methods <!-- How did we test during development? -->
+#### 4.7.1 Concept Feasibility Testing <!-- Testing the sensor to see if concept is feasible -->
+Before development, the feasibility of the knock detection concept must be tested. If there is no reliable way of detecting knocks and most importantly detecting the knock pattern, then the project is a failure. Luckily, the experimental setups described for sensor selection in [Section 4.4.2](#442-sensor-sub-system) can provide results that not only identify the most appropriate sensor for the project but also the entire concept feasibility. The results of this experiment are presented in [section 5.1.1](#511-concept-feasibility)
 
-#### 4.7.2 Prototype System Testing
+#### 4.7.2 Prototype System Testing <!-- Testing entire system in breadboard -->
+After confirming feasibility, the system as described in [Section 4.4.1](#441-full-schematic-design) must also be verified. For ease of setup, development modules were selected to test the overall function of the system as well as initiate software development while the PCB was being manufactured. The following components were used:
+- Microcontroller: ESP32-DevKitM-1
+- HMI: red, yellow and green LEDs and a piezoelectric buzzer (PKM22EPPH4001-B0)
+- Sensor: JOY-IT SEN-MMA8452Q
+- Lock Actuator: SG90 servo motor
+- Misc: breadboard, resistors, jumper cables
 
-#### 4.7.3 Prototype Component Testing
+The results of this test are presented in [Section 5.1.2](#512-prototype-system)
 
-### 4.8 Post-Implementation Verification Methods
-#### 4.8.1 Final Component Testing
+#### 4.7.3 Prototype Module Testing <!-- Testing different sections of circuitry to see if PCB layout is good -->
 
-#### 4.8.2 Final System Integration Testing
+### 4.8 Post-Implementation Verification Methods <!-- How did we test after development?-->
+#### 4.8.1 Final Module Testing <!-- Checking each sub-system on the PCB -->
 
-#### 4.8.3 Power Consumption
+#### 4.8.2 Final System Integration Testing <!-- Checking function of the entire PCB -->
+
+#### 4.8.3 Power Consumption  <!-- Checking power consumption in active and sleep modes -->
 power consumption 
 
-### 4.9 Validation Methods
-#### 4.9 User Acceptance Testing
+### 4.9 Validation Methods  <!-- Are we making the right product? -->
+#### 4.9 User Acceptance Testing  <!-- Presenting prototype to potential users -->
 Over the course of a week, 10 people were surveyed using convenience sampling. Each person was shown the final prototype and asked four questions:
 1. What would you rate this product out of ten?
 2. What is one feature you especially liked about the product?
@@ -462,16 +497,15 @@ It should also be noted that the majority of the people surveyed are familiar wi
 <!--------------------------------------------------------------------------------------------------------------------->
 <!--------------------------------------------------------------------------------------------------------------------->
 ## 5	Results
-### 5.1 Component Selection <!-- Results of tests between components -->
-#### 5.1.1 Sensor Selection <!-- Choosing an appropriate sensor -->
-
+### 5.1 Pre-Implementation Verification Results
+#### 5.1.1 Concept Feasibility 
 The results from the tests described in [Section 4.4.2 Sensor Sub-system](#442-sensor-sub-system) are summarized below:
 - Both the piezo disc and IMU were able to detect knocks through a plastic case quite reliably. Though, through the wood, only the IMU was able to detect any knocks.
 - In both setups, the IMU was able to detect very fast knocks, but the piezo in plastic setup occasionally missed knocks that were too quick. 
 
-Even after trying to make the piezo a more sensitive by using 3.3V supply instead of 5V, it still couldn’t match the performance of the IMU. This was very unexpected considering other projects in the [Literature Review](#2literature-review). Additionally, the i2c communication of the IMU was observed to be significantly more reliable than the voltage output of the piezo element. As such, the IMU was chosen to be the project's knock detection sensor.
+Even after trying to make the piezo a more sensitive by using 3.3V supply instead of 5V, it still couldn’t match the performance of the IMU. This was very unexpected considering other projects in the [Literature Review](#2literature-review). Additionally, the i2c communication of the IMU was observed to be significantly more reliable than the voltage output of the piezo element. 
 
-The IMU also gave data for all three axes. A typical series of knocks as detected by the IMU can be seen in [Figure 5.1](#imu-test). The y-axis is the magnitude in g (gravitational units), while the x-axis is time in milliseconds. The blue, yellow and green lines are the x, y and z axis respectively. Each knock caused a peak in each of the three axes, but most prominently in the axis perpendicular to the surface of the material. As such the knock detection software as discussed in [Section 5.5.2](#542-knock-detection), initially considered only the value of this axis. 
+The IMU also gave data for all three axes. A typical series of knocks as detected by the IMU can be seen in [Figure 5.1](#imu-test). The y-axis is the magnitude in g (gravitational units), while the x-axis is time in milliseconds. The blue, yellow and green lines are the x, y and z axis respectively. Each knock caused a peak in each of the three axes, but most prominently in the axis perpendicular to the surface of the material. As such the knock detection software as discussed in [Section 5.5.2](#542-knock-detection), initially considered only the value of this axis. [Figure 5.1](#imu-test) also clearly shows that the peaks have a noticeable time gap between them. This suggests that if the peaks are registered as knocks and the interval between peaks are measured, it is definitely feasible for the software to detect a specific knock pattern based on the the amount of knocks and their intervals.
 <div id="imu-test" align="center">
 <figure>
   <img src="/resources/images/knockDetectionIMU.png" alt="imu-test" width="400">
@@ -479,11 +513,62 @@ The IMU also gave data for all three axes. A typical series of knocks as detecte
 </figure>
 </div>
 
-While the tests were conducted with a MMA8452Q by Sparksfun Electronics, however the final design uses an ADXL345, as it was cheaper and larger in package size making it easier to solder. The ADXL345 is also 13-bit instead of 12-bit, hence should perform even better.
+#### 5.1.2 Prototype System 
+With feasibility confirmed, the development processes continued and a prototype for the entire system as described in 
 
-### 5.2 Bill of Materials
+#### 5.1.3 Prototype Modules
 
-### 5.3 PCB Design <!-- PCB layout, issues and changes to schematic -->
+### 5.2 Component Selection <!-- Results of tests between components -->
+#### 5.2.1 Sensor Selection <!-- Choosing an appropriate sensor -->
+As demonstrated in [Section 5.1.1](#511-concept-feasibility), the accelerometer exhibited much better performance than the piezo disc and thus the project team decided that an accelerometer would be the most appropriate sensor. 
+
+While the tests were conducted with a MMA8452Q by Sparksfun Electronics, the final design uses an ADXL345, as it was cheaper and larger in package size making it easier to solder. The ADXL345 is also 13-bit instead of 12-bit, hence should perform even better.
+
+### 5.3 Bill of Materials
+
+<div id="tab:BOM-E">
+
+*Table X: Electrical Bill of Materials*
+| Item      | Schematic Ref             | Qty | Component                       | Part Number             | Manufacturer          | Vendor | Price/Unit[€]| Price [€] |
+| --------- | ------------------------- | --- | ------------------------------- | ----------------------- | --------------------- | ------ | ------------ | --------- |
+| 1         | U1                        | 1   | Capacitive Accelerometer        | ADXL345BCCZ-RL7         | Analog Devices        | Mouser | 5.65         | 5.65      |
+| 2         | –                         | 1   | Servo Motor                     | SG90                    | Soldered              | HSRW   | 5.07         | 5.07      |
+| 3         | Q1                        | 1   | Bipolar NPN Transistor          | BC547B                  | CDIL                  | HSRW   | 0.04         | 0.04      |
+| 4         | Q2                        | 1   | P-channel MOSFET                | IRLML6402TRPBF          | Infineon Technologies | Mouser | 0.35         | 0.35      |
+| 5         | IC2                       | 1   | ESP32 Microcontroller           | ESP32-C3-WROOM-02-N4    | Espressif Systems     | Mouser | 3.12         | 3.12      |
+| 6         | D5                        | 1   | Red LED                         | DLE3MMR                 | Hottech               | HSRW   | 0.06         | 0.06      |
+| 7         | D6                        | 1   | Yellow LED                      | DLE3MMY                 | Hottech               | HSRW   | 0.06         | 0.06      |
+| 8         | D7                        | 1   | Green LED                       | DLE3MMG                 | Hottech               | HSRW   | 0.06         | 0.06      |
+| 9         | LS1                       | 1   | Buzzer                          | PKM22EPPH4001-B0        | Murata Electronics    | Mouser | 0.48         | 0.48      |
+| 10        | S1, S2                    | 2   | Push Button                     | TS02-66-60-BK-260-LCR-D | Samesky               | Mouser | 0.09         | 0.18      |
+| 11        | IC1                       | 1   | 3.3 V Voltage Regulator         | LM2575-3.3WT            | Microchip Technology  | Mouser | 1.48         | 1.48      |
+| 12        | D1, D2                    | 2   | TVS Diode                       | 1N5908                  | STMicroelectronics    | HSRW   | 0.66         | 1.32      |
+| 13        | D3, D4                    | 2   | Schottky Diode                  | 1N5822                  | MIC Electronics       | HSRW   | 0.15         | 0.30      |
+| 14        | F1, F2                    | 2   | Resettable Fuse                 | PFRA110                 | Schurter              | HSRW   | 0.28         | 0.56      |
+| 15        | –                         | 1   | Battery Holder                  | 2477                    | Keystone Electronics  | Mouser | 1.87         | 1.87      |
+| 16        | –                         | 4   | AA Battery                      | –                       | –                     | HSRW   | 0.30         | 1.20      |
+| 17        | L1                        | 1   | 330 µH Inductor                 | RFC0810B-334KE          | Coilcraft             | Mouser | 1.26         | 1.26      |
+| 18        | C1, C4, C5, C10, C11, C12 | 6   | 0.1 µF Ceramic Capacitor (0805) | B37873U5101S            | EPCOS                 | HSRW   | 0.11         | 0.66      |
+| 19        | C2                        | 1   | 100 µF Electrolytic Capacitor   | EEU-FC1C101H            | Panasonic             | HSRW   | 0.14         | 0.14      |
+| 20        | C3                        | 1   | 1 µF Electrolytic Capacitor     | RA1/25-R                | Jameco                | HSRW   | 0.02         | 0.02      |
+| 21        | C6, C8, C9                | 3   | 10 µF Electrolytic Capacitor    | EEU-FR1H100             | Panasonic             | HSRW   | 0.11         | 0.33      |
+| 22        | C7                        | 1   | 330 µF Electrolytic Capacitor   | EEU-FR1E331             | Panasonic             | HSRW   | 0.26         | 0.26      |
+| 23        | J1                        | 1   | Male 2-Pin Header               | –                       | –                     | HSRW   | 0.08         | 0.08      |
+| 24        | J2                        | 1   | Female 2-Pin Header             | –                       | –                     | HSRW   | 0.10         | 0.10      |
+| 25        | J3                        | 1   | Male JST 2-Pin Header           | –                       | –                     | HSRW   | 0.10         | 0.10      |
+| 26        | J4                        | 1   | Micro USB B                     | USB3145-30-1-A          | GCT                   | Mouser | 0.66         | 0.66      |
+| 27        | J5                        | 1   | Male JST 3-Pin Header           | –                       | –                     | HSRW   | 0.12         | 0.12      |
+| 28        | R1, R4, R5, R7            | 4   | 10 kΩ Resistor                  | RC1206FR-0710KL         | YAGEO                 | HSRW   | 0.09         | 0.36      |
+| 29        | R2                        | 1   | 6.8 kΩ Resistor                 | RC1206FR-076K8L         | YAGEO                 | HSRW   | 0.09         | 0.09      |
+| 30        | R3, R6                    | 2   | 4.7 kΩ Resistor                 | RC1206FR-074K7L         | YAGEO                 | HSRW   | 0.09         | 0.18      |
+| 31        | R8                        | 1   | 100 Ω Resistor                  | RC1206FR-07100RL        | YAGEO                 | HSRW   | 0.09         | 0.09      |
+| 32        | R9                        | 1   | 100 kΩ Resistor                 | RC1206FR-07100KL        | YAGEO                 | HSRW   | 0.09         | 0.09      |
+| 33        | R10, R11, R12             | 3   | 27 Ω Resistor                   | RC1206FR-0727RL         | YAGEO                 | HSRW   | 0.09         | 0.27      |
+| **Total** |                           |     |                                 |                         |                       |        |              | **26.61** |
+</div>
+
+
+### 5.4 PCB Design <!-- PCB layout, issues and changes to schematic -->
 
 first design pretty bad 
 <div id="pcb-v1" align="center">
@@ -509,7 +594,7 @@ third and final design is just refinement like changing the servo connector and 
 </figure>
 </div>
 
-### 5.4 PCB Assembly <!-- Final and issues encountered in assembly or after testing-->
+### 5.5 PCB Assembly <!-- Final and issues encountered in assembly or after testing-->
 <div id="pcb-front" align="center">
 <figure>
   <img src="/resources/images/pcb_front.jpg" alt="pcb-front" width="400">
@@ -531,7 +616,7 @@ Moreover, even though having a large GND plane allowed for better heat dissipati
 
 Most issues with soldering were sorted right after soldering, due to the verification process being right after. However the one was missed. Later it was discovered the servo was not functioning reliably. After using an oscilloscope to see its response, it was found out that the GND pin of the servo was connected, however not well which cause breakage at sometimes and hence the response was sometimes missed or delayed. This was fixed by soldering it again.
 
-### 5.5 Software Implementation <!-- Final code and issues after testing and how they were solved-->
+### 5.6 Software Implementation <!-- Final code and issues after testing and how they were solved-->
 As discussed in [Section 4.5](#45-software-design) a modular approach was used. The main startup code is in the file KnockLock.ino. 
 
 The libraries used are:
@@ -851,11 +936,15 @@ All of the functions above user some helper function to make the code more modul
 <!--------------------------------------------------------------------------------------------------------------------->
 
 
-### 5.6 Housing Prototype
+### 5.7 Housing Prototype <!-- Whatever modifications we made -->
 
-### 5.7 Verification Results
+### 5.8 Post-Implementation Verification Results 
+#### 5.8.1 Module Performace  <!-- How is each circuit performing? -->
+#### 5.8.2 Product Performance and System Integration <!-- How is the entire system performing -->
+#### 5.8.3 Power Consumption <!-- How much power is being consumed? -->
 
-### 
+### 5.9 Validation Results 
+#### 5.9.1 User Feedback <!-- what did people think? -->
 <!--------------------------------------------------------------------------------------------------------------------->
 <!--------------------------------------------------------------------------------------------------------------------->
 ## 6	Discussion

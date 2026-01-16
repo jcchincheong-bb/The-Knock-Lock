@@ -1,0 +1,34 @@
+Item Number,Component,Main Specifications
+1,Sensor,Reliably detect knocks of different strengths and at different speeds 
+2,Lock Actuator,"5V operation, > 4mm length (large enough for small box)"
+3,Bipolar NPN Transistor,Maximum colletor-emitter voltage > 5V
+4,P-channel MOSFET,"Maximum drain-source voltage > 5V, Gate source threshold voltage < 3.3V"
+5,Microcontroller,"11 GPIOs, I2C, 1 ADC GPIO, UART, Enable and Strapping Pins, Large package size, Exposed Pins"
+6,Red LED,
+7,Yellow LED,
+8,Green LED,
+9,Buzzer,
+10,Push Button,
+11,3.3V Output Voltage Regulator,
+12,TVS Diode,
+13,Schottky Diode,
+14,Resettable Fuse,
+15,Battery Holder,
+16,AA Battery ,
+17,330uH Inductor,
+18,0.1uF Ceramic Capacitor SMT (0805),
+19,100uF Electrolytic Capacitor,
+20,1uF Electrolytic Capacitor,
+21,10uF Electrolytic Capacitor,
+22,330uF Electrolytic Capacitor,
+23,Male 2 Pin Header,
+24,Female 2 Pin Header,
+25,Male JST 2 Pin Header,
+26,Micro USB B,
+27,Male JST 3 Pin Header,
+28,10kOhms,
+29,6.8kOhms,
+30,4k7Ohms,
+31,100 Ohms,
+32,100kOhms,
+33,27 Ohms,
