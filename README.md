@@ -233,7 +233,7 @@ From the requirements outlined in [Section 4.2](#42-system-requirements), a syst
 The next layer after the [system architecture](#43-system-architecture) was defined as the schematic of the system as shown in [Figure 4.2](#schematic). In designing the schematic, each of the sub-systems defined in [Figure 4.1](#fsd) were treated separately before integrating together.
 <div id="schematic" align="center">
 <figure>
-  <img src="/resources/images/KnockLock_Schematic.png" alt="Schmematic" width="600">
+  <img src="/resources/images/KnockLock_Schematic.png" alt="Schmematic" width="1000">
   <figcaption align="center"><b>Figure 4.2:</b> Full Schematic of the System</figcaption>
 </figure>
 </div>
@@ -276,7 +276,7 @@ The general expectation was that both sensors would exhibit similar accuracies a
 On the other end of the system is the locking mechanism which is accomplished through a lock actuator. The circuit to interface this actuator is shown in [Figure 4.6](#lock-actuator-sch).  
 <div id="lock-actuator-sch" align="center">
 <figure>
-  <img src="/resources/images/motor-control_sch.PNG" alt="lock-actuator-sch" width="500">
+  <img src="/resources/images/motor-control_sch.PNG" alt="lock-actuator-sch" width="600">
   <figcaption align="center"><b>Figure 4.6:</b> Schematic of the Lock Actuator Sub-System</figcaption>
 </figure>
 </div>
@@ -386,7 +386,7 @@ Finally, the HMI includes a simple button which can be used to enter the program
 Finally, the system cannot function without reliable power and as such a power regulation system has to be defined as shown in [Figure 4.10](#power-sch). 
 <div id="power-sch" align="center">
 <figure>
-  <img src="/resources/images/power-regulation_sch.png" alt="power-sch" width="600">
+  <img src="/resources/images/power-regulation_sch.png" alt="power-sch" width="800">
   <figcaption align="center"><b>Figure 4.10:</b> Schematic of the Power Regulation Sub-System</figcaption>
 </figure>
 </div>
