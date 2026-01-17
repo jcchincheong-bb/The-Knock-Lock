@@ -641,9 +641,11 @@ Over the course of a week, 10 people were surveyed using convenience sampling. E
 3. What is one feature you disliked about the product?
 4. What is one feature you believe would improve or should be implemented into the product?
 
+Participants were also allowed to leave any question unanswered. 
+
 The findings can be found in [Section 5.9.1](#591-user-feedback).
 
-It should also be noted that the majority of the people surveyed are familiar with the members of the development team and thus some responses may contain bias. 
+It should be noted that the majority of the people surveyed are familiar with the members of the development team and thus some responses may contain bias. 
 <!--------------------------------------------------------------------------------------------------------------------->
 <!--------------------------------------------------------------------------------------------------------------------->
 ## 5	Results
@@ -1380,9 +1382,9 @@ The complete list of all mechancial materials used to assemble the product is sh
 | **Total**   |     |                     |              | **10.79** |
 </div>
 
-[Table X](#tab:BOM-E) shows that the costs of all the mechanical components sum up to **€15.22**. The main contributor to this cost is evidently the 3D printed housing. The calculations for the cost estimate of the 3D printed housing can be found in Appendix X.
+[Table X](#tab:BOM-E) shows that the costs of all the mechanical components sum up to **€10.79**. The main contributor to this cost is evidently the 3D printed housing. The calculations for the cost estimate of the 3D printed housing can be found in Appendix X.
 
-Summing the total electrical costs (€26.61), mecahnical costs (€15.22) and cost of the PCB (€7.24) the total cost of the project came up to be **€49.07**. While these costs are quite high, this is just a first version of the product and if further iterations are made costs could be reduced especially if cheaper components that still meet specifications are chosen. These costs also do not account for the cost of labour for the assembly process, however those considerations are beyond the scope of this project. 
+Summing the total electrical costs (€26.61), mecahnical costs (€10.79) and cost of the PCB (€7.24) the total cost of the project came up to be **€44.64**. While these costs are quite high, this is just a first version of the product and if further iterations are made costs could be reduced especially if cheaper components that still meet specifications are chosen. These costs also do not account for the cost of labour for the assembly process, however those considerations are beyond the scope of this project. 
 
 ### 5.8 Post-Implementation Verification Results 
 #### 5.8.1 Module Performace  <!-- How is each circuit performing? -->
@@ -1498,7 +1500,28 @@ $$ T_{\text{Battery Life}} = \frac{C}{I_{avg, total} \cdot 24 \frac{h}{day} } $$
 Where $T_{\text{Battery Life}}$ in days, $C$ is the battery capacity in mAh and $I_{avg, total}$ is the total average current.  
 
 ### 5.9 Validation Results 
+After the system was verified against the system requirements, the KnockLock product was finally able to be validated by users. 
 #### 5.9.1 User Feedback <!-- what did people think? -->
+From the survery defined in [Section 4.9.1](#491-user-acceptance-testing), the findings are shown in [Table X](#tab:user-feedback). 
+<div id="tab:user-feedback">
+
+*Table X: User Feedback*
+| S. No.      | Overall Rating (out of 10) | Good Feature                     | Bad Feature                                   | Lacking Feature / Potential Improvements |
+| ----------- | -------------------------- | -------------------------------- | --------------------------------------------- | ---------------------------------------- |
+| 1           | 9                          | Keyless entry                    | Knocking anywhere                             | Only possibility to store one password   |
+| 2           | 9                          | Keyless entry                    | Electronics too visible                       | –                                        |
+| 3           | 9                          | Asleep when not in use           | Not safe as knock could be heard and mimicked | No recovery method                       |
+| 4           | 9                          | You can knock anywhere           | Knob too small to open                        | Possibility of mechanical unlocking      |
+| 5           | 9.5                        | Like the idea of beats to unlock | –                                             | Different shapes for housing             |
+| 6           | 9                          | Keyless entry                    | Housing slides too much                       | Using rubber pads on bottom of housing   |
+| 7           | 10                         | –                                | –                                             | –                                        |
+| 8           | 9.5                        | –                                | Door can easily be pulled open                | No recovery method                       |
+| 9           | 10                         | Like the idea of beats to unlock | –                                             | –                                        |
+| 10          | 9                          | Keyless entry                    | –                                             | Could be implemented into a mailbox      |
+| **Average** | **9.3**                    |                                  |                                               |                                          |
+</div>
+
+With an average rating of 9.3, it appears that the KnockLock is a satisfactory product. The main feature that people appreciated was the ability to open the door without a key. However, product still has room for improvement and the suggestions provided by users will be considered in the future improvements discussed in [Section 7.1](#71-future-improvements)
 
 <!--------------------------------------------------------------------------------------------------------------------->
 <!--------------------------------------------------------------------------------------------------------------------->
