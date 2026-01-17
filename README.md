@@ -128,12 +128,12 @@ Accelerometers generally have chips to process and amplify signal which can comm
 Piezo electric are analog passive devices, hence have quite less power consumption, however also implies they must be always awake to read. 
 Vibration sensor have limited customisability due to their digital nature. They can either detect a knock or not, which can potentially cause problems differentiating general vibrations from knocks.
 
-A summary of all the differences between piezos, MEMs accelerometers and vibration sensor is shown in Table. 2.1
+A summary of all the differences between piezos, MEMs accelerometers and vibration sensor is shown in [Table 2.1](#PiezoVsAccelVsVibration)
 
 <div id="PiezoVsAccelVsVibration" >
 </div>
 
-*Table X: Comparison of Piezo, Vibration Sensors and MEMs Accelerometer*
+*Table 2.1: Comparison of Piezo, Vibration Sensors and MEMs Accelerometer*
 
 | Feature | Piezoelectric Buzzer | Digital Vibration Sensor | MEMS Accelerometer (Capacitive) |
 | :--- | :--- | :--- | :--- |
@@ -145,7 +145,7 @@ A summary of all the differences between piezos, MEMs accelerometers and vibrati
 | **Primary Limitation** | High-frequency bias (Acoustic) | Lack of pattern sensitivity | Higher initial code complexity |
 | **Cost** | Extremely Low | Low | Moderate |
 
-These sensors are then tested in [Section 4.4.2](#522-sensor-sch) and results can be found in [Section 5.1.1](#511-sensor-selection)
+These sensors are then compared in [Section 4.4.2](#442-sensor-sub-system) and results can be found in [Section 5.1.1](#511-concept-feasibility)
 <!--------------------------------------------------------------------------------------------------------------------->
 <!--------------------------------------------------------------------------------------------------------------------->
 
@@ -285,7 +285,7 @@ The first of the sub-systems is the sensor sub-system as shown in [Figure 4.3](#
 </figure>
 </div>
 
-As mentioned in the [Section 2 Literature Review](#2literature-review), most existing projects implemented a piezo element over an accelerometer or a vibration sensor to detect knocks. However, [Table 1](#PiezoVsAccelVsVibration) also revealed the potential efficacy of using an accelerometer instead of a piezo. Thus, to identify an appropriate sensor for the most accurate and reliable knock detection, a simple comparative experiment must be conducted. A piezo disc (DAOKAI JA-DA-036 27mm) is tested against an accelerometer development module (JOY-IT SEN-MMA8452Q) which was readily available in the lab. Note the vibration sensor is excluded from this comparative testing as with its preliminary testing it was revealed that it has significant reliability issues. The sensor lacked the necessary sensitivity control, often oscillating between over-sensitivity (detecting ghost knocks) and under-sensitivity.
+As mentioned in the [Section 2 Literature Review](#2literature-review), most existing projects implemented a piezo element over an accelerometer or a vibration sensor to detect knocks. However, [Table 2.1](#PiezoVsAccelVsVibration) also revealed the potential efficacy of using an accelerometer instead of a piezo. Thus, to identify an appropriate sensor for the most accurate and reliable knock detection, a simple comparative experiment must be conducted. A piezo disc (DAOKAI JA-DA-036 27mm) is tested against an accelerometer development module (JOY-IT SEN-MMA8452Q) which was readily available in the lab. Note the vibration sensor is excluded from this comparative testing as with its preliminary testing it was revealed that it has significant reliability issues. The sensor lacked the necessary sensitivity control, often oscillating between over-sensitivity (detecting ghost knocks) and under-sensitivity.
 
 The sensors are tested in two different scenarios: a thin plastic lid and on a wooden chair as seen in Figures [4.4](#sensorTestPlastic) and [4.5](#sensorTestWood) respectively. This allowed for understanding how each sensor performed on materials of very different densities and stiffness's. In each test, the sensors are attached to the surface and connected to an Arduino UNO for processing the output. Knocks are then applied to the other side of the material and the readings are recorded and compared.
 
@@ -321,11 +321,11 @@ On the other end of the system is the locking mechanism which is accomplished th
 </figure>
 </div>
 
-The initial concept of the product as shown in [Figure 1.1](#prelimiary-sketch) envisioned the use of a solenoid actuator to work similar to bolt in a door. However, another component which could accomplish the locking while also being cheaper and using less power is a simple servo motor. As such, a number of options for both were found on Mouser for consideration and compared in [Table X](#tab:servo-comp). Clearly, the power requirement for the solenoid is much higher than the that of the servo. This would mean either a boost converter or some other additional voltage regulation would be needed to power the solenoid. On top of that, the solenoids are more expensive per unit. As such, the project team opted to use a servo motor and chose the SER0050 since it is a higher torque than the SER0049. 
+The initial concept of the product as shown in [Figure 1.1](#prelimiary-sketch) envisioned the use of a solenoid actuator to work similar to bolt in a door. However, another component which could accomplish the locking while also being cheaper and using less power is a simple servo motor. As such, a number of options for both were found on Mouser for consideration and compared in [Table 4.1](#tab:servo-comp). Clearly, the power requirement for the solenoid is much higher than the that of the servo. This would mean either a boost converter or some other additional voltage regulation would be needed to power the solenoid. On top of that, the solenoids are more expensive per unit. As such, the project team opted to use a servo motor and chose the SER0050 since it is a higher torque than the SER0049. 
 
 <div id="tab:servo-comp">
 
-*Table X: Comparison of Solenoids and Servos Available on Mouser*
+*Table 4.1: Comparison of Solenoids and Servos Available on Mouser*
 | Type     | Model Number | Price [€] | Voltage [V] | Load Current [mA] | Lock Length [mm]        |
 | -------- | ------------ | --------- | ----------- | ----------------- | ----------------------- |
 | Solenoid | 3992         | 6.45      | 5–6         | 800-1000          | 10                      |
@@ -346,11 +346,11 @@ Potentially the most important of the sub-systems is the controller sub-system s
 </figure>
 </div>
 
-The microcontroller (MCU) interfaces the sensor, the lock actuator and the human machine interface (HMI). It handles all the processing and runs the program developed in [Section 5.5](#55-software-design). The complete pin mapping of the MCU is shown in [Table X](#tab:controller-pin-mapping). 
+The microcontroller (MCU) interfaces the sensor, the lock actuator and the human machine interface (HMI). It handles all the processing and runs the program developed in [Section 5.5](#55-software-implementation). The complete pin mapping of the MCU is shown in [Table 4.2](#tab:controller-pin-mapping). 
 
 <div id="tab:controller-pin-mapping">
 
-*Table X: Pin Mapping of Microcontroller*
+*Table 4.2: Pin Mapping of Microcontroller*
 | Pin   | Name  | Type / Label     | Description / Connection                                   |
 |------:|-------|------------------|------------------------------------------------------------|
 | 1     | 3V3   | Power            | +3.3V Supply from Regulator                                |
@@ -374,7 +374,7 @@ The microcontroller (MCU) interfaces the sensor, the lock actuator and the human
 | 19–27 | GND   | Ground           | Main System Ground                                         |
 </div>
 
-From [Table X](#tab:controller-pin-mapping), it can be seen that the chosen MCU must have:
+From [Table 4.2](#tab:controller-pin-mapping), it can be seen that the chosen MCU must have:
 - at least 11 programmable GPIOs
 - I2C communication
 - at least 1 ADC GPIO 
@@ -383,10 +383,10 @@ From [Table X](#tab:controller-pin-mapping), it can be seen that the chosen MCU 
 
 Additionally, the chosen MCU must large enough to easily solder onto a PCB. 
 
-Given the ease in which it can be programmed via the Arduino IDE and it's high computation speed and robust features, the project team believed an MCU from the ESP32 line would best fit the specifications. On Mouser, a number of options that met the basic specifications were found as shown in [Table X](#esp32-comp). Ultimately, the decision to chose the ESP32-C3-WROOM-02-N4 [9] was because it was large and had pins exposed on the sides for easier assembly (unlike the 356-ESP32C6MINI1H8) and it was cheaper than the H4 while still meeting all the specifications. This chip also has a lower power consumption sleep mode which draws only 5uA, making it incredibly viable for a low power design.
+Given the ease in which it can be programmed via the Arduino IDE and it's high computation speed and robust features, the project team believed an MCU from the ESP32 line would best fit the specifications. On Mouser, a number of options that met the basic specifications were found as shown in [Table 4.3](#tab:esp32-comp). Ultimately, the decision to chose the ESP32-C3-WROOM-02-N4 [9] was because it was large and had pins exposed on the sides for easier assembly (unlike the 356-ESP32C6MINI1H8) and it was cheaper than the H4 while still meeting all the specifications. This chip also has a lower power consumption sleep mode which draws only 5uA, making it incredibly viable for a low power design.
 <div id="tab:esp32-comp"> 
 
-*Table X: Comparison of ESP32 Chips Available on Mouser*
+*Table 4.3: Comparison of ESP32 Chips Available on Mouser*
 | Part Number           | Price [€] | Interfaces       | GPIO Count | ADC GPIOs | Size [mm]   | Package Type                         |
 | --------------------- | --------- | ---------------- | ---------- | --------- | ----------- | ------------------------------------ |
 | ESP32-C3-WROOM-02-N4  | 3.12      | I2C, SPI, UART   | 15         | 4         | 18 × 25.5   | Castellated module with exposed pins | 
@@ -443,11 +443,11 @@ Another interesting aspect of the circuit is the inclusion of an alternative pow
 Finally, the circuit contains a simple voltage divider that steps down the 5V supply line to less than 3.3V so that it can be read by the ADC on the microcontroller. The voltage at the ADC can then be calculated using a voltage divider ratio. 
 
 #### 4.4.8 Component Specifications  <!-- Table of main components and their most important specs -->
-Based on the circuit design and requirements, the specifications of the main components of the system are compiled in [Table X](#tab:specs)
+Based on the circuit design and requirements, the specifications of the main components of the system are compiled in [Table 4.4](#tab:specs)
 
 <div id="tab:specs">
 
-*Table X: List of Component Specifications*
+*Table 4.4: List of Component Specifications*
 | Component                      | Main Specifications                                                                          |
 | ------------------------------ | -------------------------------------------------------------------------------------------- |
 | Sensor                         | Reliably detect knocks of different strengths and at different speeds                        |
@@ -473,27 +473,27 @@ Based on the circuit design and requirements, the specifications of the main com
 <div id="sw-flow" align="center">
 <figure>
   <img src="/resources/images/MainFlowchart.png" alt="sw-flow" width="400">
-  <figcaption align="center"><b>Figure X:</b> Programming Flowchart of Main System</figcaption>
+  <figcaption align="center"><b>Figure 4.11:</b> Programming Flowchart of Main System</figcaption>
 </figure>
 </div>
 
-The flowchart in [Figure X](#sw-flow) shows, how the overall full system must work. The system starts in locked state, where it continously listens for knocks, unless its asleep, and records them. Once the knocks are recorded, they are checked against the target pattern, if they match, the system unlocks, else it stays locked. Knocking twice locks the box again. LEDs and Buzzer are used to give feedback to the user throughout the system flow.
+The flowchart in [Figure 4.11](#sw-flow) shows, how the overall full system must work. The system starts in locked state, where it continously listens for knocks, unless its asleep, and records them. Once the knocks are recorded, they are checked against the target pattern, if they match, the system unlocks, else it stays locked. Knocking twice locks the box again. LEDs and Buzzer are used to give feedback to the user throughout the system flow.
 
-Interrupts will be used to wake the system up from sleep for again starting to read knocks as shown in [Figure X](#sw-flow-isr). If the box is unlocked and the programming button is pressed, the system enters programming mode, where it records knocks to save a new pattern. Once the pattern is recorded, it is saved to NVS memory and the system goes back to main system as shown in [Figure X](#sw-flow-isr).
+Interrupts will be used to wake the system up from sleep for again starting to read knocks as shown in [Figure 4.12](#sw-flow-isr). If the box is unlocked and the programming button is pressed, the system enters programming mode, where it records knocks to save a new pattern. Once the pattern is recorded, it is saved to NVS memory and the system goes back to main system as shown in [Figure 4.12](#sw-flow-isr).
 
 <div id="sw-flow-isr" align="center">
 <figure>
   <img src="/resources/images/MainFlowchart.png" alt="sw-flow" width="400">
-  <figcaption align="center"><b>Figure X:</b> Programming Flowchart of Interrupt Service Routines (ISRs)</figcaption>
+  <figcaption align="center"><b>Figure 4.12:</b> Programming Flowchart of Interrupt Service Routines (ISRs)</figcaption>
 </figure>
 </div>
 
 #### 4.5.2 Code Structure
-For easy code understanding and better readability, a modular approach was taken. Splitting the code in different cpp files depending on the type of function. A config.h file also was created to storing all customisability settings. This file had only settings constants and no code or variables to prevent confusion for a user, and make it less error prone. The files structure to be followed is listed in [Table X](#tab:sw-files).
+For easy code understanding and better readability, a modular approach was taken. Splitting the code in different cpp files depending on the type of function. A config.h file also was created to storing all customisability settings. This file had only settings constants and no code or variables to prevent confusion for a user, and make it less error prone. The files structure to be followed is listed in [Table 4.5](#tab:sw-files).
 
 <div style="text-align: left" id="tab:sw-files">
 
-*Table X: Software Files Structure*
+*Table 4.5: Software Files Structure*
 | File Name (Header)                | Purpose                                                                                           |
 |:------                            |:---                                                                                               |
 |   batteryMonitoring               | Functions to monitor battery                                                                      |
@@ -527,11 +527,11 @@ The final code implementation can be seen in [Section 5.5](#55-software-implemen
       </figure></td>
     </tr>
   </table>
-  <figcaption align="center"><b>Figure 4.4:</b>Preliminary 3D Model of Housing</figcaption>
+  <figcaption align="center"><b>Figure 4.13:</b>Preliminary 3D Model of Housing</figcaption>
   </figure>
 </div>
 
-For demonstration purposes, a box was modeled. The door must mount the PCB, this way the knocks can be reliably detected when door (typically primary place for knocking) is knocked. Many screw pillars have been used for a more firm housing and preventing the PCB from vibrating on its own by making it more rigidly connected with the door. An indent was made in the door to sit the servo motor, and a groove in the housing to slot in the servo to lock the box as shown in [Figure X](#housing-model). Hole have been created in the door to show the LEDs for status of the box and holes on top of the buzzer to allow for better audiblity.
+For demonstration purposes, a box was modeled. The door must mount the PCB, this way the knocks can be reliably detected when door (typically primary place for knocking) is knocked. Many screw pillars have been used for a more firm housing and preventing the PCB from vibrating on its own by making it more rigidly connected with the door. An indent was made in the door to sit the servo motor, and a groove in the housing to slot in the servo to lock the box as shown in [Figure 4.13](#housing-model). Hole have been created in the door to show the LEDs for status of the box and holes on top of the buzzer to allow for better audibility.
 
 The final housing can be seen in [Section 5.6](#56-housing-prototype).
 
@@ -628,7 +628,7 @@ Once the PCB is verified, these same test specifications can also be used to ver
 The results of these tests are presented in [Section 5.8.3](#583-complete-product-performance).
 
 #### 4.8.4 Power Consumption  <!-- Checking power consumption in active and sleep modes -->
-Once the general functionality of the system has been verified, another important characteristic of the system must be investigated: the power consumption. To determine the amount of power consumed by the system and estimate the battery life of the system, the current drawn by the system is measured. To do this, an ammeter is connected in series with the power supply and the battery terminal. The system is tested in different modes and functions so that the current measurements in all cases can be taken. The results of this test are presented in [Section 5.8.3](#583-power-consumption).
+Once the general functionality of the system has been verified, another important characteristic of the system must be investigated: the power consumption. To determine the amount of power consumed by the system and estimate the battery life of the system, the current drawn by the system is measured. To do this, an ammeter is connected in series with the power supply and the battery terminal. The system is tested in different modes and functions so that the current measurements in all cases can be taken. The results of this test are presented in [Section 5.8.4](#584-power-consumption).
 
 ### 4.9 Validation Methods  <!-- Are we making the right product? -->
 #### 4.9.1 User Acceptance Testing  <!-- Presenting prototype to potential users -->
@@ -729,7 +729,7 @@ As demonstrated in [Section 5.1.1](#511-concept-feasibility), the accelerometer 
 While the tests were conducted with a MMA8452Q by Sparksfun Electronics, the final design uses an ADXL345, as it was cheaper and larger in package size making it easier to solder. The ADXL345 is also 13-bit instead of 12-bit, hence should perform even better.
 
 #### 5.2.2 Other Components
-Aside from the sensors, all components were chosen based on the specifications outlined in [Section 4.4.8](#448-component-specifications) in [Table X](#tab:specs). The complete list of all materials used is shown in [Section 5.7](#57-bill-of-materials). Any modifications to the components selected or designed in [Section 4](#4methodology-and-design) is explained in following sections. 
+Aside from the sensors, all components were chosen based on the specifications outlined in [Section 4.4.8](#448-component-specifications) in [Table 4.4](#tab:specs). The complete list of all materials used is shown in [Section 5.7](#57-bill-of-materials). Any modifications to the components selected or designed in [Section 4](#4methodology-and-design) is explained in following sections. 
 
 ### 5.3 PCB Design <!-- PCB layout, issues and changes to schematic -->
 #### 5.3.1 PCB Version 1
@@ -765,11 +765,11 @@ Thus, considering these issues a second design was done as shown in [Figure 5.6]
 
 In this version of the layout, a button for entering programming mode was also added. For the sake of ergonomics, it was placed on the opposite side of the MCU than the LEDs to ensure that they were fully visible when the button is pressed.
 
-One issue encountered in the formation of this layout was the routing to the micro-controller pins became incredibly difficult. Thus, some of the pins were remapped to make the routing is more intuitive. (Note that the pin mapping in [Table X](#tab:pin-mapping) is already the final mapping).
+One issue encountered in the formation of this layout was the routing to the micro-controller pins became incredibly difficult. Thus, some of the pins were remapped to make the routing is more intuitive. (Note that the pin mapping in [Table 4.2](#tab:controller-pin-mapping) is already the final mapping).
 
 <div id="tab:pin-revision">
 
-*Table X: Changes in Pin Mapping For PCB Adjustments*
+*Table 5.1: Changes in Pin Mapping For PCB Adjustments*
 | Signal / Function         | Old MCU Pin | New MCU Pin       |
 | ------------------------- | ----------- | ----------------- |
 | Battery Voltage (BAT_V)   | 3           | 16                |
@@ -859,7 +859,7 @@ The code implementation of some crucial parts is explained below.
 #### 5.5.1 System Initialization
 Upon startup, the system must perform many intializations to get everything working correctly in sync. The order is also quite important to save power and to ensure best reliability. 
 
-Upon starting up, its is the important for the system to know why it is starting up. This is because for saving battery, the system is kept in deepsleep, and in ESP32, waking up from deepsleep means setup functions runs again. Hence to prevent the system from draining to much battery, even if it woke up to only check battery and alert user for low power or because of double knocking or just first time starting up. How handleWakeup() does this can be seen in [Section 5.5.5](#551-power-management). If the system is supposed to full turn on, only then is the accelerometer setup and the servo enabled. It is important to setupHardware() before checking for wakeup, as the pin must be ready for battery voltage and used to flash the red LED to indicate low battery. setupHardware() is also responsible to attach interrupts to the correct pins and setting up the servo (not enabled yet). How this can be done can be seen in [Listing 1](#lst:setup_hw).
+Upon starting up, its is the important for the system to know why it is starting up. This is because for saving battery, the system is kept in deepsleep, and in ESP32, waking up from deepsleep means setup functions runs again. Hence to prevent the system from draining to much battery, even if it woke up to only check battery and alert user for low power or because of double knocking or just first time starting up. How handleWakeup() does this can be seen in [Section 5.5.5](#555-power-management). If the system is supposed to full turn on, only then is the accelerometer setup and the servo enabled. It is important to setupHardware() before checking for wakeup, as the pin must be ready for battery voltage and used to flash the red LED to indicate low battery. setupHardware() is also responsible to attach interrupts to the correct pins and setting up the servo (not enabled yet). How this can be done can be seen in [Listing 1](#lst:setup_hw).
 
 <div id="lst:setup_hw">
 
@@ -1264,11 +1264,11 @@ All of the functions above user some helper function to make the code more modul
 Finally with the software and hardware finished, the system can be implemented into the housing.
 
 ### 5.6 Housing Prototype <!-- Whatever modifications we made -->
-As discussed in [Section 4.6](#46-housing-design), the model was made. However it had some issues which prevented the system from working reliably. These issues and how they were fixed in shown in [Table X](#tab:housingIssues).
+As discussed in [Section 4.6](#46-housing-design), the model was made. However it had some issues which prevented the system from working reliably. These issues and how they were fixed in shown in [Table 5.2](#tab:housingIssues).
 
 <div id="tab:housingIssues">
 
-*Table X: Housing issues and fixes*
+*Table 5.2: Housing issues and fixes*
 |Issue                                                  |Fix                                                                        |
 |:--                                                    |:--                                                                        |
 | Button hard to press                                  | Instead if bending button, use column to slide in and out                 |
@@ -1282,7 +1282,7 @@ As discussed in [Section 4.6](#46-housing-design), the model was made. However i
 
 </div>
 
-With all fixes implemented the final housing model can be seen in [Figure X](#housing-model-final)
+With all fixes implemented the final housing model can be seen in [Figure 5.10](#housing-model-final)
 
 <div id="housing-model-final"  align="center">
   <figure>
@@ -1298,13 +1298,13 @@ With all fixes implemented the final housing model can be seen in [Figure X](#ho
       </figure></td>
     </tr>
   </table>
-  <figcaption align="center"><b>Figure X:</b> Final 3D Model of Housing</figcaption>
+  <figcaption align="center"><b>Figure 5.10:</b> Final 3D Model of Housing</figcaption>
   </figure>
 </div>
 
 
 
-This was model was then 3D printed using PLA (0.2mm Nozzle) to get the final product as seen in [Figure X](#final-product). The following settings were implemented for printing:
+This was model was then 3D printed using PLA (0.2mm Nozzle) to get the final product as seen in [Figure 5.11](#final-product). The following settings were implemented for printing:
 
 - Lightning grid pattern
 - Door with an infill of 70% (Higher infill for better vibrations passthrough)
@@ -1325,7 +1325,7 @@ This was model was then 3D printed using PLA (0.2mm Nozzle) to get the final pro
       </figure></td>
     </tr>
   </table>
-  <figcaption align="center"><b>Figure X:</b> Final Fully Assembled Product</figcaption>
+  <figcaption align="center"><b>Figure 5.11:</b> Final Fully Assembled Product</figcaption>
   </figure>
 </div>
 
@@ -1334,10 +1334,10 @@ For connecting the door to the box, the filament used for 3D printing can be pas
 ### 5.7 Bill of Materials <!-- Full list of materials used -->
 Finally with the final prototype complete, it is important to know how much the entire system costs to make, including electrical and mechanical components.
 
-The complete list of all electrical materials used to assemble the product is shown in [Table X](#tab:BOM-E). Note that the PCB is taken as item 34.
+The complete list of all electrical materials used to assemble the product is shown in [Table 5.3](#tab:BOM-E). Note that the PCB is taken as item 34.
 <div id="tab:BOM-E">
 
-*Table X: Electrical Bill of Materials*
+*Table 5.3: Electrical Bill of Materials*
 | Item      | Schematic Ref             | Qty | Component                       | Part Number             | Manufacturer          | Vendor | Price/Unit[€]| Price [€] |
 | --------- | ------------------------- | --- | ------------------------------- | ----------------------- | --------------------- | ------ | ------------ | --------- |
 | 1         | U1                        | 1   | Capacitive Accelerometer        | ADXL345BCCZ-RL7         | Analog Devices        | Mouser | 5.65         | 5.65      |
@@ -1377,12 +1377,12 @@ The complete list of all electrical materials used to assemble the product is sh
 | **Total with all Components** |                           |     |                                 |                         |                       |        |              | **26.61** |
 </div>
 
-[Table X](#tab:BOM-E) shows that the costs of all the electrical components excluding the PCB sum up to **€26.61**. This a budget overun of €1.61, but that is within the tolerance of acceptance for the project team. Costs could have potentially been reduced by using a cheaper micro controller, sensor or lock actuator, however these components were selected for significant reasons as explained in previous sections. 
+[Table 5.3](#tab:BOM-E) shows that the costs of all the electrical components excluding the PCB sum up to **€26.61**. This a budget overun of €1.61, but that is within the tolerance of acceptance for the project team. Costs could have potentially been reduced by using a cheaper micro controller, sensor or lock actuator, however these components were selected for significant reasons as explained in previous sections. 
 
-The complete list of all mechancial materials used to assemble the product is shown in [Table X](#tab:BOM-M). 
+The complete list of all mechancial materials used to assemble the product is shown in [Table 5.4](#tab:BOM-M). 
 <div id="tab:BOM-M">
 
-*Table X: Mechanical Bill of Materials*
+*Table 5.4: Mechanical Bill of Materials*
 | Item Number | Qty | Component           | Price / Unit | Price     |
 | ----------- | --- | ------------------- | ------------ | --------- |
 | 35          | 7   | M2×6 Screw          | 0.11         | 0.77      |
@@ -1394,7 +1394,7 @@ The complete list of all mechancial materials used to assemble the product is sh
 | **Total**   |     |                     |              | ** 9.70** |
 </div>
 
-[Table X](#tab:BOM-E) shows that the costs of all the mechanical components sum up to **€9.70**. The main contributor to this cost is evidently the 3D printed housing. The calculations for the cost estimate of the 3D printed housing can be found in [Appendix B](#appendix-b).
+[Table 5.3](#tab:BOM-E) shows that the costs of all the mechanical components sum up to **€9.70**. The main contributor to this cost is evidently the 3D printed housing. The calculations for the cost estimate of the 3D printed housing can be found in [Appendix B](#appendix-b).
 
 Summing the total electrical costs (€26.61), mecahnical costs (€9.70) and cost of the PCB (€7.24) the total cost of the project came up to be **€43.55**. While these costs are quite high, this is just a first version of the product and if further iterations are made costs could be reduced especially if cheaper components that still meet specifications are chosen. These costs also do not account for the cost of labour for the assembly process, however those considerations are beyond the scope of this project. 
 
@@ -1423,73 +1423,73 @@ Following the test specifications defined in [Section 4.8.1](#481-pcb-module-tes
 <div id="programming-mcu" align="center">
 <figure>
   <img src="/resources/images/programming.jpg" alt="programming-mcu" width="400">
-  <figcaption align="center"><b>Figure X:</b> Using External USB-to-UART Programmer to Program the ESP32 on the PCB </figcaption>
+  <figcaption align="center"><b>Figure 5.12:</b> Using External USB-to-UART Programmer to Program the ESP32 on the PCB </figcaption>
 </figure>
 </div>
 
 #### 5.8.2 System Integration Performance <!-- How are the integrations performing? -->
 Since all of the sub-systems on the PCB are functional, the integration tests as defined in [Section 4.8.2](#482-pcb-system-integration-testing) were conducted. The results of these tests are as follows:
 - **Reading Serial Data of the Sensor**: 
-  - After connecting the system as shown in [Figure X](#programming-mcu), the ESP32 was successfully flashed with the example program.
+  - After connecting the system as shown in [Figure 5.12](#programming-mcu), the ESP32 was successfully flashed with the example program.
   - The serial monitor showed the accelerometer data as programmed.
   - Thus, the controller, programming and sensor sub-systems are successfully integrated. 
 - **Programming the MCU to Blink and Beep**: 
-  - Using the same setup as shown in [Figure X](#programming-mcu), the blink and beep example program was flashed successfully. The LEDs were set to turn on and off on after each other in a repeating pattern. The buzzer was made to beep every times the LEDs changed.
+  - Using the same setup as shown in [Figure 5.12](#programming-mcu), the blink and beep example program was flashed successfully. The LEDs were set to turn on and off on after each other in a repeating pattern. The buzzer was made to beep every times the LEDs changed.
   - After flashing, the HMI behaved exactly as programmed. 
   - Thus, the controller, programming and HMI sub-systems are successfully integrated.  
 - **Programming the MCU to Turn on and Cut Lock Actuator Power**: 
-  - Using the same setup as shown in [Figure X](#programming-mcu) and the same program as in [Section 5.1.3](#513-lock-actuator-interface-test), the ESP32 was successfully flashed. The only differences in the program were the pin definitions and the PROG button on the PCB was setup to control the NPN transistor base pin, i.e. to turn on or off the servo motor.
+  - Using the same setup as shown in [Figure 5.12](#programming-mcu) and the same program as in [Section 5.1.3](#513-lock-actuator-interface-test), the ESP32 was successfully flashed. The only differences in the program were the pin definitions and the PROG button on the PCB was setup to control the NPN transistor base pin, i.e. to turn on or off the servo motor.
   - When the button was pressed, the servo motor stopped rotating. Once pressed again, it started rotating again.
   - Thus, the controller, programming, HMI and lock actuator interface sub-systems are successfully integrated. 
 
 The success of all of these tests, by extension, verifies the integration of the voltage regulation sub-system. 
 
 #### 5.8.3 Complete Product Performance <!-- How is the complete product performing?-->
-Finally, the complete integration of the system was tested to ensure that it meets all requirements outlined in [Section 4.2](#42-system-requirements). Following the test specifications defined in [Section 4.8.3](#483-complete-product-verification), the PCB was connected and setup as shown in [Figure X](#full-pcb-testing). 
+Finally, the complete integration of the system was tested to ensure that it meets all requirements outlined in [Section 4.2](#42-system-requirements). Following the test specifications defined in [Section 4.8.3](#483-complete-product-verification), the PCB was connected and setup as shown in [Figure 5.13](#full-pcb-testing). 
 
 <div id="full-pcb-testing" align="center">
 <figure>
   <img src="/resources/images/pcb-testing-integration.jpg" alt="full-pcb-testing" width="400">
-  <figcaption align="center"><b>Figure X:</b> Setup for Verification of Full PCB</figcaption>
+  <figcaption align="center"><b>Figure 5.13:</b> Setup for Verification of Full PCB</figcaption>
 </figure>
 </div>
 
-With the setup shown in [Figure X](#full-pcb-testing), the system was able to succeed in almost all test criterias defined in [Section 4.8.3](#483-complete-product-verification) except, critically, criterion 1. That is: "The system can detect whenever the user knocks on the box". When knocks were detected, the pattern recognition software, programming mode and HMI all worked as intended, but many knocks went unregistered unless the PCB itself was touched or if the user applied a lot of force in their knocks on the surface. The reason for this fault was the intial way the knock detection was done in the software. This issue is discussed in more detail in [Section 5.5.2](#552-knock-detection), but essentially, all three axes of the accelerometer were used in knock detection and this lead to unreliability. When the software was changed to measure only the z-axis (the axis perpendicular to the ground plane), the knock detection became more reliable, but the PCB had to be oriented in a vertical position as shown in [Figure X](#full-pcb-testing-vert). When in the horizontal position shown in [Figure X](#full-pcb-testing), the accelerometer read constant accelerations and hence continouously registered knocks that were not occuring. 
+With the setup shown in [Figure 5.13](#full-pcb-testing), the system was able to succeed in almost all test criterias defined in [Section 4.8.3](#483-complete-product-verification) except, critically, criterion 1. That is: "The system can detect whenever the user knocks on the box". When knocks were detected, the pattern recognition software, programming mode and HMI all worked as intended, but many knocks went unregistered unless the PCB itself was touched or if the user applied a lot of force in their knocks on the surface. The reason for this fault was the intial way the knock detection was done in the software. This issue is discussed in more detail in [Section 5.5.2](#552-knock-detection), but essentially, all three axes of the accelerometer were used in knock detection and this lead to unreliability. When the software was changed to measure only the z-axis (the axis perpendicular to the ground plane), the knock detection became more reliable, but the PCB had to be oriented in a vertical position as shown in [Figure 5.14](#full-pcb-testing-vert). When in the horizontal position shown in [Figure 5.13](#full-pcb-testing), the accelerometer read constant accelerations and hence continouously registered knocks that were not occuring. 
 
 <div id="full-pcb-testing-vert" align="center">
 <figure>
   <img src="/resources/images/testingOrientation.jpg" alt="full-pcb-testing-vert" width="400">
-  <figcaption align="center"><b>Figure X:</b> Setup for Verification of PCB in Vertical Orientation</figcaption>
+  <figcaption align="center"><b>Figure 5.14:</b> Setup for Verification of PCB in Vertical Orientation</figcaption>
 </figure>
 </div>
 
-Verification in the vertical orientation as shown in [Figure X](#full-pcb-testing-vert) was successfull in all criteria, more so than before. Thus, the PCB was installed into the housing as shown in [Figure X](#final-product) and the tests were performed again. In this case, the reliability of knock detection became an apparent issue once again as knocks were only registered when applied a to the lower part of the door, near the position of the accelerometer on the PCB. Thus, the knock detection method in the software was altered once again to use the activity interrupt of the ADXL345. This gives the final version of the software presented in [Section 5.5.2](#552-knock-detection).
+Verification in the vertical orientation as shown in [Figure 5.14](#full-pcb-testing-vert) was successfull in all criteria, more so than before. Thus, the PCB was installed into the housing as shown in [Figure 5.11](#final-product) and the tests were performed again. In this case, the reliability of knock detection became an apparent issue once again as knocks were only registered when applied a to the lower part of the door, near the position of the accelerometer on the PCB. Thus, the knock detection method in the software was altered once again to use the activity interrupt of the ADXL345. This gives the final version of the software presented in [Section 5.5.2](#552-knock-detection).
 
-With this final version of the software, the product performed signficantly better within the housing, easily succeeding in all success criteria. As such, this version was taken as the final product for this project and development as ceased. A showcase of the performance of the final product can be seen in [Figure X](#product-showcase), just click on the image to open the video. 
+With this final version of the software, the product performed signficantly better within the housing, easily succeeding in all success criteria. As such, this version was taken as the final product for this project and development as ceased. A showcase of the performance of the final product can be seen in [Figure 5.15](#product-showcase), just click on the image to open the video. 
 
 <div id="product-showcase" align="center">
 <figure>
   <a href="https://youtu.be/qGrgIr3oHPE">
   <img src="/resources/images/full-prototype_closed.jpg" alt="product-showcase" width="400">
   </a>
-  <figcaption align="center"><b>Figure X:</b> Showcase of Complete Product (click image to open video)</figcaption>
+  <figcaption align="center"><b>Figure 5.15:</b> Showcase of Complete Product (click image to open video)</figcaption>
 </figure>
 </div>
 
 #### 5.8.4 Power Consumption <!-- How much power is being consumed? -->
-With the system fully functional, the investigation of the power consumption was conducted as described in [Section 4.8.3](#483-power-consumption). The experimental setup used is shown in [Figure X](#current-consumption).
+With the system fully functional, the investigation of the power consumption was conducted as described in [Section 4.8.3](#483-power-consumption). The experimental setup used is shown in [Figure 5.16](#current-consumption).
 <div id="current-consumption" align="center">
 <figure>
   <img src="/resources/images/power-consumption-verification.jpg" alt="current-consumption" width="400">
-  <figcaption align="center"><b>Figure X:</b> Setup for Current Measurement</figcaption>
+  <figcaption align="center"><b>Figure 5.16:</b> Setup for Current Measurement</figcaption>
 </figure>
 </div>
 
-The results of the current measurements are shown in [Table X](tab:current-readings). It can be clearly seen that the while the system is active the current consumption is quite high in both unlocked and locked states. When the system was switched to programming mode from unlocked mode, the current reading did not change. The deep sleep of the microcontroller reduces the current consumption drastically, however, 5.32mA is still not an insignificant current draw. It should also be noted that the "Start-up" mode is when the PCB is initially connected to power. This mode has a lower current draw because the PWM signal for the servo is not being sent to the servo as yet. However, once the box is unlocked for the first time the servo is constantly getting the PWM signal and hence the current draw increases.
+The results of the current measurements are shown in [Table 5.5](tab:current-readings). It can be clearly seen that the while the system is active the current consumption is quite high in both unlocked and locked states. When the system was switched to programming mode from unlocked mode, the current reading did not change. The deep sleep of the microcontroller reduces the current consumption drastically, however, 5.32mA is still not an insignificant current draw. It should also be noted that the "Start-up" mode is when the PCB is initially connected to power. This mode has a lower current draw because the PWM signal for the servo is not being sent to the servo as yet. However, once the box is unlocked for the first time the servo is constantly getting the PWM signal and hence the current draw increases.
 
 <div id="tab:current-readings">
 
-*Table X: Current Readings in Different Modes*
+*Table 5.5: Current Readings in Different Modes*
 | Mode                 | Current [mA]         | Assumed Time per Day [s] | Average Current [mA] |
 | -------------------- | -------------------- | ------------------------ | -------------------- |
 | Idle (upon Start-up) | 36.3                 | 0                        | 0.00                 |
@@ -1501,17 +1501,17 @@ The results of the current measurements are shown in [Table X](tab:current-readi
 
 To estimate the power usage, the average current consumption must be estimated. For a general case scenario, it can be assumed that a person may unlock and lock the box around 5 times in a given day and reprogram the box 1 time in a day. The box may be in locked mode for around 70s; 10s after wake up to unlock and 60s after re-locking to go into sleep mode. It may be in unlocked state for around 120s as the person could be deciding what to put in the box. Finally, programming may take around 60s. The remaining time in the day, the box would be in sleep mode. 
 
-With all of these assumptions, the average currents were found and recorded in [Table X](#tab:current-readings). The currents were summed up giving the total average current to be around **5.78mA**. With an average battery voltage of 6V, this results in an estimated power consumption of **34.67mW**. See [Appendix B](#appendix-b-power-consumption-calculations) for the formulae used.
+With all of these assumptions, the average currents were found and recorded in [Table 5.5](#tab:current-readings). The currents were summed up giving the total average current to be around **5.78mA**. With an average battery voltage of 6V, this results in an estimated power consumption of **34.67mW**. See [Appendix B](#appendix-b-power-consumption-calculations) for the formulae used.
 
 With this average current consumption, the battery life of the box was estimated to be around **18.03 days** assuming the AA batteries have a capacity of 2500mAh. 
 
 ### 5.9 Validation Results 
 After the system was verified against the system requirements, the KnockLock product was finally able to be validated by users. 
 #### 5.9.1 User Feedback <!-- what did people think? -->
-From the survery defined in [Section 4.9.1](#491-user-acceptance-testing), the findings are shown in [Table X](#tab:user-feedback). 
+From the survery defined in [Section 4.9.1](#491-user-acceptance-testing), the findings are shown in [Table 5.6](#tab:user-feedback). 
 <div id="tab:user-feedback">
 
-*Table X: User Feedback*
+*Table 5.6: User Feedback*
 | S. No.      | Overall Rating (out of 10) | Good Feature                     | Bad Feature                                   | Lacking Feature / Potential Improvements |
 | ----------- | -------------------------- | -------------------------------- | --------------------------------------------- | ---------------------------------------- |
 | 1           | 9                          | Keyless entry                    | Knocking anywhere                             | Only possibility to store one password   |
@@ -1544,7 +1544,7 @@ Moreover while piezos have to be constantly monitored by the CPU and noise remov
 ### 6.1.2 Power Efficiency
 Most reviewed projects [1,2,3] also lacked a sophisticated power mangement system. They were constantly awake monitoring the values. Whereas the Knock Lock, spends most of its time in deep sleep mode (~5uA), only waking up for battery monitoring or double knocks. The ADXL having hardware interrupts also helps in achieving a better wake up method, as the accelerometer itself has very minimal current drawn (~23uA in measurement mode [5]).
 
-The system also has a dedicated PCB with only the required components and not unecessary hardware, which also saves battery with having an average current consumption of 5.78mA according the assumptions in [Table X](#tab:current-readings), unlike the other projects which use developement board.
+The system also has a dedicated PCB with only the required components and not unecessary hardware, which also saves battery with having an average current consumption of 5.78mA according the assumptions in [Table 5.5](#tab:current-readings), unlike the other projects which use developement board.
 
 MOSFET Power gating servo motor is another feature which helps the system save battery, by effectively removing any current drawn by the servo when not required, this is not done for most other projects.
 
@@ -1553,7 +1553,7 @@ These techniques allow for the battery life as found in [Section 5.8.4](#584-pow
 The system also implements a battery monitoring system unlike the other projects, which allows the user to know when the battery must be replaced. 
 
 ### 6.1.3 Flexibility
-While other projects do work, they are limited to the specific enviroment conditions they are designed for. To change sensitivity of the piezo, while it can be done via software it is very limited, for more sensitivity hardware changes are required, such as an amplification circuit. While for the KnockLock most settings are software based already, with possibility of even changing scale to make system less sensitive for when only heavy knocks to be detected, as the accelerometer can be communicated with using I^2^C. 
+While other projects do work, they are limited to the specific enviroment conditions they are designed for. To change sensitivity of the piezo, while it can be done via software it is very limited, for more sensitivity hardware changes are required, such as an amplification circuit. While for the KnockLock most settings are software based already, with possibility of even changing scale to make system less sensitive for when only heavy knocks to be detected, as the accelerometer can be communicated with using I2C. 
 
 The system also implements certain features to allow for leniency, such as allowing a defined number of mistakes, to allow system to detect knock as correct even if the first few or last few knocks maybe incorrect. 
 
@@ -1574,7 +1574,7 @@ After extensive testing, some limitations of system were realized:
 ### 6.3 Product Significance
 The development of the Knock Lock demonstrates a shift towards more intuitive and "invisisble" security interfaces. Using knocks instead of traditional locking systems such as NFC, RFID, Mechanical or Biometric systems offers some key advantages:
 
-- Security: Knock Lock provides an alternative entry method which does not require a physical key, which can be lost or stolen. Also by allowing anywhere from 5 to 30 knocks the possible permuations of knocks is approximately $\approx 2.14 \times 10^{32}$** (Calculation in [Appendix A](#appendix-A)).
+- Security: Knock Lock provides an alternative entry method which does not require a physical key, which can be lost or stolen. Also by allowing anywhere from 5 to 30 knocks the possible permuations of knocks is approximately $\approx 2.14 \times 10^{32}$** (Calculation in [Appendix D](#appendix-d-knock-permutations-calculation)).
 - Versatility: To due the ability of detecting upto 0 Hz vibrations, the material versatility using an accelerometers is much higher.
 - Sustainability: The project highlights the viability of long-term battery powered IoT security solutions, by achieving such low deep sleep currents and use of such low power demanding sensor modules.
 - Privacy Protection: Due to the system only monitoring mechanical vibrations, it ensures users privacy which may be of concern if a biometric, camera or microphone system was implemented.
