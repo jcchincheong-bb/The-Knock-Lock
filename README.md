@@ -1261,16 +1261,16 @@ With all fixes implemented the final housing model can be seen in [Figure X](#ho
   <table border="0">
     <tr>
       <td><figure>
-        <img src="/resources/images/finalHousingModel.PNG" loading ="lazy" alt="final-housing-isometric-view" height="300">
-        <figcaption align="center"><b>(a):</b> Final Housing Model Isometric View </figcaption>
+        <img src="/resources/images/finalHousingModel.PNG" alt="final-housing-isometric-view" height="300">
+        <figcaption align="center"><b>(a):</b> Closed </figcaption>
       </figure></td>
       <td><figure>
-        <img src="/resources/images/finalHousingModel1.PNG" loading ="lazy" alt="final-housing-inside-view" height="300">
-        <figcaption align="center"><b>(b):</b> Final Housing Model Open View </figcaption>
+        <img src="/resources/images/finalHousingModel1.PNG" alt="final-housing-inside-view" height="300">
+        <figcaption align="center"><b>(b):</b> Open </figcaption>
       </figure></td>
     </tr>
   </table>
-  <figcaption align="center"><b>Figure 5.8:</b> Final PCB without Components</figcaption>
+  <figcaption align="center"><b>Figure X:</b> Final 3D Model of Housing</figcaption>
   </figure>
 </div>
 
@@ -1282,29 +1282,30 @@ This was model was then 3D printed using PLA (0.2mm Nozzle) to get the final pro
 - Door with an infill of 70% (Higher infill for better vibrations passthrough)
 - Rest of the parts with an infill of 10%
 
+
 <div id="final-product"  align="center">
   <figure>
   <table border="0">
     <tr>
       <td><figure>
-        <img src="/resources/images/full-prototype_closed.jpg" loading ="lazy" alt="final-product-closed-view" height="300">
-        <figcaption align="center"><b>(a):</b> Final product</figcaption>
+        <img src="/resources/images/full-prototype_closed.jpg" alt="final-product-open-view" height="300">
+        <figcaption align="center"><b>(a):</b> Closed </figcaption>
       </figure></td>
       <td><figure>
-        <img src="/resources/images/full-prototype_open-1.jpg" loading ="lazy" alt="final-product-open-view" height="300">
-        <figcaption align="center"><b>(b):</b> Final Product Open View </figcaption>
+        <img src="/resources/images/full-prototype_open-1.jpg" alt="final-product-open-view" height="300">
+        <figcaption align="center"><b>(b):</b> Open </figcaption>
       </figure></td>
     </tr>
   </table>
-  <figcaption align="center"><b>Figure 5.8:</b> Final PCB without Components</figcaption>
+  <figcaption align="center"><b>Figure X:</b> Final Fully Assembled Product</figcaption>
   </figure>
 </div>
 
-For connecting the door to the box, the filament used for 3D printing can be passed through the hinges and melted at the corners. The diameter of filament should be less than equal to 2mm.
-
-Finally with the final prototype complete, it is important to know how much the entire system costs to make, including electrical and mechanical components.
+For connecting the door to the box, the filament used for 3D printing can be passed through the hinges and melted at the corners. The diameter of filament should be less than or equal to 2mm.
 
 ### 5.7 Bill of Materials <!-- Full list of materials used -->
+Finally with the final prototype complete, it is important to know how much the entire system costs to make, including electrical and mechanical components.
+
 The complete list of all electrical materials used to assemble the product is shown in [Table X](#tab:BOM-E). Note that the PCB is taken as item 34.
 <div id="tab:BOM-E">
 
@@ -1371,8 +1372,25 @@ Summing the total electrical costs (€26.61), mecahnical costs (€15.22) and c
 
 ### 5.8 Post-Implementation Verification Results 
 #### 5.8.1 Module Performace  <!-- How is each circuit performing? -->
-
-#### 5.8.2 System Integration Performance <!-- How are the integrations performing? -->
+Following the test specifications defined in [Section 4.8.1](#481-pcb-module-testing), the results of the PCB verfication is as follows:
+- **Sensor Sub-system**: 
+  - When power was connected, the voltage measured at test point 6 relative to ground was approximately 3.3V. This shows that the sensor sub-system is recieving sufficient power.
+- **Lock Actuator Interface Sub-system**: 
+  - When the voltage at base of the NPN was measured to be around 3.3V (relative to ground), the voltage at the supply pin of the servo connector was measured to be around 6V (relative to ground). 
+  - When the voltage at base of the NPN was measured to be 0V (relative to ground), the voltage at the supply pin of the servo connector was measured to be approximately 0V (relative to ground).
+  - Thus, the lock actuator interface sub-system is receiving sufficient power and the power cut-off configuration is working as designed. 
+- **Controller Sub-system**: 
+  - When power was connected, the yellow LED was dimly lit. 
+  - The voltage at the enable and supply pins of the MCU were measured to be around 3.3V (relative to ground). 
+  - This indicates that the controller sub-system is receiving sufficient power.
+- **Programming Interface Sub-system**: 
+  - When the AYWHP CP2102 HW-598 USB-to-UART programmer was connected to the programming interface as shown in [Figure X](#programming-mcu)and the system was booted into UART download mode, the Arduino IDE recognises the ESP32 immeditately. 
+  - Thus, the programming interface sub-system is fully functional. 
+- **Power Regulation Sub-system**: 
+  - When power was connected via the battery terminal, the voltage at test point 4 was measured to be around 3.3V (relative to ground). 
+  - When power was connected via the mirco USB port, the voltage at test point 4 was measured to be around 3.3V (relative to ground).  
+  - When power was connected via both the battery and micro USB simulatenously, the voltage at test point 4 was measured to be around 3.3V (relative to ground). 
+  - Thus, the power regulation sub-system is fully functional. 
 
 <div id="programming-mcu" align="center">
 <figure>
@@ -1380,6 +1398,23 @@ Summing the total electrical costs (€26.61), mecahnical costs (€15.22) and c
   <figcaption align="center"><b>Figure X:</b> Using External USB-to-UART Programmer to Program the ESP32 on the PCB </figcaption>
 </figure>
 </div>
+
+#### 5.8.2 System Integration Performance <!-- How are the integrations performing? -->
+Since all of the sub-systems on the PCB are functional, the integration tests as defined in [Section 4.8.2](#482-pcb-system-integration-testing) were conducted. The results of these tests are as follows:
+- **Reading Serial Data of the Sensor**: 
+  - After connecting the system as shown in [Figure X](#programming-mcu), the ESP32 was successfully flashed with the example program.
+  - The serial monitor showed the accelerometer data as programmed.
+  - Thus, the controller, programming and sensor sub-systems are successfully integrated. 
+- **Programming the MCU to Blink and Beep**: 
+  - Using the same setup as shown in [Figure X](#programming-mcu), the blink and beep example program was flashed successfully. The LEDs were set to turn on and off on after each other in a repeating pattern. The buzzer was made to beep every times the LEDs changed.
+  - After flashing, the HMI behaved exactly as programmed. 
+  - Thus, the controller, programming and HMI sub-systems are successfully integrated.  
+- **Programming the MCU to Turn on and Cut Lock Actuator Power**: 
+  - Using the same setup as shown in [Figure X](#programming-mcu) and the same program as in [Section 5.1.3](#513-lock-actuator-interface-test), the ESP32 was successfully flashed. The only differences in the program were the pin definitions and the PROG button on the PCB was setup to control the NPN transistor base pin, i.e. to turn on or off the servo motor.
+  - When the button was pressed, the servo motor stopped rotating. Once pressed again, it started rotating again.
+  - Thus, the controller, programming, HMI and lock actuator interface sub-systems are successfully integrated. 
+
+The success of all of these tests, by extension, verifies the integration of the voltage regulation sub-system. 
 
 #### 5.8.3 Complete Product Performance <!-- How is the complete product performing?-->
 
