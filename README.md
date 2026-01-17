@@ -665,7 +665,7 @@ One issue encountered in the formation of this layout was the routing to the mic
 </div>
 
 
-Finally, the third and final design shown in [Figure 5.7](#pcb-v3) involved some refinement such changing the battery and servo connectors,  adding vias for thermal relief, adding mounting holes and adding A [logo](#logo) in the silkscreen. 
+Finally, the third and final design shown in [Figure 5.7](#pcb-v3) involved some refinement such changing the battery and servo connectors, adding vias for thermal relief, adding mounting holes and adding a [logo](#logo) in the silkscreen. The change in connectors was to facilitate the use of simple JST pin headers which were available in the lab.
 <div id="pcb-v3" align="center">
 <figure>
   <img src="/resources/images/pcb-layout_V3-final.PNG" alt="pcb-v3" width="400">
@@ -674,13 +674,30 @@ Finally, the third and final design shown in [Figure 5.7](#pcb-v3) involved some
 </div>
 
 ### 5.4 PCB Assembly <!-- Final and issues encountered in assembly or after testing-->
-
-<div id="pcb-blank" align="center">
+After the PCB layout was finalised, the design was sent to AISLER for manufacturing. The final PCB without any components can be seen in [Figure ](#pcb-blank) 
+<div id="pcb-blank"  align="center">
+  <figure>
+  <table border="0">
+    <tr>
+      <td><figure>
+        <img src="/resources/images/Unsoldered PCB.jpeg" height="200">
+        <figcaption align="center"><b>(a):</b> Front </figcaption>
+      </figure></td>
+      <td><figure>
+        <img src="/resources/images/Unsoldered PCB 2.jpeg" height="200">
+        <figcaption align="center"><b>(b):</b> Back </figcaption>
+      </figure></td>
+    </tr>
+  </table>
+  <figcaption align="center"><b>Figure 5.8:</b> Final Unsoldered PCB </figcaption>
+  </figure>
+</div>
+<!-- <div id="pcb-blank" align="center">
 <figure>
   <img src="/resources/images/Unsoldered PCB 2.jpeg" alt="pcb-blank" width="400">
   <figcaption align="center"><b>Figure 5.8:</b> Final Unsoldered </figcaption>
 </figure>
-</div>
+</div> -->
 
 <div id="pcb-front" align="center">
 <figure>
