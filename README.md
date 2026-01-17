@@ -39,7 +39,7 @@ Short summary of the project and the work conducted
 ## 1 Introduction 
 We have all built secret passwords, sometimes words, sometimes numbers, sometimes just a pattern of knocking, sometimes it was to get into a box castle, sometime a room. 
 
-Suprisingly, the password nowadays are boring, just words, numbers, NFCs sometimes biometric. However what happened to the secret knock? In this project we want to create a 
+Surprisingly, the password nowadays are boring, just words, numbers, NFCs sometimes biometric. However what happened to the secret knock? In this project we want to create a 
 more fun way to unlock a door, while also keeping it safe using a secret knock pattern, with millions of potential permutations. This unlocking mechanism can be used for 
 getting through a door, open a drawer, or opening a safe box, the possibilities are endless. 
 
@@ -109,7 +109,7 @@ As noted from the previous section, no accelerometers were used in the project, 
 While piezoelements offer a good signal to noise ratio, they also act as high pass filters. This property provides them with a higher sensitivity for higher frequency vibrations, but hence not the ideal solution for lower frequency vibrations, which is more similar to human knocks [4]. While this blog [4], compares accelerometers with professional piezoelectric sensors, which are much more sensitive than the piezoelectric devices used in other projects, the same fundamental limitation applies to them as well. Especially considering, vibrations when traveling through various materials may loose high frequency energy relatively quickly, depending on the material property and thickness, which may make it even harder to detect. On the other hand accelerometers allow sensing of flat responses (0Hz) and hence have good sensitivity for even lower frequencies [4]. Vibration sensors allow for detecting only above a specified frequency, depending on its calibration.
 Accelerometers generally have chips to process and amplify signal which can communicate the information using I2C or SPI communication instead of Piezoelectrics devices, which are analog or vibration sensor which are digital. This implies, theoretically, an accelerometer should allow for much more customisability via software, as the chips also have many interrupts. They chips are able to process these informations quite well to reduce noise. Accelerometer being 3-axis may also allow detection direction of knock which could be helpful in certain scenarios.
 Piezo electric are analog passive devices, hence have quite less power consumption, however also implies they must be always awake to read. 
-Vibration sensor have limited customisability due to their digital nature. They can either detect a knock or not, which can potentionally cause problems diffrentiating general vibrations from knocks.
+Vibration sensor have limited customisability due to their digital nature. They can either detect a knock or not, which can potentionally cause problems differentiating general vibrations from knocks.
 
 A summary of all the differences between piezos, MEMs accelerometers and vibration sensor is shown in Table. 2.1
 
@@ -130,7 +130,7 @@ A summary of all the differences between piezos, MEMs accelerometers and vibrati
 
 These sensors are then tested in [Section 4.4.2](#522-sensor-sch) and results can be found in [Section 5.1.1](#511-sensor-selection)
 
-While an ESP32 has a higher power consumption in normal mode, in deep it falls much lower (around 5 uA) [6]. Which makes a viable option for battery powered applications with the controller mainly in deepsleep. It also has more than enough processing power to handle the knock detection algorithm.
+While an ESP32 has a higher power consumption in normal mode, in deep it falls much lower (around 5 uA) [6]. Which makes a viable option for battery powered applications with the controller mainly in deep-sleep. It also has more than enough processing power to handle the knock detection algorithm.
 <!--------------------------------------------------------------------------------------------------------------------->
 <!--------------------------------------------------------------------------------------------------------------------->
 
@@ -189,7 +189,7 @@ For Knock Knock Lock Box to be a satisfiable product, the following functional r
 - It only powers on after some initial knock to wake up the system, on wake it shows an yellow LED
 - If no knocks detected for 60 seconds, it goes back to power saving mode
 - It has provision to use a Micro USB port as an alternative power source in case battery dies out, with no prospect to upload firmware through it
-- It uses a servo motor for unlocking and locking 
+- It uses some actuator for unlocking and locking 
 - It has a programming mode where the user sets the knock for the system to recognize, mode can only be entered when the box is unlocked 
 
 #### 4.2.2 Technical Requirements
@@ -492,23 +492,66 @@ Before the PCB could be designed and manufactured, some of the sub-systems were 
 - **HMI Sub-system**: To ensure the HMI, the circuit as defined in [Figure 4.9](#hmi-sch) was constructed on a breadboard. This test was essentially done as part of the prototype system test as described in [Section 4.7.2](#472-prototype-system-testing).
 
 ### 4.8 Post-Implementation Verification Methods <!-- How did we test after development?-->
-#### 4.8.1 Final Module Testing <!-- Checking each sub-system on the PCB -->
+#### 4.8.1 PCB Module Testing <!-- Checking each sub-system on the PCB -->
+After the PCB has been assembled, each sub-system must be tested before the entire system integration is tested. For this reason, various test points are included within the schematic as seen in [Figure 4.2](#schematic) for each sub-system. The following describes what each test point is designed to check:
+- **Sensor Sub-system**: 
+  - Test Point 5: the signal sent by the accelerometer's activity interrupt
+  - Test Point 6: the supply voltage of the accelerometer
+- **Controller Sub-system**
+  - Test Point 3: the I2C communication line for the MCU
+- **Power Regulation Sub-system**:
+  - Test Point 1: the input voltage from the battery supply
+  - Test Point 2: the input voltage from the alternative supply via micro USB
+  - Test Point 4: the output voltage of the voltage regulator
+
+The main purpose of these test points is checking if components are receiving the correct power. They also check communication lines between the sensor and MCU for debugging. 
+
+In addition to the test points, some test specifications were defined to test the general functionality of the sub-systems:
+- **Sensor Sub-system**: 
+  - Can only be tested if controller, programming interface and power regulation sub-systems are functional. See [Section 4.8.2](#482-pcb-system-integration-testing) for test specifications.
+- **Lock Actuator Interface Sub-system**: 
+  - To test functionality of the this sub-system, the voltage across pins 2 and 3 of the servo connector (J5) and voltage of the base (pin 2) of NPN transistor (Q1) relative to ground can be measured. The sub-system is functional if the connector voltage is high when the base voltage is high and low when the base voltage is low. See [Figure 4.6](#lock-actutator-sch) for pins.
+- **Controller Sub-system**: 
+  - To test functionality of this sub-system, the MCU is connected to power and the status yellow LED checked. The sub-system is functional if the yellow LED is on when the MCU is powered. This is because the yellow LED is on IO19 which pulled up by default.
+- **Programming Interface Sub-system**: 
+  - To test the functionality of this sub-system, an external USB-to-UART programmer (or Arduino UNO) is connected to the RX and TX pins, the boot pins are connected together and the the reset button is pressed. If the MCU is recognised by Arduino IDE, the sub-system is functional. 
+- **HMI Sub-system**:  
+  - Can only be tested if controller, programming interface and power regulation sub-systems are functional. See [Section 4.8.2](#482-pcb-system-integration-testing) for test specifications.
+- **Power Regulation Sub-system**: 
+  - To test the functionality of this sub-system, the voltage at test point 4 relative to ground is be measured when the battery is connected. If this voltage is 3.3V, the sub-system is functional.
+
+#### 4.8.2 PCB System Integration Testing <!-- Checking function of the entire PCB -->
+With certainty that the sub-systems are powered and functional, the integration between sub-systems can be tested. The following test specifications to test integration were defined:
+- **Reading Serial Data of the Sensor**: 
+  - To test the functionality and integration of controller, programming interface and sensor sub-systems, the MCU can be flashed with an example program to read the sensor data and print it in the serial monitor. The sub-systems are fully integrated if data appears in the serial monitor and is responsive when the PCB is moved around.
+- **Programming the MCU to Blink and Beep**: 
+  - To test the functionality and integration of controller, programming interface and HMI sub-systems, the MCU can be flashed with an example blink program and example beep program from Arduino IDE (with pins adjusted accordingly). The sub-systems are fully integrated if each LED blinks and the buzzer beeps when programmed to.
+- **Programming the MCU to Turn on and Cut Lock Actuator Power**: 
+  - To test the functionality and integration of controller, programming interface and lock actuator interface sub-systems, the MCU can be flashed with a basic program that brings the IO0 high and measuring the voltage across pins 2 and 3 of the servo connector (J5).  The sub-systems are fully integrated if the voltage is high when IO0 is high.
+
+Finally, the integration of the complete system must be tested against the requirements outlined in [Section 4.2](#42-system-requirements). The following is the test specifications defined:
+- The MCU is flashed with a the program developed in [Section 5.5](#55-software-implementation).
+- The corner of the PCB is tapped to simulate a pre-defined knock pattern. 
 
 
-#### 4.8.2 Final System Integration Testing <!-- Checking function of the entire PCB -->
 
 #### 4.8.3 Power Consumption  <!-- Checking power consumption in active and sleep modes -->
-power consumption 
+Once the general functionality of the system has been verified, another important characteristic of the system must be investigated: the power consumption. To determine the amount of power consumed by the system and estimate the battery life of the system, the current drawn by the system must be measured. To do this, an ammeter can be connected in series with the power supply and the battery terminal. The system can then be tested in different modes and functions so that the current measurements in all cases can be taken. The results of this test are presented in [Section 5.8.3](#583-power-consumption).
 
 ### 4.9 Validation Methods  <!-- Are we making the right product? -->
-#### 4.9 User Acceptance Testing  <!-- Presenting prototype to potential users -->
+#### 4.9.1 Complete Product Testing <!-- How can we test the product in the right environment -->
+
+
+#### 4.9.2 User Acceptance Testing  <!-- Presenting prototype to potential users -->
 Over the course of a week, 10 people were surveyed using convenience sampling. Each person was shown the final prototype and asked four questions:
 1. What would you rate this product out of ten?
 2. What is one feature you especially liked about the product?
 3. What is one feature you disliked about the product?
 4. What is one feature you believe would improve or should be implemented into the product?
 
-It should also be noted that the majority of the people surveyed are familiar with the members of the development team and thus some responses may contain bias. The findings can be found in [Section 5.7](#57-verification-results).
+The findings can be found in [Section 5.9.1](#591-user-feedback).
+
+It should also be noted that the majority of the people surveyed are familiar with the members of the development team and thus some responses may contain bias. 
 <!--------------------------------------------------------------------------------------------------------------------->
 <!--------------------------------------------------------------------------------------------------------------------->
 ## 5	Results
@@ -543,7 +586,7 @@ With feasibility confirmed, the development processes continued and a prototype 
 <div id="lock-actuator-prototype" align="center">
 <figure>
   <img src="/resources/images/motor-control_test.jpg" alt="lock-actuator-prototype" width="400">
-  <figcaption align="center"><b>Figure 5.2:</b> Breadboard Prototype Lock Actuator Interface</figcaption>
+  <figcaption align="center"><b>Figure 5.3:</b> Breadboard Prototype Lock Actuator Interface</figcaption>
 </figure>
 </div>
 
@@ -553,7 +596,7 @@ With feasibility confirmed, the development processes continued and a prototype 
 <div id="prog-interface-prototype" align="center">
 <figure>
   <img src="/resources/images/testing-programming.jpg" alt="prog-interface-prototype" width="400">
-  <figcaption align="center"><b>Figure 5.2:</b> Setup to Test Direct UART Programming</figcaption>
+  <figcaption align="center"><b>Figure 5.4:</b> Setup to Test Direct UART Programming</figcaption>
 </figure>
 </div>
 
@@ -565,88 +608,84 @@ As demonstrated in [Section 5.1.1](#511-concept-feasibility), the accelerometer 
 
 While the tests were conducted with a MMA8452Q by Sparksfun Electronics, the final design uses an ADXL345, as it was cheaper and larger in package size making it easier to solder. The ADXL345 is also 13-bit instead of 12-bit, hence should perform even better.
 
-### 5.3 Bill of Materials
+#### 5.2.2 Other Components
+Aside from the sensors, all components were chosen based on the specifications outlined in [Section 4.4.8](#448-component-specifications) in [Table X](#tab:specs). The complete list of all materials used is shown in [Section 5.7](#57-bill-of-materials). Any modifications to the components selected or designed in [Section 4](#4methodology-and-design) is explained in following sections. 
 
-<div id="tab:BOM-E">
+### 5.3 PCB Design <!-- PCB layout, issues and changes to schematic -->
+With components selected and the system prototype verified, the layout of the PCB could be designed. The first version of the PCB layout is shown in [Figure 5.5](#pcb-v1). In creating the design, a few important things were considered as follows:
+- The voltage regulator was placed far away from the MCU to prevent the switching magnetic field from interfering with the processing.
+- The track width for power (0.7mm) was significantly larger than that of signals (0.2mm) to ensure power tracks have lower resistance and can carry sufficient current.
+- Both the top and bottom copper layers had a ground plane for better grounding and heat dissipation.
+- Wherever possible, power and signal tracks were not run parallel to each other.
+- Tracks were never drawn with 90 degree bends.
 
-*Table X: Electrical Bill of Materials*
-| Item      | Schematic Ref             | Qty | Component                       | Part Number             | Manufacturer          | Vendor | Price/Unit[€]| Price [€] |
-| --------- | ------------------------- | --- | ------------------------------- | ----------------------- | --------------------- | ------ | ------------ | --------- |
-| 1         | U1                        | 1   | Capacitive Accelerometer        | ADXL345BCCZ-RL7         | Analog Devices        | Mouser | 5.65         | 5.65      |
-| 2         | –                         | 1   | Servo Motor                     | SG90                    | Soldered              | HSRW   | 5.07         | 5.07      |
-| 3         | Q1                        | 1   | Bipolar NPN Transistor          | BC547B                  | CDIL                  | HSRW   | 0.04         | 0.04      |
-| 4         | Q2                        | 1   | P-channel MOSFET                | IRLML6402TRPBF          | Infineon Technologies | Mouser | 0.35         | 0.35      |
-| 5         | IC2                       | 1   | ESP32 Microcontroller           | ESP32-C3-WROOM-02-N4    | Espressif Systems     | Mouser | 3.12         | 3.12      |
-| 6         | D5                        | 1   | Red LED                         | DLE3MMR                 | Hottech               | HSRW   | 0.06         | 0.06      |
-| 7         | D6                        | 1   | Yellow LED                      | DLE3MMY                 | Hottech               | HSRW   | 0.06         | 0.06      |
-| 8         | D7                        | 1   | Green LED                       | DLE3MMG                 | Hottech               | HSRW   | 0.06         | 0.06      |
-| 9         | LS1                       | 1   | Buzzer                          | PKM22EPPH4001-B0        | Murata Electronics    | Mouser | 0.48         | 0.48      |
-| 10        | S1, S2                    | 2   | Push Button                     | TS02-66-60-BK-260-LCR-D | Samesky               | Mouser | 0.09         | 0.18      |
-| 11        | IC1                       | 1   | 3.3 V Voltage Regulator         | LM2575-3.3WT            | Microchip Technology  | Mouser | 1.48         | 1.48      |
-| 12        | D1, D2                    | 2   | TVS Diode                       | 1N5908                  | STMicroelectronics    | HSRW   | 0.66         | 1.32      |
-| 13        | D3, D4                    | 2   | Schottky Diode                  | 1N5822                  | MIC Electronics       | HSRW   | 0.15         | 0.30      |
-| 14        | F1, F2                    | 2   | Resettable Fuse                 | PFRA110                 | Schurter              | HSRW   | 0.28         | 0.56      |
-| 15        | –                         | 1   | Battery Holder                  | 2477                    | Keystone Electronics  | Mouser | 1.87         | 1.87      |
-| 16        | –                         | 4   | AA Battery                      | –                       | –                     | HSRW   | 0.30         | 1.20      |
-| 17        | L1                        | 1   | 330 µH Inductor                 | RFC0810B-334KE          | Coilcraft             | Mouser | 1.26         | 1.26      |
-| 18        | C1, C4, C5, C10, C11, C12 | 6   | 0.1 µF Ceramic Capacitor (0805) | B37873U5101S            | EPCOS                 | HSRW   | 0.11         | 0.66      |
-| 19        | C2                        | 1   | 100 µF Electrolytic Capacitor   | EEU-FC1C101H            | Panasonic             | HSRW   | 0.14         | 0.14      |
-| 20        | C3                        | 1   | 1 µF Electrolytic Capacitor     | RA1/25-R                | Jameco                | HSRW   | 0.02         | 0.02      |
-| 21        | C6, C8, C9                | 3   | 10 µF Electrolytic Capacitor    | EEU-FR1H100             | Panasonic             | HSRW   | 0.11         | 0.33      |
-| 22        | C7                        | 1   | 330 µF Electrolytic Capacitor   | EEU-FR1E331             | Panasonic             | HSRW   | 0.26         | 0.26      |
-| 23        | J1                        | 1   | Male 2-Pin Header               | –                       | –                     | HSRW   | 0.08         | 0.08      |
-| 24        | J2                        | 1   | Female 2-Pin Header             | –                       | –                     | HSRW   | 0.10         | 0.10      |
-| 25        | J3                        | 1   | Male JST 2-Pin Header           | –                       | –                     | HSRW   | 0.10         | 0.10      |
-| 26        | J4                        | 1   | Micro USB B                     | USB3145-30-1-A          | GCT                   | Mouser | 0.66         | 0.66      |
-| 27        | J5                        | 1   | Male JST 3-Pin Header           | –                       | –                     | HSRW   | 0.12         | 0.12      |
-| 28        | R1, R4, R5, R7            | 4   | 10 kΩ Resistor                  | RC1206FR-0710KL         | YAGEO                 | HSRW   | 0.09         | 0.36      |
-| 29        | R2                        | 1   | 6.8 kΩ Resistor                 | RC1206FR-076K8L         | YAGEO                 | HSRW   | 0.09         | 0.09      |
-| 30        | R3, R6                    | 2   | 4.7 kΩ Resistor                 | RC1206FR-074K7L         | YAGEO                 | HSRW   | 0.09         | 0.18      |
-| 31        | R8                        | 1   | 100 Ω Resistor                  | RC1206FR-07100RL        | YAGEO                 | HSRW   | 0.09         | 0.09      |
-| 32        | R9                        | 1   | 100 kΩ Resistor                 | RC1206FR-07100KL        | YAGEO                 | HSRW   | 0.09         | 0.09      |
-| 33        | R10, R11, R12             | 3   | 27 Ω Resistor                   | RC1206FR-0727RL         | YAGEO                 | HSRW   | 0.09         | 0.27      |
-| **Total** |                           |     |                                 |                         |                       |        |              | **26.61** |
-</div>
-
-
-### 5.4 PCB Design <!-- PCB layout, issues and changes to schematic -->
-
-first design pretty bad 
 <div id="pcb-v1" align="center">
 <figure>
   <img src="/resources/images/pcb-layout_V1.PNG" alt="pcb-v1" width="400">
-  <figcaption align="center"><b>Figure X:</b> First PCB Layout </figcaption>
+  <figcaption align="center"><b>Figure 5.5:</b> First PCB Layout </figcaption>
 </figure>
 </div>
 
-second design shifted around mcu and changed the components to smt
+While this design passes the design rule check in KiCAD, it has a number of issues:
+- The biggest issue is that the PCB antenna is above a copper plane which can lead to electromagnetic interference in the ground net.
+- Some of the clearances between tracks are too small leading to poor manufacturability and poor insulation between tracks
+- 0.2mm track width is difficult to manufacture
+- Vias with 0.6mm diameter and 0.3mm hole diameter are too small to be manufactured by AISLER
+
+Thus, considering these issues a second design was done as shown in [Figure 5.6](#pcb-v2). In this design, the MCU was shifted to the edge of the PCB and a copper keep-out zone was defined beneath the antenna. The track width and vias diameter were increased to 0.7mm and 0.8mm (with 0.4mm hole diameter) respectively. Additionally, under the advice of Professor Andy Stamm, all of the resistors and ceramic capacitors were changed to SMT components instead of THT. The idea behind this switch was that since the accelerometer and MCU required reflow soldering regardless, it would be more efficient to also solder these components in the reflow oven in the same session.
 <div id="pcb-v2" align="center">
 <figure>
   <img src="/resources/images/pcb-layout_V2.PNG" alt="pcb-v2" width="400">
-  <figcaption align="center"><b>Figure X:</b> Second PCB Layout </figcaption>
+  <figcaption align="center"><b>Figure 5.6:</b> Second PCB Layout </figcaption>
 </figure>
 </div>
 
-third and final design is just refinement like changing the servo connector and adding vias for thermal relief. A [logo](#logo) was also added. 
+One issue encountered in the formation of this layout was the routing to the micro-controller pins was incredibly difficult. Thus, some of the pins were remapped to make the routing is more intuitive. (Note that the pin mapping in [Table X](#tab:pin-mapping) is already the final mapping).
+<div id="tab:pin-revision">
+
+*Table X: Changes in Pin Mapping For PCB Adjustments*
+| Signal / Function         | Old PCB Pin | New PCB Pin       |
+| ------------------------- | ----------- | ----------------- |
+| Battery Voltage (BAT_V)   | 3           | 16                |
+| I2C SDA                   | 14          | 5                 |
+| I2C SCL                   | 13          | 4                 |
+| Wake Interrupt (WAKE_INT) | 15          | 3                 |
+| Servo Cut-off (SERVO)     | 5           | 18                |
+| Servo Control Signal      | 4           | 17                |
+| Red LED                   | 16          | 13                |
+| Yellow LED                | 17          | 14                |
+| Green LED                 | 18          | 15                |
+</div>
+
+
+Finally, the third and final design shown in [Figure 5.7](#pcb-v3) involved some refinement such changing the battery and servo connectors,  adding vias for thermal relief, adding mounting holes and adding A [logo](#logo) in the silkscreen. 
 <div id="pcb-v3" align="center">
 <figure>
   <img src="/resources/images/pcb-layout_V3-final.PNG" alt="pcb-v3" width="400">
-  <figcaption align="center"><b>Figure X:</b> Final PCB Layout </figcaption>
+  <figcaption align="center"><b>Figure 5.7:</b> Final PCB Layout </figcaption>
 </figure>
 </div>
 
-### 5.5 PCB Assembly <!-- Final and issues encountered in assembly or after testing-->
+### 5.4 PCB Assembly <!-- Final and issues encountered in assembly or after testing-->
+
+<div id="pcb-blank" align="center">
+<figure>
+  <img src="/resources/images/Unsoldered PCB 2.jpeg" alt="pcb-blank" width="400">
+  <figcaption align="center"><b>Figure 5.8:</b> Final Unsoldered </figcaption>
+</figure>
+</div>
+
 <div id="pcb-front" align="center">
 <figure>
   <img src="/resources/images/pcb_front.jpg" alt="pcb-front" width="400">
-  <figcaption align="center"><b>Figure X:</b> Final PCB (front) </figcaption>
+  <figcaption align="center"><b>Figure 5.9</b> Final PCB (front) </figcaption>
 </figure>
 </div>
 
 <div id="pcb-back" align="center">
 <figure>
   <img src="/resources/images/pcb_back.jpg" alt="pcb-back" width="400">
-  <figcaption align="center"><b>Figure X:</b> Final PCB (back) </figcaption>
+  <figcaption align="center"><b>Figure 5.10:</b> Final PCB (back) </figcaption>
 </figure>
 </div>
 
@@ -657,7 +696,7 @@ Moreover, even though having a large GND plane allowed for better heat dissipati
 
 Most issues with soldering were sorted right after soldering, due to the verification process being right after. However the one was missed. Later it was discovered the servo was not functioning reliably. After using an oscilloscope to see its response, it was found out that the GND pin of the servo was connected, however not well which cause breakage at sometimes and hence the response was sometimes missed or delayed. This was fixed by soldering it again.
 
-### 5.6 Software Implementation <!-- Final code and issues after testing and how they were solved-->
+### 5.5 Software Implementation <!-- Final code and issues after testing and how they were solved-->
 As discussed in [Section 4.5](#45-software-design) a modular approach was used. The main startup code is in the file KnockLock.ino. 
 
 The libraries used are:
@@ -977,15 +1016,73 @@ All of the functions above user some helper function to make the code more modul
 <!--------------------------------------------------------------------------------------------------------------------->
 
 
-### 5.7 Housing Prototype <!-- Whatever modifications we made -->
+### 5.6 Housing Prototype <!-- Whatever modifications we made -->
+
+### 5.7 Bill of Materials
+
+<div id="tab:BOM-E">
+
+*Table X: Electrical Bill of Materials*
+| Item      | Schematic Ref             | Qty | Component                       | Part Number             | Manufacturer          | Vendor | Price/Unit[€]| Price [€] |
+| --------- | ------------------------- | --- | ------------------------------- | ----------------------- | --------------------- | ------ | ------------ | --------- |
+| 1         | U1                        | 1   | Capacitive Accelerometer        | ADXL345BCCZ-RL7         | Analog Devices        | Mouser | 5.65         | 5.65      |
+| 2         | –                         | 1   | Servo Motor                     | SG90                    | Soldered              | HSRW   | 5.07         | 5.07      |
+| 3         | Q1                        | 1   | Bipolar NPN Transistor          | BC547B                  | CDIL                  | HSRW   | 0.04         | 0.04      |
+| 4         | Q2                        | 1   | P-channel MOSFET                | IRLML6402TRPBF          | Infineon Technologies | Mouser | 0.35         | 0.35      |
+| 5         | IC2                       | 1   | ESP32 Microcontroller           | ESP32-C3-WROOM-02-N4    | Espressif Systems     | Mouser | 3.12         | 3.12      |
+| 6         | D5                        | 1   | Red LED                         | DLE3MMR                 | Hottech               | HSRW   | 0.06         | 0.06      |
+| 7         | D6                        | 1   | Yellow LED                      | DLE3MMY                 | Hottech               | HSRW   | 0.06         | 0.06      |
+| 8         | D7                        | 1   | Green LED                       | DLE3MMG                 | Hottech               | HSRW   | 0.06         | 0.06      |
+| 9         | LS1                       | 1   | Buzzer                          | PKM22EPPH4001-B0        | Murata Electronics    | Mouser | 0.48         | 0.48      |
+| 10        | S1, S2                    | 2   | Push Button                     | TS02-66-60-BK-260-LCR-D | Samesky               | Mouser | 0.09         | 0.18      |
+| 11        | IC1                       | 1   | 3.3 V Voltage Regulator         | LM2575-3.3WT            | Microchip Technology  | Mouser | 1.48         | 1.48      |
+| 12        | D1, D2                    | 2   | TVS Diode                       | 1N5908                  | STMicroelectronics    | HSRW   | 0.66         | 1.32      |
+| 13        | D3, D4                    | 2   | Schottky Diode                  | 1N5822                  | MIC Electronics       | HSRW   | 0.15         | 0.30      |
+| 14        | F1, F2                    | 2   | Resettable Fuse                 | PFRA110                 | Schurter              | HSRW   | 0.28         | 0.56      |
+| 15        | –                         | 1   | Battery Holder                  | 2477                    | Keystone Electronics  | Mouser | 1.87         | 1.87      |
+| 16        | –                         | 4   | AA Battery                      | –                       | –                     | HSRW   | 0.30         | 1.20      |
+| 17        | L1                        | 1   | 330 µH Inductor                 | RFC0810B-334KE          | Coilcraft             | Mouser | 1.26         | 1.26      |
+| 18        | C1, C4, C5, C10, C11, C12 | 6   | 0.1 µF Ceramic Capacitor (0805) | B37873U5101S            | EPCOS                 | HSRW   | 0.11         | 0.66      |
+| 19        | C2                        | 1   | 100 µF Electrolytic Capacitor   | EEU-FC1C101H            | Panasonic             | HSRW   | 0.14         | 0.14      |
+| 20        | C3                        | 1   | 1 µF Electrolytic Capacitor     | RA1/25-R                | Jameco                | HSRW   | 0.02         | 0.02      |
+| 21        | C6, C8, C9                | 3   | 10 µF Electrolytic Capacitor    | EEU-FR1H100             | Panasonic             | HSRW   | 0.11         | 0.33      |
+| 22        | C7                        | 1   | 330 µF Electrolytic Capacitor   | EEU-FR1E331             | Panasonic             | HSRW   | 0.26         | 0.26      |
+| 23        | J1                        | 1   | Male 2-Pin Header               | –                       | –                     | HSRW   | 0.08         | 0.08      |
+| 24        | J2                        | 1   | Female 2-Pin Header             | –                       | –                     | HSRW   | 0.10         | 0.10      |
+| 25        | J3                        | 1   | Male JST 2-Pin Header           | –                       | –                     | HSRW   | 0.10         | 0.10      |
+| 26        | J4                        | 1   | Micro USB B                     | USB3145-30-1-A          | GCT                   | Mouser | 0.66         | 0.66      |
+| 27        | J5                        | 1   | Male JST 3-Pin Header           | –                       | –                     | HSRW   | 0.12         | 0.12      |
+| 28        | R1, R4, R5, R7            | 4   | 10 kΩ Resistor                  | RC1206FR-0710KL         | YAGEO                 | HSRW   | 0.09         | 0.36      |
+| 29        | R2                        | 1   | 6.8 kΩ Resistor                 | RC1206FR-076K8L         | YAGEO                 | HSRW   | 0.09         | 0.09      |
+| 30        | R3, R6                    | 2   | 4.7 kΩ Resistor                 | RC1206FR-074K7L         | YAGEO                 | HSRW   | 0.09         | 0.18      |
+| 31        | R8                        | 1   | 100 Ω Resistor                  | RC1206FR-07100RL        | YAGEO                 | HSRW   | 0.09         | 0.09      |
+| 32        | R9                        | 1   | 100 kΩ Resistor                 | RC1206FR-07100KL        | YAGEO                 | HSRW   | 0.09         | 0.09      |
+| 33        | R10, R11, R12             | 3   | 27 Ω Resistor                   | RC1206FR-0727RL         | YAGEO                 | HSRW   | 0.09         | 0.27      |
+| **Total** |                           |     |                                 |                         |                       |        |              | **26.61** |
+</div>
+
+<div id="tab:BOM-M">
+
+*Table X: Mechanical Bill of Materials*
+| Item Number | Qty | Component           | Price / Unit | Price     |
+| ----------- | --- | ------------------- | ------------ | --------- |
+| 35          | 7   | M2×6 Screw          | 0.11         | 0.77      |
+| 36          | 2   | M2×20 Screw         | 0.14         | 0.28      |
+| 37          | 1   | M3×15 Plastic Screw | 0.08         | 0.08      |
+| 38          | 7   | M3 Plastic Washer   | 0.01         | 0.07      |
+| 39          | 1   | M3 Hex Nut          | 0.07         | 0.07      |
+| 40          | 1   | 3D Printed Housing  | 13.95        | 13.95     |
+| **Total**   |     |                     |              | **15.22** |
+</div>
 
 ### 5.8 Post-Implementation Verification Results 
 #### 5.8.1 Module Performace  <!-- How is each circuit performing? -->
-#### 5.8.2 Product Performance and System Integration <!-- How is the entire system performing -->
+#### 5.8.2 System Integration Performance <!-- How is the entire system performing -->
 #### 5.8.3 Power Consumption <!-- How much power is being consumed? -->
 
 ### 5.9 Validation Results 
-#### 5.9.1 User Feedback <!-- what did people think? -->
+#### 5.9.1 Product Performance <!-- How well does the system perform when completely assembled? -->
+#### 5.9.2 User Feedback <!-- what did people think? -->
 <!--------------------------------------------------------------------------------------------------------------------->
 <!--------------------------------------------------------------------------------------------------------------------->
 ## 6	Discussion
