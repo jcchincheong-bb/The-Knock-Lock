@@ -517,24 +517,6 @@ The final code implementation can be seen in [Section 5.5](#55-software-implemen
   </figure>
 </div>
 
-<div id="housing-model"  align="center">
-  <figure>
-  <table border="0">
-    <tr>
-      <td><figure>
-        <img src="/resources/images/firstHousingConcept.PNG" loading ="lazy" alt="first-housing-isometric-view" height="300">
-        <figcaption align="center"><b>(a):</b> First Housing Model Isometric View </figcaption>
-      </figure></td>
-      <td><figure>
-        <img src="/resources/images/firstHousingConcept_MountView.PNG" loading ="lazy" alt="pcb-mounts-topview" height="300">
-        <figcaption align="center"><b>(b):</b> First Housing Model Open View </figcaption>
-      </figure></td>
-    </tr>
-  </table>
-  <figcaption align="center"><b>Figure 5.8:</b> Final PCB without Components</figcaption>
-  </figure>
-</div>
-
 For demonstration purposes, a box was modeled. The door must mount the PCB, this way the knocks can be reliably detected when door (typically primary place for knocking) is knocked. Many screw pillars have been used for a more firm housing and preventing the PCB from vibrating on its own by making it more rigidly connected with the door. An indent was made in the door to sit the servo motor, and a groove in the housing to slot in the servo to lock the box as shown in [Figure X](#housing-model). Hole have been created in the door to show the LEDs for status of the box and holes on top of the buzzer to allow for better audiblity.
 The final housing can be seen in [Section 5.6](#56-housing-prototype).
 
@@ -744,7 +726,7 @@ With components selected and the system prototype verified, the layout of the PC
 
 <div id="pcb-v1" align="center">
 <figure>
-  <img src="/resources/images/pcb-layout_V1.PNG" alt="pcb-v1" width="400">
+  <img src="/resources/images/pcb-layout_V1.PNG" alt="pcb-v1" width="600">
   <figcaption align="center"><b>Figure 5.5:</b> First PCB Layout </figcaption>
 </figure>
 </div>
@@ -759,7 +741,7 @@ While this design passes the design rule check in KiCAD, it has a number of issu
 Thus, considering these issues a second design was done as shown in [Figure 5.6](#pcb-v2). In this design, the MCU was shifted to the edge of the PCB and a copper keep-out zone was defined beneath the antenna. The track width and vias diameter were increased to 0.7mm and 0.8mm (with 0.4mm hole diameter) respectively. Additionally, under the advice of Professor Andy Stamm, all of the resistors and ceramic capacitors were changed to surface mount technology (SMT) components instead of through-hole technology (THT) components. The idea behind this switch was that since the accelerometer and MCU required reflow soldering regardless, it would be more efficient to also solder these components in the reflow oven in the same session.
 <div id="pcb-v2" align="center">
 <figure>
-  <img src="/resources/images/pcb-layout_V2.PNG" alt="pcb-v2" width="400">
+  <img src="/resources/images/pcb-layout_V2.PNG" alt="pcb-v2" width="600">
   <figcaption align="center"><b>Figure 5.6:</b> Second PCB Layout </figcaption>
 </figure>
 </div>
@@ -787,7 +769,7 @@ One issue encountered in the formation of this layout was the routing to the mic
 Finally, the third and final design shown in [Figure 5.7](#pcb-v3) involved some refinement such changing the battery and servo connectors, adding vias for thermal relief, adding mounting holes and adding a [logo](#logo) in the silkscreen. The change in connectors was to facilitate the use of simple JST pin headers which were available in the lab.
 <div id="pcb-v3" align="center">
 <figure>
-  <img src="/resources/images/pcb-layout_V3-final.PNG" alt="pcb-v3" width="400">
+  <img src="/resources/images/pcb-layout_V3-final.PNG" alt="pcb-v3" width="600">
   <figcaption align="center"><b>Figure 5.7:</b> Final PCB Layout </figcaption>
 </figure>
 </div>
