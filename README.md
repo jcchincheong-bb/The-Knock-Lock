@@ -121,7 +121,7 @@ Reviewing hobyist and academic projets, gives us an overview of the common techn
 
 For processing most the projects implemented and Arduino Deumilanove or an Arduino Nano, and used gear reduction motors, solenoids or servo for locking/unlocking mechanism.
 
-## 2.2 Technical Comparison of Sensors
+### 2.2 Technical Comparison of Sensors
 As noted from the previous section, no accelerometers were used in the project, which particularly interesting considering, they are commonly used in high-end consumer electronics such as smartphones for detecting back taps, which work reliably. Hence this section compares the three sensor technologies (Piezoelectric, capacative accelerometers, vibration sensor) to better understand the situation.
 
 While piezoelements offer a good signal to noise ratio, they also act as high pass filters. This property provides them with a higher sensitivity for higher frequency vibrations, but hence not the ideal solution for lower frequency vibrations, which is more similar to human knocks [4]. While this blog [4], compares accelerometers with professional piezoelectric sensors, which are much more sensitive than the piezoelectric devices used in other projects, the same fundamental limitation applies to them as well. Especially considering, vibrations when traveling through various materials may loose high frequency energy relatively quickly, depending on the material property and thickness, which may make it even harder to detect. On the other hand accelerometers allow sensing of flat responses (0Hz) and hence have good sensitivity for even lower frequencies [4]. Vibration sensors allow for detecting only above a specified frequency, depending on its calibration.
@@ -419,17 +419,17 @@ Another interesting aspect of the circuit is the inclusion of an alternative pow
 
 Finally, the circuit contains a simple voltage divider that steps down the 5V supply line to less than 3.3V so that it can be read by the ADC on the microcontroller. The voltage at the ADC can then be calculated using a voltage divider. However since the resistor values are fixed and the ADC value is read by the controller, it can be reversed to get the voltage of the battery as follows:
 
-$`V_{out} = \frac{R_2}{R_1 + R_2}\dotV_{bat}`$
+$$ V_{out} = \frac{R_2}{R_1 + R_2}\cdot V_{bat} $$
 
-$`V_{bat} = \frac{readingInMillivolts}{1000}\dot\frac{R_1+R_2}{R_2}`$
+$$ V_{bat} = \frac{readingInMillivolts}{1000}\cdot\frac{R_1+R_2}{R_2} $$
 
-$`V_{bat} = \frac{readingInMillivots}{1000}\dot2.47`$
+$$ V_{bat} = \frac{readingInMillivots}{1000}\cdot 2.47 $$
 
 
-V~out~ is what is read by the microcontoller and hence can be used to calculate the voltage at the battery using the fixed resistor values.
+$V_{out}$ is what is read by the microcontoller and hence can be used to calculate the voltage at the battery using the fixed resistor values.
 
 #### 4.4.8 Component Specifications  <!-- Table of main components and their most important specs -->
-Based on the circuit design and requirements, the specifications of the main components of the system are compiled in [Table X]()
+Based on the circuit design and requirements, the specifications of the main components of the system are compiled in [Table X](#tab:specs)
 
 <div id="tab:specs">
 
@@ -516,9 +516,12 @@ The results of this test are presented in [Section 5.1.2](#512-prototype-system)
 
 #### 4.7.3 Prototype Module Testing <!-- Testing different sections of circuitry to see if PCB layout is good -->
 Before the PCB could be designed and manufactured, some of the sub-systems were tested to ensure they could function as designed. The following briefly describes the tests conducted:
-- **Lock Actuator Sub-system**: To ensure the power cut off configuration works, the circuit as defined in [Figure 4.6](#lock-actuator-sch) is constructed on a breadboard using an ESP32-DevKitM-1, a BC547B NPN Transistor, an IRF4905 P-channel MOSFET, SER0050 servo motor and through-hole resistors. Only the decoupling capacitors are neglected as the development board provided stable power. Results of this test are presented in [Section 5.1.3](#513-lock-actuator-interface-test).
-- **Programming Interface Sub-system**: To ensure that the microcontroller can easily be programmed directly via the UART interface, an Arduino UNO board is used to program an ESP32-DevKitM-1. Like the ESP32C3, the ESP32MINI found on the ESP32-DevKitM-1 has a UART interface which it can supposedly be programmed via. The Arduino Uno board is essentially used as just a USB-to-UART bridge as the enable pin are connected to ground and the RX and TX pins are connected to the TX and RX pins of the ESP32-DevKitM-1 respectively. Results of this test are presented in [Section 5.1.4](#514-programming-interface-test). 
-- **HMI Sub-system**: To ensure the HMI, the circuit as defined in [Figure 4.9](#hmi-sch) is constructed on a breadboard. This test is essentially done as part of the prototype system test as described in [Section 4.7.2](#472-prototype-system-testing).
+- **Lock Actuator Sub-system**: 
+  - To ensure the power cut off configuration works, the circuit as defined in [Figure 4.6](#lock-actuator-sch) is constructed on a breadboard using an ESP32-DevKitM-1, a BC547B NPN Transistor, an IRF4905 P-channel MOSFET, SER0050 servo motor and through-hole resistors. Only the decoupling capacitors are neglected as the development board provided stable power. Results of this test are presented in [Section 5.1.3](#513-lock-actuator-interface-test).
+- **Programming Interface Sub-system**: 
+  - To ensure that the microcontroller can easily be programmed directly via the UART interface, an Arduino UNO board is used to    program an ESP32-DevKitM-1. Like the ESP32C3, the ESP32MINI found on the ESP32-DevKitM-1 has a UART interface which it can supposedly be programmed via. The Arduino Uno board is essentially used as just a USB-to-UART bridge as the enable pin are connected to ground and the RX and TX pins are connected to the TX and RX pins of the ESP32-DevKitM-1 respectively. Results of this test are presented in [Section 5.1.4](#514-programming-interface-test). 
+- **HMI Sub-system**: 
+  - To ensure the HMI, the circuit as defined in [Figure 4.9](#hmi-sch) is constructed on a breadboard. This test is essentially done as part of the prototype system test as described in [Section 4.7.2](#472-prototype-system-testing).
 
 ### 4.8 Post-Implementation Verification Methods <!-- How did we test after development?-->
 #### 4.8.1 PCB Module Testing <!-- Checking each sub-system on the PCB -->
@@ -616,7 +619,7 @@ Even after trying to make the piezo a more sensitive by using 3.3V supply instea
 The IMU also gave data for all three axes. A typical series of knocks as detected by the IMU can be seen in [Figure 5.1](#imu-test). The y-axis is the magnitude in g (gravitational units), while the x-axis is time in milliseconds. The blue, yellow and green lines are the x, y and z axis respectively. Each knock caused a peak in each of the three axes, but most prominently in the axis perpendicular to the surface of the material. As such the knock detection software as discussed in [Section 5.5.2](#542-knock-detection), initially considered only the value of this axis. [Figure 5.1](#imu-test) also clearly shows that the peaks have a noticeable time gap between them. This suggests that if the peaks are registered as knocks and the interval between peaks are measured, it is definitely feasible for the software to detect a specific knock pattern based on the the amount of knocks and their intervals.
 <div id="imu-test" align="center">
 <figure>
-  <img src="/resources/images/knockDetectionIMU.png" alt="imu-test" width="400">
+  <img src="/resources/images/knockDetectionIMU.png" alt="imu-test" width="500">
   <figcaption align="center"><b>Figure 5.1:</b> Serial Plot from Test of MMA8452Q IMU </figcaption>
 </figure>
 </div>
@@ -692,7 +695,9 @@ Thus, considering these issues a second design was done as shown in [Figure 5.6]
 </figure>
 </div>
 
-One issue encountered in the formation of this layout was the routing to the micro-controller pins was incredibly difficult. Thus, some of the pins were remapped to make the routing is more intuitive. (Note that the pin mapping in [Table X](#tab:pin-mapping) is already the final mapping).
+In this version of the layout, a button for entering programming mode was also added. For the sake of ergonomics, it was placed on the opposite side of the MCU than the LEDs to ensure that they were fully visible when the button is pressed.
+
+One issue encountered in the formation of this layout was the routing to the micro-controller pins became incredibly difficult. Thus, some of the pins were remapped to make the routing is more intuitive. (Note that the pin mapping in [Table X](#tab:pin-mapping) is already the final mapping).
 <div id="tab:pin-revision">
 
 *Table X: Changes in Pin Mapping For PCB Adjustments*
@@ -739,7 +744,7 @@ After the PCB layout was finalised, the design was sent to AISLER for manufactur
   </figure>
 </div>
 
-Due to the large number of SMT Components, especially the ADXl345 being an LGA (Land Gate Array package), i.e. pads underneath, reflow oven was used to solder those components after placing the components with a pick and place machine. The solder paste was applied manually for each pad with a pneumatic solder paste dispenser. The THT components were later soldered using manual hand soldering.
+Due to the large number of SMT Components, especially the ADXL345 being an LGA (Land Gate Array package), i.e. pads underneath, reflow oven was used to solder those components after placing the components with a pick and place machine. The solder paste was applied manually for each pad with a pneumatic solder paste dispenser. The THT components were later soldered using manual hand soldering.
 
 The fully assembled PCB is shown in [Figure 5.9](#pcb-final).
 
@@ -748,7 +753,7 @@ The fully assembled PCB is shown in [Figure 5.9](#pcb-final).
   <table border="0">
     <tr>
       <td><figure>
-        <img src="/resources/images/pcb_front.jpg" alt="pcb-front" height="300">
+        <img src="/resources/images/SolderedOld.jpeg" alt="pcb-front" height="300">
         <figcaption align="center"><b>(a):</b> Front </figcaption>
       </figure></td>
       <td><figure>
@@ -1177,7 +1182,7 @@ All of the functions above user some helper function to make the code more modul
 ### 5.6 Housing Prototype <!-- Whatever modifications we made -->
 
 ### 5.7 Bill of Materials <!-- Full list of materials used -->
-The complete list of all electrical materials used to assemble the product is shown in [Table X](#tab:BOM-E). 
+The complete list of all electrical materials used to assemble the product is shown in [Table X](#tab:BOM-E). Note that the PCB is taken as item 34.
 <div id="tab:BOM-E">
 
 *Table X: Electrical Bill of Materials*
@@ -1219,7 +1224,7 @@ The complete list of all electrical materials used to assemble the product is sh
 | **Total** |                           |     |                                 |                         |                       |        |              | **26.61** |
 </div>
 
-[Table X](#tab:BOM-E) shows that the costs of all the electrical components excluding the PCB sum up to €26.61. This a budget overun of €1.61, but that is within the tolerance of acceptance for the project team. Costs could have potentially been reduced by using a cheaper micro controller, sensor or lock actuator, however these components were selected for significant reasons as explained in previous sections. 
+[Table X](#tab:BOM-E) shows that the costs of all the electrical components excluding the PCB sum up to **€26.61**. This a budget overun of €1.61, but that is within the tolerance of acceptance for the project team. Costs could have potentially been reduced by using a cheaper micro controller, sensor or lock actuator, however these components were selected for significant reasons as explained in previous sections. 
 
 The complete list of all mechancial materials used to assemble the product is shown in [Table X](#tab:BOM-M). 
 <div id="tab:BOM-M">
@@ -1236,7 +1241,7 @@ The complete list of all mechancial materials used to assemble the product is sh
 | **Total**   |     |                     |              | **15.22** |
 </div>
 
-[Table X](#tab:BOM-E) shows that the costs of all the mechanical components sum up to €15.22. The main contributor to this cost is evidently the 3D printed housing. The calculations for the cost estimate of the 3D printed housing can be found in Appendix X.
+[Table X](#tab:BOM-E) shows that the costs of all the mechanical components sum up to **€15.22**. The main contributor to this cost is evidently the 3D printed housing. The calculations for the cost estimate of the 3D printed housing can be found in Appendix X.
 
 Summing the total electrical costs (€26.61), mecahnical costs (€15.22) and cost of the PCB (€7.24) the total cost of the project came up to be **€49.07**. While these costs are quite high, this is just a first version of the product and if further iterations are made costs could be reduced especially if cheaper components that still meet specifications are chosen. These costs also do not account for the cost of labour for the assembly process, however those considerations are beyond the scope of this project. 
 
