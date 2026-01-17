@@ -1,8 +1,8 @@
 Item Number,Schematic Reference,Qty,Component,Part Number,Manufacturer,Vendor,Price Per Unit,Price,,,,
 1,U1,1,Capacitive Accelerometer,ADXL345BCCZ-RL7,Analog Devices,Mouser,5.65,5.65,,,Elect Cost,26.61
-2,-,1,Servo Motor,SG90,Soldered,HSRW,5.07,5.07,,,Mech Cost,10.79
+2,-,1,Servo Motor,SG90,Soldered,HSRW,5.07,5.07,,,Mech Cost,9.7
 3,Q1,1,Bipolar NPN Transistor,BC547B,CDIL,HSRW,0.04,0.04,,,PCB Cost,7.24
-4,Q2,1,P-channel MOSFET,IRLML6402TRPBF,Infineon Technologies,Mouser,0.35,0.35,,,Total Cost,44.64
+4,Q2,1,P-channel MOSFET,IRLML6402TRPBF,Infineon Technologies,Mouser,0.35,0.35,,,Total Cost,43.55
 5,IC2,1,ESP32 Microcontroller,ESP32-C3-WROOM-02-N4,Expressif Systems,Mouser,3.12,3.12,,,,
 6,D5,1,Red LED,DLE3MMR,Hottech,HSRW,0.06,0.06,,,,
 7,D6,1,Yellow LED,DLE3MMY,Hottech,HSRW,0.06,0.06,,,,
@@ -39,4 +39,4 @@ Item Number,,Qty,Component,Price Per Unit,Price,,,,,,,
 37,,1,M3x15 Plastic Screw,0.08,0.08,,,,,,,
 38,,7,M3 Plastic Washer,0.01,0.07,,,,,,,
 39,,1,M3 Hex Nut,0.07,0.07,,,,,,,
-40,,1,3D Printed Housing,9.52,9.52,,,,,,,
+40,,1,3D Printed Housing,8.43,8.43,,,,,,,
