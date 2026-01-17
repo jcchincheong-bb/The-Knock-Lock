@@ -426,7 +426,7 @@ $$ V_{bat} = \frac{readingInMillivolts}{1000}\cdot\frac{R_1+R_2}{R_2} $$
 $$ V_{bat} = \frac{readingInMillivots}{1000}\cdot 2.47 $$
 
 
-$V_{out}$ is what is read by the microcontoller and hence can be used to calculate the voltage at the battery using the fixed resistor values.
+Vout is what is read by the microcontoller and hence can be used to calculate the voltage at the battery using the fixed resistor values.
 
 #### 4.4.8 Component Specifications  <!-- Table of main components and their most important specs -->
 Based on the circuit design and requirements, the specifications of the main components of the system are compiled in [Table X](#tab:specs)
@@ -517,11 +517,11 @@ The results of this test are presented in [Section 5.1.2](#512-prototype-system)
 #### 4.7.3 Prototype Module Testing <!-- Testing different sections of circuitry to see if PCB layout is good -->
 Before the PCB could be designed and manufactured, some of the sub-systems were tested to ensure they could function as designed. The following briefly describes the tests conducted:
 - **Lock Actuator Sub-system**: 
-  - To ensure the power cut off configuration works, the circuit as defined in [Figure 4.6](#lock-actuator-sch) is constructed on a breadboard using an ESP32-DevKitM-1, a BC547B NPN Transistor, an IRF4905 P-channel MOSFET, SER0050 servo motor and through-hole resistors. Only the decoupling capacitors are neglected as the development board provided stable power. Results of this test are presented in [Section 5.1.3](#513-lock-actuator-interface-test).
+  - To ensure the power cut off configuration works, the circuit as defined in [Figure 4.6](#lock-actuator-sch) is constructed on a breadboard using an ESP32-DevKitM-1, a BC547B NPN Transistor, an IRF4905 P-channel MOSFET, SER0050 servo motor and through-hole resistors. Only the decoupling capacitors are neglected as the development board provided stable power. The system is feasible if the servo is operational when the transistor base is high and not operational when the transistor base is low. Results of this test are presented in [Section 5.1.3](#513-lock-actuator-interface-test).
 - **Programming Interface Sub-system**: 
-  - To ensure that the microcontroller can easily be programmed directly via the UART interface, an Arduino UNO board is used to    program an ESP32-DevKitM-1. Like the ESP32C3, the ESP32MINI found on the ESP32-DevKitM-1 has a UART interface which it can supposedly be programmed via. The Arduino Uno board is essentially used as just a USB-to-UART bridge as the enable pin are connected to ground and the RX and TX pins are connected to the TX and RX pins of the ESP32-DevKitM-1 respectively. Results of this test are presented in [Section 5.1.4](#514-programming-interface-test). 
+  - To ensure that the microcontroller can easily be programmed directly via the UART interface, an Arduino UNO board is used to    program an ESP32-DevKitM-1. Like the ESP32C3, the ESP32MINI found on the ESP32-DevKitM-1 has a UART interface which it can supposedly be programmed via. The Arduino Uno board is essentially used as just a USB-to-UART bridge as the enable pin are connected to ground and the RX and TX pins are connected to the TX and RX pins of the ESP32-DevKitM-1 respectively. The system is feasible if the ESP32 board is recognised by Arduino IDE and a simple program can be flashed. Results of this test are presented in [Section 5.1.4](#514-programming-interface-test). 
 - **HMI Sub-system**: 
-  - To ensure the HMI, the circuit as defined in [Figure 4.9](#hmi-sch) is constructed on a breadboard. This test is essentially done as part of the prototype system test as described in [Section 4.7.2](#472-prototype-system-testing).
+  - To ensure the HMI is well engineered for human use, the circuit as defined in [Figure 4.9](#hmi-sch) is constructed on a breadboard. This test is essentially done as part of the prototype system test as described in [Section 4.7.2](#472-prototype-system-testing).
 
 ### 4.8 Post-Implementation Verification Methods <!-- How did we test after development?-->
 #### 4.8.1 PCB Module Testing <!-- Checking each sub-system on the PCB -->
@@ -625,7 +625,7 @@ The IMU also gave data for all three axes. A typical series of knocks as detecte
 </div>
 
 #### 5.1.2 Prototype System 
-With feasibility confirmed, the development processes continued and a prototype for the entire system as described in 
+With feasibility confirmed, the development processes continued and a prototype for the entire system as described in [Section 4.7.2](#472-prototype-system-testing) was created. The prototype is shown in [Figure 5.2](#system-prototype). 
 
 <div id="system-prototype" align="center">
 <figure>
@@ -634,7 +634,12 @@ With feasibility confirmed, the development processes continued and a prototype 
 </figure>
 </div>
 
+With this prototype, the system was able to recognise knock patterns and alert the user of a successful recognition by turning on the green LED and playing an unlocked sound on the buzzer. Programming mode was also tested as when the button was pushed the system entered programming mode. In this mode, a new knock pattern was applied and the system was reset. Applying this new knock pattern was also recognised after some attempts, and the system played the unlock sound and turned on the green LED. This shows that the system is certainly possible to implement.
+
+However, this prototype has somewhat unreliable knock detection. It was overly sensitive as any movement of the plastic surface was registered as a knock. On the other hand, when the surface was secured to a desk and the desk was knocked, nothing was registered. Many times, the correct knock pattern would also not be recognised. Thus, the system implementation requires that great care be taken when designing the surface on which the PCB would be secured and the way the knocking is detected. 
+
 #### 5.1.3 Lock Actuator Interface Test
+With the system concept verified, the sub-systems could now be tested and prototyped, starting with the lock actuator interface. The prototype setup is shown in [Figure 5.3](#lock-actuator-prototype). 
 
 <div id="lock-actuator-prototype" align="center">
 <figure>
@@ -643,8 +648,10 @@ With feasibility confirmed, the development processes continued and a prototype 
 </figure>
 </div>
 
+In this prototype, an example program to make the servo motor move back and forth continuously was modified so that the pin connected to the base of the NPN transistor (GPIO9) was high. After flashing, the servo rotated as programmed to, indicating that the system was working in on-mode. The program was then modified again so that GPIO9 was low, essentially deactivating the transistor and by extension cutting the servo's supply. After flashing, the servo no longer rotated, indicating that the cut-off worked. To verify again, the voltage between the power line of the servo and ground was measured to be near zero (with a very small leakage of a few mV). Thus, the lock actuator sub-system is feasible as designed.
 
 #### 5.1.4 Programming Interface Test
+The next sub-system verified was the programming interface. The setup to test the direct UART programming is shown in [Figure 5.4](#prog-interface-prototype). 
 
 <div id="prog-interface-prototype" align="center">
 <figure>
@@ -653,7 +660,28 @@ With feasibility confirmed, the development processes continued and a prototype 
 </figure>
 </div>
 
+When the circuit was setup and the Arduino UNO was connected to the computer, Arduino IDE did not recognise that board was attached. Even after the board was but into UART download mode by holding the boot button and pressing the reset button, the IDE did not detect the ESP32 board, much less allow for flashing. At first, this result seemed to suggest that programming directly via UART was not possible. However, the project team continued testing with different boards (Arduino UNO R4 Wifi, ESP28 DevKit) and eventually, a AYWHP CP2102 HW-598 USB-UART-TTL converter was purchased. 
+
+The AYWHP CP2102 HW-598 is a USB-to-UART programmer which can connect directly to the RX, TX, VCC and GND pins of the ESP32 board. When connected, put int UART download mode and plugged into the computer, Arduino IDE detected the board immediately. After this success, the ESP32 board was programmed to make the on-board LED blink and it functioned correctly. Thus, the programming interface sub-system is feasible as designed as long as an dedicated USB-to-UART programmer module is used.
+
 #### 5.1.5 HMI Test
+The final sub-system prototyped was the HMI. This prototype was done as part of the system prototype shown in [Figure 5.2](#system-prototype). 
+
+When the system was tested, the HMI was programmed to indicate four things:
+1. Successful unlock
+2. Unsuccessful unlock
+3. Entering programming mode
+4. Successful lock (re-locking the box after unlocking it)
+
+For a successful unlock, the green LED illuminated and the buzzer made an unlock sound. This sound was designed to sound pleasant using two high frequency chirps. Both the development team and other students in the lab at the time of testing found this sound to be pleasant and a good indication that the box has been unlocked.
+
+For an unsuccessful unlock, the red LED illuminated and the buzzer made an alarm sound. This sound was designed to sound unpleasant to deter ne'er-do-wells from tampering with the box. It takes inspiration from the "wrong-choice" buzzer sound featured in many game shows.
+
+For entering programming mode upon the button press, all LEDs flash for a moment before the yellow LED was illuminated to indicate that programming mode has begun recording. 
+
+For successful lock, all of the LEDs turn off for a moment and the yellow LED is illuminated to indicate that the box is locked once again. It should also be noted that the input for re-locking the box is two simple knocks with any intervale between. This was done so that the user does not have to remember any complex pattern to re-lock the box and so that accidental re-locking is less likely as opposed to using a single knock.
+
+Overall, the HMI was satisfactorily ergonomic and the sub-system is feasible as designed. A more complete list of the inputs and outputs of the system is provided in [Section 5.8.3](#583-complete-product-performance).
 
 ### 5.2 Component Selection <!-- Results of tests between components -->
 #### 5.2.1 Sensor Selection <!-- Choosing an appropriate sensor -->
