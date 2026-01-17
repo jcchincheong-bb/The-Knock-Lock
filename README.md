@@ -1229,12 +1229,22 @@ As discussed in [Section 4.6](#46-housing-design), the model was made. However i
 
 With all fixes implemented the final housing model can be seen in [Figure X](#housing-model-final)
 
-<div id = "housing-model-final" style="display: flex; gap: 10px; height: 250px;">
-<figure>
-  <img src="/resources/images/finalHousingModel.PNG" loading ="lazy" alt="final-housing-isometric-view">
-  <img src="/resources/images/finalHousingModel1.PNG" loading ="lazy" alt="final-housing-inside-view">
-  <figcaption align="center"><b>Figure X:</b> Programming Flowchart of Entire System</figcaption>
-</figure>
+<div id="housing-model-final"  align="center">
+  <figure>
+  <table border="0">
+    <tr>
+      <td><figure>
+        <img src="/resources/images/finalHousingModel.PNG" alt="final-housing-isometric-view" height="300">
+        <figcaption align="center"><b>(a):</b> Closed </figcaption>
+      </figure></td>
+      <td><figure>
+        <img src="/resources/images/finalHousingModel1.PNG" alt="final-housing-inside-view" height="300">
+        <figcaption align="center"><b>(b):</b> Open </figcaption>
+      </figure></td>
+    </tr>
+  </table>
+  <figcaption align="center"><b>Figure X:</b> Final 3D Model of Housing</figcaption>
+  </figure>
 </div>
 
 This was model was then 3D printed using PLA (0.2mm Nozzle) to get the final product as seen in [Figure X](#final-product). The following settings were implemented for printing:
@@ -1243,21 +1253,30 @@ This was model was then 3D printed using PLA (0.2mm Nozzle) to get the final pro
 - Door with an infill of 70% (Higher infill for better vibrations passthrough)
 - Rest of the parts with an infill of 10%
 
-<div id = "final-product" style="display: flex; gap: 10px; height: 250px;">
-<figure>
-  <img src="/resources/images/full-prototype_closed.jpg" loading ="lazy" alt="final-product-open-view">
-  <img src="/resources/images/full-prototype_open-1.jpg" loading ="lazy" alt="final-product-open-view">
-  <figcaption align="center"><b>Figure X:</b> Programming Flowchart of Entire System</figcaption>
-</figure>
+
+<div id="final-product"  align="center">
+  <figure>
+  <table border="0">
+    <tr>
+      <td><figure>
+        <img src="/resources/images/full-prototype_closed.jpg" alt="final-product-open-view" height="300">
+        <figcaption align="center"><b>(a):</b> Closed </figcaption>
+      </figure></td>
+      <td><figure>
+        <img src="/resources/images/full-prototype_open-1.jpg" alt="final-product-open-view" height="300">
+        <figcaption align="center"><b>(b):</b> Open </figcaption>
+      </figure></td>
+    </tr>
+  </table>
+  <figcaption align="center"><b>Figure X:</b> Final Fully Assembled Product</figcaption>
+  </figure>
 </div>
 
-For connecting the door to the box, the filament used for 3D printing can be passed through the hinges and melted at the corners. The diameter of filament should be less than equal to 2mm.
-
-Finally with the final prototype complete, it is important to know how much the entire system costs to make, including electrical and mechanical components.
-
-### 5.7 Bill of Materials
+For connecting the door to the box, the filament used for 3D printing can be passed through the hinges and melted at the corners. The diameter of filament should be less than or equal to 2mm.
 
 ### 5.7 Bill of Materials <!-- Full list of materials used -->
+Finally with the final prototype complete, it is important to know how much the entire system costs to make, including electrical and mechanical components.
+
 The complete list of all electrical materials used to assemble the product is shown in [Table X](#tab:BOM-E). Note that the PCB is taken as item 34.
 <div id="tab:BOM-E">
 
