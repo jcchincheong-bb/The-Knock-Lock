@@ -147,13 +147,15 @@ A summary of all the differences between piezos, MEMs accelerometers and vibrati
 | **Cost** | Extremely Low | Low | Moderate |
 
 These sensors are then tested in [Section 4.4.2](#522-sensor-sch) and results can be found in [Section 5.1.1](#511-sensor-selection)
-
-While an ESP32 has a higher power consumption in normal mode, in deep it falls much lower (around 5 uA) [6]. Which makes a viable option for battery powered applications with the controller mainly in deep-sleep. It also has more than enough processing power to handle the knock detection algorithm.
 <!--------------------------------------------------------------------------------------------------------------------->
 <!--------------------------------------------------------------------------------------------------------------------->
 
 ## 3	Theory
+Before discussing the details of the development process, some key theoretical concepts must be established. These concepts relate to the different aspects of the system's circuit design and are required for fully understanding the design created. 
+
 ### 3.1 Accelerometers
+Capacitive accelerometers are sensors used to measure acceleration forces by detecting changes in capacitance. They typically consist of a small movable mass suspended between fixed electrodes as seen in [Figure 3.1](#imu)[6]. When acceleration is applied, the mass shifts, altering the distance between the electrodes and therefore changing the capacitance. This change is proportional to the applied acceleration and is converted into an electrical signal.
+
 <div id="imu" align="center">
 <figure>
   <img src="/resources/images/MEMS.jpg" alt="IMU" width="400">
@@ -161,15 +163,24 @@ While an ESP32 has a higher power consumption in normal mode, in deep it falls m
 </figure>
 </div>
 
+The KnockLock project uses an accelerometer as the main sensor for knock detection. Initial testing revealed that these accelerometers are very well suited for detecting knocks (See [Section 5.1.1](#511-concept-feasibility)). The sensor's role in the design is discussed in [Section 4.4.2](#442-sensor-sub-system).
+
+Most modern capacitive accelerometers are sold as integrated circuits (ICs) with three accelerometers (one for each axis) as well as signal conditioning electronics and an I2C interface [7].
+
 ### 3.2 I2C
+Since most accelerometers use I2C to communicate, it is necessary to include I2C interface and connections in the circuit design as discussed in [Section 4.4.4](#444-controller-sub-system).
+
+I2C is a synchronous, serial communication protocol commonly used for short-distance communication between integrated circuits [7]. It uses two shared lines: a serial data line (SDA) and a serial clock line (SCL). Devices on the bus are identified by unique addresses and operate in a master–slave configuration. I2C allows multiple devices to communicate using the same bus, reducing wiring complexity. [Figure 3.2](#i2c) taken from [7] shows how a typical I2C device connects with a microcontroller.
+
 <div id="i2c" align="center">
 <figure>
-  <img src="/resources/images/i2c_theory.png" alt="IMU" width="400">
-  <figcaption align="center"><b>Figure 3.2:</b> Diagram of I2C Working Principle</figcaption>
+  <img src="/resources/images/i2c_theory_scherz.PNG" alt="IMU" width="400">
+  <figcaption align="center"><b>Figure 3.2:</b> Diagram of I2C Connection</figcaption>
 </figure>
 </div>
 
 ### 3.3 High-Side Driver
+High-side drivers are electronic circuits used to control a load by switching the high voltage side of the load. They are typically implemented using transistors or integrated driver ICs and allow a microcontroller to safely control high-voltage or high-current loads such as motors, relays, or solenoids [8]. [Figure 3.3](#highDriver) taken from [8] shows how a typical high side driver configuration for use with a microcontroller.
 <div id="highDriver" align="center">
 <figure>
   <img src="/resources/images/driver_theory.png" alt="IMU" width="400">
@@ -177,10 +188,15 @@ While an ESP32 has a higher power consumption in normal mode, in deep it falls m
 </figure>
 </div>
 
+The circuit in [Figure 3.3](#highDriver) is included in nearly exactly the same form in lock actuator interface described in [Section 5.1.3](#513-lock-actuator-interface-test). It is essentially used to cut power to the actuator in sleep mode to reduce power consumption.
+
 ### 3.4 Servo Motor
+with the side driver as the interface, the actual lock actuator is a servo motor as described in [Section 4.4.3](#443-lock-actuator-sub-system).
+
+Servo motors are electromechanical devices used for precise control of angular position, speed, and torque. A typical servo motor consists of a DC motor, a gearbox, a position sensor (usually a potentiometer), and a control circuit. The motor position is controlled using a pulse-width modulation (PWM) signal, where the pulse width determines the desired angle as shown in [Figure 3.4](#servo)[7]. 
 <div id="servo" align="center">
 <figure>
-  <img src="/resources/images/servo_theory.png" alt="IMU" width="400">
+  <img src="/resources/images/servo_theory_scherz.png" alt="IMU" width="400">
   <figcaption align="center"><b>Figure 3.4:</b> Diagram of Servo Motor Working Principle</figcaption>
 </figure>
 </div>
@@ -363,7 +379,7 @@ From [Table X](#tab:controller-pin-mapping), it can be seen that the chosen MCU 
 
 Additionally, the chosen MCU must large enough to easily solder onto a PCB. 
 
-Given the ease in which it can be programmed via the Arduino IDE and it's high speed and robust features, the project team believed an MCU from the ESP32 line would best fit the specifications. On Mouser, a number of options that met the basic specifications were found as shown in [Table X](#esp32-comp). Ultimately, the decision to chose the ESP32-C3-WROOM-02-N4 was because it was large and had pins exposed on the sides for easier assembly (unlike the 356-ESP32C6MINI1H8) and it was cheaper than the H4 while still meeting all the specifications.
+Given the ease in which it can be programmed via the Arduino IDE and it's high computation speed and robust features, the project team believed an MCU from the ESP32 line would best fit the specifications. On Mouser, a number of options that met the basic specifications were found as shown in [Table X](#esp32-comp). Ultimately, the decision to chose the ESP32-C3-WROOM-02-N4 [9] was because it was large and had pins exposed on the sides for easier assembly (unlike the 356-ESP32C6MINI1H8) and it was cheaper than the H4 while still meeting all the specifications. This chip also has a lower power consumption sleep mode which draws only 5uA, making it incredibly viable for a low power design.
 <div id="tab:esp32-comp"> 
 
 *Table X: Comparison of ESP32 Chips Available on Mouser*
@@ -1556,12 +1572,15 @@ Doing this project, opened more aspects which can be worked on in future when re
 
 ## 8	References
 
-* [1]: Instructables. (2022, May 8). Secret knock detecting door lock. Instructables. Retrieved November 20, 2025, from https://www.instructables.com/Secret-Knock-Detecting-Door-Lock/ 
-* [2]: Dodhia, V. (2021, June 20). Arduino secret knock pattern door lock. Viral Science. Retrieved November 20, 2025, from https://www.viralsciencecreativity.com/post/arduino-secret-knock-pattern-door-lock
-* [3]: Instructables. (2017, October 21). Knock Box (it Opens When You Knock on It!). Instructables. Retrieved November 20, 2025, from https://www.instructables.com/Knock-box-it-opens-when-you-knock-on-it/
-* [4]: Burgognoni, E. (2025, August 28). Comparing MEMS and IEPE accelerometers for structural vibration behavior testing. Data Acquisition | Test and Measurement Solutions. Retrieved October 30, 2025, from https://dewesoft.com/blog/comparing-mems-and-iepe-accelerometers
-* [5]: Analog Devices. (n.d.). ADXL345 datasheet. Analog Devices. Retrieved November 20, 2025, from https://www.analog.com/en/products/adxl345.html
-* [6]: Espressif Systems. (2021). ESP32-C3 Series datasheet. In Espressif. https://www.espressif.com/documentation/esp32-c3_datasheet_en.pdf
+* [1]: Instructables. (2022, May 8). *Secret knock detecting door lock*. Instructables. Retrieved November 20, 2025, from https://www.instructables.com/Secret-Knock-Detecting-Door-Lock/ 
+* [2]: Dodhia, V. (2021, June 20). *Arduino secret knock pattern door lock*. Viral Science. Retrieved November 20, 2025, from https://www.viralsciencecreativity.com/post/arduino-secret-knock-pattern-door-lock
+* [3]: Instructables. (2017, October 21). *Knock Box (it Opens When You Knock on It!)*. Instructables. Retrieved November 20, 2025, from https://www.instructables.com/Knock-box-it-opens-when-you-knock-on-it/
+* [4]: Burgognoni, E. (2025, August 28). *Comparing MEMS and IEPE accelerometers for structural vibration behavior testing*. Data Acquisition | Test and Measurement Solutions. Retrieved October 30, 2025, from https://dewesoft.com/blog/comparing-mems-and-iepe-accelerometers
+* [5]: Analog Devices. (n.d.). *ADXL345* [Datasheet]. Analog Devices. Retrieved November 20, 2025, from https://www.analog.com/en/products/adxl345.html
+* [6]: Arar, S. (2021, Decemeber 12). *Introduction to Capacitive Accelerometers: Measuring Acceleration with Capacitive Sensing*. All About Circuits. Retrieved January 5, 2026, from https://www.allaboutcircuits.com/technical-articles/introduction-to-capacitive-accelerometer-measure-acceleration-capacitive-sensing/ 
+* [7]: Scherz, P and Monk, S. (2016). *Practical Electronics for Inventors*. Mc Graw Hill.
+* [8]: Gammo, N. (2015, Janurary 30). *High side driver*. Gammon.com. Retrieved October 26, 2025, from https://www.gammon.com.au/motors
+* [9]: Espressif Systems. (2021). *ESP32-C3 Series* [Datasheet]. In Espressif. https://www.espressif.com/documentation/esp32-c3_datasheet_en.pdf
 
 ## 9	Appendices
 ### Appendix A
