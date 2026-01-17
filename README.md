@@ -770,7 +770,7 @@ One issue encountered in the formation of this layout was the routing to the mic
 <div id="tab:pin-revision">
 
 *Table X: Changes in Pin Mapping For PCB Adjustments*
-| Signal / Function         | Old PCB Pin | New PCB Pin       |
+| Signal / Function         | Old MCU Pin | New MCU Pin       |
 | ------------------------- | ----------- | ----------------- |
 | Battery Voltage (BAT_V)   | 3           | 16                |
 | I2C SDA                   | 14          | 5                 |
@@ -1390,7 +1390,7 @@ The complete list of all mechancial materials used to assemble the product is sh
 | 37          | 1   | M3×15 Plastic Screw | 0.08         | 0.08      |
 | 38          | 7   | M3 Plastic Washer   | 0.01         | 0.07      |
 | 39          | 1   | M3 Hex Nut          | 0.07         | 0.07      |
-| 40          | 1   | 3D Printed Housing  | 9.52         | 8.43      |
+| 40          | 1   | 3D Printed Housing  | 8.43         | 8.43      |
 | **Total**   |     |                     |              | ** 9.70** |
 </div>
 
@@ -1633,14 +1633,14 @@ Where $T_{\text{Battery Life}}$ in days, $C$ is the battery capacity in mAh and 
 
 ### Appendix C: 3D Printed Housing Price Estimate
 
-| Item                 | Infill [%] | Mass [g] | Material | Cost per g [€/g] | Cost [€]  |
-| -------------------- | ---------- | -------- | -------- | ---------------- | --------- |
-| Door + Battery Cover | 70         | 135.08   | PLA      | 0.025            | 3.38      |
-| Box Top              | 15         | 308.85   | PLA      | 0.025            | 7.72      |
-| Box Bottom           | 15         | 113.96   | PLA      | 0.025            | 2.85      |
-| **Total**            |            |          |          |                  | **13.95** |
+| Item                 | Infill (Lightning) [%] | Mass [g] | Material | Cost per g [€/g] | Cost [€]  |
+| -------------------- | ---------------------- | -------- | -------- | ---------------- | --------- |
+| Door + Battery Cover | 70                     |  76.13   | PLA      | 0.025            | 1.90      |
+| Box Top              | 10                     | 187.63   | PLA      | 0.025            | 4.69      |
+| Box Bottom           | 10                     |  70.36   | PLA      | 0.025            | 1.76      |
+| **Total**            |                        |          |          |                  | **8.43**  |
 
-#### Appendix D: Knock Permutations Calculation
+### Appendix D: Knock Permutations Calculation
 
 Calculation of possible permutations with the following parameters:
 * **Minimum Knocks:** 5 (4 intervals)
@@ -1675,13 +1675,3 @@ Final Result
 Using the value of $13^{26} \approx 9.004 \times 10^{28}$:
 
 **Total Combinations $\approx 2.14 \times 10^{32}$**
-
-### Appendix B
-$$I_{in}=\frac{P_{in}}{V_{in}}=\frac{I_{out}\cdot V_{out}}{\eta \cdot V_{in}} = \frac{1A\cdot3.3V}{0.75\cdot5V}=0.88A$$
-
-| Item                 | Infill (Lightning) [%] | Mass [g] | Material | Cost per g [€/g] | Cost [€]  |
-| -------------------- | ---------------------- | -------- | -------- | ---------------- | --------- |
-| Door + Battery Cover | 70                     |  76.13   | PLA      | 0.025            | 1.90      |
-| Box Top              | 10                     | 187.63   | PLA      | 0.025            | 4.69      |
-| Box Bottom           | 10                     |  70.36   | PLA      | 0.025            | 1.76      |
-| **Total**            |                        |          |          |                  | ** 8.43** |
