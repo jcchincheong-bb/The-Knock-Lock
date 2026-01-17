@@ -4,6 +4,7 @@
         "manufacturability",
         "Mechatronics",
         "microcontroller",
-        "Piezo"
+        "Piezo",
+        "piezos"
     ]
 }

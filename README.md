@@ -102,32 +102,32 @@ as follows:
 With regard to writing of this report, the following illustrates the contributions of each team member:
 - Abhinav Kothari (33349): 
   - Chapter 2
-  - Chapter 4: 4.5, 4.6, 4.8
-  - Chapter 5: 5.1, 5.4, 5.5, 5.6, 5.9
+  - Chapter 4: 4.5, 4.6
+  - Chapter 5: 5.4, 5.5, 5.6
   - Chapter 6
   - Chapter 7
 - Justin Julius Chin Cheong (34140): 
   - Chapter 1
   - Chapter 3
   - Chapter 4: 4.1, 4.2, 4.3, 4.4, 4.7, 4.8, 4.9
-  - Chapter 5: 5.2, 5.3, 5.7, 5.8, 5.9
+  - Chapter 5: 5.1, 5.2, 5.3, 5.7, 5.8, 5.9
 <!--------------------------------------------------------------------------------------------------------------------->
 <!--------------------------------------------------------------------------------------------------------------------->
 ## 2	Literature review
-In pursuit of unique and easy methods for users to unlock systems, many developments have been made. These methods for unlocking vary from NFCs to Biometric. Knock detection is also a method used in some projects, which allows for unlocking even without carying anything extra (Like card for NFCs). This section covers the existing projects implementing knock detection, and compares them to a new approach which is not so commonly used in these systems.
+In pursuit of unique and easy methods for users to unlock systems, many developments have been made. These methods for unlocking vary from NFCs to Biometric. Knock detection is also a method used in some projects, which allows for unlocking even without carrying anything extra (Like card for NFCs). This section covers the existing projects implementing knock detection, and compares them to a new approach which is not so commonly used in these systems.
 
 ### 2.1 Related Work
-Reviewing hobyist and academic projets, gives us an overview of the common techniques used to accompolish this task. Notable implemetations [1,2,3] show reliable intepretation of knocks using a piezoelectric elements. However all had some limitations shown from the demonstration. The knock detection was only on a surface parallel to the piezo element. They all had also relatively hard knocks for detection. Some projects pointed out that increasing precision also increases the number of false positives. Even after more research, no projects using accelerometers were found. From reviewing the projects further, it can also been seen that none of the systems implemented a sleep mode to save battery.
+Reviewing hobbyist and academic projects, gives us an overview of the common techniques used to accomplish this task. Notable implementations [1,2,3] show reliable interpretation of knocks using a piezoelectric elements. However all had some limitations shown from the demonstration. The knock detection was only on a surface parallel to the piezo element. They all had also relatively hard knocks for detection. Some projects pointed out that increasing precision also increases the number of false positives. Even after more research, no projects using accelerometers were found. From reviewing the projects further, it can also been seen that none of the systems implemented a sleep mode to save battery.
 
 For processing most the projects implemented and Arduino Deumilanove or an Arduino Nano, and used gear reduction motors, solenoids or servo for locking/unlocking mechanism.
 
 ### 2.2 Technical Comparison of Sensors
-As noted from the previous section, no accelerometers were used in the project, which particularly interesting considering, they are commonly used in high-end consumer electronics such as smartphones for detecting back taps, which work reliably. Hence this section compares the three sensor technologies (Piezoelectric, capacative accelerometers, vibration sensor) to better understand the situation.
+As noted from the previous section, no accelerometers were used in the project, which particularly interesting considering, they are commonly used in high-end consumer electronics such as smartphones for detecting back taps, which work reliably. Hence this section compares the three sensor technologies (Piezoelectric, capacitive accelerometers, vibration sensor) to better understand the situation.
 
-While piezoelements offer a good signal to noise ratio, they also act as high pass filters. This property provides them with a higher sensitivity for higher frequency vibrations, but hence not the ideal solution for lower frequency vibrations, which is more similar to human knocks [4]. While this blog [4], compares accelerometers with professional piezoelectric sensors, which are much more sensitive than the piezoelectric devices used in other projects, the same fundamental limitation applies to them as well. Especially considering, vibrations when traveling through various materials may loose high frequency energy relatively quickly, depending on the material property and thickness, which may make it even harder to detect. On the other hand accelerometers allow sensing of flat responses (0Hz) and hence have good sensitivity for even lower frequencies [4]. Vibration sensors allow for detecting only above a specified frequency, depending on its calibration.
-Accelerometers generally have chips to process and amplify signal which can communicate the information using I2C or SPI communication instead of Piezoelectrics devices, which are analog or vibration sensor which are digital. This implies, theoretically, an accelerometer should allow for much more customisability via software, as the chips also have many interrupts. They chips are able to process these informations quite well to reduce noise. Accelerometer being 3-axis may also allow detection direction of knock which could be helpful in certain scenarios.
+While piezo-elements offer a good signal to noise ratio, they also act as high pass filters. This property provides them with a higher sensitivity for higher frequency vibrations, but hence not the ideal solution for lower frequency vibrations, which is more similar to human knocks [4]. While this blog [4], compares accelerometers with professional piezoelectric sensors, which are much more sensitive than the piezoelectric devices used in other projects, the same fundamental limitation applies to them as well. Especially considering, vibrations when traveling through various materials may loose high frequency energy relatively quickly, depending on the material property and thickness, which may make it even harder to detect. On the other hand accelerometers allow sensing of flat responses (0Hz) and hence have good sensitivity for even lower frequencies [4]. Vibration sensors allow for detecting only above a specified frequency, depending on its calibration.
+Accelerometers generally have chips to process and amplify signal which can communicate the information using I2C or SPI communication instead of Piezoelectric devices, which are analog or vibration sensor which are digital. This implies, theoretically, an accelerometer should allow for much more customisability via software, as the chips also have many interrupts. They chips are able to process these informations quite well to reduce noise. Accelerometer being 3-axis may also allow detection direction of knock which could be helpful in certain scenarios.
 Piezo electric are analog passive devices, hence have quite less power consumption, however also implies they must be always awake to read. 
-Vibration sensor have limited customisability due to their digital nature. They can either detect a knock or not, which can potentionally cause problems differentiating general vibrations from knocks.
+Vibration sensor have limited customisability due to their digital nature. They can either detect a knock or not, which can potentially cause problems differentiating general vibrations from knocks.
 
 A summary of all the differences between piezos, MEMs accelerometers and vibration sensor is shown in Table. 2.1
 
@@ -136,7 +136,7 @@ A summary of all the differences between piezos, MEMs accelerometers and vibrati
 
 *Table X: Comparison of Piezo, Vibration Sensors and MEMs Accelerometer*
 
-| Feature | Piezoelectric Buzzer | Digital Vibration Sensor | MEMS Accelerometer (Capacative) |
+| Feature | Piezoelectric Buzzer | Digital Vibration Sensor | MEMS Accelerometer (Capacitive) |
 | :--- | :--- | :--- | :--- |
 | **Sensing Principle** | Piezoelectric (Acoustic/Resonant) | Spring-and-Ball (Mechanical Switch) | **Capacitive (Proof-Mass Displacement)** |
 | **Output Type** | Raw Analog Voltage (Uncalibrated) | Digital Binary (HIGH/LOW) | **Digital Data (I^2^C/SPI)** |
@@ -498,12 +498,23 @@ Arduino IDE will be used to program the controller in C++. This is because Ardui
 The final code implementation can be seen in [Section 5.5](#55-software-implementation).
 
 ### 4.6 Housing Design <!-- design for housing -->
-<div id = "housing-model" style="display: flex; gap: 10px; height: 250px;">
-<figure>
-  <img src="/resources/images/firstHousingConcept.PNG" loading ="lazy" alt="first-housing-isometric-view">
-  <img src="/resources/images/firstHousingConcept_MountView.PNG" loading ="lazy" alt="pcb-mounts-topview">
-  <figcaption align="center"><b>Figure X:</b> Programming Flowchart of Entire System</figcaption>
-</figure>
+
+<div id="housing-model"  align="center">
+  <figure>
+  <table border="0">
+    <tr>
+      <td><figure>
+        <img src="/resources/images/firstHousingConcept.PNG" height="300">
+        <figcaption align="center"><b>(a):</b> Closed </figcaption>
+      </figure></td>
+      <td><figure>
+        <img src="/resources/images/firstHousingConcept_MountView.PNG" height="300">
+        <figcaption align="center"><b>(b):</b> Open </figcaption>
+      </figure></td>
+    </tr>
+  </table>
+  <figcaption align="center"><b>Figure 4.4:</b>Preliminary 3D Model of Housing</figcaption>
+  </figure>
 </div>
 
 <div id="housing-model"  align="center">
@@ -596,23 +607,24 @@ The results of these tests are presented in [Section 5.8.2](#582-system-integrat
 Finally, the integration of the complete system must be tested against the requirements outlined in [Section 4.2](#42-system-requirements). 
 
 The setup for this test is defined as follows:
-- The MCU is flashed with a the program developed in [Section 5.5](#55-software-implementation).
+- The MCU is flashed with the program developed in [Section 5.5](#55-software-implementation).
 - The PCB is placed on piece of material which is knocked. 
 - The USB-to-UART programmer is connected to the RX and TX pins of the PCB so that the serial monitor can be used for debugging
 - The MCU is connected to the battery for power
 
 The criteria for the test being successful are:
-1. The yellow LED is illuminated when the system is in locked state.
-2. The servo motor rotates to unlocked position when the correct pre-defined knock pattern is applied in locked state.
-3. The green led is illuminated and the buzzer plays the unlocked sound when the correct pre-defined knock pattern is applied in locked state.
-4. The red led is illuminated and the buzzer plays the false pattern sound when the correct pre-defined knock pattern is applied in locked state.
-5. The green LED is illuminated when the system is in unlocked state.
-6. The system enters programming mode and records knocks when the button is pressed in unlocked state. 
-7. The system alerts th user that it has entered programming mode when the button is pressed in unlocked state. 
-8. The red led is illuminated and the buzzer plays the false pattern sound when the button is pressed in locked state. 
-9. The system changes to unlocked state when the pattern defined in programming mode is applied in locked state.
-10. The servo motor rotates to locked position when two knocks are applied in unlocked state. 
-11. The system goes into sleep state after 60 seconds of inactivity when in locked state.
+1. The system can detect whenever the user knocks on the box.
+2. The yellow LED is illuminated when the system is in locked state.
+3. The servo motor rotates to unlocked position when the correct pre-defined knock pattern is applied in locked state.
+4. The green led is illuminated and the buzzer plays the unlocked sound when the correct pre-defined knock pattern is applied in locked state.
+5. The red led is illuminated and the buzzer plays the false pattern sound when the correct pre-defined knock pattern is applied in locked state.
+6. The green LED is illuminated when the system is in unlocked state.
+7. The system enters programming mode and records knocks when the button is pressed in unlocked state. 
+8. The system alerts the user that it has entered programming mode when the button is pressed in unlocked state. 
+9. The red led is illuminated and the buzzer plays the false pattern sound when the button is pressed in locked state. 
+10. The system changes to unlocked state when the most recent pattern defined in programming mode is applied in locked state.
+11. The servo motor rotates to locked position when two knocks are applied in unlocked state. 
+12. The system goes into sleep state after 60 seconds of inactivity when in locked state.
 
 Once the PCB is verified, these same test specifications can also be used to verify the fully assembled product when the PCB is connected to the housing designed in [Section 4.6](#46-housing-design). 
 
@@ -663,7 +675,7 @@ With feasibility confirmed, the development processes continued and a prototype 
 
 With this prototype, the system was able to recognise knock patterns and alert the user of a successful recognition by turning on the green LED and playing an unlocked sound on the buzzer. Programming mode was also tested as when the button was pushed the system entered programming mode. In this mode, a new knock pattern was applied and the system was reset. Applying this new knock pattern was also recognised after some attempts, and the system played the unlock sound and turned on the green LED. This shows that the system is certainly possible to implement.
 
-However, this prototype has somewhat unreliable knock detection. It was overly sensitive as any movement of the plastic surface was registered as a knock. On the other hand, when the surface was secured to a desk and the desk was knocked, nothing was registered. Many times, the correct knock pattern would also not be recognised. Thus, the system implementation requires that great care be taken when designing the surface on which the PCB would be secured and the way the knocking is detected. 
+However, this prototype had somewhat unreliable knock detection. It was overly sensitive as any movement of the plastic surface was registered as a knock. On the other hand, when the surface was secured to a desk and the desk was knocked, nothing was registered. Many times, the correct knock pattern would also not be recognised. Thus, the system implementation requires that great care be taken when designing the surface on which the PCB would be secured and the way the knocking is detected. 
 
 #### 5.1.3 Lock Actuator Interface Test
 With the system concept verified, the sub-systems could now be tested and prototyped, starting with the lock actuator interface. The prototype setup is shown in [Figure 5.3](#lock-actuator-prototype). 
@@ -922,6 +934,7 @@ Now that the system is up and running, it must start detecting knocks.
 
 #### 5.5.2 Knock Detection
 When the system is awake, it is in idle state and locked state. During this the system keep checking for battery and the interrupts. Whenever a knock is detected by the ADXL (single tap interrupt) it sets the interrupt pin to high. This triggers an interrupt service routine of the system to set knockDetected as true.
+
 The knock can then be processed and counted to compare against the pattern later. First, as [Listing 4](#readKnocks) shows, it is necessary to prevent a double knock and hence a debounce time is set between two knocks being recorded. Upon a succesful knock, the green LED is flashed, to indicate the knock being detected.
 <div id="readKnocks">
 
@@ -985,6 +998,7 @@ inline float accelMagnitudeG(int x, int y, int z) {
 </div>
 
 The result could then be reduced by one to remove the static gravitational force to find dynamic force and compared to a fixed threshold found using many readings. This approach worked, however was not very effective and reliable with it being too sensitive or too insensitive at times. This was later then changed to reading only z-axis (absolute value), keeping in mind the axis is perpendicular to the PCB so when knock a plane parallel to the PCB it was the only axis greatly affected. Same was also seen in [Figure 5.1](#imu-test). This new approach worked much better for detecting knocks, however had one big drawback. It only worked in one specific orientation, with the PCB perpendicular to the ground plane. Finally it was realized, that the wake up which used the double tap interrupt was working much better, and hence for detecting individual knocks, single tap interrupt can be used. As this is made by the developers of the board, its noise removal and reliablitity was extremely high and knocks could be detected in all orientation. The threshold could also be setup much more reliably. The threshold of 40 was set which corresponded to ~2.5g with a measurement sensitivity of 256 LSB/g or 62.5mg/LSB [5]. The system with this threshold was able to ignore most background noise, as well not trigger the system if the box is moved around. (Note the scale +-2g is for reading purposes, and the threshold here is unaffected by it.)
+
 With the new approach, the system is also much more efficient as it is not reading x,y,z values continously from the ADXL than only reacting to taps. The ADXL is responsible for monitoring the knocks and finding if the knock is above a threshold to be considered a knock, and because the chip is made primarily for that task it is more efficient in doing so.
 
 With the knocks recorded, the system must now check for if the pattern is correct.
@@ -1288,11 +1302,11 @@ This was model was then 3D printed using PLA (0.2mm Nozzle) to get the final pro
   <table border="0">
     <tr>
       <td><figure>
-        <img src="/resources/images/full-prototype_closed.jpg" alt="final-product-open-view" height="300">
+        <img src="/resources/images/full-prototype_closed.jpg" alt="final-product-open-view" height="500">
         <figcaption align="center"><b>(a):</b> Closed </figcaption>
       </figure></td>
       <td><figure>
-        <img src="/resources/images/full-prototype_open-1.jpg" alt="final-product-open-view" height="300">
+        <img src="/resources/images/full-prototype_open-1.jpg" alt="final-product-open-view" height="500">
         <figcaption align="center"><b>(b):</b> Open </figcaption>
       </figure></td>
     </tr>
@@ -1301,7 +1315,7 @@ This was model was then 3D printed using PLA (0.2mm Nozzle) to get the final pro
   </figure>
 </div>
 
-For connecting the door to the box, the filament used for 3D printing can be passed through the hinges and melted at the corners. The diameter of filament should be less than or equal to 2mm.
+For connecting the door to the box, the filament used for 3D printing can be passed through the hinges and melted at the corners. The diameter of filament should be less than or equal to 2mm. However, this approach was not implemented in the final prototype given its permenance. Instead, M2x20 screws were placed into the holes to act as temporary hinges.
 
 ### 5.7 Bill of Materials <!-- Full list of materials used -->
 Finally with the final prototype complete, it is important to know how much the entire system costs to make, including electrical and mechanical components.
@@ -1417,14 +1431,43 @@ Since all of the sub-systems on the PCB are functional, the integration tests as
 The success of all of these tests, by extension, verifies the integration of the voltage regulation sub-system. 
 
 #### 5.8.3 Complete Product Performance <!-- How is the complete product performing?-->
+Finally, the complete integration of the system was tested to ensure that it meets all requirements outlined in [Section 4.2](#42-system-requirements). Following the test specifications defined in [Section 4.8.3](#483-complete-product-verification), the PCB was connected and setup as shown in [Figure X](#full-pcb-testing). 
 
+<div id="full-pcb-testing" align="center">
+<figure>
+  <img src="/resources/images/pcb-testing-integration.jpg" alt="full-pcb-testing" width="400">
+  <figcaption align="center"><b>Figure X:</b> Setup for Verification of Full PCB</figcaption>
+</figure>
+</div>
+
+With the setup shown in [Figure X](#full-pcb-testing), the system was able to succeed in almost all test criterias defined in [Section 4.8.3](#483-complete-product-verification) except, critically, criterion 1. That is: "The system can detect whenever the user knocks on the box". When knocks were detected, the pattern recognition software, programming mode and HMI all worked as intended, but many knocks went unregistered unless the PCB itself was touched or if the user applied a lot of force in their knocks on the surface. The reason for this fault was the intial way the knock detection was done in the software. This issue is discussed in more detail in [Section 5.5.2](#552-knock-detection), but essentially, all three axes of the accelerometer were used in knock detection and this lead to unreliability. When the software was changed to measure only the z-axis (the axis perpendicular to the ground plane), the knock detection became more reliable, but the PCB had to be oriented in a vertical position as shown in [Figure X](#full-pcb-testing-vert). When in the horizontal position shown in [Figure X](#full-pcb-testing), the accelerometer read constant accelerations and hence continouously registered knocks that were not occuring. 
+
+<div id="full-pcb-testing-vert" align="center">
+<figure>
+  <img src="/resources/images/testingOrientation.jpg" alt="full-pcb-testing-vert" width="400">
+  <figcaption align="center"><b>Figure X:</b> Setup for Verification of PCB in Vertical Orientation</figcaption>
+</figure>
+</div>
+
+Verification in the vertical orientation as shown in [Figure X](#full-pcb-testing-vert) was successfull in all criteria, more so than before. Thus, the PCB was installed into the housing as shown in [Figure X](#final-product) and the tests were performed again. In this case, the reliability of knock detection became an apparent issue once again as knocks were only registered when applied a to the lower part of the door, near the position of the accelerometer on the PCB. Thus, the knock detection method in the software was altered once again to use the activity interrupt of the ADXL345. This gives the final version of the software presented in [Section 5.5.2](#552-knock-detection).
+
+With this final version of the software, the product performed signficantly better within the housing, easily succeeding in all success criteria. As such, this version was taken as the final product for this project and development as ceased. A showcase of the performance of the final product can be seen in [Figure X](#product-showcase), just click on the image to open the video. 
+
+<div id="product-showcase" align="center">
+<figure>
+  <a href="https://youtu.be/qGrgIr3oHPE">
+  <img src="/resources/images/full-prototype_closed.jpg" alt="product-showcase" width="400">
+  </a>
+  <figcaption align="center"><b>Figure X:</b> Showcase of Complete Product (click image to open video)</figcaption>
+</figure>
+</div>
 
 #### 5.8.4 Power Consumption <!-- How much power is being consumed? -->
 With the system fully functional, the investigation of the power consumption was conducted as described in [Section 4.8.3](#483-power-consumption). The experimental setup used is shown in [Figure X](#current-consumption).
 <div id="current-consumption" align="center">
 <figure>
   <img src="/resources/images/power-consumption-verification.jpg" alt="current-consumption" width="400">
-  <figcaption align="center"><b>Figure X:</b>  </figcaption>
+  <figcaption align="center"><b>Figure X:</b> Setup for Current Measurement</figcaption>
 </figure>
 </div>
 
@@ -1456,6 +1499,7 @@ Where $T_{\text{Battery Life}}$ in days, $C$ is the battery capacity in mAh and 
 
 ### 5.9 Validation Results 
 #### 5.9.1 User Feedback <!-- what did people think? -->
+
 <!--------------------------------------------------------------------------------------------------------------------->
 <!--------------------------------------------------------------------------------------------------------------------->
 ## 6	Discussion
@@ -1550,6 +1594,7 @@ Using the value of $13^{26} \approx 9.004 \times 10^{28}$:
 
 **Total Combinations $\approx 2.14 \times 10^{32}$**
 
+### Appendix B
 $$I_{in}=\frac{P_{in}}{V_{in}}=\frac{I_{out}\cdot V_{out}}{\eta \cdot V_{in}} = \frac{1A\cdot3.3V}{0.75\cdot5V}=0.88A$$
 
 | Item                 | Infill [%] | Mass [g] | Material | Cost per g [€/g] | Cost [€]  |
