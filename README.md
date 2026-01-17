@@ -458,12 +458,21 @@ Based on the circuit design and requirements, the specifications of the main com
 The following flowchart shows the overall logic of the program:
 <div id="sw-flow" align="center">
 <figure>
-  <img src="/resources/images/FlowchartOfMainSystem.png" alt="sw-flow" width="400">
-  <figcaption align="center"><b>Figure X:</b> Programming Flowchart of Entire System</figcaption>
+  <img src="/resources/images/MainFlowchart.png" alt="sw-flow" width="400">
+  <figcaption align="center"><b>Figure X:</b> Programming Flowchart of Main System</figcaption>
 </figure>
 </div>
 
-The flowchart in [Figure X](#sw-flow) shows, how the system must work, spikes denote knocks detected. The system starts in locked state, where it continously listens for knocks, unless its asleep, and records them. Interrupts will be used to wake the system up from sleep for again starting to read knocks. Once the knocks are recorded, they are checked against the target pattern, if they match, the system unlocks, else it stays locked. If the box is unlocked and the programming button is pressed, the system enters programming mode, where it records knocks to save a new pattern. Once the pattern is recorded, it is saved to NVS memory and the system goes back to idle mode. Knocking twice locks the box again. LEDs and Buzzer are used to give feedback to the user.
+The flowchart in [Figure X](#sw-flow) shows, how the system must work. The system starts in locked state, where it continously listens for knocks, unless its asleep, and records them. Once the knocks are recorded, they are checked against the target pattern, if they match, the system unlocks, else it stays locked. Knocking twice locks the box again. LEDs and Buzzer are used to give feedback to the user throughout the system flow.
+
+Interrupts will be used to wake the system up from sleep for again starting to read knocks as shown in [Figure X](#sw-flow-isr). If the box is unlocked and the programming button is pressed, the system enters programming mode, where it records knocks to save a new pattern. Once the pattern is recorded, it is saved to NVS memory and the system goes back to main system as shown in [Figure X](#sw-flow-isr).
+
+<div id="sw-flow-isr" align="center">
+<figure>
+  <img src="/resources/images/MainFlowchart.png" alt="sw-flow" width="400">
+  <figcaption align="center"><b>Figure X:</b> Programming Flowchart of Interrupt Service Routines (ISRs)</figcaption>
+</figure>
+</div>
 
 #### 4.5.2 Code Structure
 For easy code understanding and better readability, a modular approach was taken. Splitting the code in different cpp files depending on the type of function. A config.h file also was created to storing all customisability settings. This file had only settings constants and no code or variables to prevent confusion for a user, and make it less error prone. The files structure to be followed is listed in [Table X](#tab:sw-files).
@@ -495,6 +504,24 @@ The final code implementation can be seen in [Section 5.5](#55-software-implemen
   <img src="/resources/images/firstHousingConcept_MountView.PNG" loading ="lazy" alt="pcb-mounts-topview">
   <figcaption align="center"><b>Figure X:</b> Programming Flowchart of Entire System</figcaption>
 </figure>
+</div>
+
+<div id="housing-model"  align="center">
+  <figure>
+  <table border="0">
+    <tr>
+      <td><figure>
+        <img src="/resources/images/firstHousingConcept.PNG" loading ="lazy" alt="first-housing-isometric-view" height="300">
+        <figcaption align="center"><b>(a):</b> First Housing Model Isometric View </figcaption>
+      </figure></td>
+      <td><figure>
+        <img src="/resources/images/firstHousingConcept_MountView.PNG" loading ="lazy" alt="pcb-mounts-topview" height="300">
+        <figcaption align="center"><b>(b):</b> First Housing Model Open View </figcaption>
+      </figure></td>
+    </tr>
+  </table>
+  <figcaption align="center"><b>Figure 5.8:</b> Final PCB without Components</figcaption>
+  </figure>
 </div>
 
 For demonstration purposes, a box was modeled. The door must mount the PCB, this way the knocks can be reliably detected when door (typically primary place for knocking) is knocked. Many screw pillars have been used for a more firm housing and preventing the PCB from vibrating on its own by making it more rigidly connected with the door. An indent was made in the door to sit the servo motor, and a groove in the housing to slot in the servo to lock the box as shown in [Figure X](#housing-model). Hole have been created in the door to show the LEDs for status of the box and holes on top of the buzzer to allow for better audiblity.
@@ -1229,13 +1256,25 @@ As discussed in [Section 4.6](#46-housing-design), the model was made. However i
 
 With all fixes implemented the final housing model can be seen in [Figure X](#housing-model-final)
 
-<div id = "housing-model-final" style="display: flex; gap: 10px; height: 250px;">
-<figure>
-  <img src="/resources/images/finalHousingModel.PNG" loading ="lazy" alt="final-housing-isometric-view">
-  <img src="/resources/images/finalHousingModel1.PNG" loading ="lazy" alt="final-housing-inside-view">
-  <figcaption align="center"><b>Figure X:</b> Programming Flowchart of Entire System</figcaption>
-</figure>
+<div id="housing-model-final"  align="center">
+  <figure>
+  <table border="0">
+    <tr>
+      <td><figure>
+        <img src="/resources/images/finalHousingModel.PNG" loading ="lazy" alt="final-housing-isometric-view" height="300">
+        <figcaption align="center"><b>(a):</b> Final Housing Model Isometric View </figcaption>
+      </figure></td>
+      <td><figure>
+        <img src="/resources/images/finalHousingModel1.PNG" loading ="lazy" alt="final-housing-inside-view" height="300">
+        <figcaption align="center"><b>(b):</b> Final Housing Model Open View </figcaption>
+      </figure></td>
+    </tr>
+  </table>
+  <figcaption align="center"><b>Figure 5.8:</b> Final PCB without Components</figcaption>
+  </figure>
 </div>
+
+
 
 This was model was then 3D printed using PLA (0.2mm Nozzle) to get the final product as seen in [Figure X](#final-product). The following settings were implemented for printing:
 
@@ -1243,19 +1282,27 @@ This was model was then 3D printed using PLA (0.2mm Nozzle) to get the final pro
 - Door with an infill of 70% (Higher infill for better vibrations passthrough)
 - Rest of the parts with an infill of 10%
 
-<div id = "final-product" style="display: flex; gap: 10px; height: 250px;">
-<figure>
-  <img src="/resources/images/full-prototype_closed.jpg" loading ="lazy" alt="final-product-open-view">
-  <img src="/resources/images/full-prototype_open-1.jpg" loading ="lazy" alt="final-product-open-view">
-  <figcaption align="center"><b>Figure X:</b> Programming Flowchart of Entire System</figcaption>
-</figure>
+<div id="final-product"  align="center">
+  <figure>
+  <table border="0">
+    <tr>
+      <td><figure>
+        <img src="/resources/images/full-prototype_closed.jpg" loading ="lazy" alt="final-product-closed-view" height="300">
+        <figcaption align="center"><b>(a):</b> Final product</figcaption>
+      </figure></td>
+      <td><figure>
+        <img src="/resources/images/full-prototype_open-1.jpg" loading ="lazy" alt="final-product-open-view" height="300">
+        <figcaption align="center"><b>(b):</b> Final Product Open View </figcaption>
+      </figure></td>
+    </tr>
+  </table>
+  <figcaption align="center"><b>Figure 5.8:</b> Final PCB without Components</figcaption>
+  </figure>
 </div>
 
 For connecting the door to the box, the filament used for 3D printing can be passed through the hinges and melted at the corners. The diameter of filament should be less than equal to 2mm.
 
 Finally with the final prototype complete, it is important to know how much the entire system costs to make, including electrical and mechanical components.
-
-### 5.7 Bill of Materials
 
 ### 5.7 Bill of Materials <!-- Full list of materials used -->
 The complete list of all electrical materials used to assemble the product is shown in [Table X](#tab:BOM-E). Note that the PCB is taken as item 34.
