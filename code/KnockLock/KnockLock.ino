@@ -28,16 +28,16 @@ inline float accelMagnitudeG(int x, int y, int z) {
 // SETUP & LOOP
 // -------------------------------------------------------------
 void setup() {
-  // Enable Serial Monitor if required
-  if(SERIAL_MONITOR_EN) {
+  if(SERIAL_MONITOR_EN) { // Enable Serial Monitor if required (can be changed in config.h)
     Serial.begin(115200);
     Serial.println("Serial monitor enabled!");
   }
 
-  setupHardware(); // Setup hardware
+  setupHardware(); // Setup hardware, all the pins modes and objects
 
-  // WAKE UP
-  handleWakeup();
+  handleWakeup(); //Check reason for waking up, and go accordingly.
+  // In case of checking battery and flashing led, it only does that and goes back to deep sleep
+  // If due to double knock, it goes through to normal setup to start listening for knocks
 
   ADXLsetup();                  // Setup ADXL
   digitalWrite(SERVO_EN, HIGH); // Turn servo On
