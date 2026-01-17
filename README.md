@@ -85,14 +85,14 @@ With regard to writing of this report, the following illustrates the contributio
 - Abhinav Kothari (33349): 
   - Chapter 2
   - Chapter 4: 4.5, 4.6, 4.8
-  - Chapter 5: 5.5, 5.5
+  - Chapter 5: 5.1, 5.4, 5.5, 5.6, 5.9
   - Chapter 6
   - Chapter 7
 - Justin Julius Chin Cheong (34140): 
   - Chapter 1
   - Chapter 3
-  - Chapter 4: 4.1, 4.2, 4.3, 4.4, 4.7, 4.8
-  - Chapter 5: 5.1, 5.2, 5.3, 5.6
+  - Chapter 4: 4.1, 4.2, 4.3, 4.4, 4.7, 4.8, 4.9
+  - Chapter 5: 5.2, 5.3, 5.7, 5.8, 5.9
 <!--------------------------------------------------------------------------------------------------------------------->
 <!--------------------------------------------------------------------------------------------------------------------->
 ## 2	Literature review
@@ -103,7 +103,7 @@ Reviewing hobyist and academic projets, gives us an overview of the common techn
 
 For processing most the projects implemented and Arduino Deumilanove or an Arduino Nano, and used gear reduction motors, solenoids or servo for locking/unlocking mechanism.
 
-## 2.2 Technical Comparison of Sensors
+### 2.2 Technical Comparison of Sensors
 As noted from the previous section, no accelerometers were used in the project, which particularly interesting considering, they are commonly used in high-end consumer electronics such as smartphones for detecting back taps, which work reliably. Hence this section compares the three sensor technologies (Piezoelectric, capacative accelerometers, vibration sensor) to better understand the situation.
 
 While piezoelements offer a good signal to noise ratio, they also act as high pass filters. This property provides them with a higher sensitivity for higher frequency vibrations, but hence not the ideal solution for lower frequency vibrations, which is more similar to human knocks [4]. While this blog [4], compares accelerometers with professional piezoelectric sensors, which are much more sensitive than the piezoelectric devices used in other projects, the same fundamental limitation applies to them as well. Especially considering, vibrations when traveling through various materials may loose high frequency energy relatively quickly, depending on the material property and thickness, which may make it even harder to detect. On the other hand accelerometers allow sensing of flat responses (0Hz) and hence have good sensitivity for even lower frequencies [4]. Vibration sensors allow for detecting only above a specified frequency, depending on its calibration.
@@ -121,8 +121,8 @@ A summary of all the differences between piezos, MEMs accelerometers and vibrati
 | Feature | Piezoelectric Buzzer | Digital Vibration Sensor | MEMS Accelerometer (Capacative) |
 | :--- | :--- | :--- | :--- |
 | **Sensing Principle** | Piezoelectric (Acoustic/Resonant) | Spring-and-Ball (Mechanical Switch) | **Capacitive (Proof-Mass Displacement)** |
-| **Output Type** | Raw Analog Voltage (Uncalibrated) | Digital Binary (HIGH/LOW) | **Digital Data ($I^2C$/SPI)** |
-| **Detection Axis** | Single Axis (Directional) | Omni-directional (Uncalibrated) | **3-Axis ($X, Y, Z$) Sensing** |
+| **Output Type** | Raw Analog Voltage (Uncalibrated) | Digital Binary (HIGH/LOW) | **Digital Data (I^2^C/SPI)** |
+| **Detection Axis** | Single Axis (Directional) | Omni-directional (Uncalibrated) | **3-Axis (X, Y, Z) Sensing** |
 | **Customizability** | **Low:** Fixed by hardware/surface | **None:** On/Off trigger only | **High:** Software-defined thresholds |
 | **Power Management** | Requires constant CPU sampling | Interrupt-capable | **Integrated Interrupts (Deep Sleep)** |
 | **Primary Limitation** | High-frequency bias (Acoustic) | Lack of pattern sensitivity | Higher initial code complexity |
@@ -399,11 +399,11 @@ Another interesting aspect of the circuit is the inclusion of an alternative pow
 
 Finally, the circuit contains a simple voltage divider that steps down the 5V supply line to less than 3.3V so that it can be read by the ADC on the microcontroller. The voltage at the ADC can then be calculated using a voltage divider. However since the resistor values are fixed and the ADC value is read by the controller, it can be reversed to get the voltage of the battery as follows:
 
-$`V_{out} = \frac{R_2}{R_1 + R_2}\dotV_{bat}`$
+$`V_{out} = \frac{R_2}{R_1 + R_2}*V_{bat}`$
 
-$`V_{bat} = \frac{readingInMillivolts}{1000}\dot\frac{R_1+R_2}{R_2}`$
+$`V_{bat} = \frac{readingInMillivolts}{1000}*\frac{R_1+R_2}{R_2}`$
 
-$`V_{bat} = \frac{readingInMillivots}{1000}\dot2.47`$
+$`V_{bat} = \frac{readingInMillivots}{1000}*2.47`$
 
 
 V~out~ is what is read by the microcontoller and hence can be used to calculate the voltage at the battery using the fixed resistor values.
@@ -471,14 +471,14 @@ The final code implementation can be seen in [Section 5.5](#55-software-implemen
 ### 4.6 Housing Design <!-- design for housing -->
 <div id = "housing-model" style="display: flex; gap: 10px; height: 250px;">
 <figure>
-  <img src="/resources/images/KnockLockFront_1.PNG" loading ="lazy" alt="housing-front">
-  <img src="/resources/images/KnockLockSide.PNG" loading ="lazy" alt="housing-side">
+  <img src="/resources/images/firstHousingConcept.PNG" loading ="lazy" alt="first-housing-isometric-view">
+  <img src="/resources/images/firstHousingConcept_MountView.PNG" loading ="lazy" alt="pcb-mounts-topview">
   <figcaption align="center"><b>Figure X:</b> Programming Flowchart of Entire System</figcaption>
 </figure>
 </div>
 
-For demonstration purposes, a box was modeled. The door must mount the PCB, this way the knocks can be reliably detected when door (typically primary place for knocking) is knocked. The battery has been kept in the base of the box to reduce the weight of the hinges for longetivity of the box. Keeping it in the base also makes battery replacement a bit easier. 
-In the door, it is important to have supports to screw in the PCB well, with minimal movement to prevent double knock detections. The door must have also have holes to keep the LEDs visisble as well as a button which connects to the button on the PCB to allow user to program the system when required. The USB B port must remain accessible as well, as well as a place to secure in the servo motor. The preliminary 3D Model can be seen in [Figure X](#housing-model). The final housing can be seen in [Section 5.6](#56-housing-prototype).
+For demonstration purposes, a box was modeled. The door must mount the PCB, this way the knocks can be reliably detected when door (typically primary place for knocking) is knocked. Many screw pillars have been used for a more firm housing and preventing the PCB from vibrating on its own by making it more rigidly connected with the door. An indent was made in the door to sit the servo motor, and a groove in the housing to slot in the servo to lock the box as shown in [Figure X](#housing-model). Hole have been created in the door to show the LEDs for status of the box and holes on top of the buzzer to allow for better audiblity.
+The final housing can be seen in [Section 5.6](#56-housing-prototype).
 
 ### 4.7 Pre-Implementation Verification Methods <!-- How did we test during development? -->
 #### 4.7.1 Concept Feasibility Testing <!-- Testing the sensor to see if concept is feasible -->
@@ -572,7 +572,7 @@ The results from the tests described in [Section 4.4.2 Sensor Sub-system](#442-s
 
 Even after trying to make the piezo a more sensitive by using 3.3V supply instead of 5V, it still couldn’t match the performance of the IMU. This was very unexpected considering other projects in the [Literature Review](#2literature-review). Additionally, the i2c communication of the IMU was observed to be significantly more reliable than the voltage output of the piezo element. 
 
-The IMU also gave data for all three axes. A typical series of knocks as detected by the IMU can be seen in [Figure 5.1](#imu-test). The y-axis is the magnitude in g (gravitational units), while the x-axis is time in milliseconds. The blue, yellow and green lines are the x, y and z axis respectively. Each knock caused a peak in each of the three axes, but most prominently in the axis perpendicular to the surface of the material. As such the knock detection software as discussed in [Section 5.5.2](#542-knock-detection), initially considered only the value of this axis. [Figure 5.1](#imu-test) also clearly shows that the peaks have a noticeable time gap between them. This suggests that if the peaks are registered as knocks and the interval between peaks are measured, it is definitely feasible for the software to detect a specific knock pattern based on the the amount of knocks and their intervals.
+The IMU also gave data for all three axes. A typical series of knocks as detected by the IMU can be seen in [Figure 5.1](#imu-test). The y-axis is the magnitude in g (gravitational units), while the x-axis is time in milliseconds. The blue, yellow and green lines are the x, y and z axis respectively. Each knock caused a peak in each of the three axes, but most prominently in the axis perpendicular to the surface of the material. As such the knock detection software as discussed in [Section 5.5.2](#552knock-detection), initially considered only the value of this axis. [Figure 5.1](#imu-test) also clearly shows that the peaks have a noticeable time gap between them. This suggests that if the peaks are registered as knocks and the interval between peaks are measured, it is definitely feasible for the software to detect a specific knock pattern based on the the amount of knocks and their intervals.
 <div id="imu-test" align="center">
 <figure>
   <img src="/resources/images/knockDetectionIMU.png" alt="imu-test" width="400">
@@ -878,7 +878,8 @@ inline float accelMagnitudeG(int x, int y, int z) {
 ```
 </div>
 
-The result could then be reduced by one to remove the static gravitational force to find dynamic force and compared to a fixed threshold found using many readings. This approach worked, however was not very effective and reliable with it being too sensitive or too insensitive at times. This was later then changed to reading only z-axis (absolute value), keeping in mind the axis is perpendicular to the PCB so when knock a plane parallel to the PCB it was the only axis greatly affected. Same was also seen in [Figure 5.1](#imu-test). This new approach worked much better for detecting knocks, however had one big drawback. It only worked in one specific orientation, with the PCB perpendicular to the ground plane. Finally it was realized, that the wake up which used the double tap interrupt was working much better, and hence for detecting individual knocks, single tap interrupt can be used. As this is made by the developers of the board, its noise removal and reliablitity was extremely high and knocks could be detected in all orientation. The threshold could also be setup much more reliably. The threshold of 40 was set which corresponded to ~2.5g when set to a scale of +-2g with a measurement sensitivity of 256 LSB/g [5]. The system with this threshold was able to ignore most background noise.  
+The result could then be reduced by one to remove the static gravitational force to find dynamic force and compared to a fixed threshold found using many readings. This approach worked, however was not very effective and reliable with it being too sensitive or too insensitive at times. This was later then changed to reading only z-axis (absolute value), keeping in mind the axis is perpendicular to the PCB so when knock a plane parallel to the PCB it was the only axis greatly affected. Same was also seen in [Figure 5.1](#imu-test). This new approach worked much better for detecting knocks, however had one big drawback. It only worked in one specific orientation, with the PCB perpendicular to the ground plane. Finally it was realized, that the wake up which used the double tap interrupt was working much better, and hence for detecting individual knocks, single tap interrupt can be used. As this is made by the developers of the board, its noise removal and reliablitity was extremely high and knocks could be detected in all orientation. The threshold could also be setup much more reliably. The threshold of 40 was set which corresponded to ~2.5g with a measurement sensitivity of 256 LSB/g or 62.5mg/LSB [5]. The system with this threshold was able to ignore most background noise, as well not trigger the system if the box is moved around. (Note the scale +-2g is for reading purposes, and the threshold here is unaffected by it.)
+With the new approach, the system is also much more efficient as it is not reading x,y,z values continously from the ADXL than only reacting to taps. The ADXL is responsible for monitoring the knocks and finding if the knock is above a threshold to be considered a knock, and because the chip is made primarily for that task it is more efficient in doing so.
 
 With the knocks recorded, the system must now check for if the pattern is correct.
 
@@ -1126,9 +1127,54 @@ All of the functions above user some helper function to make the code more modul
 
 <!--------------------------------------------------------------------------------------------------------------------->
 <!--------------------------------------------------------------------------------------------------------------------->
-
+Finally with the software and hardware finished, the system can be implemented into the housing.
 
 ### 5.6 Housing Prototype <!-- Whatever modifications we made -->
+As discussed in [Section 4.6](#46-housing-design), the model was made. However it had some issues which prevented the system from working reliably. These issues and how they were fixed in shown in [Table X](#tab:housingIssues).
+
+<div id="tab:housingIssues">
+
+*Table X: Housing issues and fixes*
+|Issue                                                  |Fix                                                                        |
+|--:                                                    |--:                                                                        |
+| Button hard to press                                  | Instead if bending button, use column to slide in and out                 |
+| Screw mounts to tall causing issues in button pressing| Add space in door to insert voltage regulator, get PCB close to door      |
+| Servo motor wire interfering                          | Add clearance for wires                                                   |
+| Battery using box space                               | Add area for battery in the base, to also help with weight distribution   |
+| Battery exposed                                       | Add lid to cover battery                                                  |
+| Clearance issues due printer accuracy                 | Increase clearances for fits                                              |
+| Wires of servo interfering with closing               | Add to prevent servo wires interference                                   |
+| Micro USB-B hole missing                              | Add Micro USB-B port hole                                                 |
+
+</div>
+
+With all fixes implemented the final housing model can be seen in [Figure X](#housing-model-final)
+
+<div id = "housing-model-final" style="display: flex; gap: 10px; height: 250px;">
+<figure>
+  <img src="/resources/images/finalHousingModel.PNG" loading ="lazy" alt="final-housing-isometric-view">
+  <img src="/resources/images/finalHousingModel1.PNG" loading ="lazy" alt="final-housing-inside-view">
+  <figcaption align="center"><b>Figure X:</b> Programming Flowchart of Entire System</figcaption>
+</figure>
+</div>
+
+This was model was then 3D printed using PLA (0.2mm Nozzle) to get the final product as seen in [Figure X](#final-product). The following settings were implemented for printing:
+
+- Lightning grid pattern
+- Door with an infill of 70% (Higher infill for better vibrations passthrough)
+- Rest of the parts with an infill of 10%
+
+<div id = "final-product" style="display: flex; gap: 10px; height: 250px;">
+<figure>
+  <img src="/resources/images/full-prototype_closed.jpg" loading ="lazy" alt="final-product-open-view">
+  <img src="/resources/images/full-prototype_open-1.jpg" loading ="lazy" alt="final-product-open-view">
+  <figcaption align="center"><b>Figure X:</b> Programming Flowchart of Entire System</figcaption>
+</figure>
+</div>
+
+For connecting the door to the box, the filament used for 3D printing can be passed through the hinges and melted at the corners. The diameter of filament should be less than equal to 2mm.
+
+Finally with the final prototype complete, it is important to know how much the entire system costs to make, including electrical and mechanical components.
 
 ### 5.7 Bill of Materials
 
@@ -1170,7 +1216,8 @@ All of the functions above user some helper function to make the code more modul
 | 31        | R8                        | 1   | 100 Ω Resistor                  | RC1206FR-07100RL        | YAGEO                 | HSRW   | 0.09         | 0.09      |
 | 32        | R9                        | 1   | 100 kΩ Resistor                 | RC1206FR-07100KL        | YAGEO                 | HSRW   | 0.09         | 0.09      |
 | 33        | R10, R11, R12             | 3   | 27 Ω Resistor                   | RC1206FR-0727RL         | YAGEO                 | HSRW   | 0.09         | 0.27      |
-| **Total** |                           |     |                                 |                         |                       |        |              | **26.61** |
+| **Total without HSRW Components** |                           |     |                                 |                         |                       |        |              | **14.96** |
+| **Total with all Components** |                           |     |                                 |                         |                       |        |              | **26.61** |
 </div>
 
 <div id="tab:BOM-M">
@@ -1183,8 +1230,8 @@ All of the functions above user some helper function to make the code more modul
 | 37          | 1   | M3×15 Plastic Screw | 0.08         | 0.08      |
 | 38          | 7   | M3 Plastic Washer   | 0.01         | 0.07      |
 | 39          | 1   | M3 Hex Nut          | 0.07         | 0.07      |
-| 40          | 1   | 3D Printed Housing  | 13.95        | 13.95     |
-| **Total**   |     |                     |              | **15.22** |
+| 40          | 1   | 3D Printed Housing  | 9.52         | 9.52      |
+| **Total**   |     |                     |              | **10.79** |
 </div>
 
 ### 5.8 Post-Implementation Verification Results 
@@ -1198,27 +1245,51 @@ All of the functions above user some helper function to make the code more modul
 <!--------------------------------------------------------------------------------------------------------------------->
 <!--------------------------------------------------------------------------------------------------------------------->
 ## 6	Discussion
-Here you should discuss your results
+With the final product compelte and running, it must be evaluated against the existing products and its limitations pointed. Finally the products signficance and applications should be talked about.
 ### 6.1 Product Evaluation
-A comparison of the results we had with existing products or what we saw in literature
+Looking back at the [Section 2](#2-literature-review), this product has a similar functionality, with vastly different approach to implement that functionality and also covers many of the limitations faced by the other products, these include: sensing reliability, power efficiency, flexbility and multi-axis detection.
+### 6.1.1 Sensing Reliability
+As noted in literature [4], piezos act as high pass filters, and hence often miss the lower frequency sounds especially across thicker materials. The accelerometer on the other is able to detect flat responses down to 0 Hz across varying material thickness.
+Moreover while piezos have to be constantly monitored by the CPU and noise removed, the ADXL345 is able to do this monitoring completely on chip and can effectively reduce envireomental noise.
+### 6.1.2 Power Efficiency
+Most reviewed projects [1,2,3] also lacked a sophisticated power mangement system. They were constantly awake monitoring the values. Whereas the KnockLock, spends most of its time in deep sleep mode (~5uA), only waking up for battery monitoring or double knocks. The ADXL having hardware interrupts also helps in achieving a better wake up method, as the accelerometer itself has very minimal current drawn (~23uA in measurement mode [5]).
+The system also implements a battery monitoring system unlike the other projects, which allows the user to know when the battery must be replaced. 
+The system also has a dedicated PCB with only the required components and not uncessary hardware, which also saves battery, unlike the other projects which use developement board.
+MOSFET Power gating servo motor is another feature which helps the system save battery, by effectively removing any current drawn by the servo when not required, this is not done for most other projects.
+### 6.1.3 Flexibility
+While other projects do work, they are limited to the specific enviroment conditions they are designed for. To change sensitivity of the piezo, while it can be done via software it is very limited, for more sensitivity hardware changes are required, such as an amplification circuit. While for the KnockLock most settings are software based already, with possibility of even changing scale to make system less sensitive for when only heavy knocks to be detected, as the accelerometer can be communicated with using I^2^C. 
+The system also implements certain features to allow for leniency, such as allowing a defined number of mistakes, to allow system to detect knock as correct even if the first few or last few knocks maybe incorrect. 
+### 6.1.4 Multi-axis detection
+The projects seen in the literature review ([Section 2](#2-literature-review)) all had one limitation, they had omnidirectional sensing, i.e. the knock surface could only be parallel to the knocking sensor. However, in the KnockLock using an accelerometer the system has access to 3-axis (x,y,z) which allows system to reliably detect knocks regardless of the side of the enclosure the system is knocked. This makes the system also more versatile for implementing in different housing or orientations.
 
 ### 6.2 Product Limitations
-What are the main limitations we realised after extensive testing
+After extensive testing, some limitations of system were realized:
 
-- not rechargable
-- very low IP rating
-- 
+- Power Source: The current system uses 4xAA primary cells, which are not rechargable. Battery must be replaced each time they run out.
+- Enviromental protection: The system currently has a very low IP (Ingress Protection) rating of only IP21 and hence susceptible to dust and moisture.
+- Ergonomics: With the current housing design, the USB port is difficult to access. The LEDs are also not as clearly visible from a height.
+- Mechanical integrity: While the software is secure, a hard enough torque on the door can cause the servo horn/arm to decouple from the servo.
+- Recovery: No provision to recover the pattern if forgotten.
 
 ### 6.3 Product Significance
+The development of the KnockLock demonstrates a shift towards more intuitive and "invisisble" security interfaces. Using knocks instead of traditional locking systems such as NFC, RFID, Mechanical or Biometric systems offers some key advantages:
+
+- Security: KnockLock provides an alternative entry method which does not require a physical key, which can be lost or stolen. Also by allowing anywhere from 5 to 30 knocks the possible permuations of knocks is approximately $\approx 2.14 \times 10^{32}$** (Calculation in [Appendix A](#appendix-A)).
+- Versatility: To due the ability of detecting upto 0 Hz vibrations, the material versatility using an accelerometers is much higher.
+- Sustainability: The project highlights the viability of long-term battery powered IoT security solutions, by achieving such low deep sleep currents and use of such low power demanding sensor modules.
+- Privacy Protection: Due to the system only monitoring mechanical vibrations, it ensures users privacy which may be of concern if a biometric, camera or microphone system was implemented.
 <!--------------------------------------------------------------------------------------------------------------------->
 <!--------------------------------------------------------------------------------------------------------------------->
 ## 7	Conclusion
-You might want to discuss possible future work here
-### 8.1 Future Improvements
+The KnockLock project sucesfully demonstrates a more fun method of unlocking a door. It makes the process of opening door a more fun and intuitive process. It demonstrates this idea by implementation in a small box, however can be implemented even in an actual door with small changes if necessary to the acutation mechanism and perhaps a bit with the thresholds.
+The project was able to meet most of its project requirements, except the IP31 rating, by achieving only IP21 rating. However this is mainly to do with the housing which can be improved with minor tweaks to hole sizes of the USB port and door size relative to the box. Use of Gaskets could improve this even past IP31 rating. Other than this all other functional and system requirements were met while also following all the project requirements in mind. Some additional features such as mistake allowance were also implemented succesfully.
+Ultimately the KnockLock has demonstrated a shift of analog dependent hardware to I^2^C based software defined system for a more power efficient, customisable and reliable system.
+### 7.1 Future Improvements
 Doing this project, opened more aspects which can be worked on in future when reiterating the project. These include:
-- Rechargeability: Implementing a recharging circuit and using rechargable batteries
+- Rechargeability: Implementing a recharging circuit on the existing micro USB-B port and using rechargable batteries
 - Redundant sensors: Use Piezo with ADXL to more effectively detect a knock
-- Improved Ergonomics: Using a material that does not hurt to knock or
+- Improved Ergonomics: Using a material that does not hurt to knock and a housing shape which does not hurt to carry around
+- Better locking mechanism: Using a solenoid to lock the system to make it more secure
 
 ## 8	References
 
@@ -1230,4 +1301,38 @@ Doing this project, opened more aspects which can be worked on in future when re
 * [6]: Espressif Systems. (2021). ESP32-C3 Series datasheet. In Espressif. https://www.espressif.com/documentation/esp32-c3_datasheet_en.pdf
 
 ## 9	Appendices
+### Appendix A
+Calculation of possible permutations with the following parameters:
+* **Minimum Knocks:** 5 (4 intervals)
+* **Maximum Knocks:** 30 (29 intervals)
+* **Maximum Time ($T_{max}$):** 2000 ms
+* **Tolerance ($\Delta t$):** 150 ms
+
+The number of discrete "timing slots" available in a single gap between two knocks is the maximum duration divided by the tolerance:
+
+$$k = \lfloor \frac{2000}{150} \rfloor = 13$$
+
+For a pattern with $n$ knocks, there are $n-1$ intervals. The number of combinations for a specific number of knocks is:
+$$C_n = 13^{(n-1)}$$
+
+The total number of combinations ($S$) is the sum of all patterns from 4 intervals to 29 intervals:
+
+$$S = 13^4 + 13^5 + 13^6 + \dots + 13^{29}$$
+
+This is a **Geometric Series** where:
+* **First term ($a$):** $13^4$
+* **Ratio ($r$):** $13$
+* **Number of terms ($m$):** 26 (from $29 - 4 + 1$)
+
+Applying the Sum Formula
+The formula for the sum of a geometric series is $S_m = \frac{a(r^m - 1)}{r - 1}$:
+
+$$S = \frac{13^4(13^{26} - 1)}{13 - 1}$$
+
+$$S = \frac{28,561 \times (13^{26} - 1)}{12}$$
+
+Final Result
+Using the value of $13^{26} \approx 9.004 \times 10^{28}$:
+
+**Total Combinations $\approx 2.14 \times 10^{32}$**
 
