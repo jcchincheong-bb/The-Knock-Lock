@@ -397,10 +397,12 @@ The voltage regulation must also provide protection in addition to providing the
 
 Another interesting aspect of the circuit is the inclusion of an alternative power connection. The battery terminal is meant to be the primary power source via 4S AA batteries and the micro USB port is for emergency powering when the battery dies and the box is locked. It also connects to the voltage regulator and has it's own protection fuse and diode.
 
-Finally, the circuit contains a simple voltage divider that steps down the 5V supply line to less than 3.3V so that it can be read by the ADC on the microcontroller. This then allows for an estimation of the battery level using the formula:
+Finally, the circuit contains a simple voltage divider that steps down the 5V supply line to less than 3.3V so that it can be read by the ADC on the microcontroller. The voltage at the ADC can then be calculated using a voltage divider. However since the resistor values are fixed and the ADC value is read by the controller, it can be reversed to get the voltage of the battery as follows:
 
-$`\left{V_out} = \frac{R_2}{R_1 + R_2}*V_bat`$
+$`V_out = \frac{R_2}{R_1 + R_2}*V_bat`$
+
 $`V_bat = \frac{readingMillivolts}{1000}*\frac{R_1+R_2}{R_2}`$
+
 $`V_bat = \frac{readingMillivots}{1000}*2.47`$
 
 
