@@ -136,7 +136,7 @@ void handleRecording(float aDynamic, unsigned long now) {
 
 // Function to deal with response if system locked
 void handleLockedState(float aDynamic, unsigned long now) {
-  if (knockDetected && (now - lastKnockTime) > DEBOUNCE_TIME) { // If knock is detected start recording its timing
+  if (knockDetected && (now - lastKnockTime) > DEBOUNCE_TIME) { // If knock is detected start recording its timing, debounce knock to prevent double knock
     lastKnockTime = now;
     lastActivityTime = now; 
     flashGreenTick(); // Alert user a knock was detected
@@ -155,8 +155,8 @@ void handleLockedState(float aDynamic, unsigned long now) {
   if (knockCount == 0 && (now - lastActivityTime > SLEEP_TIMEOUT)) { // If too long a break with no knocks, go to sleep
     goToSleep();
   }
-  knockDetected = false;
-  adxl.getInterruptSource();
+  knockDetected = false;      // Clear flag
+  adxl.getInterruptSource();  // Clear interrupt flags to reset interrupt pin
 }
 
 // Function to close box when unlocked
