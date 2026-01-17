@@ -399,11 +399,11 @@ Another interesting aspect of the circuit is the inclusion of an alternative pow
 
 Finally, the circuit contains a simple voltage divider that steps down the 5V supply line to less than 3.3V so that it can be read by the ADC on the microcontroller. The voltage at the ADC can then be calculated using a voltage divider. However since the resistor values are fixed and the ADC value is read by the controller, it can be reversed to get the voltage of the battery as follows:
 
-$`V_{out} = \frac{R_2}{R_1 + R_2}*V_{bat}`$
+$`V_{out} = \frac{R_2}{R_1 + R_2}\dotV_{bat}`$
 
-$`V_{bat} = \frac{readingInMillivolts}{1000}*\frac{R_1+R_2}{R_2}`$
+$`V_{bat} = \frac{readingInMillivolts}{1000}\dot\frac{R_1+R_2}{R_2}`$
 
-$`V_{bat} = \frac{readingInMillivots}{1000}*2.47`$
+$`V_{bat} = \frac{readingInMillivots}{1000}\dot2.47`$
 
 
 V~out~ is what is read by the microcontoller and hence can be used to calculate the voltage at the battery using the fixed resistor values.
