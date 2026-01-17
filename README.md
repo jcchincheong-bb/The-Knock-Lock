@@ -55,24 +55,10 @@ Short summary of the project and the work conducted
 <!--------------------------------------------------------------------------------------------------------------------->
 <!--------------------------------------------------------------------------------------------------------------------->
 ## 1 Introduction 
-We have all built secret passwords, sometimes words, sometimes numbers, sometimes just a pattern of knocking, sometimes it was to get into a box castle, sometime a room. 
+### 1.1 Rationale
+As children, many of us might have invented secrete knocks that we used to identify ourselves to our friends or siblings. But, what if those special codes could actually unlock the door itself? As adults, how many times have you forgotten your keys and wished you could just knock in a certain way and the door would unlock for you? 
 
-Surprisingly, the password nowadays are boring, just words, numbers, NFCs sometimes biometric. However what happened to the secret knock? In this project we want to create a 
-more fun way to unlock a door, while also keeping it safe using a secret knock pattern, with millions of potential permutations. This unlocking mechanism can be used for 
-getting through a door, open a drawer, or opening a safe box, the possibilities are endless. 
-
-The KnockLock Project will demonstrate the idea by implementation into a lock box.
-
-### 1.1	Background
-The primary goal of this project is to be able create a system which can detect knocks reliably with correct timings in order to identify if it is the correct pattern
-or not, and react accordingly. For the detection an accelerometer will be used.
-
-For this we will have to first understand, if this has been done before, if so how can it be improved. If not it must be compared to the existing methods. This will talked about
-in the literature review in Chapter 2.
-
-Further more we must understand how an accelerometer works, and how to interface it with a microcontroller. This will be presented in Chapter 3.
-
-Then we shall talk about how we it will be implemented (Chapter 5: Methodology) and what results were achieved (Chapter 6: Results). Finally we will discuss the results (Chapter 7: Discussion)
+There are many different types of security systems on the market that use systems varying from combinations to NFC, but there are no commercial products of this kind that unlocks by recognising a specific knocking pattern. As such, the aim of The Knock Lock project is to design and assemble a system that unlocks a door by recognising a specific knocking pattern. As a proof of concept, the system will be designed as a small lock box as shown in  [Figure 1.1](#preliminary-sketch) with the hope of extending the idea to work on a full door in the future.
 
 <div id="preliminary-sketch" align="center">
 <figure>
@@ -81,7 +67,18 @@ Then we shall talk about how we it will be implemented (Chapter 5: Methodology) 
 </figure>
 </div>
 
-### 1.2 Project Team
+### 1.2	Outline
+This report documents the complete development and verification process of the Knock Lock project from conception to assembly to testing. 
+
+[Chapter 1](#1-introduction) introduces the problem with current security systems which the Knock Lock project is trying to solve as well as the project team and their contributions to the project's development. However, before the actual development can be explained, a review of any existing solutions must be done to understand how others approached the problem as discussed in [Chapter 2](#2literature-review). Further, a number of key concepts such as accelerometers and servo motors are discussed in [Chapter 3](#3theory) to establish a theoretical foundation for the project's design. 
+
+In [Chapter 4](#4methodology-and-design), the presentation of the actual development process begins with the definition of the V-model design flow ([4.1](#41-design-approach)) and system requirements ([4.2](#42-system-requirements)). The system is then designed at the highest level with the system architecture ([4.3](#43-system-architecture)) before going into the details of the intended hardware ([4.4](#44hardware-design)), software ([4.5](#45-software-design)) and housing design ([4.6](#46-housing-design)). In keeping with the V-model, verification methods are defined for both before ([4.7](#47-pre-implementation-verification-methods)) and after ([4.8](#48-post-implementation-verification-methods)) implementation. Validation ([4.9](#49-validation-methods)) of the system is also discussed and how the system could be tested against the needs of the user.
+
+After defining the intended design and test specifications, the actual implementation, results and issues are explained in [Chapter 5](#5results). Here the results of prototyping ([5.1](#51-pre-implementation-verification-results)) are treated and their impact on the components used ([5.2](#52-component-selection)) and PCB design ([5.3](#53-pcb-design)) are explored. The process of actually assembling the PCB ([5.4](#54-pcb-assembly)) and developing the software ([5.5](#55-software-implementation)) is described as well as the issues encountered. The construction of the housing ([5.6](#56-housing-prototype)) and the complete list of materials ([5.7](#57-bill-of-materials)) used is also illustrated. Finally, the system's verification ([5.8](#58-post-implementation-verification-results)) and validation ([5.9](#59-validation-results)) results are presented.
+
+Finally, [Chapter 6](#6discussion) discusses how the results of the Knock Lock compares to other projects ([6.1](#61-product-evaluation)) and expounds upon the limitations([6.2](#62-product-limitations)) and significance ([6.3](#63-product-significance)) of the product's performance. [Chapter 7](#7conclusion) concludes the report with a summary of the development journey and outlines some potential future work ([7.1](#71-future-improvements)) for the project..
+
+### 1.3 Project Team
 The project team consists of two Mechatronics Engineering Students whose responsibilities in the project were divided
 as follows:
 - Abhinav Kothari (33349):
@@ -103,14 +100,14 @@ With regard to writing of this report, the following illustrates the contributio
 - Abhinav Kothari (33349): 
   - Chapter 2
   - Chapter 4: 4.5, 4.6
-  - Chapter 5: 5.4, 5.5, 5.6
+  - Chapter 5: 5.4, 5.5, 5.6, 5.9
   - Chapter 6
   - Chapter 7
 - Justin Julius Chin Cheong (34140): 
   - Chapter 1
   - Chapter 3
   - Chapter 4: 4.1, 4.2, 4.3, 4.4, 4.7, 4.8, 4.9
-  - Chapter 5: 5.1, 5.2, 5.3, 5.7, 5.8, 5.9
+  - Chapter 5: 5.1, 5.2, 5.3, 5.7, 5.8
 <!--------------------------------------------------------------------------------------------------------------------->
 <!--------------------------------------------------------------------------------------------------------------------->
 ## 2	Literature review
@@ -163,7 +160,7 @@ Capacitive accelerometers are sensors used to measure acceleration forces by det
 </figure>
 </div>
 
-The KnockLock project uses an accelerometer as the main sensor for knock detection. Initial testing revealed that these accelerometers are very well suited for detecting knocks (See [Section 5.1.1](#511-concept-feasibility)). The sensor's role in the design is discussed in [Section 4.4.2](#442-sensor-sub-system).
+The Knock Lock project uses an accelerometer as the main sensor for knock detection. Initial testing revealed that these accelerometers are very well suited for detecting knocks (See [Section 5.1.1](#511-concept-feasibility)). The sensor's role in the design is discussed in [Section 4.4.2](#442-sensor-sub-system).
 
 Most modern capacitive accelerometers are sold as integrated circuits (ICs) with three accelerometers (one for each axis) as well as signal conditioning electronics and an I2C interface [7].
 
@@ -180,7 +177,7 @@ I2C is a synchronous, serial communication protocol commonly used for short-dist
 </div>
 
 ### 3.3 High-Side Driver
-High-side drivers are electronic circuits used to control a load by switching the high voltage side of the load. They are typically implemented using transistors or integrated driver ICs and allow a microcontroller to safely control high-voltage or high-current loads such as motors, relays, or solenoids [8]. [Figure 3.3](#highDriver) taken from [8] shows how a typical high side driver configuration for use with a microcontroller.
+High-side drivers are electronic circuits used to control a load by switching the high voltage side of the load. They are typically implemented using transistors or integrated driver ICs and allow a microcontroller to safely control high-voltage or high-current loads such as motors, relays, or solenoids [8]. [Figure 3.3](#highDriver) taken from [8] shows how a typical high side driver configuration for use with a microcontroller. The microcontroller controls the base of the transistor.When it is set to low, the transistor does not conduct and the gate of the MOSFET is pulled up. This means the gate-source voltage of the MOSFET is 0V and thus, it does not conduct and the motor is cut off from power. When the base of the transistor is set high, the opposite occurs and the gate of the MOSFET is pulled down to ground causing the MOSFET to trigger and connect the motor to power.
 <div id="highDriver" align="center">
 <figure>
   <img src="/resources/images/driver_theory.png" alt="IMU" width="400">
@@ -196,7 +193,7 @@ with the side driver as the interface, the actual lock actuator is a servo motor
 Servo motors are electromechanical devices used for precise control of angular position, speed, and torque. A typical servo motor consists of a DC motor, a gearbox, a position sensor (usually a potentiometer), and a control circuit. The motor position is controlled using a pulse-width modulation (PWM) signal, where the pulse width determines the desired angle as shown in [Figure 3.4](#servo)[7]. 
 <div id="servo" align="center">
 <figure>
-  <img src="/resources/images/servo_theory_scherz.png" alt="IMU" width="400">
+  <img src="/resources/images/servo_theory_scherz.PNG" alt="IMU" width="400">
   <figcaption align="center"><b>Figure 3.4:</b> Diagram of Servo Motor Working Principle</figcaption>
 </figure>
 </div>
@@ -427,22 +424,13 @@ Finally, the system cannot function without reliable power and as such a power r
 </figure>
 </div>
 
-Since the [controller](#444-controller-sub-system) uses an ESP32 which requires 3.3V, a voltage regulator that outputs 3.3V is required. The most common and efficient means of accomplishing this is using a higher voltage supply and using regulator to step down the supply. For the purpose of this project, a switching buck converter was chosen instead of using a linear voltage regulator as they are higher efficiency and produce less heat. Mouser has a very large range of switching regulators, many of which meet these minimum specifications. Ultimately, the LM2575-3.3WT was chosen since it was rather cheap, has a maximum input voltage of 40V and typical efficiency of 75%. Additionally, the diode used in the regulation circuit also needs to have low forward voltage drop and low junction capacity so that it provides minimal impede the hight frequency switching.
+Since the [controller](#444-controller-sub-system) uses an ESP32 which requires 3.3V [9], a voltage regulator that outputs 3.3V is required. The most common and efficient means of accomplishing this is using a higher voltage supply and using regulator to step down the supply. For the purpose of this project, a switching buck converter was chosen instead of using a linear voltage regulator as they are higher efficiency and produce less heat. Mouser has a very large range of switching regulators, many of which meet these minimum specifications. Ultimately, the LM2575-3.3WT was chosen since it was rather cheap, has a maximum input voltage of 40V and typical efficiency of 75%. Additionally, the diode used in the regulation circuit also needs to have low forward voltage drop and low junction capacity so that it provides minimal impede the hight frequency switching.
 
-The voltage regulation must also provide protection in addition to providing the right voltage level. The buck converter itself inherently provides over-voltage protection up to 40V. To implement reverse polarity protection, TVS diodes are used in combination with a fuse. The diode is connected across the junctions such that when a reversed voltage is connected, the diode shorts the external source and not the rest of the circuit. The fuses also provide over-current protection. To dimension the fuse, the specifications of the LM2575-3.3WT were considered. With a maximum output current of 1A, output voltage of 3.3V, efficiency of 75% and input voltage of 6V, the maximum current required by the regulator is around 0.733A. Thus, the fuse should safely carry around 1A to account for fluctuations. As such, the PFRA110 was chosen as it has a hold current of 1.1A and a trip current of 2.2A. This fuse is also resettable so after current is cut-off, the fuse can cool down and reset. 
+The voltage regulation must also provide protection in addition to providing the right voltage level. The buck converter itself inherently provides over-voltage protection up to 40V. To implement reverse polarity protection, TVS diodes are used in combination with a fuse. The diode is connected across the junctions such that when a reversed voltage is connected, the diode shorts the external source and not the rest of the circuit. The fuses also provide over-current protection. To dimension the fuse, the specifications of the LM2575-3.3WT were considered. With a maximum output current of 1A, output voltage of 3.3V, efficiency of 75% and input voltage of 6V, the maximum current required by the regulator is around 0.733A. See [Appendix A](#appendix-a-circuit-dimensioning-calculations) for the calculations. Thus, the fuse should safely carry around 1A to account for fluctuations. As such, the PFRA110 was chosen as it has a hold current of 1.1A and a trip current of 2.2A. This fuse is also resettable so after current is cut-off, the fuse can cool down and reset. 
 
 Another interesting aspect of the circuit is the inclusion of an alternative power connection. The battery terminal is meant to be the primary power source via 4S AA batteries and the micro USB port is for emergency powering when the battery dies and the box is locked. It also connects to the voltage regulator and has it's own protection fuse and diode.
 
-Finally, the circuit contains a simple voltage divider that steps down the 5V supply line to less than 3.3V so that it can be read by the ADC on the microcontroller. The voltage at the ADC can then be calculated using a voltage divider. However since the resistor values are fixed and the ADC value is read by the controller, it can be reversed to get the voltage of the battery as follows:
-
-$$ V_{out} = \frac{R_2}{R_1 + R_2}\cdot V_{bat} $$
-
-$$ V_{bat} = \frac{readingInMillivolts}{1000}\cdot\frac{R_1+R_2}{R_2} $$
-
-$$ V_{bat} = \frac{readingInMillivots}{1000}\cdot 2.47 $$
-
-
-Vout is what is read by the microcontoller and hence can be used to calculate the voltage at the battery using the fixed resistor values.
+Finally, the circuit contains a simple voltage divider that steps down the 5V supply line to less than 3.3V so that it can be read by the ADC on the microcontroller. The voltage at the ADC can then be calculated using a voltage divider ratio. 
 
 #### 4.4.8 Component Specifications  <!-- Table of main components and their most important specs -->
 Based on the circuit design and requirements, the specifications of the main components of the system are compiled in [Table X](#tab:specs)
@@ -1133,7 +1121,7 @@ To save power, the ESP32-C3 stays in deep sleep mode most of the time, only waki
 
 Before going to sleep, the system first checks the battery voltage, to see if it is low or not. If it is low, the system must wake up every few seconds to blink the red LED indicating low battery to alert the user to changee it. If the battery is good, the system can sleep indefinitely until a knock is detected. There may be concern, that what if the system does not have low battery when going to sleep, but the battery drains while sleeping. However this is not a really big concern, as the drain will be very slow. Waking it up to check battery status regularly will waste more power. This decision of checking battery only before sleep was taken also taking into account the system has been designed with two sets of power supply, battery and USB. If the battery drains, the user can always plug in the USB power to power the system.
 
-Checking the battery voltage by reading ADC value from the voltage divider and using the formula as stated in [Section 4.4.7](#447-power-regulation-sub-system). The system compares this to a threshold to denote if it is too low or not, as shown in [Listing 13](#batteryCheck). The system can also start powering down hardware which is not necessary anymore such as the LEDs off (until Red is required later) and the Servo motor.
+Checking the battery voltage by reading ADC value from the voltage divider and using the formula as stated in [Appendix A](#appendix-a-circuit-dimensioning-calculations-and-formulae). The system compares this to a threshold to denote if it is too low or not, as shown in [Listing 13](#batteryCheck). The system can also start powering down hardware which is not necessary anymore such as the LEDs off (until Red is required later) and the Servo motor.
 
 <div id="batteryCheck">
 
@@ -1485,17 +1473,11 @@ The results of the current measurements are shown in [Table X](tab:current-readi
 | Sleep                | 5.32                 | 85390                    | 5.26                 |
 </div>
 
-To estimate the power usage, the average current consumption must be estimated. For a general case scenario, it can be assumed that a person may unlock and lock the box around 5 times in a given day and reprogram the box 1 time in a day. The box may be in locked mode for around 70s; 10s after wake up to unlock and 60s after re-locking to go into sleep mode. It may be in unlocked state for around 120s as the person could be deciding what to put in the box. Finally, programming may take around 60s. The remaining time in the day, the box would be in sleep mode. To calculate average current, the following formula is used:
+To estimate the power usage, the average current consumption must be estimated. For a general case scenario, it can be assumed that a person may unlock and lock the box around 5 times in a given day and reprogram the box 1 time in a day. The box may be in locked mode for around 70s; 10s after wake up to unlock and 60s after re-locking to go into sleep mode. It may be in unlocked state for around 120s as the person could be deciding what to put in the box. Finally, programming may take around 60s. The remaining time in the day, the box would be in sleep mode. 
 
-$$ I_{avg} = \frac{I*t}{24h * 3600 \frac{s}{h}} $$
-Where $I$ is the current reading in mA and $t$ is the assumed time per day in s. 
+With all of these assumptions, the average currents were found and recorded in [Table X](#tab:current-readings). The currents were summed up giving the total average current to be around **5.78mA**. With an average battery voltage of 6V, this results in an estimated power consumption of **34.67mW**. See [Appendix B](#appendix-b-power-consumption-calculations) for the formulae used.
 
-With all of these assumptions, the total average current was estimated to be around **5.78mA**. With an average battery voltage of 6V, this results in an estimated power consumption of **34.67mW**.
-
-With this average current consumption, the battery life of the box was estimated to be around **18.03 days** assuming the AA batteries have a capacity of 2500mAh. The formula used for the battery life estimation is:
-
-$$ T_{\text{Battery Life}} = \frac{C}{I_{avg, total} \cdot 24 \frac{h}{day} } $$
-Where $T_{\text{Battery Life}}$ in days, $C$ is the battery capacity in mAh and $I_{avg, total}$ is the total average current.  
+With this average current consumption, the battery life of the box was estimated to be around **18.03 days** assuming the AA batteries have a capacity of 2500mAh. 
 
 ### 5.9 Validation Results 
 After the system was verified against the system requirements, the KnockLock product was finally able to be validated by users. 
@@ -1519,7 +1501,7 @@ From the survery defined in [Section 4.9.1](#491-user-acceptance-testing), the f
 | **Average** | **9.3**                    |                                  |                                               |                                          |
 </div>
 
-With an average rating of 9.3, it appears that the KnockLock is a satisfactory product. The main feature that people appreciated was the ability to open the door without a key. However, product still has room for improvement and the suggestions provided by users will be considered in the future improvements discussed in [Section 7.1](#71-future-improvements)
+With an average rating of 9.3, it appears that the Knock Lock is a satisfactory product. The main feature that people appreciated was the ability to open the door without a key. However, product still has room for improvement and the suggestions provided by users will be considered in the future improvements discussed in [Section 7.1](#71-future-improvements)
 
 <!--------------------------------------------------------------------------------------------------------------------->
 <!--------------------------------------------------------------------------------------------------------------------->
@@ -1531,15 +1513,15 @@ Looking back at the [Section 2](#2-literature-review), this product has a simila
 As noted in literature [4], piezos act as high pass filters, and hence often miss the lower frequency sounds especially across thicker materials. The accelerometer on the other is able to detect flat responses down to 0 Hz across varying material thickness.
 Moreover while piezos have to be constantly monitored by the CPU and noise removed, the ADXL345 is able to do this monitoring completely on chip and can effectively reduce envireomental noise.
 ### 6.1.2 Power Efficiency
-Most reviewed projects [1,2,3] also lacked a sophisticated power mangement system. They were constantly awake monitoring the values. Whereas the KnockLock, spends most of its time in deep sleep mode (~5uA), only waking up for battery monitoring or double knocks. The ADXL having hardware interrupts also helps in achieving a better wake up method, as the accelerometer itself has very minimal current drawn (~23uA in measurement mode [5]).
+Most reviewed projects [1,2,3] also lacked a sophisticated power mangement system. They were constantly awake monitoring the values. Whereas the Knock Lock, spends most of its time in deep sleep mode (~5uA), only waking up for battery monitoring or double knocks. The ADXL having hardware interrupts also helps in achieving a better wake up method, as the accelerometer itself has very minimal current drawn (~23uA in measurement mode [5]).
 The system also implements a battery monitoring system unlike the other projects, which allows the user to know when the battery must be replaced. 
 The system also has a dedicated PCB with only the required components and not uncessary hardware, which also saves battery, unlike the other projects which use developement board.
 MOSFET Power gating servo motor is another feature which helps the system save battery, by effectively removing any current drawn by the servo when not required, this is not done for most other projects.
 ### 6.1.3 Flexibility
-While other projects do work, they are limited to the specific enviroment conditions they are designed for. To change sensitivity of the piezo, while it can be done via software it is very limited, for more sensitivity hardware changes are required, such as an amplification circuit. While for the KnockLock most settings are software based already, with possibility of even changing scale to make system less sensitive for when only heavy knocks to be detected, as the accelerometer can be communicated with using I^2^C. 
+While other projects do work, they are limited to the specific enviroment conditions they are designed for. To change sensitivity of the piezo, while it can be done via software it is very limited, for more sensitivity hardware changes are required, such as an amplification circuit. While for the Knock Lock most settings are software based already, with possibility of even changing scale to make system less sensitive for when only heavy knocks to be detected, as the accelerometer can be communicated with using I^2^C. 
 The system also implements certain features to allow for leniency, such as allowing a defined number of mistakes, to allow system to detect knock as correct even if the first few or last few knocks maybe incorrect. 
 ### 6.1.4 Multi-axis detection
-The projects seen in the literature review ([Section 2](#2-literature-review)) all had one limitation, they had omnidirectional sensing, i.e. the knock surface could only be parallel to the knocking sensor. However, in the KnockLock using an accelerometer the system has access to 3-axis (x,y,z) which allows system to reliably detect knocks regardless of the side of the enclosure the system is knocked. This makes the system also more versatile for implementing in different housing or orientations.
+The projects seen in the literature review ([Section 2](#2-literature-review)) all had one limitation, they had omnidirectional sensing, i.e. the knock surface could only be parallel to the knocking sensor. However, in the Knock Lock using an accelerometer the system has access to 3-axis (x,y,z) which allows system to reliably detect knocks regardless of the side of the enclosure the system is knocked. This makes the system also more versatile for implementing in different housing or orientations.
 
 ### 6.2 Product Limitations
 After extensive testing, some limitations of system were realized:
@@ -1551,18 +1533,18 @@ After extensive testing, some limitations of system were realized:
 - Recovery: No provision to recover the pattern if forgotten.
 
 ### 6.3 Product Significance
-The development of the KnockLock demonstrates a shift towards more intuitive and "invisisble" security interfaces. Using knocks instead of traditional locking systems such as NFC, RFID, Mechanical or Biometric systems offers some key advantages:
+The development of the Knock Lock demonstrates a shift towards more intuitive and "invisisble" security interfaces. Using knocks instead of traditional locking systems such as NFC, RFID, Mechanical or Biometric systems offers some key advantages:
 
-- Security: KnockLock provides an alternative entry method which does not require a physical key, which can be lost or stolen. Also by allowing anywhere from 5 to 30 knocks the possible permuations of knocks is approximately $\approx 2.14 \times 10^{32}$** (Calculation in [Appendix A](#appendix-A)).
+- Security: Knock Lock provides an alternative entry method which does not require a physical key, which can be lost or stolen. Also by allowing anywhere from 5 to 30 knocks the possible permuations of knocks is approximately $\approx 2.14 \times 10^{32}$** (Calculation in [Appendix A](#appendix-A)).
 - Versatility: To due the ability of detecting upto 0 Hz vibrations, the material versatility using an accelerometers is much higher.
 - Sustainability: The project highlights the viability of long-term battery powered IoT security solutions, by achieving such low deep sleep currents and use of such low power demanding sensor modules.
 - Privacy Protection: Due to the system only monitoring mechanical vibrations, it ensures users privacy which may be of concern if a biometric, camera or microphone system was implemented.
 <!--------------------------------------------------------------------------------------------------------------------->
 <!--------------------------------------------------------------------------------------------------------------------->
 ## 7	Conclusion
-The KnockLock project sucesfully demonstrates a more fun method of unlocking a door. It makes the process of opening door a more fun and intuitive process. It demonstrates this idea by implementation in a small box, however can be implemented even in an actual door with small changes if necessary to the acutation mechanism and perhaps a bit with the thresholds.
+The Knock Lock project sucesfully demonstrates a more fun method of unlocking a door. It makes the process of opening door a more fun and intuitive process. It demonstrates this idea by implementation in a small box, however can be implemented even in an actual door with small changes if necessary to the acutation mechanism and perhaps a bit with the thresholds.
 The project was able to meet most of its project requirements, except the IP31 rating, by achieving only IP21 rating. However this is mainly to do with the housing which can be improved with minor tweaks to hole sizes of the USB port and door size relative to the box. Use of Gaskets could improve this even past IP31 rating. Other than this all other functional and system requirements were met while also following all the project requirements in mind. Some additional features such as mistake allowance were also implemented succesfully.
-Ultimately the KnockLock has demonstrated a shift of analog dependent hardware to I^2^C based software defined system for a more power efficient, customisable and reliable system.
+Ultimately the Knock Lock has demonstrated a shift of analog dependent hardware to I2C based software defined system for a more power efficient, customisable and reliable system.
 ### 7.1 Future Improvements
 Doing this project, opened more aspects which can be worked on in future when reiterating the project. These include:
 - Rechargeability: Implementing a recharging circuit on the existing micro USB-B port and using rechargable batteries
@@ -1583,7 +1565,40 @@ Doing this project, opened more aspects which can be worked on in future when re
 * [9]: Espressif Systems. (2021). *ESP32-C3 Series* [Datasheet]. In Espressif. https://www.espressif.com/documentation/esp32-c3_datasheet_en.pdf
 
 ## 9	Appendices
-### Appendix A
+### Appendix A: Circuit Dimensioning Calculations and Formulae
+$$I_{in}=\frac{P_{in}}{V_{in}}=\frac{I_{out}\cdot V_{out}}{\eta \cdot V_{in}} = \frac{1A\cdot3.3V}{0.75\cdot 6V}=0.733A$$
+
+
+$$ V_{out} = \frac{R_2}{R_1 + R_2}\cdot V_{bat} $$
+
+$$ V_{bat} = \frac{readingInMillivolts}{1000}\cdot\frac{R_1+R_2}{R_2} $$
+
+$$ V_{bat} = \frac{readingInMillivots}{1000}\cdot 2.47 $$
+
+
+Vout is what is read by the microcontoller and hence can be used to calculate the voltage at the battery using the fixed resistor values.
+
+
+### Appendix B: Power Consumption Calculations
+$$ I_{avg} = \frac{I \cdot t}{24h \cdot 3600 \frac{s}{h}} $$
+Where $I$ is the current reading in mA and $t$ is the assumed time per day in s. 
+
+$$ P_{avg} = I_{avg} \cdot V_{avg} $$
+
+$$ T_{\text{Battery Life}} = \frac{C}{I_{avg, total} \cdot 24 \frac{h}{day} } $$
+Where $T_{\text{Battery Life}}$ in days, $C$ is the battery capacity in mAh and $I_{avg, total}$ is the total average current.  
+
+### Appendix C: 3D Printed Housing Price Estimate
+
+| Item                 | Infill [%] | Mass [g] | Material | Cost per g [€/g] | Cost [€]  |
+| -------------------- | ---------- | -------- | -------- | ---------------- | --------- |
+| Door + Battery Cover | 70         | 135.08   | PLA      | 0.025            | 3.38      |
+| Box Top              | 15         | 308.85   | PLA      | 0.025            | 7.72      |
+| Box Bottom           | 15         | 113.96   | PLA      | 0.025            | 2.85      |
+| **Total**            |            |          |          |                  | **13.95** |
+
+#### Appendix D: Knock Permutations Calculation
+
 Calculation of possible permutations with the following parameters:
 * **Minimum Knocks:** 5 (4 intervals)
 * **Maximum Knocks:** 30 (29 intervals)
@@ -1617,13 +1632,3 @@ Final Result
 Using the value of $13^{26} \approx 9.004 \times 10^{28}$:
 
 **Total Combinations $\approx 2.14 \times 10^{32}$**
-
-### Appendix B
-$$I_{in}=\frac{P_{in}}{V_{in}}=\frac{I_{out}\cdot V_{out}}{\eta \cdot V_{in}} = \frac{1A\cdot3.3V}{0.75\cdot5V}=0.88A$$
-
-| Item                 | Infill [%] | Mass [g] | Material | Cost per g [€/g] | Cost [€]  |
-| -------------------- | ---------- | -------- | -------- | ---------------- | --------- |
-| Door + Battery Cover | 70         | 135.08   | PLA      | 0.025            | 3.38      |
-| Box Top              | 15         | 308.85   | PLA      | 0.025            | 7.72      |
-| Box Bottom           | 15         | 113.96   | PLA      | 0.025            | 2.85      |
-| **Total**            |            |          |          |                  | **13.95** |
