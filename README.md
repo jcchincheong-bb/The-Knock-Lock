@@ -480,8 +480,8 @@ For easy code understanding and better readability, a modular approach was taken
 <div style="text-align: left" id="tab:sw-files">
 
 *Table X: Software Files Structure*
-| File Name (Header)    | Purpose                                                                                           |
-|------:                |---:                                                                                               |
+| File Name (Header)                | Purpose                                                                                           |
+|:------                            |:---                                                                                               |
 |   batteryMonitoring               | Functions to monitor battery                                                                      |
 |   config                          | File to store all setting constants, for easy editting of settings                                |
 |   globalVariables                 | File storing all global variables, also explanations of some other important non global variables |
@@ -1258,7 +1258,7 @@ As discussed in [Section 4.6](#46-housing-design), the model was made. However i
 
 *Table X: Housing issues and fixes*
 |Issue                                                  |Fix                                                                        |
-|--:                                                    |--:                                                                        |
+|:--                                                    |:--                                                                        |
 | Button hard to press                                  | Instead if bending button, use column to slide in and out                 |
 | Screw mounts to tall causing issues in button pressing| Add space in door to insert voltage regulator, get PCB close to door      |
 | Servo motor wire interfering                          | Add clearance for wires                                                   |
