@@ -5,6 +5,24 @@
   <figcaption align="center"><b>Figure 1:</b> Knock Lock Logo</figcaption>
 </figure>
 </div>
+
+<div id="pcb-blank"  align="center">
+  <figure>
+  <table border="0">
+    <tr>
+      <td><figure>
+        <img src="/resources/images/Unsoldered PCB.jpeg" height="200">
+        <figcaption align="center"><b>(a):</b> Front </figcaption>
+      </figure></td>
+      <td><figure>
+        <img src="/resources/images/Unsoldered PCB 2.jpeg" height="200">
+        <figcaption align="center"><b>(b):</b> Back </figcaption>
+      </figure></td>
+    </tr>
+  </table>
+  <figcaption align="center"><b>Figure 5.8:</b> Final PCB without Components</figcaption>
+  </figure>
+</div>
 ----------------------------------------------------->
 <!--
 STOP CHANGING THE STRUCTURE! IT'S GOOD NOW!!!
@@ -73,26 +91,26 @@ as follows:
   - Design and refinement of final prototype housing
 - Justin Julius Chin Cheong (34140): 
   - Component selection
-  - Design of programming interface and lock actuator circuits
+  - Design of power protection, programming interface and lock actuator circuits
   - Design and refinement of final PCB layout
   - Design of preliminary prototype housing
 - Both: 
   - Soldering and assembly
-  - Testing of components and system integration
-  - Testing of functionality
+  - Verification of components and system integration
+  - Validation of functionality and user acceptance
 
 With regard to writing of this report, the following illustrates the contributions of each team member:
 - Abhinav Kothari (33349): 
   - Chapter 2
-  - Chapter 4: 4.5, 4.6, 4.8
-  - Chapter 5: 5.5, 5.5
+  - Chapter 4: 4.5, 4.6
+  - Chapter 5: 5.4, 5.5, 5.6
   - Chapter 6
   - Chapter 7
 - Justin Julius Chin Cheong (34140): 
   - Chapter 1
   - Chapter 3
-  - Chapter 4: 4.1, 4.2, 4.3, 4.4, 4.7, 4.8
-  - Chapter 5: 5.1, 5.2, 5.3, 5.6
+  - Chapter 4: 4.1, 4.2, 4.3, 4.4, 4.7, 4.8, 4.9
+  - Chapter 5: 5.1, 5.2, 5.3, 5.7, 5.8, 5.9
 <!--------------------------------------------------------------------------------------------------------------------->
 <!--------------------------------------------------------------------------------------------------------------------->
 ## 2	Literature review
@@ -196,12 +214,12 @@ For Knock Knock Lock Box to be a satisfiable product, the following functional r
 
 For the Knock Knock Lock Box to operate and perform its functions, the following technical requirements must be implemented:
 
-- The sensor system can detect at knock amplitudes and output a measurable voltage reading to the MCU
-- There are provisions to protect the sensor and MCU from voltage spikes that might occur from the power supply
-- The MCU Software can detect at most 30 knocks with consecutive knocks being less than 2s apart and match the timings to the predefined knock pattern with a set tolerance of acceptance
+- The sensor system can detect at knock amplitudes and output a measurable voltage reading to the microcontroller
+- There are provisions to protect the sensor and microcontroller from voltage spikes that might occur from the power supply
+- The microcontroller Software can detect at most 30 knocks with consecutive knocks being less than 2s apart and match the timings to the predefined knock pattern with a set tolerance of acceptance
 - The power supply is a battery with a working voltage of 3.2V to 5.5V
 - The enclosure can protect the system within a typical indoor environment (IP 31)
-- The provision to set MCU to low power mode and wake it back up
+- The provision to set microcontroller to low power mode and wake it back up
 - Should function at temperatures ranging 0-40°C and humidity 10-90%
 
 #### 4.2.3 Project Requirements
@@ -241,7 +259,7 @@ The next layer after the [system architecture](#43-system-architecture) was defi
 The following sections discuss the design of the schematic as well as the specifications of the most important components for each sub-system. 
 
 #### 4.4.2 Sensor Sub-System
-The first of these sub-systems is the sensor sub-system is as shown in [Figure 4.3](#sensor-sch). 
+The first of the sub-systems is the sensor sub-system as shown in [Figure 4.3](#sensor-sch). 
 <div id="sensor-sch" align="center">
 <figure>
   <img src="/resources/images/sensor_sch.PNG" alt="sensor-sch" width="400">
@@ -249,9 +267,9 @@ The first of these sub-systems is the sensor sub-system is as shown in [Figure 4
 </figure>
 </div>
 
-As mentioned in the [Section 2 Literature Review](#2literature-review), most existing projects implemented a piezo element over an accelerometer or a vibration sensor to detect knocks. However, [Table 1](#PiezoVsAccelVsVibration) also revealed the potential efficacy of using an accelerometer instead of a piezo. Thus, to identify an appropriate sensor for the most accurate and reliable knock detection, a simple comparative experiment was conducted. A piezo disc (DAOKAI JA-DA-036 27mm) was tested against an accelerometer development module (JOY-IT SEN-MMA8452Q) which was readily available in the lab. Note the vibration sensor was excluded from this comparative testing as with its preliminary testing it was revealed that it has significant reliability issues. The sensor lacked the necessary sensitivity control, often oscillating between over-sensitivity (detecting ghost knocks) and under-sensitivity.
+As mentioned in the [Section 2 Literature Review](#2literature-review), most existing projects implemented a piezo element over an accelerometer or a vibration sensor to detect knocks. However, [Table 1](#PiezoVsAccelVsVibration) also revealed the potential efficacy of using an accelerometer instead of a piezo. Thus, to identify an appropriate sensor for the most accurate and reliable knock detection, a simple comparative experiment must be conducted. A piezo disc (DAOKAI JA-DA-036 27mm) is tested against an accelerometer development module (JOY-IT SEN-MMA8452Q) which was readily available in the lab. Note the vibration sensor is excluded from this comparative testing as with its preliminary testing it was revealed that it has significant reliability issues. The sensor lacked the necessary sensitivity control, often oscillating between over-sensitivity (detecting ghost knocks) and under-sensitivity.
 
-The sensors were tested in two different scenarios: a thin plastic lid and on a wooden chair as seen in Figures [4.4](#sensorTestPlastic) and [4.5](#sensorTestWood) respectively. This allowed for understanding how each sensor performed on materials of very different densities and stiffness's. In each test, the sensors were attached to surface and connected to an Arduino UNO for processing the output. Knocks were then applied to the other side of the material and the readings were recorded and compared.
+The sensors are tested in two different scenarios: a thin plastic lid and on a wooden chair as seen in Figures [4.4](#sensorTestPlastic) and [4.5](#sensorTestWood) respectively. This allowed for understanding how each sensor performed on materials of very different densities and stiffness's. In each test, the sensors are attached to the surface and connected to an Arduino UNO for processing the output. Knocks are then applied to the other side of the material and the readings are recorded and compared.
 <div id="sensorTestPlastic" align="center">
 <figure>
   <img src="/resources/images/testingSetupPlastic.png" alt="Testing setup 1 - Plastic" width="400">
@@ -266,9 +284,11 @@ The sensors were tested in two different scenarios: a thin plastic lid and on a 
 </figure>
 </div>
 
-The results of this comparative test can be found in [Section 5.2.1](#521-sensor-selection). The sensors were compared based on two criteria. 
+The sensors are compared based on two criteria. 
 1. Reliability of detecting knocks of different strengths in each setup
 2. Reliability of detecting knocks of different speeds in each setup
+
+The results of this comparative test are presented in [Section 5.2.1](#521-sensor-selection). 
 
 The general expectation was that both sensors would exhibit similar accuracies and since the piezo is significantly cheaper, the piezo would be the ideal sensor.
 
@@ -487,13 +507,13 @@ The results of this test are presented in [Section 5.1.2](#512-prototype-system)
 
 #### 4.7.3 Prototype Module Testing <!-- Testing different sections of circuitry to see if PCB layout is good -->
 Before the PCB could be designed and manufactured, some of the sub-systems were tested to ensure they could function as designed. The following briefly describes the tests conducted:
-- **Lock Actuator Sub-system**: To ensure the power cut off configuration works, the circuit as defined in [Figure 4.6](#lock-actuator-sch) was constructed on a breadboard using an ESP32-DevKitM-1, a BC547B NPN Transistor, an IRF4905 P-channel MOSFET, SER0050 servo motor and THT resistors. Only the decoupling capacitors were neglected as the development board provided stable power. Results of this test are presented in [Section 5.1.3](#513-lock-actuator-interface-test).
-- **Programming Interface Sub-system**: To ensure that the microcontroller can easily be programmed directly via the UART interface, an Arduino UNO board was used to program an ESP32-DevKitM-1. Like the ESP32C3, the ESP32MINI found on the ESP32-DevKitM-1 has a UART interface which it can supposedly be programmed via. The Arduino Uno board was essentially used just as a USB-to-UART bridge as the enable pin was connected to ground and the RX and TX pins were connected to the TX and RX pins of the ESP32-DevKitM-1 respectively. Results of this test are presented in [Section 5.1.4](#514-programming-interface-test). 
-- **HMI Sub-system**: To ensure the HMI, the circuit as defined in [Figure 4.9](#hmi-sch) was constructed on a breadboard. This test was essentially done as part of the prototype system test as described in [Section 4.7.2](#472-prototype-system-testing).
+- **Lock Actuator Sub-system**: To ensure the power cut off configuration works, the circuit as defined in [Figure 4.6](#lock-actuator-sch) is constructed on a breadboard using an ESP32-DevKitM-1, a BC547B NPN Transistor, an IRF4905 P-channel MOSFET, SER0050 servo motor and through-hole resistors. Only the decoupling capacitors are neglected as the development board provided stable power. Results of this test are presented in [Section 5.1.3](#513-lock-actuator-interface-test).
+- **Programming Interface Sub-system**: To ensure that the microcontroller can easily be programmed directly via the UART interface, an Arduino UNO board is used to program an ESP32-DevKitM-1. Like the ESP32C3, the ESP32MINI found on the ESP32-DevKitM-1 has a UART interface which it can supposedly be programmed via. The Arduino Uno board is essentially used as just a USB-to-UART bridge as the enable pin are connected to ground and the RX and TX pins are connected to the TX and RX pins of the ESP32-DevKitM-1 respectively. Results of this test are presented in [Section 5.1.4](#514-programming-interface-test). 
+- **HMI Sub-system**: To ensure the HMI, the circuit as defined in [Figure 4.9](#hmi-sch) is constructed on a breadboard. This test is essentially done as part of the prototype system test as described in [Section 4.7.2](#472-prototype-system-testing).
 
 ### 4.8 Post-Implementation Verification Methods <!-- How did we test after development?-->
 #### 4.8.1 PCB Module Testing <!-- Checking each sub-system on the PCB -->
-After the PCB has been assembled, each sub-system must be tested before the entire system integration is tested. For this reason, various test points are included within the schematic as seen in [Figure 4.2](#schematic) for each sub-system. The following describes what each test point is designed to check:
+After the PCB has been assembled, each sub-system must be tested before the entire system integration is tested. For this reason, various test points are included within the schematic as seen in [Figure 4.2](#schematic). The following describes what each test point is designed to check:
 - **Sensor Sub-system**: 
   - Test Point 5: the signal sent by the accelerometer's activity interrupt
   - Test Point 6: the supply voltage of the accelerometer
@@ -520,29 +540,50 @@ In addition to the test points, some test specifications were defined to test th
 - **Power Regulation Sub-system**: 
   - To test the functionality of this sub-system, the voltage at test point 4 relative to ground is be measured when the battery is connected. If this voltage is 3.3V, the sub-system is functional.
 
-#### 4.8.2 PCB System Integration Testing <!-- Checking function of the entire PCB -->
+#### 4.8.2 PCB System Integration Testing <!-- Checking if sub-systems integrating together as designed -->
 With certainty that the sub-systems are powered and functional, the integration between sub-systems can be tested. The following test specifications to test integration were defined:
 - **Reading Serial Data of the Sensor**: 
-  - To test the functionality and integration of controller, programming interface and sensor sub-systems, the MCU can be flashed with an example program to read the sensor data and print it in the serial monitor. The sub-systems are fully integrated if data appears in the serial monitor and is responsive when the PCB is moved around.
+  - To test the functionality and integration of controller, programming interface and sensor sub-systems, the MCU is flashed with an example program to read the sensor data and print it in the serial monitor. The sub-systems are fully integrated if data appears in the serial monitor and is responsive when the PCB is moved around.
 - **Programming the MCU to Blink and Beep**: 
-  - To test the functionality and integration of controller, programming interface and HMI sub-systems, the MCU can be flashed with an example blink program and example beep program from Arduino IDE (with pins adjusted accordingly). The sub-systems are fully integrated if each LED blinks and the buzzer beeps when programmed to.
+  - To test the functionality and integration of controller, programming interface and HMI sub-systems, the MCU is flashed with an example blink program and example beep program from Arduino IDE (with pins adjusted accordingly). The sub-systems are fully integrated if each LED blinks and the buzzer beeps when programmed to.
 - **Programming the MCU to Turn on and Cut Lock Actuator Power**: 
-  - To test the functionality and integration of controller, programming interface and lock actuator interface sub-systems, the MCU can be flashed with a basic program that brings the IO0 high and measuring the voltage across pins 2 and 3 of the servo connector (J5).  The sub-systems are fully integrated if the voltage is high when IO0 is high.
+  - To test the functionality and integration of controller, programming interface and lock actuator interface sub-systems, the MCU is flashed with a basic program that brings the IO0 high and the voltage across pins 2 and 3 of the servo connector (J5) is measured.  The sub-systems are fully integrated if the voltage is high when IO0 is high.
 
-Finally, the integration of the complete system must be tested against the requirements outlined in [Section 4.2](#42-system-requirements). The following is the test specifications defined:
+It should also be noted that all of these tests also verify the integration of the power regulation sub-system as it provides power to all other sub-systems and they would not function without it. 
+
+The results of these tests are presented in [Section 5.8.2](#582-system-integration-performance).
+
+#### 4.8.3 Complete Product Verification <!-- Checking function of the entire PCB -->
+Finally, the integration of the complete system must be tested against the requirements outlined in [Section 4.2](#42-system-requirements). 
+
+The setup for this test is defined as follows:
 - The MCU is flashed with a the program developed in [Section 5.5](#55-software-implementation).
-- The corner of the PCB is tapped to simulate a pre-defined knock pattern. 
+- The PCB is placed on piece of material which is knocked. 
+- The USB-to-UART programmer is connected to the RX and TX pins of the PCB so that the serial monitor can be used for debugging
+- The MCU is connected to the battery for power
 
+The criteria for the test being successful are:
+1. The yellow LED is illuminated when the system is in locked state.
+2. The servo motor rotates to unlocked position when the correct pre-defined knock pattern is applied in locked state.
+3. The green led is illuminated and the buzzer plays the unlocked sound when the correct pre-defined knock pattern is applied in locked state.
+4. The red led is illuminated and the buzzer plays the false pattern sound when the correct pre-defined knock pattern is applied in locked state.
+5. The green LED is illuminated when the system is in unlocked state.
+6. The system enters programming mode and records knocks when the button is pressed in unlocked state. 
+7. The system alerts th user that it has entered programming mode when the button is pressed in unlocked state. 
+8. The red led is illuminated and the buzzer plays the false pattern sound when the button is pressed in locked state. 
+9. The system changes to unlocked state when the pattern defined in programming mode is applied in locked state.
+10. The servo motor rotates to locked position when two knocks are applied in unlocked state. 
+11. The system goes into sleep state after 60 seconds of inactivity when in locked state.
 
+Once the PCB is verified, these same test specifications can also be used to verify the fully assembled product when the PCB is connected to the housing designed in [Section 4.6](#46-housing-design). 
 
-#### 4.8.3 Power Consumption  <!-- Checking power consumption in active and sleep modes -->
-Once the general functionality of the system has been verified, another important characteristic of the system must be investigated: the power consumption. To determine the amount of power consumed by the system and estimate the battery life of the system, the current drawn by the system must be measured. To do this, an ammeter can be connected in series with the power supply and the battery terminal. The system can then be tested in different modes and functions so that the current measurements in all cases can be taken. The results of this test are presented in [Section 5.8.3](#583-power-consumption).
+The results of these tests are presented in [Section 5.8.3](#583-complete-product-performance).
+
+#### 4.8.4 Power Consumption  <!-- Checking power consumption in active and sleep modes -->
+Once the general functionality of the system has been verified, another important characteristic of the system must be investigated: the power consumption. To determine the amount of power consumed by the system and estimate the battery life of the system, the current drawn by the system is measured. To do this, an ammeter is connected in series with the power supply and the battery terminal. The system is tested in different modes and functions so that the current measurements in all cases can be taken. The results of this test are presented in [Section 5.8.3](#583-power-consumption).
 
 ### 4.9 Validation Methods  <!-- Are we making the right product? -->
-#### 4.9.1 Complete Product Testing <!-- How can we test the product in the right environment -->
-
-
-#### 4.9.2 User Acceptance Testing  <!-- Presenting prototype to potential users -->
+#### 4.9.1 User Acceptance Testing  <!-- Presenting prototype to potential users -->
 Over the course of a week, 10 people were surveyed using convenience sampling. Each person was shown the final prototype and asked four questions:
 1. What would you rate this product out of ten?
 2. What is one feature you especially liked about the product?
@@ -612,6 +653,7 @@ While the tests were conducted with a MMA8452Q by Sparksfun Electronics, the fin
 Aside from the sensors, all components were chosen based on the specifications outlined in [Section 4.4.8](#448-component-specifications) in [Table X](#tab:specs). The complete list of all materials used is shown in [Section 5.7](#57-bill-of-materials). Any modifications to the components selected or designed in [Section 4](#4methodology-and-design) is explained in following sections. 
 
 ### 5.3 PCB Design <!-- PCB layout, issues and changes to schematic -->
+#### 5.3.1 PCB Version 1
 With components selected and the system prototype verified, the layout of the PCB could be designed. The first version of the PCB layout is shown in [Figure 5.5](#pcb-v1). In creating the design, a few important things were considered as follows:
 - The voltage regulator was placed far away from the MCU to prevent the switching magnetic field from interfering with the processing.
 - The track width for power (0.7mm) was significantly larger than that of signals (0.2mm) to ensure power tracks have lower resistance and can carry sufficient current.
@@ -632,7 +674,8 @@ While this design passes the design rule check in KiCAD, it has a number of issu
 - 0.2mm track width is difficult to manufacture
 - Vias with 0.6mm diameter and 0.3mm hole diameter are too small to be manufactured by AISLER
 
-Thus, considering these issues a second design was done as shown in [Figure 5.6](#pcb-v2). In this design, the MCU was shifted to the edge of the PCB and a copper keep-out zone was defined beneath the antenna. The track width and vias diameter were increased to 0.7mm and 0.8mm (with 0.4mm hole diameter) respectively. Additionally, under the advice of Professor Andy Stamm, all of the resistors and ceramic capacitors were changed to SMT components instead of THT. The idea behind this switch was that since the accelerometer and MCU required reflow soldering regardless, it would be more efficient to also solder these components in the reflow oven in the same session.
+#### 5.3.2 PCB Version 2
+Thus, considering these issues a second design was done as shown in [Figure 5.6](#pcb-v2). In this design, the MCU was shifted to the edge of the PCB and a copper keep-out zone was defined beneath the antenna. The track width and vias diameter were increased to 0.7mm and 0.8mm (with 0.4mm hole diameter) respectively. Additionally, under the advice of Professor Andy Stamm, all of the resistors and ceramic capacitors were changed to surface mount technology (SMT) components instead of through-hole technology (THT) components. The idea behind this switch was that since the accelerometer and MCU required reflow soldering regardless, it would be more efficient to also solder these components in the reflow oven in the same session.
 <div id="pcb-v2" align="center">
 <figure>
   <img src="/resources/images/pcb-layout_V2.PNG" alt="pcb-v2" width="400">
@@ -657,7 +700,7 @@ One issue encountered in the formation of this layout was the routing to the mic
 | Green LED                 | 18          | 15                |
 </div>
 
-
+#### 5.3.3 PCB Version 3
 Finally, the third and final design shown in [Figure 5.7](#pcb-v3) involved some refinement such changing the battery and servo connectors, adding vias for thermal relief, adding mounting holes and adding a [logo](#logo) in the silkscreen. The change in connectors was to facilitate the use of simple JST pin headers which were available in the lab.
 <div id="pcb-v3" align="center">
 <figure>
@@ -667,51 +710,54 @@ Finally, the third and final design shown in [Figure 5.7](#pcb-v3) involved some
 </div>
 
 ### 5.4 PCB Assembly <!-- Final and issues encountered in assembly or after testing-->
+#### 5.4.1 Assembly Process
 After the PCB layout was finalised, the design was sent to AISLER for manufacturing. The final PCB without any components can be seen in [Figure ](#pcb-blank) 
 <div id="pcb-blank"  align="center">
   <figure>
   <table border="0">
     <tr>
       <td><figure>
-        <img src="/resources/images/Unsoldered PCB.jpeg" height="200">
+        <img src="/resources/images/Unsoldered PCB.jpeg" height="300">
         <figcaption align="center"><b>(a):</b> Front </figcaption>
       </figure></td>
       <td><figure>
-        <img src="/resources/images/Unsoldered PCB 2.jpeg" height="200">
+        <img src="/resources/images/Unsoldered PCB 2.jpeg" height="300">
         <figcaption align="center"><b>(b):</b> Back </figcaption>
       </figure></td>
     </tr>
   </table>
-  <figcaption align="center"><b>Figure 5.8:</b> Final Unsoldered PCB </figcaption>
+  <figcaption align="center"><b>Figure 5.8:</b> Final PCB without Components</figcaption>
   </figure>
 </div>
-<!-- <div id="pcb-blank" align="center">
-<figure>
-  <img src="/resources/images/Unsoldered PCB 2.jpeg" alt="pcb-blank" width="400">
-  <figcaption align="center"><b>Figure 5.8:</b> Final Unsoldered </figcaption>
-</figure>
-</div> -->
 
-<div id="pcb-front" align="center">
-<figure>
-  <img src="/resources/images/pcb_front.jpg" alt="pcb-front" width="400">
-  <figcaption align="center"><b>Figure 5.9</b> Final PCB (front) </figcaption>
-</figure>
+Due to the large number of SMT Components, especially the ADXl345 being an LGA (Land Gate Array package), i.e. pads underneath, reflow oven was used to solder those components after placing the components with a pick and place machine. The solder paste was applied manually for each pad with a pneumatic solder paste dispenser. The THT components were later soldered using manual hand soldering.
+
+The fully assembled PCB is shown in [Figure 5.9](#pcb-final).
+
+<div id="pcb-final"  align="center">
+  <figure>
+  <table border="0">
+    <tr>
+      <td><figure>
+        <img src="/resources/images/pcb_front.jpg" alt="pcb-front" height="300">
+        <figcaption align="center"><b>(a):</b> Front </figcaption>
+      </figure></td>
+      <td><figure>
+        <img src="/resources/images/pcb_back.jpg" alt="pcb-back" height="300">
+        <figcaption align="center"><b>(b):</b> Back </figcaption>
+      </figure></td>
+    </tr>
+  </table>
+  <figcaption align="center"><b>Figure 5.9:</b> Final PCB with Components</figcaption>
+  </figure>
 </div>
 
-<div id="pcb-back" align="center">
-<figure>
-  <img src="/resources/images/pcb_back.jpg" alt="pcb-back" width="400">
-  <figcaption align="center"><b>Figure 5.10:</b> Final PCB (back) </figcaption>
-</figure>
-</div>
+#### 5.4.2 Assembly Issues
+Due to the extremely small size of the pads of the ADXL345 pads and ESP32-C3, placing solder paste took many attempts. Only after tweaking the pressure and the nozzle diameter of the dispenser was it possible to place adequate quantities without overfilling the pad. For components such as these, it might be a better approach in future to use a stencil, however for only producing one PCB, the cost of a stencil was not justified and hence the approach avoided. 
 
-Due to the large number of SMD (Surface Mount Devices) Components, as well as because of ADXl345 being an LGA (Land Gate Array package), i.e. pads underneath, reflow oven was used to solder those components after placing the components using a pick and place. The solder paste was applied manually for each pad. The THT (Through Hole Technology) were later soldered using manual hand soldering.
+Moreover, even though having a large GND plane allowed for better heat dissipation and a better PCB, it made soldering THT components harder as well. Much more heat was required to be able to solder the components reliability. 
 
-Due to the extremely small size of the pads of the ADXL345 pads and ESP32-C3, placing solder paste took many attempts. Only after tweaking the pressure and the nozzle diameter for the solder paste dispensor was it possible to place it in adequate quantities without it reaching out of the pad. For components such as these, it might be a better approach in future to use a stencil, however for only producing one PCB, the cost were not justified and hence the approach avoided. 
-Moreover, even though having a large GND plane allowed for better heat dissipation and a better PCB, it made soldering THT components harder as well. Much more heat was required to be able to solder the components reliabily. 
-
-Most issues with soldering were sorted right after soldering, due to the verification process being right after. However the one was missed. Later it was discovered the servo was not functioning reliably. After using an oscilloscope to see its response, it was found out that the GND pin of the servo was connected, however not well which cause breakage at sometimes and hence the response was sometimes missed or delayed. This was fixed by soldering it again.
+Most faults in the soldering were corrected immediately after soldering, due to the continuous [verification process](#48-post-implementation-verification-methods). However one fault was missed. Later during [product validation testing](#491-complete-product-testing), it was discovered the servo was not functioning reliably. After using an oscilloscope to see its response, it was found out that the GND pin of the servo connector was connected, however solder joint was unstable leading to momentary breakage and hence the response was sometimes missed or delayed. This was fixed by soldering it again.
 
 ### 5.5 Software Implementation <!-- Final code and issues after testing and how they were solved-->
 As discussed in [Section 4.5](#45-software-design) a modular approach was used. The main startup code is in the file KnockLock.ino. 
@@ -1035,8 +1081,8 @@ All of the functions above user some helper function to make the code more modul
 
 ### 5.6 Housing Prototype <!-- Whatever modifications we made -->
 
-### 5.7 Bill of Materials
-
+### 5.7 Bill of Materials <!-- Full list of materials used -->
+The complete list of all electrical materials used to assemble the product is shown in [Table X](#tab:BOM-E). 
 <div id="tab:BOM-E">
 
 *Table X: Electrical Bill of Materials*
@@ -1078,6 +1124,9 @@ All of the functions above user some helper function to make the code more modul
 | **Total** |                           |     |                                 |                         |                       |        |              | **26.61** |
 </div>
 
+[Table X](#tab:BOM-E) shows that the costs of all the electrical components excluding the PCB sum up to €26.61. This a budget overun of €1.61, but that is within the tolerance of acceptance for the project team. Costs could have potentially been reduced by using a cheaper micro controller, sensor or lock actuator, however these components were selected for significant reasons as explained in previous sections. 
+
+The complete list of all mechancial materials used to assemble the product is shown in [Table X](#tab:BOM-M). 
 <div id="tab:BOM-M">
 
 *Table X: Mechanical Bill of Materials*
@@ -1092,14 +1141,62 @@ All of the functions above user some helper function to make the code more modul
 | **Total**   |     |                     |              | **15.22** |
 </div>
 
+[Table X](#tab:BOM-E) shows that the costs of all the mechanical components sum up to €15.22. The main contributor to this cost is evidently the 3D printed housing. The calculations for the cost estimate of the 3D printed housing can be found in Appendix X.
+
+Summing the total electrical costs (€26.61), mecahnical costs (€15.22) and cost of the PCB (€7.24) the total cost of the project came up to be **€49.07**. While these costs are quite high, this is just a first version of the product and if further iterations are made costs could be reduced especially if cheaper components that still meet specifications are chosen. These costs also do not account for the cost of labour for the assembly process, however those considerations are beyond the scope of this project. 
+
 ### 5.8 Post-Implementation Verification Results 
 #### 5.8.1 Module Performace  <!-- How is each circuit performing? -->
-#### 5.8.2 System Integration Performance <!-- How is the entire system performing -->
-#### 5.8.3 Power Consumption <!-- How much power is being consumed? -->
+
+#### 5.8.2 System Integration Performance <!-- How are the integrations performing? -->
+
+<div id="programming-mcu" align="center">
+<figure>
+  <img src="/resources/images/programming.jpg" alt="programming-mcu" width="400">
+  <figcaption align="center"><b>Figure X:</b> Using External USB-to-UART Programmer to Program the ESP32 on the PCB </figcaption>
+</figure>
+</div>
+
+#### 5.8.3 Complete Product Performance <!-- How is the complete product performing?-->
+
+
+#### 5.8.4 Power Consumption <!-- How much power is being consumed? -->
+With the system fully functional, the investigation of the power consumption was conducted as described in [Section 4.8.3](#483-power-consumption). The experimental setup used is shown in [Figure X](#current-consumption).
+<div id="current-consumption" align="center">
+<figure>
+  <img src="/resources/images/power-consumption-verification.jpg" alt="current-consumption" width="400">
+  <figcaption align="center"><b>Figure X:</b>  </figcaption>
+</figure>
+</div>
+
+The results of the current measurements are shown in [Table X](tab:current-readings). It can be clearly seen that the while the system is active the current consumption is quite high in both unlocked and locked states. When the system was switched to programming mode from unlocked mode, the current reading did not change. The deep sleep of the microcontroller reduces the current consumption drastically, however, 5.32mA is still not an insignificant current draw. It should also be noted that the "Start-up" mode is when the PCB is initially connected to power. This mode has a lower current draw because the PWM signal for the servo is not being sent to the servo as yet. However, once the box is unlocked for the first time the servo is constantly getting the PWM signal and hence the current draw increases.
+
+<div id="tab:current-readings">
+
+*Table X: Current Readings in Different Modes*
+| Mode                 | Current [mA]         | Assumed Time per Day [s] | Average Current [mA] |
+| -------------------- | -------------------- | ------------------------ | -------------------- |
+| Idle (upon Start-up) | 36.3                 | 0                        | 0.00                 |
+| Unlocked             | 42.85                | 600                      | 0.30                 |
+| Locked               | 47.5                 | 350                      | 0.19                 |
+| Programming Mode     | 42.85                | 60                       | 0.03                 |
+| Sleep                | 5.32                 | 85390                    | 5.26                 |
+</div>
+
+To estimate the power usage, the average current consumption must be estimated. For a general case scenario, it can be assumed that a person may unlock and lock the box around 5 times in a given day and reprogram the box 1 time in a day. The box may be in locked mode for around 70s; 10s after wake up to unlock and 60s after re-locking to go into sleep mode. It may be in unlocked state for around 120s as the person could be deciding what to put in the box. Finally, programming may take around 60s. The remaining time in the day, the box would be in sleep mode. To calculate average current, the following formula is used:
+
+$$ I_{avg} = \frac{I*t}{24h * 3600 \frac{s}{h}} $$
+Where $I$ is the current reading in mA and $t$ is the assumed time per day in s. 
+
+With all of these assumptions, the total average current was estimated to be around **5.78mA**. With an average battery voltage of 6V, this results in an estimated power consumption of **34.67mW**.
+
+With this average current consumption, the battery life of the box was estimated to be around **18.03 days** assuming the AA batteries have a capacity of 2500mAh. The formula used for the battery life estimation is:
+
+$$ T_{\text{Battery Life}} = \frac{C}{I_{avg, total} \cdot 24 \frac{h}{day} } $$
+Where $T_{\text{Battery Life}}$ in days, $C$ is the battery capacity in mAh and $I_{avg, total}$ is the total average current.  
 
 ### 5.9 Validation Results 
-#### 5.9.1 Product Performance <!-- How well does the system perform when completely assembled? -->
-#### 5.9.2 User Feedback <!-- what did people think? -->
+#### 5.9.1 User Feedback <!-- what did people think? -->
 <!--------------------------------------------------------------------------------------------------------------------->
 <!--------------------------------------------------------------------------------------------------------------------->
 ## 6	Discussion
@@ -1136,3 +1233,11 @@ Doing this project, opened more aspects which can be worked on in future when re
 
 ## 9	Appendices
 
+$$I_{in}=\frac{P_{in}}{V_{in}}=\frac{I_{out}\cdot V_{out}}{\eta \cdot V_{in}} = \frac{1A\cdot3.3V}{0.75\cdot5V}=0.88A$$
+
+| Item                 | Infill [%] | Mass [g] | Material | Cost per g [€/g] | Cost [€]  |
+| -------------------- | ---------- | -------- | -------- | ---------------- | --------- |
+| Door + Battery Cover | 70         | 135.08   | PLA      | 0.025            | 3.38      |
+| Box Top              | 15         | 308.85   | PLA      | 0.025            | 7.72      |
+| Box Bottom           | 15         | 113.96   | PLA      | 0.025            | 2.85      |
+| **Total**            |            |          |          |                  | **13.95** |
