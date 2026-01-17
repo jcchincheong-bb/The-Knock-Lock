@@ -1451,14 +1451,14 @@ With the setup shown in [Figure X](#full-pcb-testing), the system was able to su
 
 Verification in the vertical orientation as shown in [Figure X](#full-pcb-testing-vert) was successfull in all criteria, more so than before. Thus, the PCB was installed into the housing as shown in [Figure X](#final-product) and the tests were performed again. In this case, the reliability of knock detection became an apparent issue once again as knocks were only registered when applied a to the lower part of the door, near the position of the accelerometer on the PCB. Thus, the knock detection method in the software was altered once again to use the activity interrupt of the ADXL345. This gives the final version of the software presented in [Section 5.5.2](#552-knock-detection).
 
-With this final version of the software, the product performed signficantly better within the housing, easily succeeding in all success criteria. As such, this version was taken as the final product for this project and development as ceased. A showcase of the performance of the final product can be seen in [Figure X](#product-showcase).
+With this final version of the software, the product performed signficantly better within the housing, easily succeeding in all success criteria. As such, this version was taken as the final product for this project and development as ceased. A showcase of the performance of the final product can be seen in [Figure X](#product-showcase), just click on the image to open the video. 
 
 <div id="product-showcase" align="center">
 <figure>
   <a href="https://youtu.be/qGrgIr3oHPE">
   <img src="/resources/images/full-prototype_closed.jpg" alt="product-showcase" width="400">
   </a>
-  <figcaption align="center"><b>Figure X:</b> Showcase of Complete Product</figcaption>
+  <figcaption align="center"><b>Figure X:</b> Showcase of Complete Product (click image to open video)</figcaption>
 </figure>
 </div>
 
