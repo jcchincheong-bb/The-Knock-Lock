@@ -458,12 +458,21 @@ Based on the circuit design and requirements, the specifications of the main com
 The following flowchart shows the overall logic of the program:
 <div id="sw-flow" align="center">
 <figure>
-  <img src="/resources/images/FlowchartOfMainSystem.png" alt="sw-flow" width="400">
-  <figcaption align="center"><b>Figure X:</b> Programming Flowchart of Entire System</figcaption>
+  <img src="/resources/images/MainFlowchart.png" alt="sw-flow" width="400">
+  <figcaption align="center"><b>Figure X:</b> Programming Flowchart of Main System</figcaption>
 </figure>
 </div>
 
-The flowchart in [Figure X](#sw-flow) shows, how the system must work, spikes denote knocks detected. The system starts in locked state, where it continously listens for knocks, unless its asleep, and records them. Interrupts will be used to wake the system up from sleep for again starting to read knocks. Once the knocks are recorded, they are checked against the target pattern, if they match, the system unlocks, else it stays locked. If the box is unlocked and the programming button is pressed, the system enters programming mode, where it records knocks to save a new pattern. Once the pattern is recorded, it is saved to NVS memory and the system goes back to idle mode. Knocking twice locks the box again. LEDs and Buzzer are used to give feedback to the user.
+The flowchart in [Figure X](#sw-flow) shows, how the system must work. The system starts in locked state, where it continously listens for knocks, unless its asleep, and records them. Once the knocks are recorded, they are checked against the target pattern, if they match, the system unlocks, else it stays locked. Knocking twice locks the box again. LEDs and Buzzer are used to give feedback to the user throughout the system flow.
+
+Interrupts will be used to wake the system up from sleep for again starting to read knocks as shown in [Figure X](#sw-flow-isr). If the box is unlocked and the programming button is pressed, the system enters programming mode, where it records knocks to save a new pattern. Once the pattern is recorded, it is saved to NVS memory and the system goes back to main system as shown in [Figure X](#sw-flow-isr).
+
+<div id="sw-flow-isr" align="center">
+<figure>
+  <img src="/resources/images/MainFlowchart.png" alt="sw-flow" width="400">
+  <figcaption align="center"><b>Figure X:</b> Programming Flowchart of Interrupt Service Routines (ISRs)</figcaption>
+</figure>
+</div>
 
 #### 4.5.2 Code Structure
 For easy code understanding and better readability, a modular approach was taken. Splitting the code in different cpp files depending on the type of function. A config.h file also was created to storing all customisability settings. This file had only settings constants and no code or variables to prevent confusion for a user, and make it less error prone. The files structure to be followed is listed in [Table X](#tab:sw-files).
@@ -505,6 +514,24 @@ The final code implementation can be seen in [Section 5.5](#55-software-implemen
     </tr>
   </table>
   <figcaption align="center"><b>Figure 4.4:</b>Preliminary 3D Model of Housing</figcaption>
+  </figure>
+</div>
+
+<div id="housing-model"  align="center">
+  <figure>
+  <table border="0">
+    <tr>
+      <td><figure>
+        <img src="/resources/images/firstHousingConcept.PNG" loading ="lazy" alt="first-housing-isometric-view" height="300">
+        <figcaption align="center"><b>(a):</b> First Housing Model Isometric View </figcaption>
+      </figure></td>
+      <td><figure>
+        <img src="/resources/images/firstHousingConcept_MountView.PNG" loading ="lazy" alt="pcb-mounts-topview" height="300">
+        <figcaption align="center"><b>(b):</b> First Housing Model Open View </figcaption>
+      </figure></td>
+    </tr>
+  </table>
+  <figcaption align="center"><b>Figure 5.8:</b> Final PCB without Components</figcaption>
   </figure>
 </div>
 
@@ -1260,6 +1287,8 @@ With all fixes implemented the final housing model can be seen in [Figure X](#ho
   <figcaption align="center"><b>Figure X:</b> Final 3D Model of Housing</figcaption>
   </figure>
 </div>
+
+
 
 This was model was then 3D printed using PLA (0.2mm Nozzle) to get the final product as seen in [Figure X](#final-product). The following settings were implemented for printing:
 
