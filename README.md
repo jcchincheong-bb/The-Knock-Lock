@@ -669,12 +669,21 @@ Finally, the third and final design shown in [Figure 5.7](#pcb-v3) involved some
 ### 5.4 PCB Assembly <!-- Final and issues encountered in assembly or after testing-->
 After the PCB layout was finalised, the design was sent to AISLER for manufacturing. The final PCB without any components can be seen in [Figure ](#pcb-blank) 
 <div id="pcb-blank">
+  <figure>
   <table>
     <tr>
-      <td><img src="/resources/images/Unsoldered PCB.jpeg" width="300"></td>
-      <td><img src="/resources/images/Unsoldered PCB 2.jpeg" width="300"></td>
+      <td><figure>
+        <img src="/resources/images/Unsoldered PCB.jpeg" width="300">
+        <figcaption align="center"><b>(a):</b> Front </figcaption>
+      </figure></td>
+      <td><figure>
+        <img src="/resources/images/Unsoldered PCB 2.jpeg" width="300">
+        <figcaption align="center"><b>(b):</b> Back </figcaption>
+      </figure></td>
     </tr>
   </table>
+  <figcaption align="center"><b>Figure 5.8:</b> Final Unsoldered PCB </figcaption>
+  </figure>
 </div>
 <!-- <div id="pcb-blank" align="center">
 <figure>
