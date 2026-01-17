@@ -1455,7 +1455,9 @@ With this final version of the software, the product performed signficantly bett
 
 <div id="product-showcase" align="center">
 <figure>
-  <iframe width="560" height="315" src="https://youtu.be/qGrgIr3oHPE" frameborder="0" allowfullscreen></iframe>
+  <a href="https://youtu.be/qGrgIr3oHPE">
+  <img src="/resources/images/full-prototype_closed.jpg" alt="product-showcase" width="400">
+  </a>
   <figcaption align="center"><b>Figure X:</b> Showcase of Complete Product</figcaption>
 </figure>
 </div>
