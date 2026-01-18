@@ -141,7 +141,7 @@ as follows:
 With regard to writing of this report, the following illustrates the contributions of each team member:
 - Abhinav Kothari (33349): 
   - Chapter 2
-  - Chapter 4: 4.5, 4.6
+  - Chapter 4: 4.2, 4.5, 4.6
   - Chapter 5: 5.4, 5.5, 5.6, 5.9
   - Chapter 6
   - Chapter 7
@@ -581,11 +581,12 @@ The final code implementation can be seen in [Section 5.5](#55-software-implemen
 ### 4.6 Housing Design <!-- design for housing -->
 
 <div id="housing-model"  align="center">
+<center>
   <figure>
   <table border="0">
     <tr>
       <td><figure>
-        <img src="/resources/images/firstHousingConcept.PNG" height="300">
+        <img src="/resources/images/firstHousingConcept.PNG" height="100">
         <figcaption align="center"><b>(a):</b> Closed </figcaption>
       </figure></td>
       <td><figure>
@@ -596,6 +597,7 @@ The final code implementation can be seen in [Section 5.5](#55-software-implemen
   </table>
   <figcaption align="center"><b>Figure 4.13:</b>Preliminary 3D Model of Housing</figcaption>
   </figure>
+  </center>
 </div>
 
 For demonstration purposes, a box was modeled. The door must mount the PCB, this way the knocks can be reliably detected when door (typically primary place for knocking) is knocked. Many screw pillars have been used for a more firm housing and preventing the PCB from vibrating on its own by making it more rigidly connected with the door. An indent was made in the door to sit the servo motor, and a groove in the housing to slot in the servo to lock the box as shown in [Figure 4.13](#housing-model). Hole have been created in the door to show the LEDs for status of the box and holes on top of the buzzer to allow for better audibility.
