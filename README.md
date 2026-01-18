@@ -29,7 +29,7 @@ STOP CHANGING THE STRUCTURE! IT'S GOOD NOW!!!
 -->
 # Knock Lock
 
-<div id="logo"  align="center">
+<!-- <div id="logo"  align="center">
   <figure>
   <table border="0">
     <tr>
@@ -37,26 +37,49 @@ STOP CHANGING THE STRUCTURE! IT'S GOOD NOW!!!
         <img src="/resources/Logo/Logo.png" height="400">
       </figure></td>
       <td><figure>
-        <img src="/resources/images/hsrw.png" height="400">
+        <img src="/resources/images/hsrw.png" height="300">
       </figure></td>
     </tr>
   </table>
   </figure>
-</div>
+</div> -->
 <!-- <div id="logo" align="center">
 <figure>
   <img src="/resources/Logo/Logo.png" alt="Logo" width="400">
 </figure>
 </div> -->
 
-by: [Abhinav Kothari](https://www.linkedin.com/in/abhinav-kothari-2ak/) (33349) and [Justin Chin Cheong](https://jcchincheong-bb.github.io/) (34140)
 
+<div id="header" align="center">
+  <figure>
+    <table border="0">
+      <tr>
+        <td style="text-align: left; vertical-align: middle; padding-right: 20px;">
+          <p>
+            by:
+            <a href="https://www.linkedin.com/in/abhinav-kothari-2ak/">Abhinav Kothari</a> (33349)
+            and
+            <a href="https://jcchincheong-bb.github.io/">Justin Chin Cheong</a> (34140)
+          </p>
+          <p><strong>Faculty of Technology and Bionics</strong></p>
+          <p><em><strong>Rhine-Waal University of Applied Sciences</strong></em></p>
+          <p>Date: 18 January 2022</p>
+        </td>
+        <td style="vertical-align: middle;">
+          <img src="/resources/images/hsrw.png" height="200" alt="HSRW Logo">
+        </td>
+      </tr>
+    </table>
+  </figure>
+</div>
 
-**Faculty of Technology and Bionics**
+<!-- by: [Abhinav Kothari](https://www.linkedin.com/in/abhinav-kothari-2ak/) (33349) and [Justin Chin Cheong](https://jcchincheong-bb.github.io/) (34140) -->
 
-***Rhine-Waal University of Applied Sciences***
+<!-- **Faculty of Technology and Bionics** -->
 
-Date: 18 January 2022
+<!-- ***Rhine-Waal University of Applied Sciences*** -->
+
+<!-- Date: 18 January 2022  -->
 
 ----
 
@@ -75,7 +98,7 @@ The results confirm the feasibility of accelerometer-based knock recognition for
 <!--------------------------------------------------------------------------------------------------------------------->
 ## 1 Introduction 
 ### 1.1 Rationale
-As children, many of us might have invented secrete knocks that we used to identify ourselves to our friends or siblings. But, what if those special codes could actually unlock the door itself? As adults, how many times have you forgotten your keys and wished you could just knock in a certain way and the door would unlock for you? 
+As children, many of us might have invented secret knocks that we used to identify ourselves to our friends or siblings. But, what if those special codes could actually unlock the door itself? As adults, how many times have you forgotten your keys and wished you could just knock in a certain way and the door would unlock for you? 
 
 There are many different types of security systems on the market that use systems varying from combinations to NFC, but there are no commercial products of this kind that unlocks by recognising a specific knocking pattern. As such, the aim of The Knock Lock project is to design and assemble a system that unlocks a door by recognising a specific knocking pattern. As a proof of concept, the system will be designed as a small lock box as shown in [Figure 1.1](#preliminary-sketch) with the hope of extending the idea to work on a full door in the future.
 
@@ -331,7 +354,7 @@ The sensors are compared based on two criteria.
 
 The results of this comparative test and the final sensor decision are presented in [Section 5.2.1](#521-sensor-selection). 
 
-The general expectation was that both sensors would exhibit similar accuracies, with accelerometer being only slightly better when it came to detection through a thicker surface, and since the piezo is significantly cheaper, the piezo would be the ideal sensor.
+The general expectation was that both sensors would exhibit similar accuracies, with accelerometer being only slightly better when it came to detection through a thicker surface, and since the piezo is significantly cheaper and consumes less current, the piezo would be the ideal sensor.
 
 #### 4.4.3 Lock Actuator Sub-System
 On the other end of the system is the locking mechanism which is accomplished through a lock actuator. The circuit to interface this actuator is shown in [Figure 4.6](#lock-actuator-sch). 
@@ -780,7 +803,7 @@ With the system and sub-systems verified, components could be selected according
 #### 5.2.1 Sensor Selection <!-- Choosing an appropriate sensor -->
 As demonstrated in [Section 5.1.1](#511-concept-feasibility), the accelerometer exhibited much better performance than the piezo disc and thus the project team decided that an accelerometer would be the most appropriate sensor. 
 
-While the tests were conducted with a MMA8452Q by Sparksfun Electronics, the final design uses an ADXL345, as it was cheaper and larger in package size making it easier to solder. The ADXL345 is also 13-bit instead of 12-bit, hence should perform even better.
+While the tests were conducted with a MMA8452Q by Sparksfun Electronics, the final design uses an ADXL345, as it was cheaper and larger in package size making it easier to solder. The ADXL345 is also 13-bit instead of 12-bit, hence should perform even better. It also has a very low power consumption (~23uA) [5] making it ideal for project.
 
 #### 5.2.2 Other Components
 Aside from the sensors, all components were chosen based on the specifications outlined in [Section 4.4.8](#448-component-specifications) in [Table 4.4](#tabSpecs). The complete list of all materials used is shown in [Section 5.7](#57-bill-of-materials). Any modifications to the components selected or designed in [Section 4](#4methodology-and-design) is explained in following sections. 
@@ -900,10 +923,8 @@ Moreover, even though having a large GND plane allowed for better heat dissipati
 
 Most faults in the soldering were corrected immediately after soldering, due to the continuous [verification process](#48-post-implementation-verification-methods). However one fault was missed. Later during [product validation testing](#491-complete-product-testing), it was discovered the servo was not functioning reliably. After using an oscilloscope to see its response, it was found out that the GND pin of the servo connector was connected, however solder joint was unstable leading to momentary breakage and hence the response was sometimes missed or delayed. This was fixed by soldering it again.
 
-With the PCB all ready, now the software must be implemented on to it, to get the system to work.
-
 ### 5.5 Software Implementation <!-- Final code and issues after testing and how they were solved-->
-As discussed in [Section 4.5](#45-software-design) a modular approach was used. The main startup code is in the file KnockLock.ino. 
+With the PCB completed, now the software must be implemented on to it, to get the system to work. As discussed in [Section 4.5](#45-software-design) a modular approach was used. The main startup code is in the file KnockLock.ino. 
 
 The libraries used were:
 - **ESP32 NVS Library**: For using the NVS memory of ESP32-C3 - in-built with Arduino IDE
@@ -1672,7 +1693,7 @@ The project team would like to express their sincerist gratitude to Mr. Friedric
 * [5]: Analog Devices. (n.d.). *ADXL345* [Datasheet]. Analog Devices. Retrieved November 20, 2025, from https://www.analog.com/en/products/adxl345.html
 * [6]: Arar, S. (2021, Decemeber 12). *Introduction to Capacitive Accelerometers: Measuring Acceleration with Capacitive Sensing*. All About Circuits. Retrieved January 5, 2026, from https://www.allaboutcircuits.com/technical-articles/introduction-to-capacitive-accelerometer-measure-acceleration-capacitive-sensing/ 
 * [7]: Scherz, P and Monk, S. (2016). *Practical Electronics for Inventors*. Mc Graw Hill.
-* [8]: Gammo, N. (2015, Janurary 30). *High side driver*. Gammon.com. Retrieved October 26, 2025, from https://www.gammon.com.au/motors
+* [8]: Gammon, N. (2015, Janurary 30). *High side driver*. Gammon.com. Retrieved October 26, 2025, from https://www.gammon.com.au/motors
 * [9]: Espressif Systems. (2021). *ESP32-C3 Series* [Datasheet]. In Espressif. https://www.espressif.com/documentation/esp32-c3_datasheet_en.pdf
 
 ## 10	Appendices
