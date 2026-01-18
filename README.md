@@ -33,30 +33,24 @@ STOP CHANGING THE STRUCTURE! IT'S GOOD NOW!!!
         <img src="/resources/Logo/Logo.png" height="400">
 </figure>
 
-<div id="logo"  align="center">
-  <figure>
-  <table border="0">
+<div align="center">
+  <table border="0" style="border: none; margin: auto;">
     <tr>
-      <td>
-        by: [Abhinav Kothari](https://www.linkedin.com/in/abhinav-kothari-2ak/) (33349) and [Justin Chin Cheong](https://jcchincheong-bb.github.io/) (34140)
-        
-        **Faculty of Technology and Bionics**
-
-        ***Rhine-Waal University of Applied Sciences***
-
-        Date: 18 January 2022</td> 
-      <td><figure>
-        <img src="/resources/images/hsrw.png" height="400">
-      </figure></td>
+      <td align="left" style="vertical-align: middle; padding-right: 20px;">
+        by: <a href="https://www.linkedin.com/in/abhinav-kothari-2ak/">Abhinav Kothari</a> (33349) and <a href="https://jcchincheong-bb.github.io/">Justin Chin Cheong</a> (34140)
+        <br><br>
+        <strong>Faculty of Technology and Bionics</strong>
+        <br>
+        <em><strong>Rhine-Waal University of Applied Sciences</strong></em>
+        <br><br>
+        Date: 18 January 2022
+      </td>
+      <td style="vertical-align: middle;">
+        <img src="/resources/images/hsrw.png" height="250" alt="HSRW Logo">
+      </td>
     </tr>
   </table>
-  </figure>
 </div>
-<!-- <div id="logo" align="center">
-<figure>
-  <img src="/resources/Logo/Logo.png" alt="Logo" width="400">
-</figure>
-</div> -->
 
 ----
 
