@@ -47,7 +47,7 @@ STOP CHANGING THE STRUCTURE! IT'S GOOD NOW!!!
         Date: 18 January 2022
       </td>
       <td style="vertical-align: middle;">
-        <img src="/resources/images/hsrw.png" height="250" alt="HSRW Logo">
+        <img src="/resources/images/hsrw.png" height="100" alt="HSRW Logo">
       </td>
     </tr>
   </table>
@@ -553,7 +553,6 @@ The final code implementation can be seen in [Section 5.5](#55-software-implemen
 ### 4.6 Housing Design <!-- design for housing -->
 
 <div id="housing-model"  align="center">
-<center>
   <figure>
   <table border="0">
     <tr>
@@ -569,7 +568,6 @@ The final code implementation can be seen in [Section 5.5](#55-software-implemen
   </table>
   <figcaption align="center"><b>Figure 4.13:</b>Preliminary 3D Model of Housing</figcaption>
   </figure>
-  </center>
 </div>
 
 For demonstration purposes, a box was modeled. The door must mount the PCB, this way the knocks can be reliably detected when door (typically primary place for knocking) is knocked. Many screw pillars have been used for a more firm housing and preventing the PCB from vibrating on its own by making it more rigidly connected with the door. An indent was made in the door to sit the servo motor, and a groove in the housing to slot in the servo to lock the box as shown in [Figure 4.13](#housing-model). Hole have been created in the door to show the LEDs for status of the box and holes on top of the buzzer to allow for better audibility.
