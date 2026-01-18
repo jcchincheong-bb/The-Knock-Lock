@@ -28,11 +28,26 @@
 STOP CHANGING THE STRUCTURE! IT'S GOOD NOW!!!
 -->
 # Knock Lock
-<div id="logo" align="center">
+
+<div id="logo"  align="center">
+  <figure>
+  <table border="0">
+    <tr>
+      <td><figure>
+        <img src="/resources/Logo/Logo.png" height="400">
+      </figure></td>
+      <td><figure>
+        <img src="/resources/images/hsrw.png" height="400">
+      </figure></td>
+    </tr>
+  </table>
+  </figure>
+</div>
+<!-- <div id="logo" align="center">
 <figure>
   <img src="/resources/Logo/Logo.png" alt="Logo" width="400">
 </figure>
-</div>
+</div> -->
 
 by: [Abhinav Kothari](https://www.linkedin.com/in/abhinav-kothari-2ak/) (33349) and [Justin Chin Cheong](https://jcchincheong-bb.github.io/) (34140)
 
