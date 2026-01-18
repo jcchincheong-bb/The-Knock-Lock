@@ -361,7 +361,7 @@ The initial concept of the product as shown in [Figure 1.1](#preliminary-sketch)
 | Solenoid | 2776         | 4.43      | 5           | 1100              | 3                       |
 | Servo    | SER0050      | 5.16      | 4.8–6       | 110-120           | 15                      |
 | Servo    | SER0049      | 4.30      | 4.8–6       | 110-120           | 15                      |
-<div>
+</div>
 
 Another important aspect of the lock actuator interface is the power cut-off system. This is accomplished using a high side driver as described in [Section 3.3](#33-high-side-driver). Essentially, the P-MOSFET (Q2) cuts the actuator's power supply line off when triggered. It is driven by an NPN transistor (Q1) which is driven by the microcontroller. 
 
