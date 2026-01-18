@@ -29,53 +29,30 @@ STOP CHANGING THE STRUCTURE! IT'S GOOD NOW!!!
 -->
 # Knock Lock
 
-<!-- <div id="logo"  align="center">
-  <figure>
-  <table border="0">
-    <tr>
-      <td align="left" style="vertical-align: middle; padding-right: 20px;">
-        by: <a href="https://www.linkedin.com/in/abhinav-kothari-2ak/">Abhinav Kothari</a> (33349) and <a href="https://jcchincheong-bb.github.io/">Justin Chin Cheong</a> (34140)
-        <br><br>
-        <strong>Faculty of Technology and Bionics</strong>
-        <br>
-        <em><strong>Rhine-Waal University of Applied Sciences</strong></em>
-        <br><br>
-        Date: 18 January 2022
-      </td>
-      <td style="vertical-align: middle;">
-        <img src="/resources/images/hsrw.png" height="100" alt="HSRW Logo">
-      </td>
-    </tr>
-  </table>
-  </figure>
-</div> -->
+
 <div id="logo" align="center">
 <figure>
   <img src="/resources/Logo/Logo.png" alt="Logo" width="400">
 </figure>
 </div>
 
-
-<div id="header" align="center">
-  <figure>
-    <table border="0">
-      <tr>
-        <td style="text-align: left; vertical-align: middle; padding-right: 20px;">
-          <p>
-            by:
-            <a href="https://www.linkedin.com/in/abhinav-kothari-2ak/">Abhinav Kothari</a> (33349)
-            and
-            <a href="https://jcchincheong-bb.github.io/">Justin Chin Cheong</a> (34140)
-          </p>
-          <p><strong>Faculty of Technology and Bionics</strong></p>
-          <p><em><strong>Rhine-Waal University of Applied Sciences</strong></em></p>
-          <p>Date: 18 January 2022</p>
-        </td>
-        <td style="vertical-align: middle;">
-          <img src="/resources/images/hsrw.png" height="100" alt="HSRW Logo">
-        </td>
-      </tr>
-    </table>
+<div allign="center">
+  <table border="0" style="width: 100%; border: none;">
+    <tr>
+      <td align="left" style="vertical-align: middle; width: auto; padding: 10px 0;">
+        by: <a href="https://www.linkedin.com/in/abhinav-kothari-2ak/">Abhinav Kothari</a> (33349) and <a href="https://jcchincheong-bb.github.io/">Justin Chin Cheong</a> (34140)
+        <br><br>
+        <strong>Faculty of Technology and Bionics</strong>
+        <br><br>
+        <em><strong>Rhine-Waal University of Applied Sciences</strong></em>
+        <br><br>
+        Date: 18 January 2026
+      </td>
+      <td align="right" style="vertical-align: middle; width: 1%; white-space: nowrap; padding-left: 20px;">
+        <img src="/resources/images/hsrw.png" height="100" alt="HSRW Logo" style="display: block;">
+      </td>
+    </tr>
+  </table>
   </figure>
 </div>
 
