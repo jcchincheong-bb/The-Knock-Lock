@@ -34,20 +34,20 @@ STOP CHANGING THE STRUCTURE! IT'S GOOD NOW!!!
 </figure>
 </div>
 
-<div align="center">
-  <table border="0" style="border: none; margin: auto;">
+<div allign="center">
+  <table border="0" style="width: 100%; border-collapse: collapse; margin: 0 auto; border: none;">
     <tr>
-      <td align="left" style="vertical-align: middle; padding-right: 20px;">
+      <td align="left" style="vertical-align: middle; width: auto; padding: 10px 0;">
         by: <a href="https://www.linkedin.com/in/abhinav-kothari-2ak/">Abhinav Kothari</a> (33349) and <a href="https://jcchincheong-bb.github.io/">Justin Chin Cheong</a> (34140)
         <br><br>
         <strong>Faculty of Technology and Bionics</strong>
         <br>
         <em><strong>Rhine-Waal University of Applied Sciences</strong></em>
         <br><br>
-        Date: 18 January 2022
+        Date: 18 January 2026
       </td>
-      <td style="vertical-align: middle;">
-        <img src="/resources/images/hsrw.png" height="100" alt="HSRW Logo">
+      <td align="right" style="vertical-align: middle; width: 1%; white-space: nowrap; padding-left: 20px;">
+        <img src="/resources/images/hsrw.png" height="100" alt="HSRW Logo" style="display: block;">
       </td>
     </tr>
   </table>
@@ -557,7 +557,7 @@ The final code implementation can be seen in [Section 5.5](#55-software-implemen
   <table border="0">
     <tr>
       <td><figure>
-        <img src="/resources/images/firstHousingConcept.PNG" height="100">
+        <img src="/resources/images/firstHousingConcept.PNG" height="300">
         <figcaption align="center"><b>(a):</b> Closed </figcaption>
       </figure></td>
       <td><figure>
