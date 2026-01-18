@@ -29,13 +29,22 @@ STOP CHANGING THE STRUCTURE! IT'S GOOD NOW!!!
 -->
 # Knock Lock
 
+<figure>
+        <img src="/resources/Logo/Logo.png" height="400">
+</figure>
+
 <div id="logo"  align="center">
   <figure>
   <table border="0">
     <tr>
-      <td><figure>
-        <img src="/resources/Logo/Logo.png" height="400">
-      </figure></td>
+      <td>
+        by: [Abhinav Kothari](https://www.linkedin.com/in/abhinav-kothari-2ak/) (33349) and [Justin Chin Cheong](https://jcchincheong-bb.github.io/) (34140)
+        
+        **Faculty of Technology and Bionics**
+
+        ***Rhine-Waal University of Applied Sciences***
+
+        Date: 18 January 2022</td> 
       <td><figure>
         <img src="/resources/images/hsrw.png" height="400">
       </figure></td>
@@ -48,15 +57,6 @@ STOP CHANGING THE STRUCTURE! IT'S GOOD NOW!!!
   <img src="/resources/Logo/Logo.png" alt="Logo" width="400">
 </figure>
 </div> -->
-
-by: [Abhinav Kothari](https://www.linkedin.com/in/abhinav-kothari-2ak/) (33349) and [Justin Chin Cheong](https://jcchincheong-bb.github.io/) (34140)
-
-
-**Faculty of Technology and Bionics**
-
-***Rhine-Waal University of Applied Sciences***
-
-Date: 18 January 2022
 
 ----
 
@@ -118,7 +118,7 @@ as follows:
 With regard to writing of this report, the following illustrates the contributions of each team member:
 - Abhinav Kothari (33349): 
   - Chapter 2
-  - Chapter 4: 4.5, 4.6
+  - Chapter 4: 4.2, 4.5, 4.6
   - Chapter 5: 5.4, 5.5, 5.6, 5.9
   - Chapter 6
   - Chapter 7
@@ -556,6 +556,24 @@ Arduino IDE will be used to program the controller in C++. This is because Ardui
 The final code implementation can be seen in [Section 5.5](#55-software-implementation).
 
 ### 4.6 Housing Design <!-- design for housing -->
+
+<div id="housing-model"  align="center">
+  <figure>
+  <table border="0">
+    <tr>
+      <td><figure>
+        <img src="/resources/images/firstHousingConcept.PNG" height="300">
+        <figcaption align="center"><b>(a):</b> Closed </figcaption>
+      </figure></td>
+      <td><figure>
+        <img src="/resources/images/firstHousingConcept_MountView.PNG" height="300">
+        <figcaption align="center"><b>(b):</b> Open </figcaption>
+      </figure></td>
+    </tr>
+  </table>
+  <figcaption align="center"><b>Figure 4.13:</b>Preliminary 3D Model of Housing</figcaption>
+  </figure>
+</div>
 
 <div id="housing-model"  align="center">
   <figure>
