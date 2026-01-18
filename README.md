@@ -558,7 +558,7 @@ The final code implementation can be seen in [Section 5.5](#55-software-implemen
   <table border="0">
     <tr>
       <td><figure>
-        <img src="/resources/images/firstHousingConcept.PNG" height="300">
+        <img src="/resources/images/firstHousingConcept.PNG" height="100">
         <figcaption align="center"><b>(a):</b> Closed </figcaption>
       </figure></td>
       <td><figure>
