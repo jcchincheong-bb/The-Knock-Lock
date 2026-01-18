@@ -58,7 +58,7 @@ Short summary of the project and the work conducted
 ### 1.1 Rationale
 As children, many of us might have invented secrete knocks that we used to identify ourselves to our friends or siblings. But, what if those special codes could actually unlock the door itself? As adults, how many times have you forgotten your keys and wished you could just knock in a certain way and the door would unlock for you? 
 
-There are many different types of security systems on the market that use systems varying from combinations to NFC, but there are no commercial products of this kind that unlocks by recognising a specific knocking pattern. As such, the aim of The Knock Lock project is to design and assemble a system that unlocks a door by recognising a specific knocking pattern. As a proof of concept, the system will be designed as a small lock box as shown in  [Figure 1.1](#preliminary-sketch) with the hope of extending the idea to work on a full door in the future.
+There are many different types of security systems on the market that use systems varying from combinations to NFC, but there are no commercial products of this kind that unlocks by recognising a specific knocking pattern. As such, the aim of The Knock Lock project is to design and assemble a system that unlocks a door by recognising a specific knocking pattern. As a proof of concept, the system will be designed as a small lock box as shown in [Figure 1.1](#preliminary-sketch) with the hope of extending the idea to work on a full door in the future.
 
 <div id="preliminary-sketch" align="center">
 <figure>
@@ -76,7 +76,7 @@ In [Chapter 4](#4methodology-and-design), the presentation of the actual develop
 
 After defining the intended design and test specifications, the actual implementation, results and issues are explained in [Chapter 5](#5results). Here the results of prototyping ([5.1](#51-pre-implementation-verification-results)) are treated and their impact on the components used ([5.2](#52-component-selection)) and PCB design ([5.3](#53-pcb-design)) are explored. The process of actually assembling the PCB ([5.4](#54-pcb-assembly)) and developing the software ([5.5](#55-software-implementation)) is described as well as the issues encountered. The construction of the housing ([5.6](#56-housing-prototype)) and the complete list of materials ([5.7](#57-bill-of-materials)) used is also illustrated. Finally, the system's verification ([5.8](#58-post-implementation-verification-results)) and validation ([5.9](#59-validation-results)) results are presented.
 
-Finally, [Chapter 6](#6discussion) discusses how the results of the Knock Lock compares to other projects ([6.1](#61-product-evaluation)) and expounds upon the limitations([6.2](#62-product-limitations)) and significance ([6.3](#63-product-significance)) of the product's performance. [Chapter 7](#7conclusion) concludes the report with a summary of the development journey and outlines some potential future work ([7.1](#71-future-improvements)) for the project..
+Finally, [Chapter 6](#6discussion) discusses how the results of the Knock Lock compares to other projects ([6.1](#61-product-evaluation)) and expounds upon the limitations([6.2](#62-product-limitations)) and significance ([6.3](#63-product-significance)) of the product's performance. [Chapter 7](#7conclusion) concludes the report with a summary of the development journey and outlines some potential future work ([7.1](#71-future-improvements)) for the project.
 
 ### 1.3 Project Team
 The project team consists of two Mechatronics Engineering Students whose responsibilities in the project were divided
@@ -111,22 +111,21 @@ With regard to writing of this report, the following illustrates the contributio
 <!--------------------------------------------------------------------------------------------------------------------->
 <!--------------------------------------------------------------------------------------------------------------------->
 ## 2	Literature review
-In pursuit of unique and easy methods for users to unlock systems, many developments have been made. These methods for unlocking vary from NFCs to Biometric. Knock detection is also a method used in some projects, which allows for unlocking even without carrying anything extra (Like card for NFCs). This section covers the existing projects implementing knock detection, and compares them to a new approach which is not so commonly used in these systems.
+In pursuit of unique and easy methods for users to unlock systems, many developments have been made. These methods for unlocking vary from NFCs to Biometric. Knock detection is also a method used in some small scale (non-commerical) projects, which allows for unlocking even without carrying tangible assets (For example a card for NFC unlocking). This section covers the existing projects implementing knock detection, and compares them to a new possible approach which has not been so commonly used in these systems.
 
 ### 2.1 Related Work
-Reviewing hobbyist and academic projects, gives us an overview of the common techniques used to accomplish this task. Notable implementations [1,2,3] show reliable interpretation of knocks using a piezoelectric elements. However all had some limitations shown from the demonstration. The knock detection was only on a surface parallel to the piezo element. They all had also relatively hard knocks for detection. Some projects pointed out that increasing precision also increases the number of false positives. Even after more research, no projects using accelerometers were found. From reviewing the projects further, it can also been seen that none of the systems implemented a sleep mode to save battery.
+Reviewing hobbyist and academic projects, gives us an overview of the common techniques used to accomplish this task. Notable implementations [[1,2,3]](#8-references) show reliable interpretation of knocks using a piezoelectric elements. However all had some limitations shown from the demonstration. The knock detection was only on a surface parallel to the piezo element. They all had also relatively hard knocks for detection. Some projects pointed out that increasing precision also increases the number of false positives. Even after more research, no projects using accelerometers were found. From reviewing the projects further, it can also been seen that none of the systems implemented a sleep mode for a more power efficient approach.
 
-For processing most the projects implemented and Arduino Deumilanove or an Arduino Nano, and used gear reduction motors, solenoids or servo for locking/unlocking mechanism.
+For processing most the projects implemented and Arduino Deumilanove or an Arduino Nano, and used gear reduction motors, solenoids or servo for locking/unlocking mechanism. Other than the controller used, it is essential to choose the right sensor for knock detection.
 
 ### 2.2 Technical Comparison of Sensors
 As noted from the previous section, no accelerometers were used in the project, which particularly interesting considering, they are commonly used in high-end consumer electronics such as smartphones for detecting back taps, which work reliably. Hence this section compares the three sensor technologies (Piezoelectric, capacitive accelerometers, vibration sensor) to better understand the situation.
 
-While piezo-elements offer a good signal to noise ratio, they also act as high pass filters. This property provides them with a higher sensitivity for higher frequency vibrations, but hence not the ideal solution for lower frequency vibrations, which is more similar to human knocks [4]. While this blog [4], compares accelerometers with professional piezoelectric sensors, which are much more sensitive than the piezoelectric devices used in other projects, the same fundamental limitation applies to them as well. Especially considering, vibrations when traveling through various materials may loose high frequency energy relatively quickly, depending on the material property and thickness, which may make it even harder to detect. On the other hand accelerometers allow sensing of flat responses (0Hz) and hence have good sensitivity for even lower frequencies [4]. Vibration sensors allow for detecting only above a specified frequency, depending on its calibration.
+While piezoelectric transducers offer a good signal to noise ratio, they also act as high pass filters. This property provides them with a higher sensitivity for higher frequency vibrations, but hence not the ideal solution for lower frequency vibrations, which is more similar to human knocks [[4]](#8-references). While this blog [[4]](#8-references), compares accelerometers with professional piezoelectric sensors, which are much more sensitive than the piezoelectric transducers used in other projects, the same fundamental limitation applies to them as well. Especially considering, vibrations when traveling through various materials may loose high frequency energy relatively quickly, depending on the material property and thickness, which may make it even harder to detect. On the other hand accelerometers allow sensing of flat responses (0Hz) and hence have good sensitivity for even lower frequencies [[4]](#8-references). Vibration sensors allow for detecting only above a specified frequency, depending on its calibration. Moreover, piezoelectric transducers are analog passive devices, hence have quite less power consumption, however also implies they must be always awake to read. 
 
-Accelerometers generally have chips to process and amplify signal which can communicate the information using I2C or SPI communication instead of Piezoelectric devices, which are analog or vibration sensor which are digital. This implies, theoretically, an accelerometer should allow for much more customisability via software, as the chips also have many interrupts. They chips are able to process these informations quite well to reduce noise. Accelerometer being 3-axis may also allow detection direction of knock which could be helpful in certain scenarios.
+Vibration sensor have limited customisability due to their digital nature. They can either detect a knock or not, which can potentially cause problems differentiating general enviromental vibrations from intentional knocks.
 
-Piezo electric are analog passive devices, hence have quite less power consumption, however also implies they must be always awake to read. 
-Vibration sensor have limited customisability due to their digital nature. They can either detect a knock or not, which can potentially cause problems differentiating general vibrations from knocks.
+Accelerometers generally have chips to process and amplify signal which can communicate the information using I2C or SPI communication instead of piezoelectric transducers, which as stated earlier are analog or vibration sensor which are digital. This implies, theoretically, an accelerometer should allow for much more customisability via software, as the chips also have many in-built interrupts, which can help make the system more efficient. Moreover, the chips are able to process readings quite well to reduce noise. Accelerometer being 3-axis may also allow detection direction of knock which could be helpful in certain scenarios.
 
 A summary of all the differences between piezos, MEMs accelerometers and vibration sensor is shown in [Table 2.1](#PiezoVsAccelVsVibration)
 
@@ -135,25 +134,26 @@ A summary of all the differences between piezos, MEMs accelerometers and vibrati
 
 *Table 2.1: Comparison of Piezo, Vibration Sensors and MEMs Accelerometer*
 
-| Feature | Piezoelectric Buzzer | Digital Vibration Sensor | MEMS Accelerometer (Capacitive) |
-| :--- | :--- | :--- | :--- |
-| **Sensing Principle** | Piezoelectric (Acoustic/Resonant) | Spring-and-Ball (Mechanical Switch) | **Capacitive (Proof-Mass Displacement)** |
-| **Output Type** | Raw Analog Voltage (Uncalibrated) | Digital Binary (HIGH/LOW) | **Digital Data (I^2^C/SPI)** |
-| **Detection Axis** | Single Axis (Directional) | Omni-directional (Uncalibrated) | **3-Axis (X, Y, Z) Sensing** |
-| **Customizability** | **Low:** Fixed by hardware/surface | **None:** On/Off trigger only | **High:** Software-defined thresholds |
-| **Power Management** | Requires constant CPU sampling | Interrupt-capable | **Integrated Interrupts (Deep Sleep)** |
-| **Primary Limitation** | High-frequency bias (Acoustic) | Lack of pattern sensitivity | Higher initial code complexity |
-| **Cost** | Extremely Low | Low | Moderate |
+| Feature                   | Piezoelectric Buzzer              | Digital Vibration Sensor              | MEMS Accelerometer (Capacitive)           |
+| :---                      | :---                              | :---                                  | :---                                      |
+| **Sensing Principle**     | Piezoelectric (Acoustic/Resonant) | Spring-and-Ball (Mechanical Switch)   | **Capacitive (Proof-Mass Displacement)**  |
+| **Output Type**           | Raw Analog Voltage (Uncalibrated) | Digital Binary (HIGH/LOW)             | **Digital Data (I2C/SPI)**              |
+| **Detection Axis**        | Single Axis (Directional)         | Omni-directional (Uncalibrated)       | **3-Axis (X, Y, Z) Sensing**              |
+| **Customizability**       | **Low:** Fixed by hardware/surface| **None:** On/Off trigger only         | **High:** Software-defined thresholds     |
+| **Power Management**      | Requires constant CPU sampling    | Interrupt-capable                     | **Integrated Interrupts (Deep Sleep)**    |
+| **Primary Limitation**    | High-frequency bias (Acoustic)    | Lack of pattern sensitivity           | Higher initial code complexity            |
+| **Cost**                  | Extremely Low                     | Low                                   | Moderate                                  |
 
 These sensors are then compared in [Section 4.4.2](#442-sensor-sub-system) and results can be found in [Section 5.1.1](#511-concept-feasibility)
+
 <!--------------------------------------------------------------------------------------------------------------------->
 <!--------------------------------------------------------------------------------------------------------------------->
 
 ## 3	Theory
-Before discussing the details of the development process, some key theoretical concepts must be established. These concepts relate to the different aspects of the system's circuit design and are required for fully understanding the design created. 
+Building upon the sensor characteristics identified in [Section 2](#2-literature-review), this sections outlines the fundamental theoretical concepts required to implement the system effectively. These concepts relate to the different aspects of the system's circuit design and are required for fully understanding the design created. 
 
 ### 3.1 Accelerometers
-Capacitive accelerometers are sensors used to measure acceleration forces by detecting changes in capacitance. They typically consist of a small movable mass suspended between fixed electrodes as seen in [Figure 3.1](#imu)[6]. When acceleration is applied, the mass shifts, altering the distance between the electrodes and therefore changing the capacitance. This change is proportional to the applied acceleration and is converted into an electrical signal.
+Capacitive accelerometers are sensors used to measure acceleration forces by detecting changes in capacitance. They typically consist of a small movable mass suspended between fixed electrodes as seen in [Figure 3.1](#imu)[[6]](#8-references). When acceleration is applied, the mass shifts, altering the distance between the electrodes and therefore changing the capacitance. This change is proportional to the applied acceleration and is converted into an electrical signal.
 
 <div id="imu" align="center">
 <figure>
@@ -162,14 +162,14 @@ Capacitive accelerometers are sensors used to measure acceleration forces by det
 </figure>
 </div>
 
-The Knock Lock project uses an accelerometer as the main sensor for knock detection. Initial testing revealed that these accelerometers are very well suited for detecting knocks (See [Section 5.1.1](#511-concept-feasibility)). The sensor's role in the design is discussed in [Section 4.4.2](#442-sensor-sub-system).
+The Knock Lock project uses an accelerometer as the main sensor for knock detection. Initial testing revealed that these accelerometers are very well suited for detecting knocks (See [Section 5.1.1](#511-concept-feasibility)) compared to piezoelectric devices, which use the piezoelectric effect to convert mechanical vibrations into voltage to be detected. The sensor's role in the design is discussed in [Section 4.4.2](#442-sensor-sub-system).
 
-Most modern capacitive accelerometers are sold as integrated circuits (ICs) with three accelerometers (one for each axis) as well as signal conditioning electronics and an I2C interface [7].
+Most modern capacitive accelerometers are sold as integrated circuits (ICs) with three accelerometers (one for each axis) as well as signal conditioning electronics and an I2C interface [[7]](#8-references).
 
 ### 3.2 I2C
 Since most accelerometers use I2C to communicate, it is necessary to include I2C interface and connections in the circuit design as discussed in [Section 4.4.4](#444-controller-sub-system).
 
-I2C is a synchronous, serial communication protocol commonly used for short-distance communication between integrated circuits [7]. It uses two shared lines: a serial data line (SDA) and a serial clock line (SCL). Devices on the bus are identified by unique addresses and operate in a master–slave configuration. I2C allows multiple devices to communicate using the same bus, reducing wiring complexity. [Figure 3.2](#i2c) taken from [7] shows how a typical I2C device connects with a microcontroller.
+I2C is a synchronous, serial communication protocol commonly used for short-distance communication between integrated circuits [[7]](#8-references). It uses two shared lines: a serial data line (SDA) and a serial clock line (SCL). Devices on the bus are identified by unique addresses and operate in a master–slave configuration. I2C allows multiple devices to communicate using the same bus, reducing wiring complexity. [Figure 3.2](#i2c) taken from [[7]](#8-references) shows how a typical I2C device connects with a microcontroller.
 
 <div id="i2c" align="center">
 <figure>
@@ -179,7 +179,8 @@ I2C is a synchronous, serial communication protocol commonly used for short-dist
 </div>
 
 ### 3.3 High-Side Driver
-High-side drivers are electronic circuits used to control a load by switching the high voltage side of the load. They are typically implemented using transistors or integrated driver ICs and allow a microcontroller to safely control high-voltage or high-current loads such as motors, relays, or solenoids [8]. [Figure 3.3](#highDriver) taken from [8] shows how a typical high side driver configuration for use with a microcontroller. The microcontroller controls the base of the transistor.When it is set to low, the transistor does not conduct and the gate of the MOSFET is pulled up. This means the gate-source voltage of the MOSFET is 0V and thus, it does not conduct and the motor is cut off from power. When the base of the transistor is set high, the opposite occurs and the gate of the MOSFET is pulled down to ground causing the MOSFET to trigger and connect the motor to power.
+High-side drivers are electronic circuits used to control a load by switching the high voltage side of the load. They are typically implemented using transistors or integrated driver ICs and allow a microcontroller to safely control high-voltage or high-current loads such as motors, relays, or solenoids [[8]](#8-references). [Figure 3.3](#highDriver) taken from [[8]](#8-references) shows how a typical high side driver configuration for use with a microcontroller. The microcontroller controls the base of the transistor. When it is set to low, the transistor does not conduct and the gate of the MOSFET is pulled up. This means the gate-source voltage of the MOSFET is 0V and thus, it does not conduct and the motor is cut off from power. When the base of the transistor is set high, the opposite occurs and the gate of the MOSFET is pulled down to ground causing the MOSFET to trigger and connect the motor to power.
+
 <div id="highDriver" align="center">
 <figure>
   <img src="/resources/images/driver_theory.png" alt="IMU" width="400">
@@ -190,9 +191,10 @@ High-side drivers are electronic circuits used to control a load by switching th
 The circuit in [Figure 3.3](#highDriver) is included in nearly exactly the same form in lock actuator interface described in [Section 5.1.3](#513-lock-actuator-interface-test). It is essentially used to cut power to the actuator in sleep mode to reduce power consumption.
 
 ### 3.4 Servo Motor
-with the side driver as the interface, the actual lock actuator is a servo motor as described in [Section 4.4.3](#443-lock-actuator-sub-system).
+With the side driver as the interface, the actual lock actuator is a servo motor as described in [Section 4.4.3](#443-lock-actuator-sub-system).
 
-Servo motors are electromechanical devices used for precise control of angular position, speed, and torque. A typical servo motor consists of a DC motor, a gearbox, a position sensor (usually a potentiometer), and a control circuit. The motor position is controlled using a pulse-width modulation (PWM) signal, where the pulse width determines the desired angle as shown in [Figure 3.4](#servo)[7]. 
+Servo motors are electromechanical devices used for precise control of angular position, speed, and torque. A typical servo motor consists of a DC motor, a gearbox, a position sensor (usually a potentiometer), and a control circuit. The motor position is controlled using a pulse-width modulation (PWM) signal, where the pulse width determines the desired angle as shown in [Figure 3.4](#servo)[[7]](#8-references). 
+
 <div id="servo" align="center">
 <figure>
   <img src="/resources/images/servo_theory_scherz.PNG" alt="IMU" width="400">
@@ -309,7 +311,7 @@ The sensors are compared based on two criteria.
 
 The results of this comparative test are presented in [Section 5.2.1](#521-sensor-selection). 
 
-The general expectation was that both sensors would exhibit similar accuracies and since the piezo is significantly cheaper, the piezo would be the ideal sensor.
+The general expectation was that both sensors would exhibit similar accuracies, with accelerometer being only slightly better when it came to detection through a thicker surface, and since the piezo is significantly cheaper, the piezo would be the ideal sensor.
 
 #### 4.4.3 Lock Actuator Sub-System
 On the other end of the system is the locking mechanism which is accomplished through a lock actuator. The circuit to interface this actuator is shown in [Figure 4.6](#lock-actuator-sch). 
@@ -351,27 +353,27 @@ The microcontroller (MCU) interfaces the sensor, the lock actuator and the human
 <div id="tab:controller-pin-mapping">
 
 *Table 4.2: Pin Mapping of Microcontroller*
-| Pin   | Name  | Type / Label     | Description / Connection                                   |
-|------:|-------|------------------|------------------------------------------------------------|
-| 1     | 3V3   | Power            | +3.3V Supply from Regulator                                |
-| 2     | EN    | Reset            | Enable / Reset connecting to Reset Button                  |
-| 3     | IO4   | WAKE_INT         | Wake Interrupt for Sensor                                  |
-| 4     | IO5   | SCL              | SCL (I2C Clock) with 4.7kΩ Pull-up                         |
-| 5     | IO6   | SDA              | SDA (I2C Data) with 4.7kΩ Pull-up                          |
-| 6     | IO7   | PROG             | Input to trigger programming mode. Pulled up.              |
-| 7     | IO8   | -                | Strapping pin pulled up for easy booting into UART download mode |
-| 8     | IO9   | BOOT             | Strapping Pin connected to pin header for booting into UART download mode |
-| 9     | GND_1 | Ground           | Not Connected                                              |
-| 10    | IO10  | BUZZ             | Buzzer                                                     |
-| 11    | RXD   | RX               | UART Receive                                               |
-| 12    | TXD   | TX               | UART Transmit                                              |
-| 13    | IO18  | RLED             | Red LED                                                    |
-| 14    | IO19  | YLED             | Yellow LED                                                 |
-| 15    | IO3   | GLED             | Green LED                                                  |
-| 16    | IO2   | BAT_V            | Battery Voltage Monitoring                                 |
-| 17    | IO1   | CONTROL          | Control signal for Lock Actuator                           |
-| 18    | IO0   | SERVO            | Signal to cut-power to Lock Actuator                       |
-| 19–27 | GND   | Ground           | Main System Ground                                         |
+| Pin   | Name  | Type / Label     | Description / Connection                                                   |
+|------:|-------|------------------|----------------------------------------------------------------------------|
+| 1     | 3V3   | Power            | +3.3V Supply from Regulator                                                |
+| 2     | EN    | Reset            | Enable / Reset connecting to Reset Button                                  |
+| 3     | IO4   | WAKE_INT         | Wake Interrupt for Sensor                                                  |
+| 4     | IO5   | SCL              | SCL (I2C Clock) with 4.7kΩ Pull-up                                         |
+| 5     | IO6   | SDA              | SDA (I2C Data) with 4.7kΩ Pull-up                                          |
+| 6     | IO7   | PROG             | Input to trigger programming mode. Pulled up.                              |
+| 7     | IO8   | -                | Strapping pin pulled up for easy booting into UART download mode           |
+| 8     | IO9   | BOOT             | Strapping Pin connected to pin header for booting into UART download mode  |
+| 9     | GND_1 | Ground           | Not Connected                                                              |
+| 10    | IO10  | BUZZ             | Buzzer                                                                     |   
+| 11    | RXD   | RX               | UART Receive                                                               |
+| 12    | TXD   | TX               | UART Transmit                                                              |
+| 13    | IO18  | RLED             | Red LED                                                                    |
+| 14    | IO19  | YLED             | Yellow LED                                                                 |       
+| 15    | IO3   | GLED             | Green LED                                                                  |
+| 16    | IO2   | BAT_V            | Battery Voltage Monitoring                                                 |
+| 17    | IO1   | CONTROL          | Control signal for Lock Actuator                                           |
+| 18    | IO0   | SERVO            | Signal to cut-power to Lock Actuator                                       |
+| 19–27 | GND   | Ground           | Main System Ground                                                         |
 </div>
 
 From [Table 4.2](#tab:controller-pin-mapping), it can be seen that the chosen MCU must have:
@@ -383,15 +385,15 @@ From [Table 4.2](#tab:controller-pin-mapping), it can be seen that the chosen MC
 
 Additionally, the chosen MCU must large enough to easily solder onto a PCB. 
 
-Given the ease in which it can be programmed via the Arduino IDE and it's high computation speed and robust features, the project team believed an MCU from the ESP32 line would best fit the specifications. On Mouser, a number of options that met the basic specifications were found as shown in [Table 4.3](#tab:esp32-comp). Ultimately, the decision to chose the ESP32-C3-WROOM-02-N4 [9] was because it was large and had pins exposed on the sides for easier assembly (unlike the 356-ESP32C6MINI1H8) and it was cheaper than the H4 while still meeting all the specifications. This chip also has a lower power consumption sleep mode which draws only 5uA, making it incredibly viable for a low power design.
+Given the ease in which it can be programmed via the Arduino IDE and it's high computation speed and robust features, the project team believed an MCU from the ESP32 line would best fit the specifications. On Mouser, a number of options that met the basic specifications were found as shown in [Table 4.3](#tab:esp32-comp). Ultimately, the decision to chose the ESP32-C3-WROOM-02-N4 [[9]](#8-references) was because it was large and had pins exposed on the sides for easier assembly (unlike the 356-ESP32C6MINI1H8) and it was cheaper than the H4 while still meeting all the specifications. This chip also has a lower power consumption sleep mode which draws only 5uA, making it incredibly viable for a low power design.
 <div id="tab:esp32-comp"> 
 
 *Table 4.3: Comparison of ESP32 Chips Available on Mouser*
-| Part Number           | Price [€] | Interfaces       | GPIO Count | ADC GPIOs | Size [mm]   | Package Type                         |
-| --------------------- | --------- | ---------------- | ---------- | --------- | ----------- | ------------------------------------ |
-| ESP32-C3-WROOM-02-N4  | 3.12      | I2C, SPI, UART   | 15         | 4         | 18 × 25.5   | Castellated module with exposed pins | 
-| ESP32-C3-WROOM-02-H4  | 3.36      | I2C, SPI, UART   | 22         | 4         | 18 × 25.5   | Castellated module with exposed pins | 
-| 356-ESP32C6MINI1H8    | 4.69      | I2C, SPI, UART   | 22         | 6         | 13.2 × 16.6 | Castellated mini module with pins underneath |
+| Part Number           | Price [€] | Interfaces       | GPIO Count | ADC GPIOs | Size [mm]   | Package Type                                    |
+| --------------------- | --------- | ---------------- | ---------- | --------- | ----------- | ----------------------------------------------- |
+| ESP32-C3-WROOM-02-N4  | 3.12      | I2C, SPI, UART   | 15         | 4         | 18 × 25.5   | Castellated module with exposed pins            | 
+| ESP32-C3-WROOM-02-H4  | 3.36      | I2C, SPI, UART   | 22         | 4         | 18 × 25.5   | Castellated module with exposed pins            | 
+| 356-ESP32C6MINI1H8    | 4.69      | I2C, SPI, UART   | 22         | 6         | 13.2 × 16.6 | Castellated mini module with pins underneath    |
 </div>
 
 #### 4.4.5 Programming Interface Sub-System
@@ -434,7 +436,7 @@ Finally, the system cannot function without reliable power and as such a power r
 </figure>
 </div>
 
-Since the [controller](#444-controller-sub-system) uses an ESP32 which requires 3.3V [9], a voltage regulator that outputs 3.3V is required. The most common and efficient means of accomplishing this is using a higher voltage supply and using regulator to step down the supply. For the purpose of this project, a switching buck converter was chosen instead of using a linear voltage regulator as they are higher efficiency and produce less heat. Mouser has a very large range of switching regulators, many of which meet these minimum specifications. Ultimately, the LM2575-3.3WT was chosen since it was rather cheap, has a maximum input voltage of 40V and typical efficiency of 75%. Additionally, the diode used in the regulation circuit also needs to have low forward voltage drop and low junction capacity so that it provides minimal impede the hight frequency switching.
+Since the [controller](#444-controller-sub-system) uses an ESP32 which requires 3.3V [[9]](#8-references), a voltage regulator that outputs 3.3V is required. The most common and efficient means of accomplishing this is using a higher voltage supply and using regulator to step down the supply. For the purpose of this project, a switching buck converter was chosen instead of using a linear voltage regulator as they are higher efficiency and produce less heat. Mouser has a very large range of switching regulators, many of which meet these minimum specifications. Ultimately, the LM2575-3.3WT was chosen since it was rather cheap, has a maximum input voltage of 40V and typical efficiency of 75%. Additionally, the diode used in the regulation circuit also needs to have low forward voltage drop and low junction capacity so that it provides minimal impede the hight frequency switching.
 
 The voltage regulation must also provide protection in addition to providing the right voltage level. The buck converter itself inherently provides over-voltage protection up to 40V. To implement reverse polarity protection, TVS diodes are used in combination with a fuse. The diode is connected across the junctions such that when a reversed voltage is connected, the diode shorts the external source and not the rest of the circuit. The fuses also provide over-current protection. To dimension the fuse, the specifications of the LM2575-3.3WT were considered. With a maximum output current of 1A, output voltage of 3.3V, efficiency of 75% and input voltage of 6V, the maximum current required by the regulator is around 0.733A. See [Appendix A](#appendix-a-circuit-dimensioning-calculations) for the calculations. Thus, the fuse should safely carry around 1A to account for fluctuations. As such, the PFRA110 was chosen as it has a hold current of 1.1A and a trip current of 2.2A. This fuse is also resettable so after current is cut-off, the fuse can cool down and reset. 
 
@@ -501,10 +503,10 @@ For easy code understanding and better readability, a modular approach was taken
 |   globalVariables                 | File storing all global variables, also explanations of some other important non global variables |
 |   hardware                        | All pin, objects definition and hardware initialization and interrupt functions                   |
 |   hmi                             | All human interface related functions, for controlling buzzer, LEDs and actuator                  |
-|   KnockLock (ino)                 | Main code to run with setup and endless loop                                                 | 
-|   patternRecognitionandRecording  | Core functions to process/record                                                             |
-|   sleepMode                       | Function related to sleep and wake up of controller                                          |
-|   usingNVS                        | Functions related to saving and reading data from the non-volatile storage of the controller |
+|   KnockLock (ino)                 | Main code to run with setup and endless loop                                                      | 
+|   patternRecognitionandRecording  | Core functions to process/record                                                                  |
+|   sleepMode                       | Function related to sleep and wake up of controller                                               |
+|   usingNVS                        | Functions related to saving and reading data from the non-volatile storage of the controller      |
 </div>
 
 Arduino IDE will be used to program the controller in C++. This is because Arduino IDE provides access to wide range of libraries for various controllers with ease.
@@ -1005,7 +1007,7 @@ inline float accelMagnitudeG(int x, int y, int z) {
 ```
 </div>
 
-The result could then be reduced by one to remove the static gravitational force to find dynamic force and compared to a fixed threshold found using many readings. This approach worked, however was not very effective and reliable with it being too sensitive or too insensitive at times. This was later then changed to reading only z-axis (absolute value), keeping in mind the axis is perpendicular to the PCB so when knock a plane parallel to the PCB it was the only axis greatly affected. Same was also seen in [Figure 5.1](#imu-test). This new approach worked much better for detecting knocks, however had one big drawback. It only worked in one specific orientation, with the PCB perpendicular to the ground plane. Finally it was realized, that the wake up which used the double tap interrupt was working much better, and hence for detecting individual knocks, single tap interrupt can be used. As this is made by the developers of the board, its noise removal and reliablitity was extremely high and knocks could be detected in all orientation. The threshold could also be setup much more reliably. The threshold of 40 was set which corresponded to ~2.5g with a measurement sensitivity of 256 LSB/g or 62.5mg/LSB [5]. The system with this threshold was able to ignore most background noise, as well not trigger the system if the box is moved around. (Note the scale +-2g is for reading purposes, and the threshold here is unaffected by it.)
+The result could then be reduced by one to remove the static gravitational force to find dynamic force and compared to a fixed threshold found using many readings. This approach worked, however was not very effective and reliable with it being too sensitive or too insensitive at times. This was later then changed to reading only z-axis (absolute value), keeping in mind the axis is perpendicular to the PCB so when knock a plane parallel to the PCB it was the only axis greatly affected. Same was also seen in [Figure 5.1](#imu-test). This new approach worked much better for detecting knocks, however had one big drawback. It only worked in one specific orientation, with the PCB perpendicular to the ground plane. Finally it was realized, that the wake up which used the double tap interrupt was working much better, and hence for detecting individual knocks, single tap interrupt can be used. As this is made by the developers of the board, its noise removal and reliablitity was extremely high and knocks could be detected in all orientation. The threshold could also be setup much more reliably. The threshold of 40 was set which corresponded to ~2.5g with a measurement sensitivity of 256 LSB/g or 62.5mg/LSB [[5]](#8-references). The system with this threshold was able to ignore most background noise, as well not trigger the system if the box is moved around. (Note the scale +-2g is for reading purposes, and the threshold here is unaffected by it.)
 
 With the new approach, the system is also much more efficient as it is not reading x,y,z values continously from the ADXL than only reacting to taps. The ADXL is responsible for monitoring the knocks and finding if the knock is above a threshold to be considered a knock, and because the chip is made primarily for that task it is more efficient in doing so.
 
@@ -1506,7 +1508,7 @@ With all of these assumptions, the average currents were found and recorded in [
 With this average current consumption, the battery life of the box was estimated to be around **18.03 days** assuming the AA batteries have a capacity of 2500mAh. 
 
 ### 5.9 Validation Results 
-After the system was verified against the system requirements, the KnockLock product was finally able to be validated by users. 
+After the system was verified against the system requirements, the Knock Lock product was finally able to be validated by users. 
 #### 5.9.1 User Feedback <!-- what did people think? -->
 From the survery defined in [Section 4.9.1](#491-user-acceptance-testing), the findings are shown in [Table 5.6](#tab:user-feedback). 
 <div id="tab:user-feedback">
@@ -1538,11 +1540,11 @@ With the final product compelte and running, it must be evaluated against the ex
 Looking back at the [Section 2](#2-literature-review), this product has a similar functionality, with vastly different approach to implement that functionality and also covers many of the limitations faced by the other products, these include: sensing reliability, power efficiency, flexbility and multi-axis detection.
 
 ### 6.1.1 Sensing Reliability
-As noted in literature [4], piezos act as high pass filters, and hence often miss the lower frequency sounds especially across thicker materials. The accelerometer on the other is able to detect flat responses down to 0 Hz across varying material thickness.
+As noted in literature [[4]](#8-references), piezos act as high pass filters, and hence often miss the lower frequency sounds especially across thicker materials. The accelerometer on the other is able to detect flat responses down to 0 Hz across varying material thickness.
 Moreover while piezos have to be constantly monitored by the CPU and noise removed, the ADXL345 is able to do this monitoring completely on chip and can effectively reduce envireomental noise.
 
 ### 6.1.2 Power Efficiency
-Most reviewed projects [1,2,3] also lacked a sophisticated power mangement system. They were constantly awake monitoring the values. Whereas the Knock Lock, spends most of its time in deep sleep mode (~5uA), only waking up for battery monitoring or double knocks. The ADXL having hardware interrupts also helps in achieving a better wake up method, as the accelerometer itself has very minimal current drawn (~23uA in measurement mode [5]).
+Most reviewed projects [[1,2,3]](#8-references) also lacked a sophisticated power mangement system. They were constantly awake monitoring the values. Whereas the Knock Lock, spends most of its time in deep sleep mode (~5uA), only waking up for battery monitoring or double knocks. The ADXL having hardware interrupts also helps in achieving a better wake up method, as the accelerometer itself has very minimal current drawn (~23uA in measurement mode [[5]](#8-references)).
 
 The system also has a dedicated PCB with only the required components and not unecessary hardware, which also saves battery with having an average current consumption of 5.78mA according the assumptions in [Table 5.5](#tab:current-readings), unlike the other projects which use developement board.
 
@@ -1553,12 +1555,12 @@ These techniques allow for the battery life as found in [Section 5.8.4](#584-pow
 The system also implements a battery monitoring system unlike the other projects, which allows the user to know when the battery must be replaced. 
 
 ### 6.1.3 Flexibility
-While other projects do work, they are limited to the specific enviroment conditions they are designed for. To change sensitivity of the piezo, while it can be done via software it is very limited, for more sensitivity hardware changes are required, such as an amplification circuit. While for the KnockLock most settings are software based already, with possibility of even changing scale to make system less sensitive for when only heavy knocks to be detected, as the accelerometer can be communicated with using I2C. 
+While other projects do work, they are limited to the specific enviroment conditions they are designed for. To change sensitivity of the piezo, while it can be done via software it is very limited, for more sensitivity hardware changes are required, such as an amplification circuit. While for the Knock Lock most settings are software based already, with possibility of even changing scale to make system less sensitive for when only heavy knocks to be detected, as the accelerometer can be communicated with using I2C. 
 
 The system also implements certain features to allow for leniency, such as allowing a defined number of mistakes, to allow system to detect knock as correct even if the first few or last few knocks maybe incorrect. 
 
 ### 6.1.4 Multi-axis detection
-The projects seen in the literature review ([Section 2](#2-literature-review)) all had one limitation, they had omnidirectional sensing, i.e. the knock surface could only be parallel to the knocking sensor. However, in the KnockLock using an accelerometer the system has access to 3-axis (x,y,z) which allows system to reliably detect knocks regardless of the side of the enclosure the system is knocked. This makes the system also more versatile for implementing in different housing or orientations.
+The projects seen in the literature review ([Section 2](#2-literature-review)) all had one limitation, they had omnidirectional sensing, i.e. the knock surface could only be parallel to the knocking sensor. However, in the Knock Lock using an accelerometer the system has access to 3-axis (x,y,z) which allows system to reliably detect knocks regardless of the side of the enclosure the system is knocked. This makes the system also more versatile for implementing in different housing or orientations.
 
 However even after the many benefits of this system over the others discussed, each system has its limitations.
 
@@ -1589,11 +1591,14 @@ The project was able to meet most of its project requirements, except the IP31 r
 Following the V-Model Development structure also helped fascilitate timely error fixes in each stage, which is especially more critical in a project of such time contraint and limited budget. Ultimately the Knock Lock was able to demonstrated a shift of analog dependent hardware to I2C based software defined system for a more power efficient, customisable and reliable system.
 
 ### 7.1 Future Improvements
-Doing this project, opened more aspects which can be worked on in future when reiterating the project. These include:
+Doing this project, and with the user feedback from [Section 5.9.1](#591-user-feedback) opened more aspects which can be worked on in future when reiterating the project. These include:
 - Rechargeability: Implementing a recharging circuit on the existing micro USB-B port and using rechargable batteries
 - Redundant sensors: Use Piezo with ADXL to more effectively detect a knock
-- Improved Ergonomics: Using a material that does not hurt to knock and a housing shape which does not hurt to carry around
+- Improved Ergonomics: Using a material that does not hurt to knock, a housing shape which does not hurt to carry around and also does not slide when knocked on
 - Better locking mechanism: Using a solenoid to lock the system to make it more secure
+- Recovery: Possible recovery method for pattern in case forgotten
+- Multiple passwords: Possibility to store multiple passwords
+- Alternative entry: An alternative entry mechanism, perhaps mechanical
 
 ## 8	References
 
