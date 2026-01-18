@@ -1467,15 +1467,15 @@ The complete list of all mechancial materials used to assemble the product is sh
 <div id="tab:BOM-M">
 
 *Table 5.4: Mechanical Bill of Materials*
-| Item Number | Qty | Component           | Price / Unit | Price     |
-| ----------- | --- | ------------------- | ------------ | --------- |
-| 35          | 7   | M2×6 Screw          | 0.11         | 0.77      |
-| 36          | 2   | M2×20 Screw         | 0.14         | 0.28      |
-| 37          | 1   | M3×15 Plastic Screw | 0.08         | 0.08      |
-| 38          | 7   | M3 Plastic Washer   | 0.01         | 0.07      |
-| 39          | 1   | M3 Hex Nut          | 0.07         | 0.07      |
-| 40          | 1   | 3D Printed Housing  | 8.43         | 8.43      |
-| **Total**   |     |                     |              | **9.70** |
+| Item Number | Qty | Component           | Price / Unit [€] | Price [€] |
+| ----------- | --- | ------------------- | ---------------- | --------- |
+| 35          | 7   | M2×6 Screw          | 0.11             | 0.77      |
+| 36          | 2   | M2×20 Screw         | 0.14             | 0.28      |
+| 37          | 1   | M3×15 Plastic Screw | 0.08             | 0.08      |
+| 38          | 7   | M3 Plastic Washer   | 0.01             | 0.07      |
+| 39          | 1   | M3 Hex Nut          | 0.07             | 0.07      |
+| 40          | 1   | 3D Printed Housing  | 8.43             | 8.43      |
+| **Total**   |     |                     |                  | **9.70**  |
 </div>
 
 [Table 5.3](#tab:BOM-E) shows that the costs of all the mechanical components sum up to **€9.70**. The main contributor to this cost is evidently the 3D printed housing. The calculations for the cost estimate of the 3D printed housing can be found in [Appendix B](#appendix-b).
