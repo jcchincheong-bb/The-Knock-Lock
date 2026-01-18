@@ -37,13 +37,13 @@ STOP CHANGING THE STRUCTURE! IT'S GOOD NOW!!!
 </div>
 
 <div allign="center">
-  <table border="0" style="width: 100%; border-collapse: collapse; margin: 0 auto; border: none;">
+  <table border="0" style="width: 100%; border: none;">
     <tr>
       <td align="left" style="vertical-align: middle; width: auto; padding: 10px 0;">
         by: <a href="https://www.linkedin.com/in/abhinav-kothari-2ak/">Abhinav Kothari</a> (33349) and <a href="https://jcchincheong-bb.github.io/">Justin Chin Cheong</a> (34140)
         <br><br>
         <strong>Faculty of Technology and Bionics</strong>
-        <br>
+        <br><br>
         <em><strong>Rhine-Waal University of Applied Sciences</strong></em>
         <br><br>
         Date: 18 January 2026
