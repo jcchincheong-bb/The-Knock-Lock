@@ -49,11 +49,11 @@ STOP CHANGING THE STRUCTURE! IT'S GOOD NOW!!!
   </table>
   </figure>
 </div> -->
-<!-- <div id="logo" align="center">
+<div id="logo" align="center">
 <figure>
   <img src="/resources/Logo/Logo.png" alt="Logo" width="400">
 </figure>
-</div> -->
+</div>
 
 
 <div id="header" align="center">
@@ -72,7 +72,7 @@ STOP CHANGING THE STRUCTURE! IT'S GOOD NOW!!!
           <p>Date: 18 January 2022</p>
         </td>
         <td style="vertical-align: middle;">
-          <img src="/resources/images/hsrw.png" height="200" alt="HSRW Logo">
+          <img src="/resources/images/hsrw.png" height="100" alt="HSRW Logo">
         </td>
       </tr>
     </table>
@@ -591,7 +591,7 @@ The final code implementation can be seen in [Section 5.5](#55-software-implemen
   <table border="0">
     <tr>
       <td><figure>
-        <img src="/resources/images/firstHousingConcept.PNG" height="100">
+        <img src="/resources/images/firstHousingConcept.PNG" height="300">
         <figcaption align="center"><b>(a):</b> Closed </figcaption>
       </figure></td>
       <td><figure>
