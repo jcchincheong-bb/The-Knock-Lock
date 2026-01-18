@@ -685,7 +685,7 @@ With feasibility confirmed, the development processes continued and a prototype 
 
 <div id="system-prototype" align="center">
 <figure>
-  <img src="/resources/images/testingSystem_iso.jpg" alt="system-prototype" width="400">
+  <img src="/resources/images/testingSystem_top_annotated.png" alt="system-prototype" width="400">
   <figcaption align="center"><b>Figure 5.2:</b> Breadboard Prototype System</figcaption>
 </figure>
 </div>
@@ -699,7 +699,7 @@ With the system concept verified, the sub-systems could now be tested and protot
 
 <div id="lock-actuator-prototype" align="center">
 <figure>
-  <img src="/resources/images/motor-control_test.jpg" alt="lock-actuator-prototype" width="400">
+  <img src="/resources/images/motor-control_test_annotated.png" alt="lock-actuator-prototype" width="400">
   <figcaption align="center"><b>Figure 5.3:</b> Breadboard Prototype Lock Actuator Interface</figcaption>
 </figure>
 </div>
@@ -711,7 +711,7 @@ The next sub-system verified was the programming interface. The setup to test th
 
 <div id="prog-interface-prototype" align="center">
 <figure>
-  <img src="/resources/images/testing-programming.jpg" alt="prog-interface-prototype" width="400">
+  <img src="/resources/images/testing-programming_annotated.png" alt="prog-interface-prototype" width="400">
   <figcaption align="center"><b>Figure 5.4:</b> Setup to Test Direct UART Programming</figcaption>
 </figure>
 </div>
@@ -1439,7 +1439,7 @@ Following the test specifications defined in [Section 4.8.1](#481-pcb-module-tes
 
 <div id="programming-mcu" align="center">
 <figure>
-  <img src="/resources/images/programming.jpg" alt="programming-mcu" width="400">
+  <img src="/resources/images/programming_annotated.png" alt="programming-mcu" width="400">
   <figcaption align="center"><b>Figure 5.12:</b> Using External USB-to-UART Programmer to Program the ESP32 on the PCB </figcaption>
 </figure>
 </div>
