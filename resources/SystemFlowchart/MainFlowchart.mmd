@@ -1,0 +1,33 @@
+---
+config:
+  layout: fixed
+  theme: forest
+---
+flowchart LR
+    A(["Start"]) --> B["Init Hardware, Load Pattern from Flash"]
+    B --> C["Yellow LED On"]
+    C --> D{"Knock Detected?"}
+    D -- No --> E{"Inactivity > 60s?"}
+    E -- Yes --> F["Config ADXL: Wake-on-Tap, LEDs Off"]
+    F --> N[["DEEP SLEEP"]]
+    E -- No --> D
+    D -- Yes --> G["spikeCount = 1, Start Timer, Flash Green"]
+    G --> H{"Next Knock?"}
+    H -- Yes --> I["Calc Interval, spikeCount++, Flash Green"]
+    I --> H
+    H -- No --> J{"Timeout reached?"}
+    J -- No --> H
+    J -- Yes --> K{"spikeCount Valid?"}
+    K -- Yes --> L{"Pattern Match?"}
+    O["Flash Red, Bad Beep"] L_O_D_0@--> D
+    K -- No --> D
+    M["Unlock Box, Good Beep, Green On"] --> P{"Double Knock Command?"}
+    P -- Yes --> Q["Lock Box, Green Off, Yellow On"]
+    Q --> D
+    P -- No --> M
+    L L_L_O_0@-- No --> O
+    L -- Yes --> M
+
+
+    L_O_D_0@{ curve: linear } 
+    L_L_O_0@{ curve: linear }

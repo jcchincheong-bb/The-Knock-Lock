@@ -1,0 +1,31 @@
+---
+config:
+  layout: fixed
+  theme: forest
+---
+flowchart LR
+ subgraph ISR_Wake["ISR: ADXL345 Tap Detect"]
+        W2["Wake Up Controller"]
+        W1["Event: Double-Tap"]
+        W3(["Return to Main"])
+  end
+ subgraph ISR_Prog["ISR: Program Button"]
+        P2{"Box Unlocked?"}
+        P1["Event: Button Pressed"]
+        P3["All LEDs on then Off, Then Yellow On"]
+        P31["Record pattern"]
+        P4["Save New Pattern to Flash"]
+        P5["Play recorded pattern back"]
+        P6["Bad Beep"]
+        P7(["Return to Main"])
+  end
+    W1 --> W2
+    W2 --> W3
+    P1 --> P2
+    P2 -- Yes --> P3
+    P3 --> P31
+    P31 --> P4
+    P4 --> P5
+    P2 -- No --> P6
+    P5 --> P7
+    P6 --> P7
