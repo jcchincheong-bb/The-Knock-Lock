@@ -1,11 +1,11 @@
 # Knock Lock
 
-
-<div id="logo" align="center">
+![image](resources/Logo/Logo.png)
+<!-- <div id="logo" align="center">
 <figure>
   <img src="/resources/Logo/Logo.png" alt="Logo" width="400">
 </figure>
-</div>
+</div> -->
 
 As children, many of us might have invented secret knocks that we used to identify ourselves to our friends or siblings. But, what if those special codes could actually unlock the door itself? As adults, how many times have you forgotten your keys and wished you could just knock in a certain way and the door would unlock for you? As such, the aim of The Knock Lock project is to design and assemble a system that unlocks a door by recognising a specific knocking pattern. As a proof of concept, the system will be designed as a small lock box with the hope of extending the idea to work on a full door in the future.
 
