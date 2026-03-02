@@ -1,0 +1,36 @@
+---
+config:
+  theme: neutral
+  layout: fixed
+---
+flowchart TB
+    A(["Start"]) --> B["Init Hardware, Load Pattern, Enable Interrupts, Yellow LED On"]
+    B --> C{"Knock Detected?"}
+    C -- No --> E{"Inactivity > 60s?"}
+    E -- Yes --> F["Config ADXL: Wake-on-Double-Tap, Yellow LED Off"]
+    F --> O{"Low battery?"}
+    O -- No ---> N[["SLEEP MODE"]]
+    O -- Yes --> P[["SLEEP MODE: With Red LED Flashing"]]
+    P -- "Double-Tap Interrupt" --> B
+    N -- "Double-Tap Interrupt" --> B
+    E -- No --> C
+    C -- Yes --> D["spikeCount = 1, Start Timer, Flash Green LED"]
+    D --> G{"Next Knock?"}
+    G -- Yes --> M["Calc Interval, spikeCount++, Flash Green LED"]
+    M --> G
+    G -- No --> H{"Time > Timeout?"}
+    H -- Yes --> I{"spikeCount >= Min?"}
+    H -- No --> G
+    I -- Yes --> J{"Pattern Match?"}
+    I -- No --> C
+    J -- No --> L["Bad Beep, Flash Red LED"]
+    L --> C
+    J -- Yes --> K["Unlock Box, Good Beep, Yellow LED Off, Green On"]
+    K --> K1{"Prog Button Pressed?"}
+    K1 -- Yes --> K2["Record & Save New Pattern"]
+    K2 --> K3["Audio Playback Feedback"]
+    K3 --> K1
+    K1 -- No --> K5{"Double Knock Detected?"}
+    K5 -- Yes --> K6["Lock Box, Green LED Off, Yellow On"]
+    K6 --> C
+    K5 -- No --> K1
